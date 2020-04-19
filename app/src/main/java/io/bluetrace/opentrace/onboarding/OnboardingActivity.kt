@@ -169,7 +169,7 @@ class OnboardingActivity : FragmentActivity(),
         return TempIDManager.getTemporaryIDs(this, functions)
             .addOnCompleteListener {
                 CentralLog.d(TAG, "Retrieved Temporary ID successfully")
-                Utils.getHandShakePin(this, functions).addOnCompleteListener {
+                Utils.getHandShakePin(this, functions).addOnCompleteListener { it ->
                     if (it.isSuccessful) {
                         CentralLog.d(TAG, "Retrieved HandShakePin successfully")
                         navigateToNextPage()

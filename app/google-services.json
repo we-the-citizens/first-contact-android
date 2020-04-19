@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "634088705811",
+    "firebase_url": "https://open-trace-romania.firebaseio.com",
+    "project_id": "open-trace-romania",
+    "storage_bucket": "open-trace-romania.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634088705811:android:66810f89a395c6761d94e6",
+        "android_client_info": {
+          "package_name": "io.bluetrace.opentrace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634088705811-qr7r3ku27fokj50dfk6d3bov65sv79u5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCAH8BnFTvXjgd4Z8EWvBiP6JeP-dQoWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634088705811-qr7r3ku27fokj50dfk6d3bov65sv79u5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634088705811:android:1a50223f7aa5860d1d94e6",
+        "android_client_info": {
+          "package_name": "io.bluetrace.opentrace.stg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634088705811-qr7r3ku27fokj50dfk6d3bov65sv79u5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCAH8BnFTvXjgd4Z8EWvBiP6JeP-dQoWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634088705811-qr7r3ku27fokj50dfk6d3bov65sv79u5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634088705811:android:44549290b2ccb8d51d94e6",
+        "android_client_info": {
+          "package_name": "ro.wethecitizens.opentrace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634088705811-4ak2j8l8b6aatpfqsai3kv0tgflhugf6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ro.wethecitizens.opentrace",
+            "certificate_hash": "ebc97f289d6b8f1bc356702119e342f6cb0616d4"
+          }
+        },
+        {
+          "client_id": "634088705811-qr7r3ku27fokj50dfk6d3bov65sv79u5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCAH8BnFTvXjgd4Z8EWvBiP6JeP-dQoWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634088705811-qr7r3ku27fokj50dfk6d3bov65sv79u5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
