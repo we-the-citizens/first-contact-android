@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.bluetrace.opentrace">
+    package="ro.wethecitizens.firstcontact">
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
-        android:name=".TracerApp"
+        android:name="ro.wethecitizens.firstcontact.TracerApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -36,7 +36,7 @@
         </provider>
 
         <activity
-            android:name=".SplashActivity"
+            android:name="ro.wethecitizens.firstcontact.SplashActivity"
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -46,23 +46,23 @@
         </activity>
 
         <activity
-            android:name=".onboarding.OnboardingActivity"
+            android:name="ro.wethecitizens.firstcontact.onboarding.OnboardingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".onboarding.HowItWorksActivity"
+            android:name="ro.wethecitizens.firstcontact.onboarding.HowItWorksActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".onboarding.PreOnboardingActivity"
+            android:name="ro.wethecitizens.firstcontact.onboarding.PreOnboardingActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".onboarding.WebViewActivity"
+            android:name="ro.wethecitizens.firstcontact.onboarding.WebViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name="ro.wethecitizens.firstcontact.MainActivity"
             android:screenOrientation="portrait" />
 
-        <receiver android:name=".boot.StartOnBootReceiver">
+        <receiver android:name="ro.wethecitizens.firstcontact.boot.StartOnBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -70,7 +70,7 @@
         </receiver>
 
         <service
-            android:name=".services.FCMService"
+            android:name="ro.wethecitizens.firstcontact.services.FCMService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -89,25 +89,25 @@
             android:resource="@color/notification_tint" />
 
         <activity
-            android:name=".permissions.RequestFileWritePermission"
+            android:name="ro.wethecitizens.firstcontact.permissions.RequestFileWritePermission"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" />
 
         <service
-            android:name=".services.BluetoothMonitoringService"
+            android:name="ro.wethecitizens.firstcontact.services.BluetoothMonitoringService"
             android:foregroundServiceType="location" />
 
         <activity
-            android:name=".PeekActivity"
+            android:name="ro.wethecitizens.firstcontact.PeekActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.DebugNoActionBar" />
 
         <activity
-            android:name=".PlotActivity"
+            android:name="ro.wethecitizens.firstcontact.PlotActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.DebugNoActionBar" />
 
-        <receiver android:name=".receivers.UpgradeReceiver">
+        <receiver android:name="ro.wethecitizens.firstcontact.receivers.UpgradeReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
