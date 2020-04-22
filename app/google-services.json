@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:634088705811:android:66810f89a395c6761d94e6",
         "android_client_info": {
-          "package_name": "ro.wethecitizens.firstcontact"
+          "package_name": "io.bluetrace.opentrace"
         }
       },
       "oauth_client": [
@@ -39,7 +39,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:634088705811:android:1a50223f7aa5860d1d94e6",
         "android_client_info": {
-          "package_name": "ro.wethecitizens.firstcontact.stg"
+          "package_name": "io.bluetrace.opentrace.stg"
         }
       },
       "oauth_client": [
