@@ -44,6 +44,51 @@
       },
       "oauth_client": [
         {
+          "client_id": "634088705811-qqprmo62dt5mne15bsn1oolbes7vhvmp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.bluetrace.opentrace.stg",
+            "certificate_hash": "1515c8cde0d1f105f071422947978bda086eb4e1"
+          }
+        },
+        {
+          "client_id": "634088705811-qr7r3ku27fokj50dfk6d3bov65sv79u5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCAH8BnFTvXjgd4Z8EWvBiP6JeP-dQoWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634088705811-qr7r3ku27fokj50dfk6d3bov65sv79u5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634088705811:android:0af115382befd8fb1d94e6",
+        "android_client_info": {
+          "package_name": "ro.wethecitizens.firstcontact.stg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634088705811-k0628nuehrh1eflsl38cnv9f2l667r4e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ro.wethecitizens.firstcontact.stg",
+            "certificate_hash": "1515c8cde0d1f105f071422947978bda086eb4e1"
+          }
+        },
+        {
           "client_id": "634088705811-qr7r3ku27fokj50dfk6d3bov65sv79u5.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
         }
         btn_restart_app_setup.setOnClickListener {
             var intent = Intent(context, OnboardingActivity::class.java)
-            intent.putExtra("page", 3)
+            intent.putExtra("page", 1)
             context?.startActivity(intent)
         }
 
