@@ -2,8 +2,11 @@ package ro.wethecitizens.firstcontact
 
 import android.Manifest
 import android.app.Activity
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -16,6 +19,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.HttpsCallableResult
 import ro.wethecitizens.firstcontact.bluetooth.gatt.*
+import ro.wethecitizens.firstcontact.job.PeriodicallyDownloadJobService
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.scheduler.Scheduler
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService
@@ -34,6 +38,7 @@ import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 object Utils {
 
@@ -349,5 +354,20 @@ object Utils {
             }.addOnFailureListener { e ->
                 CentralLog.w(TAG, "get handshake pin (failure): ${e.message}")
             }
+    }
+
+    // schedule the start of the service every 10 - 30 seconds
+    fun schedulePeriodicallyDownloadJob(context: Context) {
+
+        val serviceComponent = ComponentName(context, PeriodicallyDownloadJobService::class.java)
+        val builder = JobInfo.Builder(0, serviceComponent)
+        builder.setMinimumLatency(1 * 1000.toLong()) // wait at least
+        builder.setOverrideDeadline(3 * 1000.toLong()) // maximum delay
+        //builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED); // require unmetered network
+        //builder.setRequiresDeviceIdle(true); // device should be idle
+        //builder.setRequiresCharging(false); // we don't care if the device is charging or not
+
+//        val jobScheduler = context.getSystemService(JobScheduler)
+//        jobScheduler.schedule(builder.build())
     }
 }
