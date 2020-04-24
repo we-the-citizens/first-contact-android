@@ -6,10 +6,7 @@ import android.app.NotificationManager
 import android.app.Service
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
@@ -43,7 +40,10 @@ import ro.wethecitizens.firstcontact.streetpass.StreetPassServer
 import ro.wethecitizens.firstcontact.streetpass.StreetPassWorker
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStorage
+import ro.wethecitizens.firstcontact.temp_id_db.TempId
+import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
 import java.lang.ref.WeakReference
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class BluetoothMonitoringService : Service(), CoroutineScope {
@@ -81,7 +81,43 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
     private var notificationShown: NOTIFICATION_STATE? = null
 
+    lateinit var TEMP_ID : String
+    var STORED_GUID: String? = null
+    private val PREFS_NAME: String = "GUID"
+    private val GUID: String = UUID.randomUUID().toString()
+    private lateinit var tempIdStorage : TempIdStorage
+
+    private fun saveGUID(){
+        val settings : SharedPreferences = getSharedPreferences(PREFS_NAME,0)
+        STORED_GUID = settings.getString(PREFS_NAME,null)
+        if(STORED_GUID == null)
+        {
+            val editor : SharedPreferences.Editor = settings.edit()
+            editor.putString(PREFS_NAME,GUID)
+            editor.commit()
+            STORED_GUID = settings.getString(PREFS_NAME,null)
+        } else return
+    }
+
+    private fun updateTempID() {
+        val period : Long = 15*60*1000
+        val timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                val startTime = System.currentTimeMillis()
+                val endTime = startTime + period
+                TEMP_ID = STORED_GUID + "-" + startTime + "-" + endTime
+                val tempId = TempId(
+                    v = TEMP_ID
+                )
+                tempIdStorage.saveRecord(tempId)
+                tempIdStorage.getAllRecords()
+            }
+        }, 0, period) //Update every 15 mins
+    }
+
     override fun onCreate() {
+        tempIdStorage= TempIdStorage(this.applicationContext)
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         setup()
     }
@@ -340,6 +376,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
                     setupCycles()
                 }
             }
+        saveGUID()
+        updateTempID()
     }
 
     fun actionUpdateBm() {

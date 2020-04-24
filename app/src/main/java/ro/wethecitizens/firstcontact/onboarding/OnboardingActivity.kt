@@ -42,11 +42,7 @@ class OnboardingActivity : FragmentActivity(),
     SetupCompleteFragment.OnFragmentInteractionListener,
     TOUFragment.OnFragmentInteractionListener {
 
-    var TEMP_ID: String? = null
-    var STORED_GUID: String? = null
-    private val PREFS_NAME: String = "GUID"
-    private val PREFS_NAME1: String = "TempID"
-    private val GUID: String = UUID.randomUUID().toString()
+
     private var TAG: String = "OnboardingActivity"
     private var pagerAdapter: ScreenSlidePagerAdapter? = null
     private var bleSupported = false
@@ -55,39 +51,11 @@ class OnboardingActivity : FragmentActivity(),
     private var mIsOpenSetting = false
     private var mIsResetup = false
 
-    private fun saveGUID(){
-        val settings : SharedPreferences = getSharedPreferences(PREFS_NAME,0)
-        STORED_GUID = settings.getString(PREFS_NAME,null)
-        if(STORED_GUID == null)
-        {
-            val editor : SharedPreferences.Editor = settings.edit()
-            editor.putString(PREFS_NAME,GUID)
-            editor.commit()
-            STORED_GUID = settings.getString(PREFS_NAME,null)
-        } else return
-    }
-
-    private fun updateTempID() {
-        val timer = Timer()
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                val settings : SharedPreferences = getSharedPreferences(PREFS_NAME1,0)
-                val editor : SharedPreferences.Editor = settings.edit()
-                TEMP_ID = STORED_GUID + "-" + System.currentTimeMillis()
-                editor.putString(PREFS_NAME1,TEMP_ID)
-                editor.commit()
-                Log.i("TEMP ID",TEMP_ID)
-            }
-        }, 0, 15*60*1000) //Update every 15 mins
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
         pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
         pager.adapter = pagerAdapter
-
-        saveGUID()
-        updateTempID()
 
         tabDots.setupWithViewPager(pager, true)
 
