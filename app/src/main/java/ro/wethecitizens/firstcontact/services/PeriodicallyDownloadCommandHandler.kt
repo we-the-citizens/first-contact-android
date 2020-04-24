@@ -42,17 +42,4 @@ class PeriodicallyDownloadCommandHandler(val service: WeakReference<Periodically
     fun hasScanScheduled(): Boolean {
         return hasMessages(PeriodicallyDownloadService.Command.ACTION_SCAN.index)
     }
-
-    fun scheduleNextAdvertise(timeInMillis: Long) {
-        cancelNextAdvertise()
-        sendCommandMsg(PeriodicallyDownloadService.Command.ACTION_ADVERTISE, timeInMillis)
-    }
-
-    fun cancelNextAdvertise() {
-        removeMessages(PeriodicallyDownloadService.Command.ACTION_ADVERTISE.index)
-    }
-
-    fun hasAdvertiseScheduled(): Boolean {
-        return hasMessages(PeriodicallyDownloadService.Command.ACTION_ADVERTISE.index)
-    }
 }

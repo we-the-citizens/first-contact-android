@@ -198,13 +198,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
                 }
             }
 
-            Command.ACTION_ADVERTISE -> {
-                scheduleAdvertisement()
-                if (doWork) {
-                    actionAdvertise()
-                }
-            }
-
             Command.ACTION_UPDATE_BM -> {
                 Utils.schedulePeriodicallyDownloadUpdateCheck(this.applicationContext, bmCheckInterval)
                 actionUpdateBm()
@@ -319,17 +312,11 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         performScan();
     }
 
-    private fun actionAdvertise() {
-
-        d("actionAdvertise")
-    }
-
     private fun setupService() {
 
         d("setupService")
 
         setupScanner()
-        setupAdvertiser()
     }
 
     private fun setupScanner() {
@@ -337,27 +324,16 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         d("setupScanner")
     }
 
-    private fun setupAdvertiser() {
-
-        d("setupAdvertiser")
-    }
-
     private fun setupCycles() {
 
         d("setupCycles")
 
         setupScanCycles()
-        setupAdvertisingCycles()
     }
 
     private fun setupScanCycles() {
 
         commandHandler.scheduleNextScan(0)
-    }
-
-    private fun setupAdvertisingCycles() {
-
-        commandHandler.scheduleNextAdvertise(0)
     }
 
     private fun performScan() {
@@ -377,15 +353,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
                     maxScanInterval
                 )
             )
-        }
-    }
-
-    private fun scheduleAdvertisement() {
-
-        d("scheduleScan")
-
-        if (!infiniteAdvertising) {
-            commandHandler.scheduleNextAdvertise(advertisingDuration + advertisingGap)
         }
     }
 
@@ -481,7 +448,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         ACTION_START(0, "START"),
         ACTION_SCAN(1, "SCAN"),
         ACTION_STOP(2, "STOP"),
-        ACTION_ADVERTISE(3, "ADVERTISE"),
         ACTION_SELF_CHECK(4, "SELF_CHECK"),
         ACTION_UPDATE_BM(5, "UPDATE_BM"),
         ACTION_PURGE(6, "PURGE");
@@ -513,7 +479,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         val PENDING_ACTIVITY = 5
         val PENDING_START = 6
         val PENDING_SCAN_REQ_CODE = 7
-        val PENDING_ADVERTISE_REQ_CODE = 8
         val PENDING_HEALTH_CHECK_CODE = 9
         val PENDING_WIZARD_REQ_CODE = 10
         val PENDING_BM_UPDATE = 11
@@ -521,13 +486,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         var broadcastMessage: TemporaryID? = null
 
-        //should be more than advertising gap?
         val scanDuration: Long = BuildConfig.SCAN_DURATION
         val minScanInterval: Long = BuildConfig.MIN_SCAN_INTERVAL
         val maxScanInterval: Long = BuildConfig.MAX_SCAN_INTERVAL
-
-        val advertisingDuration: Long = BuildConfig.ADVERTISING_DURATION
-        val advertisingGap: Long = BuildConfig.ADVERTISING_INTERVAL
 
         val maxQueueTime: Long = BuildConfig.MAX_QUEUE_TIME
         val bmCheckInterval: Long = BuildConfig.BM_CHECK_INTERVAL
@@ -540,7 +501,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         val blacklistDuration: Long = BuildConfig.BLACKLIST_DURATION
 
         val infiniteScanning = false
-        val infiniteAdvertising = false
 
         val useBlacklist = true
         val bmValidityCheck = false
