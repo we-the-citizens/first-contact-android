@@ -58,9 +58,11 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         super.onDestroy()
 
-        CentralLog.i(TAG, "BluetoothMonitoringService destroyed - tearing down")
+        CentralLog.i(TAG, "onDestroy, after super")
+
         stopService()
-        CentralLog.i(TAG, "BluetoothMonitoringService destroyed")
+
+        CentralLog.i(TAG, "onDestroy, after stopService")
     }
 
 
@@ -78,7 +80,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         if (intent == null) {
             CentralLog.e(TAG, "WTF? Nothing in intent @ onStartCommand")
 //            Utils.startBluetoothMonitoringService(applicationContext)
-            commandHandler.startBluetoothMonitoringService()
+            commandHandler.startPeriodicallyDownloadService()
         }
 
         // Tells the system to not try to recreate the service after it has been killed.
@@ -95,13 +97,14 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     fun setup() {
 
+        CentralLog.d(TAG, "setup")
+
+
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
 
         CentralLog.setPowerManager(pm)
 
         commandHandler = PDCommandHandler(WeakReference(this))
-
-        CentralLog.d(TAG, "Creating service - BluetoothMonitoringService")
 
         //worker = StreetPassWorker(this.applicationContext)
 

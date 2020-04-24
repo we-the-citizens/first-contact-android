@@ -97,6 +97,10 @@
             android:name="ro.wethecitizens.firstcontact.services.BluetoothMonitoringService"
             android:foregroundServiceType="location" />
 
+        <service
+            android:name="ro.wethecitizens.firstcontact.services.PeriodicallyDownloadService"
+            android:foregroundServiceType="dataSync" />
+
         <activity
             android:name="ro.wethecitizens.firstcontact.PeekActivity"
             android:screenOrientation="portrait"

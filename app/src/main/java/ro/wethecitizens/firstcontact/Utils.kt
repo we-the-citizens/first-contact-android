@@ -93,6 +93,7 @@ object Utils {
     }
 
     fun scheduleStartMonitoringService(context: Context, timeInMillis: Long) {
+
         val intent = Intent(context, BluetoothMonitoringService::class.java)
         intent.putExtra(
             BluetoothMonitoringService.COMMAND_KEY,
@@ -104,6 +105,20 @@ object Utils {
             context,
             intent,
             timeInMillis
+        )
+
+
+        val intent2 = Intent(context, PeriodicallyDownloadService::class.java)
+        intent2.putExtra(
+            PeriodicallyDownloadService.COMMAND_KEY,
+            PeriodicallyDownloadService.Command.ACTION_START.index
+        )
+
+        Scheduler.scheduleServiceIntent(
+            PENDING_START,
+            context,
+            intent2,
+            10 * timeInMillis
         )
     }
 

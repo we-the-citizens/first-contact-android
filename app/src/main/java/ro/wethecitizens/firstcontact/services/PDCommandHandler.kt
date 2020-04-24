@@ -26,7 +26,7 @@ class PDCommandHandler(val service: WeakReference<PeriodicallyDownloadService>) 
         sendMessage(msg)
     }
 
-    fun startBluetoothMonitoringService() {
+    fun startPeriodicallyDownloadService() {
         sendCommandMsg(PeriodicallyDownloadService.Command.ACTION_START)
     }
 
