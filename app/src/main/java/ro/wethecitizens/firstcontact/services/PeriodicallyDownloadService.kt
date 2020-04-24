@@ -16,8 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ro.wethecitizens.firstcontact.BuildConfig
+import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.bluetooth.gatt.ACTION_RECEIVED_STATUS
 import ro.wethecitizens.firstcontact.bluetooth.gatt.STATUS
+import ro.wethecitizens.firstcontact.idmanager.TempIDManager
 import ro.wethecitizens.firstcontact.idmanager.TemporaryID
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
@@ -38,7 +40,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private var notificationShown: NOTIFICATION_STATE? = null
 
     private lateinit var statusRecordStorage: StatusRecordStorage
-    private lateinit var commandHandler: PDCommandHandler
+    private lateinit var commandHandler: PeriodicallyDownloadCommandHandler
     private lateinit var localBroadcastManager: LocalBroadcastManager
 
 
@@ -50,7 +52,11 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         get() = Dispatchers.Main + job
 
     override fun onCreate() {
+
+        d("onCreate")
+
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
+
         setup()
     }
 
@@ -58,17 +64,15 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         super.onDestroy()
 
-        CentralLog.i(TAG, "onDestroy, after super")
+        d("onDestroy")
 
         stopService()
-
-        CentralLog.i(TAG, "onDestroy, after stopService")
     }
 
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-        CentralLog.i(TAG, "Service onStartCommand")
+        d("onStartCommand")
 
         intent?.let {
             val cmd = intent.getIntExtra(COMMAND_KEY, Command.INVALID.index)
@@ -95,16 +99,21 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     /* Private fun */
 
-    fun setup() {
+    fun d(s:String) {
 
-        CentralLog.d(TAG, "setup")
+        CentralLog.d(TAG, s);
+    }
+
+    private fun setup() {
+
+        d("setup")
 
 
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
 
         CentralLog.setPowerManager(pm)
 
-        commandHandler = PDCommandHandler(WeakReference(this))
+        commandHandler = PeriodicallyDownloadCommandHandler(WeakReference(this))
 
         //worker = StreetPassWorker(this.applicationContext)
 
@@ -116,7 +125,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         setupNotifications()
     }
 
-    fun teardown() {
+    private fun teardown() {
 
         commandHandler.removeCallbacksAndMessages(null)
     }
@@ -164,9 +173,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     fun runService(cmd: Command?) {
 
-        var doWork = true
-        CentralLog.i(TAG, "Command is:${cmd?.string}")
+        d("Command is:${cmd?.string}")
 
+
+        var doWork = true
 
         //show running foreground notification if its not showing that
         notifyRunning()
@@ -174,9 +184,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         when (cmd) {
             Command.ACTION_START -> {
                 setupService()
-                ro.wethecitizens.firstcontact.Utils.scheduleNextHealthCheck(this.applicationContext, healthCheckInterval)
-                ro.wethecitizens.firstcontact.Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
-                ro.wethecitizens.firstcontact.Utils.scheduleBMUpdateCheck(this.applicationContext, bmCheckInterval)
+                Utils.schedulePeriodicallyDownloadNextHealthCheck(this.applicationContext, healthCheckInterval)
+                Utils.schedulePeriodicallyDownloadRepeatingPurge(this.applicationContext, purgeInterval)
+                Utils.schedulePeriodicallyDownloadUpdateCheck(this.applicationContext, bmCheckInterval)
                 actionStart()
             }
 
@@ -196,7 +206,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             }
 
             Command.ACTION_UPDATE_BM -> {
-                ro.wethecitizens.firstcontact.Utils.scheduleBMUpdateCheck(this.applicationContext, bmCheckInterval)
+                Utils.schedulePeriodicallyDownloadUpdateCheck(this.applicationContext, bmCheckInterval)
                 actionUpdateBm()
             }
 
@@ -205,7 +215,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             }
 
             Command.ACTION_SELF_CHECK -> {
-                ro.wethecitizens.firstcontact.Utils.scheduleNextHealthCheck(this.applicationContext, healthCheckInterval)
+                Utils.schedulePeriodicallyDownloadNextHealthCheck(this.applicationContext, healthCheckInterval)
                 if (doWork) {
                     actionHealthCheck()
                 }
@@ -215,7 +225,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
                 actionPurge()
             }
 
-            else -> CentralLog.i(TAG, "Invalid / ignored command: $cmd. Nothing to do")
+            else -> d("Invalid / ignored command: $cmd. Nothing to do")
         }
     }
 
@@ -229,7 +239,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private fun actionHealthCheck() {
 
         performHealthCheck()
-        ro.wethecitizens.firstcontact.Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
+        Utils.schedulePeriodicallyDownloadRepeatingPurge(this.applicationContext, purgeInterval)
     }
 
     private fun actionPurge() {
@@ -238,11 +248,11 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun actionStart() {
 
-        CentralLog.d(TAG, "actionStart")
+        d("actionStart")
 
 //        TempIDManager.getTemporaryIDs(this, functions)
 //            .addOnCompleteListener {
-//                CentralLog.d(TAG, "Get TemporaryIDs completed")
+//                d("Get TemporaryIDs completed")
 //                //this will run whether it starts or fails.
 //                var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
 //                fetch?.let {
@@ -250,21 +260,23 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //                    setupCycles()
 //                }
 //            }
+
+        setupCycles()
     }
 
     fun actionUpdateBm() {
 
-        CentralLog.d(TAG, "actionUpdateBm")
+        d("actionUpdateBm")
 
 //        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
-//            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionUpdateBM")
+//            d("[TempID] Need to update TemporaryID in actionUpdateBM")
 //            //need to pull new BM
 //            TempIDManager.getTemporaryIDs(this, functions)
 //                .addOnCompleteListener {
 //                    //this will run whether it starts or fails.
 //                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
 //                    fetch?.let {
-//                        CentralLog.i(TAG, "[TempID] Updated Temp ID")
+//                        d("[TempID] Updated Temp ID")
 //                        broadcastMessage = it
 //                    }
 //
@@ -273,7 +285,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //                    }
 //                }
 //        } else {
-//            CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionUpdateBM")
+//            d("[TempID] Don't need to update Temp ID in actionUpdateBM")
 //        }
 
     }
@@ -285,10 +297,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun actionScan() {
 
-        CentralLog.i(TAG, "actionScan")
+        d("actionScan")
 
 //        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
-//            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionScan")
+//            d("[TempID] Need to update TemporaryID in actionScan")
 //            //need to pull new BM
 //            TempIDManager.getTemporaryIDs(this.applicationContext, functions)
 //                .addOnCompleteListener {
@@ -300,19 +312,21 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //                    }
 //                }
 //        } else {
-//            CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionScan")
+//            d("[TempID] Don't need to update Temp ID in actionScan")
 //            performScan()
 //        }
+
+        performScan();
     }
 
     private fun actionAdvertise() {
 
-        CentralLog.d(TAG, "actionAdvertise")
+        d("actionAdvertise")
     }
 
     private fun setupService() {
 
-        CentralLog.d(TAG, "setupService")
+        d("setupService")
 
         setupScanner()
         setupAdvertiser()
@@ -320,17 +334,17 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun setupScanner() {
 
-        CentralLog.d(TAG, "setupScanner")
+        d("setupScanner")
     }
 
     private fun setupAdvertiser() {
 
-        CentralLog.d(TAG, "setupAdvertiser")
+        d("setupAdvertiser")
     }
 
     private fun setupCycles() {
 
-        CentralLog.d(TAG, "setupCycles")
+        d("setupCycles")
 
         setupScanCycles()
         setupAdvertisingCycles()
@@ -354,7 +368,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun scheduleScan() {
 
-        CentralLog.d(TAG, "scheduleScan")
+        d("scheduleScan")
 
         if (!infiniteScanning) {
             commandHandler.scheduleNextScan(
@@ -368,7 +382,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun scheduleAdvertisement() {
 
-        CentralLog.d(TAG, "scheduleScan")
+        d("scheduleScan")
 
         if (!infiniteAdvertising) {
             commandHandler.scheduleNextAdvertise(advertisingDuration + advertisingGap)
@@ -377,12 +391,12 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun startScan() {
 
-        CentralLog.d(TAG, "startScan")
+        d("startScan")
     }
 
     private fun performHealthCheck() {
 
-        CentralLog.i(TAG, "Performing self diagnosis")
+        d("Performing self diagnosis")
 
         notifyRunning(true)
 
@@ -407,7 +421,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         val context = this
         launch {
             val before = System.currentTimeMillis() - purgeTTL
-            CentralLog.i(TAG, "Coroutine - Purging of data before epoch time $before")
+            d("Coroutine - Purging of data before epoch time $before")
 
             statusRecordStorage.purgeOldRecords(before)
             ro.wethecitizens.firstcontact.Preference.putLastPurgeTime(context, System.currentTimeMillis())
@@ -415,6 +429,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     }
 
     private fun stopService() {
+
+        d("stopService")
 
         teardown()
         unregisterReceivers()
@@ -425,10 +441,11 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun registerReceivers() {
 
+        d("Receivers registered")
+
         val statusReceivedFilter = IntentFilter(ACTION_RECEIVED_STATUS)
         localBroadcastManager.registerReceiver(statusReceiver, statusReceivedFilter)
 
-        CentralLog.i(TAG, "Receivers registered")
     }
 
     private fun unregisterReceivers() {
@@ -447,7 +464,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             if (ACTION_RECEIVED_STATUS == intent.action) {
                 var statusRecord: Status = intent.getParcelableExtra(STATUS)
-                CentralLog.d(TAG, "Status received: ${statusRecord.msg}")
+                d("Status received: ${statusRecord.msg}")
 
                 if (statusRecord.msg.isNotEmpty()) {
                     val statusRecord = StatusRecord(statusRecord.msg)

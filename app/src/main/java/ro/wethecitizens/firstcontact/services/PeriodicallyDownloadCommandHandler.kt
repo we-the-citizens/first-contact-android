@@ -4,7 +4,7 @@ import android.os.Handler
 import android.os.Message
 import java.lang.ref.WeakReference
 
-class PDCommandHandler(val service: WeakReference<PeriodicallyDownloadService>) : Handler() {
+class PeriodicallyDownloadCommandHandler(val service: WeakReference<PeriodicallyDownloadService>) : Handler() {
     override fun handleMessage(msg: Message?) {
         msg?.let {
             //            val cmd = msg.arg1

@@ -381,4 +381,84 @@ object Utils {
         context.startService(intent)
     }
 
+
+    fun schedulePeriodicallyDownloadNextHealthCheck(context: Context, timeInMillis: Long) {
+        //cancels any outstanding check schedules.
+        cancelPeriodicallyDownloadNextHealthCheck(context)
+
+        val nextIntent = Intent(context, PeriodicallyDownloadService::class.java)
+        nextIntent.putExtra(
+            PeriodicallyDownloadService.COMMAND_KEY,
+            PeriodicallyDownloadService.Command.ACTION_SELF_CHECK.index
+        )
+        //runs every XXX milliseconds - every minute?
+        Scheduler.scheduleServiceIntent(
+            PeriodicallyDownloadService.PENDING_HEALTH_CHECK_CODE,
+            context,
+            nextIntent,
+            timeInMillis
+        )
+    }
+
+    fun cancelPeriodicallyDownloadNextHealthCheck(context: Context) {
+
+        val nextIntent = Intent(context, PeriodicallyDownloadService::class.java)
+        nextIntent.putExtra(
+            PeriodicallyDownloadService.COMMAND_KEY,
+            PeriodicallyDownloadService.Command.ACTION_SELF_CHECK.index
+        )
+        Scheduler.cancelServiceIntent(
+            PeriodicallyDownloadService.PENDING_HEALTH_CHECK_CODE,
+            context,
+            nextIntent)
+    }
+
+    fun schedulePeriodicallyDownloadRepeatingPurge(context: Context, intervalMillis: Long) {
+
+        val nextIntent = Intent(context, PeriodicallyDownloadService::class.java)
+        nextIntent.putExtra(
+            PeriodicallyDownloadService.COMMAND_KEY,
+            PeriodicallyDownloadService.Command.ACTION_PURGE.index
+        )
+
+        Scheduler.scheduleRepeatingServiceIntent(
+            PeriodicallyDownloadService.PENDING_PURGE_CODE,
+            context,
+            nextIntent,
+            intervalMillis
+        )
+    }
+
+    fun schedulePeriodicallyDownloadUpdateCheck(context: Context, bmCheckInterval: Long) {
+
+        cancelPeriodicallyDownloadUpdateCheck(context)
+
+        val intent = Intent(context, PeriodicallyDownloadService::class.java)
+        intent.putExtra(
+            PeriodicallyDownloadService.COMMAND_KEY,
+            PeriodicallyDownloadService.Command.ACTION_UPDATE_BM.index
+        )
+
+        Scheduler.scheduleServiceIntent(
+            PeriodicallyDownloadService.PENDING_BM_UPDATE,
+            context,
+            intent,
+            bmCheckInterval
+        )
+    }
+
+    fun cancelPeriodicallyDownloadUpdateCheck(context: Context) {
+
+        val intent = Intent(context, PeriodicallyDownloadService::class.java)
+        intent.putExtra(
+            PeriodicallyDownloadService.COMMAND_KEY,
+            PeriodicallyDownloadService.Command.ACTION_UPDATE_BM.index
+        )
+
+        Scheduler.cancelServiceIntent(
+            PeriodicallyDownloadService.PENDING_BM_UPDATE,
+            context,
+            intent
+        )
+    }
 }
