@@ -1,81 +1,105 @@
 package ro.wethecitizens.firstcontact.services
 
-import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
-import android.os.Bundle
 import android.os.IBinder
 import android.os.PowerManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.functions.FirebaseFunctions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.bluetooth.gatt.ACTION_RECEIVED_STATUS
-import ro.wethecitizens.firstcontact.bluetooth.gatt.ACTION_RECEIVED_STREETPASS
 import ro.wethecitizens.firstcontact.bluetooth.gatt.STATUS
-import ro.wethecitizens.firstcontact.bluetooth.gatt.STREET_PASS
-import ro.wethecitizens.firstcontact.idmanager.TempIDManager
 import ro.wethecitizens.firstcontact.idmanager.TemporaryID
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
-import ro.wethecitizens.firstcontact.permissions.RequestFileWritePermission
 import ro.wethecitizens.firstcontact.status.Status
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecordStorage
-import ro.wethecitizens.firstcontact.streetpass.ConnectionRecord
-import ro.wethecitizens.firstcontact.streetpass.StreetPassScanner
-import ro.wethecitizens.firstcontact.streetpass.StreetPassServer
-import ro.wethecitizens.firstcontact.streetpass.StreetPassWorker
-import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
-import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStorage
 import java.lang.ref.WeakReference
 import kotlin.coroutines.CoroutineContext
 
 class PeriodicallyDownloadService : Service(), CoroutineScope {
 
-    private var mNotificationManager: NotificationManager? = null
 
+    /* Private members */
+
+    private var mNotificationManager: NotificationManager? = null
     private val statusReceiver = StatusReceiver()
+    private var job: Job = Job()
+    private var notificationShown: NOTIFICATION_STATE? = null
 
     private lateinit var statusRecordStorage: StatusRecordStorage
+    private lateinit var commandHandler: PDCommandHandler
+    private lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private var job: Job = Job()
+
+
+
+    /* Override */
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
-
-    private lateinit var commandHandler: CommandHandler
-
-    private lateinit var localBroadcastManager: LocalBroadcastManager
-
-    private var notificationShown: NOTIFICATION_STATE? = null
 
     override fun onCreate() {
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         setup()
     }
 
+    override fun onDestroy() {
+
+        super.onDestroy()
+
+        CentralLog.i(TAG, "BluetoothMonitoringService destroyed - tearing down")
+        stopService()
+        CentralLog.i(TAG, "BluetoothMonitoringService destroyed")
+    }
+
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
+        CentralLog.i(TAG, "Service onStartCommand")
+
+        intent?.let {
+            val cmd = intent.getIntExtra(COMMAND_KEY, Command.INVALID.index)
+            runService(Command.findByValue(cmd))
+
+            return START_STICKY
+        }
+
+        if (intent == null) {
+            CentralLog.e(TAG, "WTF? Nothing in intent @ onStartCommand")
+//            Utils.startBluetoothMonitoringService(applicationContext)
+            commandHandler.startBluetoothMonitoringService()
+        }
+
+        // Tells the system to not try to recreate the service after it has been killed.
+        return START_STICKY
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
+
+
+
+    /* Private fun */
+
     fun setup() {
+
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
 
         CentralLog.setPowerManager(pm)
 
-        commandHandler = CommandHandler(WeakReference(this))
+        commandHandler = PDCommandHandler(WeakReference(this))
 
         CentralLog.d(TAG, "Creating service - BluetoothMonitoringService")
 
@@ -133,26 +157,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             startForeground(NOTIFICATION_ID, notif)
             notificationShown = NOTIFICATION_STATE.RUNNING
         }
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        CentralLog.i(TAG, "Service onStartCommand")
-
-        intent?.let {
-            val cmd = intent.getIntExtra(COMMAND_KEY, Command.INVALID.index)
-            runService(Command.findByValue(cmd))
-
-            return START_STICKY
-        }
-
-        if (intent == null) {
-            CentralLog.e(TAG, "WTF? Nothing in intent @ onStartCommand")
-//            Utils.startBluetoothMonitoringService(applicationContext)
-            commandHandler.startBluetoothMonitoringService()
-        }
-
-        // Tells the system to not try to recreate the service after it has been killed.
-        return START_STICKY
     }
 
     fun runService(cmd: Command?) {
@@ -213,13 +217,14 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     }
 
     private fun actionStop() {
+
         stopForeground(true)
         stopSelf()
         CentralLog.w(TAG, "Service Stopping")
     }
 
     private fun actionHealthCheck() {
-        performUserLoginCheck()
+
         performHealthCheck()
         ro.wethecitizens.firstcontact.Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
     }
@@ -229,116 +234,125 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     }
 
     private fun actionStart() {
-        CentralLog.d(TAG, "Action Start")
 
-        TempIDManager.getTemporaryIDs(this, functions)
-            .addOnCompleteListener {
-                CentralLog.d(TAG, "Get TemporaryIDs completed")
-                //this will run whether it starts or fails.
-                var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-                fetch?.let {
-                    broadcastMessage = it
-                    setupCycles()
-                }
-            }
+        CentralLog.d(TAG, "actionStart")
+
+//        TempIDManager.getTemporaryIDs(this, functions)
+//            .addOnCompleteListener {
+//                CentralLog.d(TAG, "Get TemporaryIDs completed")
+//                //this will run whether it starts or fails.
+//                var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
+//                fetch?.let {
+//                    broadcastMessage = it
+//                    setupCycles()
+//                }
+//            }
     }
 
     fun actionUpdateBm() {
 
-        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
-            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionUpdateBM")
-            //need to pull new BM
-            TempIDManager.getTemporaryIDs(this, functions)
-                .addOnCompleteListener {
-                    //this will run whether it starts or fails.
-                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-                    fetch?.let {
-                        CentralLog.i(TAG, "[TempID] Updated Temp ID")
-                        broadcastMessage = it
-                    }
+        CentralLog.d(TAG, "actionUpdateBm")
 
-                    if (fetch == null) {
-                        CentralLog.e(TAG, "[TempID] Failed to fetch new Temp ID")
-                    }
-                }
-        } else {
-            CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionUpdateBM")
-        }
+//        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
+//            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionUpdateBM")
+//            //need to pull new BM
+//            TempIDManager.getTemporaryIDs(this, functions)
+//                .addOnCompleteListener {
+//                    //this will run whether it starts or fails.
+//                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
+//                    fetch?.let {
+//                        CentralLog.i(TAG, "[TempID] Updated Temp ID")
+//                        broadcastMessage = it
+//                    }
+//
+//                    if (fetch == null) {
+//                        CentralLog.e(TAG, "[TempID] Failed to fetch new Temp ID")
+//                    }
+//                }
+//        } else {
+//            CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionUpdateBM")
+//        }
 
     }
 
     fun calcPhaseShift(min: Long, max: Long): Long {
+
         return (min + (Math.random() * (max - min))).toLong()
     }
 
     private fun actionScan() {
-        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
-            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionScan")
-            //need to pull new BM
-            TempIDManager.getTemporaryIDs(this.applicationContext, functions)
-                .addOnCompleteListener {
-                    //this will run whether it starts or fails.
-                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-                    fetch?.let {
-                        broadcastMessage = it
-                        performScan()
-                    }
-                }
-        } else {
-            CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionScan")
-            performScan()
-        }
+
+        CentralLog.i(TAG, "actionScan")
+
+//        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
+//            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionScan")
+//            //need to pull new BM
+//            TempIDManager.getTemporaryIDs(this.applicationContext, functions)
+//                .addOnCompleteListener {
+//                    //this will run whether it starts or fails.
+//                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
+//                    fetch?.let {
+//                        broadcastMessage = it
+//                        performScan()
+//                    }
+//                }
+//        } else {
+//            CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionScan")
+//            performScan()
+//        }
     }
 
     private fun actionAdvertise() {
-        setupAdvertiser()
-        if (isBluetoothEnabled()) {
-            advertiser?.startAdvertising(advertisingDuration)
-        } else {
-            CentralLog.w(TAG, "Unable to start advertising, bluetooth is off")
-        }
+
+        CentralLog.d(TAG, "actionAdvertise")
     }
 
     private fun setupService() {
-        streetPassServer =
-            streetPassServer ?: StreetPassServer(this.applicationContext, serviceUUID)
+
+        CentralLog.d(TAG, "setupService")
+
         setupScanner()
         setupAdvertiser()
     }
 
     private fun setupScanner() {
-        streetPassScanner = streetPassScanner ?: StreetPassScanner(
-            this,
-            serviceUUID,
-            scanDuration
-        )
+
+        CentralLog.d(TAG, "setupScanner")
     }
 
     private fun setupAdvertiser() {
-        advertiser = advertiser ?: ro.wethecitizens.firstcontact.bluetooth.BLEAdvertiser(
-            serviceUUID
-        )
+
+        CentralLog.d(TAG, "setupAdvertiser")
     }
 
     private fun setupCycles() {
+
+        CentralLog.d(TAG, "setupCycles")
+
         setupScanCycles()
         setupAdvertisingCycles()
     }
 
     private fun setupScanCycles() {
+
         commandHandler.scheduleNextScan(0)
     }
 
     private fun setupAdvertisingCycles() {
+
         commandHandler.scheduleNextAdvertise(0)
     }
 
     private fun performScan() {
+
         setupScanner()
         startScan()
     }
 
     private fun scheduleScan() {
+
+        CentralLog.d(TAG, "scheduleScan")
+
         if (!infiniteScanning) {
             commandHandler.scheduleNextScan(
                 scanDuration + calcPhaseShift(
@@ -350,6 +364,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     }
 
     private fun scheduleAdvertisement() {
+
+        CentralLog.d(TAG, "scheduleScan")
+
         if (!infiniteAdvertising) {
             commandHandler.scheduleNextAdvertise(advertisingDuration + advertisingGap)
         }
@@ -357,18 +374,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun startScan() {
 
-        if (isBluetoothEnabled()) {
-
-            streetPassScanner?.let { scanner ->
-                if (!scanner.isScanning()) {
-                    scanner.startScan()
-                } else {
-                    CentralLog.e(TAG, "Already scanning!")
-                }
-            }
-        } else {
-            CentralLog.w(TAG, "Unable to start scan - bluetooth is off")
-        }
+        CentralLog.d(TAG, "startScan")
     }
 
     private fun performHealthCheck() {
@@ -405,13 +411,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        CentralLog.i(TAG, "BluetoothMonitoringService destroyed - tearing down")
-        stopService()
-        CentralLog.i(TAG, "BluetoothMonitoringService destroyed")
-    }
-
     private fun stopService() {
 
         teardown()
@@ -436,10 +435,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         } catch (e: Throwable) {
             CentralLog.w(TAG, "statusReceiver is not registered?")
         }
-    }
-
-    override fun onBind(intent: Intent?): IBinder? {
-        return null
     }
 
     inner class StatusReceiver : BroadcastReceiver() {
@@ -478,13 +473,14 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     }
 
     enum class NOTIFICATION_STATE() {
+
         RUNNING,
         LACKING_THINGS
     }
 
     companion object {
 
-        private val TAG = "BTMService"
+        private val TAG = "PDService"
 
         private val NOTIFICATION_ID = BuildConfig.SERVICE_FOREGROUND_NOTIFICATION_ID
         private val CHANNEL_ID = BuildConfig.SERVICE_FOREGROUND_CHANNEL_ID
