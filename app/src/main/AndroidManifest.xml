@@ -113,18 +113,6 @@
             </intent-filter>
         </receiver>
 
-        ​<service
-            android:name="ro.wethecitizens.firstcontact.job.PeriodicallyDownloadJobService"
-            android:label="Word service"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-        </service>
-
-        <receiver android:name="ro.wethecitizens.firstcontact.job.receivers.MyStartServiceReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
     </application>
 
 </manifest>

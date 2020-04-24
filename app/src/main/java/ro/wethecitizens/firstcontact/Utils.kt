@@ -2,8 +2,6 @@ package ro.wethecitizens.firstcontact
 
 import android.Manifest
 import android.app.Activity
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.ComponentName
@@ -19,7 +17,6 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.HttpsCallableResult
 import ro.wethecitizens.firstcontact.bluetooth.gatt.*
-import ro.wethecitizens.firstcontact.job.PeriodicallyDownloadJobService
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.scheduler.Scheduler
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService
@@ -29,6 +26,7 @@ import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Compani
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Companion.PENDING_PURGE_CODE
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Companion.PENDING_SCAN_REQ_CODE
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Companion.PENDING_START
+import ro.wethecitizens.firstcontact.services.PeriodicallyDownloadService
 import ro.wethecitizens.firstcontact.status.Status
 import ro.wethecitizens.firstcontact.streetpass.ACTION_DEVICE_SCANNED
 import ro.wethecitizens.firstcontact.streetpass.ConnectablePeripheral
@@ -356,18 +354,16 @@ object Utils {
             }
     }
 
-    // schedule the start of the service every 10 - 30 seconds
-    fun schedulePeriodicallyDownloadJob(context: Context) {
 
-        val serviceComponent = ComponentName(context, PeriodicallyDownloadJobService::class.java)
-        val builder = JobInfo.Builder(0, serviceComponent)
-        builder.setMinimumLatency(1 * 1000.toLong()) // wait at least
-        builder.setOverrideDeadline(3 * 1000.toLong()) // maximum delay
-        //builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED); // require unmetered network
-        //builder.setRequiresDeviceIdle(true); // device should be idle
-        //builder.setRequiresCharging(false); // we don't care if the device is charging or not
+    fun startPeriodicallyDownloadService(context: Context) {
 
-//        val jobScheduler = context.getSystemService(JobScheduler)
-//        jobScheduler.schedule(builder.build())
+        val intent = Intent(context, PeriodicallyDownloadService::class.java)
+        intent.putExtra(
+            PeriodicallyDownloadService.COMMAND_KEY,
+            PeriodicallyDownloadService.Command.ACTION_START.index
+        )
+
+        context.startService(intent)
     }
+
 }

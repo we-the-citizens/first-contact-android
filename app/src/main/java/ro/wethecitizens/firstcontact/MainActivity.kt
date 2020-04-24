@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main_new)
 
         Utils.startBluetoothMonitoringService(this)
+        Utils.startPeriodicallyDownloadService(this)
+
 
         LAYOUT_MAIN_ID = R.id.content
 
