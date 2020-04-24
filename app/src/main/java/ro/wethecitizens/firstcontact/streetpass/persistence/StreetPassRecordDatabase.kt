@@ -4,19 +4,24 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecord
+import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordDao
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecordDao
 
 
 @Database(
-    entities = arrayOf(StreetPassRecord::class, StatusRecord::class),
+    entities = arrayOf(StreetPassRecord::class, StatusRecord::class, PositiveKeyRecord::class),
     version = 1,
     exportSchema = true
 )
+@TypeConverters(Converters::class)
 abstract class StreetPassRecordDatabase : RoomDatabase() {
 
     abstract fun recordDao(): StreetPassRecordDao
     abstract fun statusDao(): StatusRecordDao
+    abstract fun positiveKeyDao(): PositiveKeyRecordDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
