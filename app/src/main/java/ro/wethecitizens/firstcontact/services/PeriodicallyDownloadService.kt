@@ -3,10 +3,8 @@ package ro.wethecitizens.firstcontact.services
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
@@ -17,13 +15,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.Utils
-import ro.wethecitizens.firstcontact.bluetooth.gatt.ACTION_RECEIVED_STATUS
-import ro.wethecitizens.firstcontact.bluetooth.gatt.STATUS
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
-import ro.wethecitizens.firstcontact.status.Status
-import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
-import ro.wethecitizens.firstcontact.status.persistence.StatusRecordStorage
+import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordStorage
 import java.lang.ref.WeakReference
 import kotlin.coroutines.CoroutineContext
 
@@ -33,11 +27,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     /* Private members */
 
     private var mNotificationManager: NotificationManager? = null
-    private val statusReceiver = StatusReceiver()
     private var job: Job = Job()
-    private var notificationShown: NOTIFICATION_STATE? = null
+    private var notificationShown: NotificationState? = null
 
-    private lateinit var statusRecordStorage: StatusRecordStorage
+    private lateinit var positiveKeysStorage: PositiveKeyRecordStorage
     private lateinit var commandHandler: PeriodicallyDownloadCommandHandler
     private lateinit var localBroadcastManager: LocalBroadcastManager
 
@@ -64,7 +57,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         d("onDestroy")
 
-        stopService()
+        destroyService()
     }
 
 
@@ -112,19 +105,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         commandHandler = PeriodicallyDownloadCommandHandler(WeakReference(this))
 
-        //worker = StreetPassWorker(this.applicationContext)
-
-        unregisterReceivers()
-        registerReceivers()
-
-        statusRecordStorage = StatusRecordStorage(this.applicationContext)
+        positiveKeysStorage = PositiveKeyRecordStorage(this.applicationContext)
 
         setupNotifications()
-    }
-
-    private fun teardown() {
-
-        commandHandler.removeCallbacksAndMessages(null)
     }
 
     private fun setupNotifications() {
@@ -150,11 +133,11 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun notifyRunning(override: Boolean = false) {
 
-        if (notificationShown != NOTIFICATION_STATE.RUNNING || override) {
+        if (notificationShown != NotificationState.RUNNING || override) {
             val notif =
                 NotificationTemplates.getRunningNotification(this.applicationContext, CHANNEL_ID)
             startForeground(NOTIFICATION_ID, notif)
-            notificationShown = NOTIFICATION_STATE.RUNNING
+            notificationShown = NotificationState.RUNNING
         }
     }
 
@@ -175,7 +158,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                 Utils.schedulePeriodicallyDownloadNextHealthCheck(this.applicationContext, healthCheckInterval)
                 Utils.schedulePeriodicallyDownloadRepeatingPurge(this.applicationContext, purgeInterval)
-                Utils.schedulePeriodicallyDownloadMatchKeysCheck(this.applicationContext, matchKeysCheckInterval)
+                Utils.schedulePeriodicallyDownloadMatchKeys(this.applicationContext, matchKeysInterval)
 
                 performStart()
             }
@@ -188,11 +171,11 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
                     performDownload()
             }
 
-            Command.ACTION_MATCH_KEYS_CHECK -> {
+            Command.ACTION_MATCH_KEYS -> {
 
-                Utils.schedulePeriodicallyDownloadMatchKeysCheck(this.applicationContext, matchKeysCheckInterval)
+                Utils.schedulePeriodicallyDownloadMatchKeys(this.applicationContext, matchKeysInterval)
 
-                performMatchKeysCheck()
+                performMatchKeys()
             }
 
             Command.ACTION_SELF_CHECK -> {
@@ -276,9 +259,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //        }
     }
 
-    private fun performMatchKeysCheck() {
+    private fun performMatchKeys() {
 
-        d("performMatchKeysCheck")
+        d("performMatchKeys")
 
 //        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
 //            d("[TempID] Need to update TemporaryID in actionUpdateBM")
@@ -328,43 +311,26 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         d("performPurge")
 
         val context = this
+
         launch {
+
             val before = System.currentTimeMillis() - purgeTTL
             d("Coroutine - Purging of data before epoch time $before")
 
-            statusRecordStorage.purgeOldRecords(before)
+            positiveKeysStorage.purgeOldRecords(before)
+
             ro.wethecitizens.firstcontact.Preference.putLastPurgeTime(context, System.currentTimeMillis())
         }
     }
 
 
-    private fun stopService() {
+    private fun destroyService() {
 
-        d("stopService")
+        d("destroyService")
 
-        teardown()
-        unregisterReceivers()
+        commandHandler.removeCallbacksAndMessages(null)
 
         job.cancel()
-    }
-
-    private fun registerReceivers() {
-
-        d("registerReceivers")
-
-        val statusReceivedFilter = IntentFilter(ACTION_RECEIVED_STATUS)
-        localBroadcastManager.registerReceiver(statusReceiver, statusReceivedFilter)
-
-    }
-
-    private fun unregisterReceivers() {
-
-        try {
-            localBroadcastManager.unregisterReceiver(statusReceiver)
-        }
-        catch (e: Throwable) {
-            CentralLog.w(TAG, "statusReceiver is not registered?")
-        }
     }
 
     private fun calcPhaseShift(min: Long, max: Long): Long {
@@ -373,72 +339,48 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     }
 
 
-    inner class StatusReceiver : BroadcastReceiver() {
-        private val TAG = "StatusReceiver"
-
-        override fun onReceive(context: Context, intent: Intent) {
-
-            if (ACTION_RECEIVED_STATUS == intent.action) {
-                var statusRecord: Status = intent.getParcelableExtra(STATUS)
-                d("Status received: ${statusRecord.msg}")
-
-                if (statusRecord.msg.isNotEmpty()) {
-                    val statusRecord = StatusRecord(statusRecord.msg)
-                    launch {
-                        statusRecordStorage.saveRecord(statusRecord)
-                    }
-                }
-            }
-        }
-    }
-
     enum class Command(val index: Int, val string: String) {
         INVALID(-1, "INVALID"),
         ACTION_START(0, "START"),
         ACTION_DOWNLOAD(1, "DOWNLOAD"),
         ACTION_STOP(2, "STOP"),
         ACTION_SELF_CHECK(4, "SELF_CHECK"),
-        ACTION_MATCH_KEYS_CHECK(5, "MATCH_KEYS_CHECK"),
+        ACTION_MATCH_KEYS(5, "MATCH_KEYS"),
         ACTION_PURGE(6, "PURGE");
 
         companion object {
-            private val types = values().associate { it.index to it }
+            private val types = values().associateBy { it.index }
             fun findByValue(value: Int) = types[value]
         }
     }
 
-    enum class NOTIFICATION_STATE() {
+    enum class NotificationState {
 
-        RUNNING,
-        LACKING_THINGS
+        RUNNING
     }
 
     companion object {
 
-        private val TAG = "PDService"
+        private const val TAG = "PDService"
 
-        private val NOTIFICATION_ID = BuildConfig.SERVICE_FOREGROUND_NOTIFICATION_ID
-        private val CHANNEL_ID = BuildConfig.SERVICE_FOREGROUND_CHANNEL_ID
-        val CHANNEL_SERVICE = BuildConfig.SERVICE_FOREGROUND_CHANNEL_NAME
+        private const val NOTIFICATION_ID = BuildConfig.SERVICE_FOREGROUND_NOTIFICATION_ID
+        private const val CHANNEL_ID = BuildConfig.SERVICE_FOREGROUND_CHANNEL_ID
+        const val CHANNEL_SERVICE = BuildConfig.SERVICE_FOREGROUND_CHANNEL_NAME
 
-        val COMMAND_KEY = "${BuildConfig.APPLICATION_ID}_CMD"
+        const val COMMAND_KEY = "${BuildConfig.APPLICATION_ID}_CMD"
 
-        val PENDING_ACTIVITY = 5
-        val PENDING_START = 6
-        val PENDING_SCAN_REQ_CODE = 7
-        val PENDING_HEALTH_CHECK_CODE = 9
-        val PENDING_WIZARD_REQ_CODE = 10
-        val PENDING_BM_UPDATE = 11
-        val PENDING_PURGE_CODE = 12
+        const val PENDING_HEALTH_CHECK_CODE = 9
+        const val PENDING_MATCH_KEYS_CODE = 11
+        const val PENDING_PURGE_CODE = 12
 
-        val scanDuration: Long = BuildConfig.SCAN_DURATION
-        val minScanInterval: Long = BuildConfig.MIN_SCAN_INTERVAL
-        val maxScanInterval: Long = BuildConfig.MAX_SCAN_INTERVAL
+        const val scanDuration: Long = BuildConfig.SCAN_DURATION
+        const val minScanInterval: Long = BuildConfig.MIN_SCAN_INTERVAL
+        const val maxScanInterval: Long = BuildConfig.MAX_SCAN_INTERVAL
 
-        val matchKeysCheckInterval: Long = BuildConfig.BM_CHECK_INTERVAL
-        val healthCheckInterval: Long = BuildConfig.HEALTH_CHECK_INTERVAL
-        val purgeInterval: Long = BuildConfig.PURGE_INTERVAL
-        val purgeTTL: Long = BuildConfig.PURGE_TTL
-        val infiniteScanning = false
+        const val matchKeysInterval: Long = BuildConfig.BM_CHECK_INTERVAL
+        const val healthCheckInterval: Long = BuildConfig.HEALTH_CHECK_INTERVAL
+        const val purgeInterval: Long = BuildConfig.PURGE_INTERVAL
+        const val purgeTTL: Long = BuildConfig.PURGE_TTL
+        const val infiniteScanning = false
     }
 }

@@ -382,6 +382,7 @@ object Utils {
 
 
     fun schedulePeriodicallyDownloadNextHealthCheck(context: Context, timeInMillis: Long) {
+
         //cancels any outstanding check schedules.
         cancelPeriodicallyDownloadNextHealthCheck(context)
 
@@ -399,7 +400,7 @@ object Utils {
         )
     }
 
-    fun cancelPeriodicallyDownloadNextHealthCheck(context: Context) {
+    private fun cancelPeriodicallyDownloadNextHealthCheck(context: Context) {
 
         val nextIntent = Intent(context, PeriodicallyDownloadService::class.java)
         nextIntent.putExtra(
@@ -428,34 +429,34 @@ object Utils {
         )
     }
 
-    fun schedulePeriodicallyDownloadMatchKeysCheck(context: Context, bmCheckInterval: Long) {
+    fun schedulePeriodicallyDownloadMatchKeys(context: Context, intervalMillis: Long) {
 
-        cancelPeriodicallyDownloadUpdateCheck(context)
+        cancelPeriodicallyDownloadMatchKeys(context)
 
         val intent = Intent(context, PeriodicallyDownloadService::class.java)
         intent.putExtra(
             PeriodicallyDownloadService.COMMAND_KEY,
-            PeriodicallyDownloadService.Command.ACTION_MATCH_KEYS_CHECK.index
+            PeriodicallyDownloadService.Command.ACTION_MATCH_KEYS.index
         )
 
         Scheduler.scheduleServiceIntent(
-            PeriodicallyDownloadService.PENDING_BM_UPDATE,
+            PeriodicallyDownloadService.PENDING_MATCH_KEYS_CODE,
             context,
             intent,
-            bmCheckInterval
+            intervalMillis
         )
     }
 
-    fun cancelPeriodicallyDownloadUpdateCheck(context: Context) {
+    private fun cancelPeriodicallyDownloadMatchKeys(context: Context) {
 
         val intent = Intent(context, PeriodicallyDownloadService::class.java)
         intent.putExtra(
             PeriodicallyDownloadService.COMMAND_KEY,
-            PeriodicallyDownloadService.Command.ACTION_MATCH_KEYS_CHECK.index
+            PeriodicallyDownloadService.Command.ACTION_MATCH_KEYS.index
         )
 
         Scheduler.cancelServiceIntent(
-            PeriodicallyDownloadService.PENDING_BM_UPDATE,
+            PeriodicallyDownloadService.PENDING_MATCH_KEYS_CODE,
             context,
             intent
         )
