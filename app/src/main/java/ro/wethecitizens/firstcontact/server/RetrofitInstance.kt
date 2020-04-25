@@ -11,7 +11,7 @@ internal class RetrofitInstance private constructor() {
         // FIXME: change with actual server endpoint
         private fun getServerUrl() : String = "https://jsonplaceholder.typicode.com/"
 
-        fun getInstance(): Retrofit = if (::client.isInitialized.not()) {
+        internal fun getInstance(): Retrofit = if (::client.isInitialized.not()) {
             synchronized(this) {
                 if (::client.isInitialized.not()) {
                     Retrofit.Builder()
