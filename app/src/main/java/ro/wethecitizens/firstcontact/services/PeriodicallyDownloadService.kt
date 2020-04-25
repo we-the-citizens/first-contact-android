@@ -229,9 +229,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         if (!infiniteScanning) {
             commandHandler.scheduleNextDownload(
-                scanDuration + calcPhaseShift(
-                    minScanInterval,
-                    maxScanInterval
+                downloadDuration + calcPhaseShift(
+                    minDownloadInterval,
+                    maxDownloadInterval
                 )
             )
         }
@@ -373,13 +373,15 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         const val PENDING_MATCH_KEYS_CODE = 11
         const val PENDING_PURGE_CODE = 12
 
-        const val scanDuration: Long = BuildConfig.SCAN_DURATION
-        const val minScanInterval: Long = BuildConfig.MIN_SCAN_INTERVAL
-        const val maxScanInterval: Long = BuildConfig.MAX_SCAN_INTERVAL
 
-        const val matchKeysInterval: Long = BuildConfig.BM_CHECK_INTERVAL
-        const val healthCheckInterval: Long = BuildConfig.HEALTH_CHECK_INTERVAL
-        const val purgeInterval: Long = BuildConfig.PURGE_INTERVAL
+        private const val ONE_MIN: Long = 60 * 1000             // In milliseconds
+
+        const val downloadDuration: Long = ONE_MIN
+        const val minDownloadInterval: Long = 5 * ONE_MIN
+        const val maxDownloadInterval: Long = 10 * ONE_MIN
+        const val matchKeysInterval: Long = 3 * 60 * ONE_MIN
+        const val healthCheckInterval: Long = ONE_MIN
+        const val purgeInterval: Long = 24 * 60 * ONE_MIN
         const val purgeTTL: Long = BuildConfig.PURGE_TTL
         const val infiniteScanning = false
     }
