@@ -118,6 +118,16 @@ android {
     androidExtensions {
         experimental = true
     }
+
+    // needed after adding retrofit + gson retrofit converter -- probably some conflict with firebase
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 
@@ -189,4 +199,11 @@ dependencies {
     //Lottie
     implementation 'com.airbnb.android:lottie:3.4.0'
 
+    // retrofit
+    def retrofitVersion = "2.8.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    // retrofit debugging
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 }
