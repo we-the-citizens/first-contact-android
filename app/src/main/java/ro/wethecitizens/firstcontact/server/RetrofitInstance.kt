@@ -1,7 +1,10 @@
 package ro.wethecitizens.firstcontact.server
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ro.wethecitizens.firstcontact.BuildConfig
 
 internal class RetrofitInstance private constructor() {
 
@@ -9,7 +12,7 @@ internal class RetrofitInstance private constructor() {
         private lateinit var client: Retrofit
 
         // FIXME: change with actual server endpoint
-        private fun getServerUrl() : String = "https://jsonplaceholder.typicode.com/"
+        private fun getServerUrl(): String = "https://jsonplaceholder.typicode.com/"
 
         internal fun getInstance(): Retrofit = if (::client.isInitialized.not()) {
             synchronized(this) {
@@ -17,10 +20,21 @@ internal class RetrofitInstance private constructor() {
                     Retrofit.Builder()
                         .baseUrl(getServerUrl())
                         .addConverterFactory(GsonConverterFactory.create())
+
+                        .also { builder ->
+                            // debug logging -- filter by "OkHttp"
+                            if (BuildConfig.DEBUG) {
+                                val interceptor = HttpLoggingInterceptor()
+                                interceptor.level = HttpLoggingInterceptor.Level.BODY
+                                val client =
+                                    OkHttpClient.Builder().addInterceptor(interceptor).build()
+
+                                builder.client(client)
+                            }
+                        }
                         .build()
                         .apply { client = this }
-                }
-                else client
+                } else client
             }
         } else client
     }

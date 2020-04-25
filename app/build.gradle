@@ -203,4 +203,7 @@ dependencies {
     def retrofitVersion = "2.8.1"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    // retrofit debugging
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 }
