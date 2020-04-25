@@ -19,7 +19,6 @@ import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.bluetooth.gatt.ACTION_RECEIVED_STATUS
 import ro.wethecitizens.firstcontact.bluetooth.gatt.STATUS
-import ro.wethecitizens.firstcontact.idmanager.TemporaryID
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
 import ro.wethecitizens.firstcontact.status.Status
@@ -99,7 +98,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     fun d(s:String) {
 
-        CentralLog.d(TAG, s);
+        CentralLog.d(TAG, s)
     }
 
     private fun setup() {
@@ -149,20 +148,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         }
     }
 
-    private fun notifyLackingThings(override: Boolean = false) {
-
-        if (notificationShown != NOTIFICATION_STATE.LACKING_THINGS || override) {
-            var notif =
-                NotificationTemplates.lackingThingsNotification(this.applicationContext, CHANNEL_ID)
-            startForeground(NOTIFICATION_ID, notif)
-            notificationShown = NOTIFICATION_STATE.LACKING_THINGS
-        }
-    }
-
     private fun notifyRunning(override: Boolean = false) {
 
         if (notificationShown != NOTIFICATION_STATE.RUNNING || override) {
-            var notif =
+            val notif =
                 NotificationTemplates.getRunningNotification(this.applicationContext, CHANNEL_ID)
             startForeground(NOTIFICATION_ID, notif)
             notificationShown = NOTIFICATION_STATE.RUNNING
@@ -171,6 +160,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     fun runService(cmd: Command?) {
 
+        d("runService")
         d("Command is:${cmd?.string}")
 
 
@@ -234,7 +224,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun performStart() {
 
-        d("actionStart")
+        d("performStart")
 
 //        TempIDManager.getTemporaryIDs(this, functions)
 //            .addOnCompleteListener {
@@ -266,7 +256,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun performDownload() {
 
-        d("actionScan")
+        d("performDownload")
 
 //        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
 //            d("[TempID] Need to update TemporaryID in actionScan")
@@ -288,7 +278,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun performMatchKeysCheck() {
 
-        d("actionUpdateBm")
+        d("performMatchKeysCheck")
 
 //        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
 //            d("[TempID] Need to update TemporaryID in actionUpdateBM")
@@ -314,7 +304,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun performHealthCheck() {
 
-        d("Performing self diagnosis")
+        d("performHealthCheck")
+
 
         notifyRunning(true)
 
@@ -333,6 +324,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     }
 
     private fun performPurge() {
+
+        d("performPurge")
 
         val context = this
         launch {
@@ -357,7 +350,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun registerReceivers() {
 
-        d("Receivers registered")
+        d("registerReceivers")
 
         val statusReceivedFilter = IntentFilter(ACTION_RECEIVED_STATUS)
         localBroadcastManager.registerReceiver(statusReceiver, statusReceivedFilter)
@@ -368,7 +361,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         try {
             localBroadcastManager.unregisterReceiver(statusReceiver)
-        } catch (e: Throwable) {
+        }
+        catch (e: Throwable) {
             CentralLog.w(TAG, "statusReceiver is not registered?")
         }
     }
@@ -427,8 +421,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         private val CHANNEL_ID = BuildConfig.SERVICE_FOREGROUND_CHANNEL_ID
         val CHANNEL_SERVICE = BuildConfig.SERVICE_FOREGROUND_CHANNEL_NAME
 
-        val PUSH_NOTIFICATION_ID = BuildConfig.PUSH_NOTIFICATION_ID
-
         val COMMAND_KEY = "${BuildConfig.APPLICATION_ID}_CMD"
 
         val PENDING_ACTIVITY = 5
@@ -439,25 +431,14 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         val PENDING_BM_UPDATE = 11
         val PENDING_PURGE_CODE = 12
 
-        var broadcastMessage: TemporaryID? = null
-
         val scanDuration: Long = BuildConfig.SCAN_DURATION
         val minScanInterval: Long = BuildConfig.MIN_SCAN_INTERVAL
         val maxScanInterval: Long = BuildConfig.MAX_SCAN_INTERVAL
 
-        val maxQueueTime: Long = BuildConfig.MAX_QUEUE_TIME
         val matchKeysCheckInterval: Long = BuildConfig.BM_CHECK_INTERVAL
         val healthCheckInterval: Long = BuildConfig.HEALTH_CHECK_INTERVAL
         val purgeInterval: Long = BuildConfig.PURGE_INTERVAL
         val purgeTTL: Long = BuildConfig.PURGE_TTL
-
-        val connectionTimeout: Long = BuildConfig.CONNECTION_TIMEOUT
-
-        val blacklistDuration: Long = BuildConfig.BLACKLIST_DURATION
-
         val infiniteScanning = false
-
-        val useBlacklist = true
-        val bmValidityCheck = false
     }
 }
