@@ -88,4 +88,7 @@
     <string name="service_not_ok_action">Check app now</string>
 
     <string name="share_message">Join me in stopping the spread of COVID-19! Download OpenTrace. Go to: https://bluetrace.io</string>
+
+    <!-- custom strings -->
+    <string name="camera_scan_message">Scanati codul de pe foaia primita de la personalul medical.</string>
 </resources>
