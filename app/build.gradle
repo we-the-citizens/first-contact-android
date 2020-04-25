@@ -189,4 +189,8 @@ dependencies {
     //Lottie
     implementation 'com.airbnb.android:lottie:3.4.0'
 
+    // retrofit
+    def retrofitVersion = "2.8.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 }
