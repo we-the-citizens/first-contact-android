@@ -199,4 +199,7 @@ dependencies {
     //Lottie
     implementation 'com.airbnb.android:lottie:3.4.0'
 
+    // qr code scanner
+    implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }
+    implementation 'com.google.zxing:core:3.3.0'
 }
