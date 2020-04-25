@@ -228,12 +228,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         d("scheduleDownload")
 
         if (!infiniteScanning) {
-            commandHandler.scheduleNextDownload(
-                downloadDuration + calcPhaseShift(
-                    minDownloadInterval,
-                    maxDownloadInterval
-                )
-            )
+            commandHandler.scheduleNextDownload(downloadDuration + calcDownloadPhaseShift())
         }
     }
 
@@ -333,9 +328,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         job.cancel()
     }
 
-    private fun calcPhaseShift(min: Long, max: Long): Long {
+    private fun calcDownloadPhaseShift(): Long {
 
-        return (min + (Math.random() * (max - min))).toLong()
+        return (minDownloadInterval + (Math.random() * (maxDownloadInterval - minDownloadInterval))).toLong()
     }
 
 
