@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -429,14 +428,14 @@ object Utils {
         )
     }
 
-    fun schedulePeriodicallyDownloadUpdateCheck(context: Context, bmCheckInterval: Long) {
+    fun schedulePeriodicallyDownloadMatchKeysCheck(context: Context, bmCheckInterval: Long) {
 
         cancelPeriodicallyDownloadUpdateCheck(context)
 
         val intent = Intent(context, PeriodicallyDownloadService::class.java)
         intent.putExtra(
             PeriodicallyDownloadService.COMMAND_KEY,
-            PeriodicallyDownloadService.Command.ACTION_UPDATE_BM.index
+            PeriodicallyDownloadService.Command.ACTION_MATCH_KEYS_CHECK.index
         )
 
         Scheduler.scheduleServiceIntent(
@@ -452,7 +451,7 @@ object Utils {
         val intent = Intent(context, PeriodicallyDownloadService::class.java)
         intent.putExtra(
             PeriodicallyDownloadService.COMMAND_KEY,
-            PeriodicallyDownloadService.Command.ACTION_UPDATE_BM.index
+            PeriodicallyDownloadService.Command.ACTION_MATCH_KEYS_CHECK.index
         )
 
         Scheduler.cancelServiceIntent(

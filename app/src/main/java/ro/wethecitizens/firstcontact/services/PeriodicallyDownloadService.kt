@@ -19,7 +19,6 @@ import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.bluetooth.gatt.ACTION_RECEIVED_STATUS
 import ro.wethecitizens.firstcontact.bluetooth.gatt.STATUS
-import ro.wethecitizens.firstcontact.idmanager.TempIDManager
 import ro.wethecitizens.firstcontact.idmanager.TemporaryID
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
@@ -83,7 +82,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         if (intent == null) {
             CentralLog.e(TAG, "WTF? Nothing in intent @ onStartCommand")
-//            Utils.startBluetoothMonitoringService(applicationContext)
             commandHandler.startPeriodicallyDownloadService()
         }
 
@@ -182,64 +180,59 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         notifyRunning()
 
         when (cmd) {
+
             Command.ACTION_START -> {
-                setupService()
+
                 Utils.schedulePeriodicallyDownloadNextHealthCheck(this.applicationContext, healthCheckInterval)
                 Utils.schedulePeriodicallyDownloadRepeatingPurge(this.applicationContext, purgeInterval)
-                Utils.schedulePeriodicallyDownloadUpdateCheck(this.applicationContext, bmCheckInterval)
-                actionStart()
+                Utils.schedulePeriodicallyDownloadMatchKeysCheck(this.applicationContext, matchKeysCheckInterval)
+
+                performStart()
             }
 
-            Command.ACTION_SCAN -> {
-                scheduleScan()
+            Command.ACTION_DOWNLOAD -> {
 
-                if (doWork) {
-                    actionScan()
-                }
+                scheduleDownload()
+
+                if (doWork)
+                    performDownload()
             }
 
-            Command.ACTION_UPDATE_BM -> {
-                Utils.schedulePeriodicallyDownloadUpdateCheck(this.applicationContext, bmCheckInterval)
-                actionUpdateBm()
-            }
+            Command.ACTION_MATCH_KEYS_CHECK -> {
 
-            Command.ACTION_STOP -> {
-                actionStop()
+                Utils.schedulePeriodicallyDownloadMatchKeysCheck(this.applicationContext, matchKeysCheckInterval)
+
+                performMatchKeysCheck()
             }
 
             Command.ACTION_SELF_CHECK -> {
+
                 Utils.schedulePeriodicallyDownloadNextHealthCheck(this.applicationContext, healthCheckInterval)
+
                 if (doWork) {
-                    actionHealthCheck()
+
+                    performHealthCheck()
+                    Utils.schedulePeriodicallyDownloadRepeatingPurge(this.applicationContext, purgeInterval)
                 }
             }
 
             Command.ACTION_PURGE -> {
-                actionPurge()
+
+                performPurge()
+            }
+
+            Command.ACTION_STOP -> {
+
+                stopForeground(true)
+                stopSelf()
             }
 
             else -> d("Invalid / ignored command: $cmd. Nothing to do")
         }
     }
 
-    private fun actionStop() {
 
-        stopForeground(true)
-        stopSelf()
-        CentralLog.w(TAG, "Service Stopping")
-    }
-
-    private fun actionHealthCheck() {
-
-        performHealthCheck()
-        Utils.schedulePeriodicallyDownloadRepeatingPurge(this.applicationContext, purgeInterval)
-    }
-
-    private fun actionPurge() {
-        performPurge()
-    }
-
-    private fun actionStart() {
+    private fun performStart() {
 
         d("actionStart")
 
@@ -254,10 +247,46 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //                }
 //            }
 
-        setupCycles()
+        commandHandler.scheduleNextDownload(1000)
     }
 
-    fun actionUpdateBm() {
+    private fun scheduleDownload() {
+
+        d("scheduleDownload")
+
+        if (!infiniteScanning) {
+            commandHandler.scheduleNextDownload(
+                scanDuration + calcPhaseShift(
+                    minScanInterval,
+                    maxScanInterval
+                )
+            )
+        }
+    }
+
+    private fun performDownload() {
+
+        d("actionScan")
+
+//        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
+//            d("[TempID] Need to update TemporaryID in actionScan")
+//            //need to pull new BM
+//            TempIDManager.getTemporaryIDs(this.applicationContext, functions)
+//                .addOnCompleteListener {
+//                    //this will run whether it starts or fails.
+//                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
+//                    fetch?.let {
+//                        broadcastMessage = it
+//                        performScan()
+//                    }
+//                }
+//        } else {
+//            d("[TempID] Don't need to update Temp ID in actionScan")
+//            performScan()
+//        }
+    }
+
+    private fun performMatchKeysCheck() {
 
         d("actionUpdateBm")
 
@@ -283,97 +312,17 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     }
 
-    fun calcPhaseShift(min: Long, max: Long): Long {
-
-        return (min + (Math.random() * (max - min))).toLong()
-    }
-
-    private fun actionScan() {
-
-        d("actionScan")
-
-//        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
-//            d("[TempID] Need to update TemporaryID in actionScan")
-//            //need to pull new BM
-//            TempIDManager.getTemporaryIDs(this.applicationContext, functions)
-//                .addOnCompleteListener {
-//                    //this will run whether it starts or fails.
-//                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-//                    fetch?.let {
-//                        broadcastMessage = it
-//                        performScan()
-//                    }
-//                }
-//        } else {
-//            d("[TempID] Don't need to update Temp ID in actionScan")
-//            performScan()
-//        }
-
-        performScan();
-    }
-
-    private fun setupService() {
-
-        d("setupService")
-
-        setupScanner()
-    }
-
-    private fun setupScanner() {
-
-        d("setupScanner")
-    }
-
-    private fun setupCycles() {
-
-        d("setupCycles")
-
-        setupScanCycles()
-    }
-
-    private fun setupScanCycles() {
-
-        commandHandler.scheduleNextScan(0)
-    }
-
-    private fun performScan() {
-
-        setupScanner()
-        startScan()
-    }
-
-    private fun scheduleScan() {
-
-        d("scheduleScan")
-
-        if (!infiniteScanning) {
-            commandHandler.scheduleNextScan(
-                scanDuration + calcPhaseShift(
-                    minScanInterval,
-                    maxScanInterval
-                )
-            )
-        }
-    }
-
-    private fun startScan() {
-
-        d("startScan")
-    }
-
     private fun performHealthCheck() {
 
         d("Performing self diagnosis")
 
         notifyRunning(true)
 
-        //ensure our service is there
-        setupService()
 
         if (!infiniteScanning) {
             if (!commandHandler.hasScanScheduled()) {
                 CentralLog.w(TAG, "Missing Scan Schedule - rectifying")
-                commandHandler.scheduleNextScan(100)
+                commandHandler.scheduleNextDownload(100)
             } else {
                 CentralLog.w(TAG, "Scan Schedule present")
             }
@@ -395,6 +344,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         }
     }
 
+
     private fun stopService() {
 
         d("stopService")
@@ -404,7 +354,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         job.cancel()
     }
-
 
     private fun registerReceivers() {
 
@@ -423,6 +372,12 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             CentralLog.w(TAG, "statusReceiver is not registered?")
         }
     }
+
+    private fun calcPhaseShift(min: Long, max: Long): Long {
+
+        return (min + (Math.random() * (max - min))).toLong()
+    }
+
 
     inner class StatusReceiver : BroadcastReceiver() {
         private val TAG = "StatusReceiver"
@@ -446,10 +401,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     enum class Command(val index: Int, val string: String) {
         INVALID(-1, "INVALID"),
         ACTION_START(0, "START"),
-        ACTION_SCAN(1, "SCAN"),
+        ACTION_DOWNLOAD(1, "DOWNLOAD"),
         ACTION_STOP(2, "STOP"),
         ACTION_SELF_CHECK(4, "SELF_CHECK"),
-        ACTION_UPDATE_BM(5, "UPDATE_BM"),
+        ACTION_MATCH_KEYS_CHECK(5, "MATCH_KEYS_CHECK"),
         ACTION_PURGE(6, "PURGE");
 
         companion object {
@@ -491,7 +446,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         val maxScanInterval: Long = BuildConfig.MAX_SCAN_INTERVAL
 
         val maxQueueTime: Long = BuildConfig.MAX_QUEUE_TIME
-        val bmCheckInterval: Long = BuildConfig.BM_CHECK_INTERVAL
+        val matchKeysCheckInterval: Long = BuildConfig.BM_CHECK_INTERVAL
         val healthCheckInterval: Long = BuildConfig.HEALTH_CHECK_INTERVAL
         val purgeInterval: Long = BuildConfig.PURGE_INTERVAL
         val purgeTTL: Long = BuildConfig.PURGE_TTL
