@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "72040c20c644a0761d30db77213820db",
+    "identityHash": "1217f085265ad5f4cb0d057c578991a5",
     "entities": [
       {
         "tableName": "record_table",
@@ -106,7 +106,7 @@
       },
       {
         "tableName": "positive_key_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `key` TEXT NOT NULL, `key_date` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `key` TEXT NOT NULL, `key_date` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -131,33 +131,16 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
-        "indices": [
-          {
-            "name": "index_positive_key_table_key",
-            "unique": false,
-            "columnNames": [
-              "key"
-            ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_positive_key_table_key` ON `${TABLE_NAME}` (`key`)"
-          },
-          {
-            "name": "index_positive_key_table_key_date",
-            "unique": false,
-            "columnNames": [
-              "key_date"
-            ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_positive_key_table_key_date` ON `${TABLE_NAME}` (`key_date`)"
-          }
-        ],
+        "indices": [],
         "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '72040c20c644a0761d30db77213820db')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1217f085265ad5f4cb0d057c578991a5')"
     ]
   }
 }
