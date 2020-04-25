@@ -5,21 +5,30 @@ import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordData
 
 class PositiveKeyRecordStorage(val context: Context) {
 
-    val statusDao = StreetPassRecordDatabase.getDatabase(context).positiveKeyDao();
+    private val dao = StreetPassRecordDatabase.getDatabase(context).positiveKeyDao();
 
     suspend fun saveRecord(record: PositiveKeyRecord) {
-        statusDao.insert(record)
+
+        dao.insert(record)
     }
 
-    fun nukeDb() {
-        statusDao.nukeDb()
+    suspend fun nukeDb() {
+
+        dao.nukeDb()
     }
 
-    fun getAllRecords(): List<PositiveKeyRecord> {
-        return statusDao.getCurrentRecords()
+    suspend fun getAllRecords(): List<PositiveKeyRecord> {
+
+        return dao.getCurrentRecords()
     }
 
     suspend fun purgeOldRecords(before: Long) {
-        statusDao.purgeOldRecords(before)
+
+        dao.purgeOldRecords(before)
+    }
+
+    suspend fun getLastId() : Long {
+
+        return dao.getLastId()
     }
 }

@@ -17,8 +17,10 @@ import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
+import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecord
 import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordStorage
 import java.lang.ref.WeakReference
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class PeriodicallyDownloadService : Service(), CoroutineScope {
@@ -209,17 +211,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         d("performStart")
 
-//        TempIDManager.getTemporaryIDs(this, functions)
-//            .addOnCompleteListener {
-//                d("Get TemporaryIDs completed")
-//                //this will run whether it starts or fails.
-//                var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-//                fetch?.let {
-//                    broadcastMessage = it
-//                    setupCycles()
-//                }
-//            }
-
         commandHandler.scheduleNextDownload(1000)
     }
 
@@ -236,47 +227,40 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         d("performDownload")
 
-//        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
-//            d("[TempID] Need to update TemporaryID in actionScan")
-//            //need to pull new BM
-//            TempIDManager.getTemporaryIDs(this.applicationContext, functions)
-//                .addOnCompleteListener {
-//                    //this will run whether it starts or fails.
-//                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-//                    fetch?.let {
-//                        broadcastMessage = it
-//                        performScan()
-//                    }
-//                }
-//        } else {
-//            d("[TempID] Don't need to update Temp ID in actionScan")
-//            performScan()
-//        }
+
+        //val context = this
+
+        launch {
+
+
+            val all = positiveKeysStorage.getAllRecords()
+
+            for (pkr in all) {
+
+                d(pkr.id.toString() + " " + pkr.key + " " + pkr.keyDate.toString())
+            }
+
+
+            val lastId:Long? = positiveKeysStorage.getLastId();
+
+            var id = lastId?: 0
+
+
+            for (i in 0..10) {
+
+                id++;
+                val key = "dfalsdjkfalsdfjkasldfj_" + id
+                val keyDate = Calendar.getInstance()
+
+                positiveKeysStorage.saveRecord(PositiveKeyRecord(id, key, keyDate))
+            }
+        }
+
     }
 
     private fun performMatchKeys() {
 
         d("performMatchKeys")
-
-//        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
-//            d("[TempID] Need to update TemporaryID in actionUpdateBM")
-//            //need to pull new BM
-//            TempIDManager.getTemporaryIDs(this, functions)
-//                .addOnCompleteListener {
-//                    //this will run whether it starts or fails.
-//                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-//                    fetch?.let {
-//                        d("[TempID] Updated Temp ID")
-//                        broadcastMessage = it
-//                    }
-//
-//                    if (fetch == null) {
-//                        CentralLog.e(TAG, "[TempID] Failed to fetch new Temp ID")
-//                    }
-//                }
-//        } else {
-//            d("[TempID] Don't need to update Temp ID in actionUpdateBM")
-//        }
 
     }
 
@@ -289,14 +273,14 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
 
         if (!infiniteScanning) {
-            if (!commandHandler.hasScanScheduled()) {
-                CentralLog.w(TAG, "Missing Scan Schedule - rectifying")
+            if (!commandHandler.hasDownloadScheduled()) {
+                CentralLog.w(TAG, "Missing Download Schedule - rectifying")
                 commandHandler.scheduleNextDownload(100)
             } else {
-                CentralLog.w(TAG, "Scan Schedule present")
+                CentralLog.w(TAG, "Download Schedule present")
             }
         } else {
-            CentralLog.w(TAG, "Should be operating under infinite scan mode")
+            CentralLog.w(TAG, "Should be operating under infinite Download mode")
         }
 
     }
@@ -372,8 +356,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         private const val ONE_MIN: Long = 60 * 1000             // In milliseconds
 
         const val downloadDuration: Long = ONE_MIN
-        const val minDownloadInterval: Long = 5 * ONE_MIN
-        const val maxDownloadInterval: Long = 10 * ONE_MIN
+        const val minDownloadInterval: Long = 1 * ONE_MIN
+        const val maxDownloadInterval: Long = 2 * ONE_MIN
         const val matchKeysInterval: Long = 3 * 60 * ONE_MIN
         const val healthCheckInterval: Long = ONE_MIN
         const val purgeInterval: Long = 24 * 60 * ONE_MIN

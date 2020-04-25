@@ -42,7 +42,7 @@ class PeriodicallyDownloadCommandHandler(val service: WeakReference<Periodically
         sendCommandMsg(PeriodicallyDownloadService.Command.ACTION_DOWNLOAD, timeInMillis)
     }
 
-    fun hasScanScheduled(): Boolean {
+    fun hasDownloadScheduled(): Boolean {
 
         return hasMessages(PeriodicallyDownloadService.Command.ACTION_DOWNLOAD.index)
     }
