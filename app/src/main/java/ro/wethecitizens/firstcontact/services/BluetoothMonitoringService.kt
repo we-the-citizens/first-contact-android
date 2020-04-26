@@ -43,6 +43,7 @@ import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStor
 import ro.wethecitizens.firstcontact.temp_id_db.TempId
 import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
 import java.lang.ref.WeakReference
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -100,7 +101,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     private fun updateTempID() {
-        val period : Long = 15*60*1000
+        val period : Long = 5000
+        val deletePeriod : Long = System.currentTimeMillis() - 1296000000  //15 days in millis
         val timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
@@ -111,7 +113,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
                     v = TEMP_ID
                 )
                 tempIdStorage.saveRecord(tempId)
-                tempIdStorage.getAllRecords()
+                tempIdStorage.purgeOldRecords(deletePeriod)
+
             }
         }, 0, period) //Update every 15 mins
     }

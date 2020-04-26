@@ -21,7 +21,7 @@ interface TempIdDao {
     fun nukeDb()
 
     @Query("DELETE FROM record_table WHERE timestamp < :before")
-    suspend fun purgeOldRecords(before: Long)
+    fun purgeOldRecords(before: Long)
 
     @RawQuery
     fun getRecordsViaQuery(query: SupportSQLiteQuery): List<TempId>

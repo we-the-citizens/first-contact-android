@@ -17,6 +17,9 @@
 
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- For Android versions < 24 need to downgrade zxing:core to 3.3.0 or earlier for Android 14+ support. https://github.com/journeyapps/zxing-android-embedded#older-sdk-versions -->
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
     <application
@@ -27,11 +30,6 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
-        <activity
-            android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="portrait"
-            tools:replace="screenOrientation" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -120,6 +118,11 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
 
     </application>
 

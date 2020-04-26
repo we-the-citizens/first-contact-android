@@ -18,7 +18,7 @@ class TempIdStorage(val context: Context) {
         return recordDao.getCurrentRecords()
     }
 
-    suspend fun purgeOldRecords(before: Long) {
+    fun purgeOldRecords(before: Long) {
         recordDao.purgeOldRecords(before)
     }
 }
