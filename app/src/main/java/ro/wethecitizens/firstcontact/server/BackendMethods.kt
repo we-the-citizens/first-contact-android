@@ -20,11 +20,15 @@ interface BackendMethods {
     @GET("/positiveIds")
     @WorkerThread
     suspend fun getPositiveKeys(
-        @Query("clientInstallDate") clientInstallDate: String,
-        @Query("clientMaxId") clientMaxId: Int,
-        @Query("limit") limit: Int
+        @Query("clientInstallDate") installDate: String
     ): List<PositiveKeyModel>
 
+    @GET("/positiveIds")
+    @WorkerThread
+    suspend fun getPositiveKeys(
+        @Query("clientInstallDate") installDate: String,
+        @Query("clientMaxId") lastId: Int
+    ): List<PositiveKeyModel>
 
 
     companion object {

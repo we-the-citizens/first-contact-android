@@ -28,9 +28,9 @@ class PositiveKeyRecordStorage(val context: Context) {
         dao.purgeOldRecords(before)
     }
 
-    suspend fun getLastId() : Long {
+    suspend fun getLastId() : Int {
 
-        val id:Long? = dao.getLastId()
+        val id:Int? = dao.getLastId()
 
         return id?:0
     }

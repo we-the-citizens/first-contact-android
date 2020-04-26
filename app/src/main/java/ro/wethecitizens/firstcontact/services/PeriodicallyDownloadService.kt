@@ -238,25 +238,31 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             var isMatchKeysRequiredToSchedule = false
 
 
-            val all = positiveKeysStorage.getAllRecords()
+//            val all = positiveKeysStorage.getAllRecords()
+//
+//            for (pkr in all) {
+//
+//                d(pkr.id.toString() + " " + pkr.key)
+//            }
 
-            for (pkr in all) {
 
-                d(pkr.id.toString() + " " + pkr.key)
-            }
-
-
-
+            val id = positiveKeysStorage.getLastId()
             val inst = BackendMethods.getInstance()
-            val keys = inst.getPositiveKeys("2020-04-26T16:45:26", 1, 1000)
+
+            val keys = if (id == 0)
+                inst.getPositiveKeys("2020-04-22T19:39:03.744Z")
+            else
+                inst.getPositiveKeys("2020-04-22T19:39:03.744Z", id)
+
 
             d("keys.size = ${keys.size}")
+
 
             for (key in keys) {
 
                 val keyDate = Calendar.getInstance()
 
-                positiveKeysStorage.saveRecord(PositiveKeyRecord(key.id.toLong(), key.tempId, keyDate))
+                positiveKeysStorage.saveRecord(PositiveKeyRecord(key.id, key.tempId, keyDate))
 
                 isMatchKeysRequiredToSchedule = true
 

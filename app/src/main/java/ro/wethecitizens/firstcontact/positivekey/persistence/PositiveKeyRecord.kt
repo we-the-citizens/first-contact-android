@@ -12,7 +12,7 @@ data class PositiveKeyRecord (
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    var id: Long = 0,
+    var id: Int = 0,
 
     @ColumnInfo(name = "key")
     val key: String,

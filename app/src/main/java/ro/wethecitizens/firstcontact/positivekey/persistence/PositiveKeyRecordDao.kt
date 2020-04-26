@@ -14,7 +14,7 @@ interface PositiveKeyRecordDao {
 //    suspend fun getMostRecentRecord(key: String): LiveData<PositiveKeyRecord?>
 
     @Query("SELECT id from positive_key_table ORDER BY id DESC")
-    suspend fun getLastId(): Long
+    suspend fun getLastId(): Int
 
     @Query("DELETE FROM positive_key_table")
     suspend fun nukeDb()
