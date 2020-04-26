@@ -2,7 +2,9 @@ package ro.wethecitizens.firstcontact
 
 import android.app.ActivityManager
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -13,6 +15,10 @@ import kotlinx.android.synthetic.main.activity_main_new.*
 import ro.wethecitizens.firstcontact.fragment.ForUseByOTCFragment
 import ro.wethecitizens.firstcontact.fragment.HomeFragment
 import ro.wethecitizens.firstcontact.logging.CentralLog
+import ro.wethecitizens.firstcontact.onboarding.OnboardingActivity
+import ro.wethecitizens.firstcontact.temp_id_db.TempId
+import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,9 +28,13 @@ class MainActivity : AppCompatActivity() {
     private var mNavigationLevel = 0
     var LAYOUT_MAIN_ID = 0
     private var selected = 0
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_new)
+
 
         Utils.startBluetoothMonitoringService(this)
         Utils.startPeriodicallyDownloadService(this)

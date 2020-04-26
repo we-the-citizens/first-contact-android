@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -15,31 +16,22 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
 import android.provider.Settings
-import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.*
-import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.functions.HttpsCallableResult
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
-import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.Utils
-import ro.wethecitizens.firstcontact.idmanager.TempIDManager
 import ro.wethecitizens.firstcontact.logging.CentralLog
-import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService
-import java.util.concurrent.TimeUnit
-import kotlin.properties.Delegates
+import java.util.*
+import kotlin.collections.HashMap
 
 private const val REQUEST_ENABLE_BT = 123
 private const val PERMISSION_REQUEST_ACCESS_LOCATION = 456
@@ -49,6 +41,7 @@ class OnboardingActivity : FragmentActivity(),
     SetupFragment.OnFragmentInteractionListener,
     SetupCompleteFragment.OnFragmentInteractionListener,
     TOUFragment.OnFragmentInteractionListener {
+
 
     private var TAG: String = "OnboardingActivity"
     private var pagerAdapter: ScreenSlidePagerAdapter? = null
