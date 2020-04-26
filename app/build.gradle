@@ -206,4 +206,9 @@ dependencies {
 
     // retrofit debugging
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+
+    // qr code scanner
+    implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }
+    // For Android versions < 24, downgrade zxing:core to 3.3.0 or earlier for Android 14+ support: https://github.com/journeyapps/zxing-android-embedded#older-sdk-versions
+    implementation 'com.google.zxing:core:3.3.0'
 }
