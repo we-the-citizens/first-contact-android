@@ -1,11 +1,12 @@
 package ro.wethecitizens.firstcontact.positivekey.persistence
 
 import android.content.Context
+import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordDatabase
 
 class PositiveKeyRecordStorage(val context: Context) {
 
-    private val dao = StreetPassRecordDatabase.getDatabase(context).positiveKeyDao();
+    private val dao = StreetPassRecordDatabase.getDatabase(context).positiveKeyDao()
 
     suspend fun saveRecord(record: PositiveKeyRecord) {
 
@@ -29,6 +30,13 @@ class PositiveKeyRecordStorage(val context: Context) {
 
     suspend fun getLastId() : Long {
 
-        return dao.getLastId()
+        val id:Long? = dao.getLastId()
+
+        return id?:0
+    }
+
+    suspend fun getMatchedKeysRecords(): List<StreetPassRecord> {
+
+        return dao.getMatchedKeysRecords()
     }
 }

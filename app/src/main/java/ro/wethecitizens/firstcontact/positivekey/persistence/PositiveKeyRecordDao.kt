@@ -2,6 +2,7 @@ package ro.wethecitizens.firstcontact.positivekey.persistence
 
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
+import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 
 @Dao
 interface PositiveKeyRecordDao {
@@ -26,5 +27,15 @@ interface PositiveKeyRecordDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(record: PositiveKeyRecord)
+
+
+    @Query(
+        "SELECT A.* " +
+            "FROM record_table A " +
+                "ORDER BY id DESC " +
+                "LIMIT 10"
+            //"INNER JOIN positive_key_table B ON B.key = A.msg"
+    )
+    suspend fun getMatchedKeysRecords(): List<StreetPassRecord>
 
 }

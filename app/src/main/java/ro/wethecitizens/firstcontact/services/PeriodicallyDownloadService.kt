@@ -229,39 +229,60 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
 
         //val context = this
+        val appCtx = this.applicationContext
+
 
         launch {
+
+            var isMatchKeysRequiredToSchedule = false
 
 
             val all = positiveKeysStorage.getAllRecords()
 
             for (pkr in all) {
 
-                d(pkr.id.toString() + " " + pkr.key + " " + pkr.keyDate.toString())
+                d(pkr.id.toString() + " " + pkr.key)
             }
 
 
-            val lastId:Long? = positiveKeysStorage.getLastId();
-
-            var id = lastId?: 0
+            var id = positiveKeysStorage.getLastId()
 
 
-            for (i in 0..10) {
+            for (i in 1..10) {
 
-                id++;
-                val key = "dfalsdjkfalsdfjkasldfj_" + id
+                id++
+
+                val key = "dfalsdjkfalsdfjkasldfj_$id"
                 val keyDate = Calendar.getInstance()
 
                 positiveKeysStorage.saveRecord(PositiveKeyRecord(id, key, keyDate))
-            }
-        }
 
+                isMatchKeysRequiredToSchedule = true
+            }
+
+
+            if (isMatchKeysRequiredToSchedule)
+                Utils.schedulePeriodicallyDownloadMatchKeys(appCtx, 1000)
+        }
     }
 
     private fun performMatchKeys() {
 
         d("performMatchKeys")
 
+        //val context = this
+        //val appCtx = this.applicationContext
+
+
+        launch {
+
+
+            val all = positiveKeysStorage.getMatchedKeysRecords()
+
+            d("size = ${all.size}")
+
+            //TODO: aici se apeleaza codul algoritmului de calcul al infectarii cu lista ca parametru
+        }
     }
 
     private fun performHealthCheck() {
