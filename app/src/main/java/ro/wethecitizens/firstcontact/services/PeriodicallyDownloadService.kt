@@ -19,6 +19,7 @@ import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
 import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecord
 import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordStorage
+import ro.wethecitizens.firstcontact.server.BackendMethods
 import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.coroutines.CoroutineContext
@@ -245,20 +246,39 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             }
 
 
-            var id = positiveKeysStorage.getLastId()
 
+            val inst = BackendMethods.getInstance()
+            val keys = inst.getPositiveKeys("2020-04-26T16:45:26", 1, 1000)
 
-            for (i in 1..10) {
+            d("keys.size = ${keys.size}")
 
-                id++
+            for (key in keys) {
 
-                val key = "dfalsdjkfalsdfjkasldfj_$id"
                 val keyDate = Calendar.getInstance()
 
-                positiveKeysStorage.saveRecord(PositiveKeyRecord(id, key, keyDate))
+                positiveKeysStorage.saveRecord(PositiveKeyRecord(key.id.toLong(), key.tempId, keyDate))
 
                 isMatchKeysRequiredToSchedule = true
+
             }
+
+
+
+//            fake data
+//
+//            var id = positiveKeysStorage.getLastId()
+//
+//            for (i in 1..10) {
+//
+//                id++
+//
+//                val key = "dfalsdjkfalsdfjkasldfj_$id"
+//                val keyDate = Calendar.getInstance()
+//
+//                positiveKeysStorage.saveRecord(PositiveKeyRecord(id, key, keyDate))
+//
+//                isMatchKeysRequiredToSchedule = true
+//            }
 
 
             if (isMatchKeysRequiredToSchedule)
