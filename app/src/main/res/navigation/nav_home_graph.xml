@@ -11,5 +11,13 @@
     <fragment
         android:id="@+id/forUseByOTCFragment"
         android:name="ro.wethecitizens.firstcontact.fragment.ForUseByOTCFragment"
-        android:label="ForUseByOTCFragment" />
+        android:label="ForUseByOTCFragment" >
+        <action
+            android:id="@+id/action_forUseByOTCFragment_to_uploadPageFragment"
+            app:destination="@id/uploadPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadPageFragment"
+        android:name="ro.wethecitizens.firstcontact.fragment.UploadPageFragment"
+        android:label="UploadPageFragment" />
 </navigation>
