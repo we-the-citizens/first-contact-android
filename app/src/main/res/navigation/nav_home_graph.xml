@@ -8,4 +8,8 @@
         android:id="@+id/homeFragment"
         android:name="ro.wethecitizens.firstcontact.fragment.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/forUseByOTCFragment"
+        android:name="ro.wethecitizens.firstcontact.fragment.ForUseByOTCFragment"
+        android:label="ForUseByOTCFragment" />
 </navigation>

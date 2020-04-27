@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main_new.*
-import ro.wethecitizens.firstcontact.fragment.ForUseByOTCFragment
 import ro.wethecitizens.firstcontact.logging.CentralLog
 
 class MainActivity : AppCompatActivity() {
@@ -31,18 +30,6 @@ class MainActivity : AppCompatActivity() {
         val mOnNavigationItemSelectedListener =
             BottomNavigationView.OnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.navigation_upload -> {
-                        if (selected != R.id.navigation_upload) {
-                            openFragment(
-                                LAYOUT_MAIN_ID, ForUseByOTCFragment(),
-                                ForUseByOTCFragment::class.java.name, 0
-                            )
-                        }
-
-                        selected =
-                            R.id.navigation_upload
-                        return@OnNavigationItemSelectedListener true
-                    }
                     R.id.navigation_help -> {
                         Toast.makeText(this, "To be implemented", Toast.LENGTH_LONG).show()
                     }
