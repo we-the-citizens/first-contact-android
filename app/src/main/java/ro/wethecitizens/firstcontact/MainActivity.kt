@@ -9,7 +9,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main_new.*
 import ro.wethecitizens.firstcontact.fragment.ForUseByOTCFragment
-import ro.wethecitizens.firstcontact.fragment.HomeFragment
 import ro.wethecitizens.firstcontact.logging.CentralLog
 
 class MainActivity : AppCompatActivity() {
@@ -32,17 +31,6 @@ class MainActivity : AppCompatActivity() {
         val mOnNavigationItemSelectedListener =
             BottomNavigationView.OnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.navigation_home -> {
-
-                        if (selected != R.id.navigation_home) {
-                            openFragment(
-                                LAYOUT_MAIN_ID, HomeFragment(),
-                                HomeFragment::class.java.name, 0
-                            )
-                        }
-                        selected = R.id.navigation_home
-                        return@OnNavigationItemSelectedListener true
-                    }
                     R.id.navigation_upload -> {
                         if (selected != R.id.navigation_upload) {
                             openFragment(
@@ -84,7 +72,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToHome() {
-        nav_view.selectedItemId = R.id.navigation_home
+        nav_view.selectedItemId = R.id.homeFragment
     }
 
     fun openFragment(
