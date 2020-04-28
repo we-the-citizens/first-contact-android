@@ -317,7 +317,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             for (d in alg.getExposureDays()) {
 
-                d("${d.year}-${d.year}-${d.year}    exposureInMinutes = ${d.exposureInMinutes}")
+                d("${d.year}-${d.month}-${d.dayOfMonth}    exposureInMinutes = ${d.exposureInMinutes}")
             }
         }
     }
