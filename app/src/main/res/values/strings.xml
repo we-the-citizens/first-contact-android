@@ -96,6 +96,8 @@
     <string name="alert_information">In cazul in care ati fost testat pozitiv de catre personalul medical, puteti avertiza alti utilizatori cu care v-ati intersectat sa ia masurile necesare pentru a se proteja si de a proteja pe ceilalti.\n\nAlerta va respecta dreptul la viata personala, astfel incat persoanele avertizate mai departe nu vor sti cine a fost persoana care a trimis aceasta avertizare.\n\nPentru a incepe, este necesara foaia printata de personalul medical cu codul unic QR, o conexiune la internet si acordul dumneavoastra oferit prin apasarea butonului de dedesubt.</string>
     <string name="alert_button">Avertizare contacți</string>
     <string name="camera_permission">Permisiune camera acordata</string>
+    <string name="internet_connection">Dispozitiv conectat la internet</string>
     <string name="permission_camera_rationale">Permiteti accesul la camera pentru a putea scana codul QR.</string>
     <string name="camera_permission_denied">Accesul la camera a fost respins.</string>
+    <string name="no_internet_connection">Aveti nevoie de o conexiune la internet inainte de a incepe.</string>
 </resources>

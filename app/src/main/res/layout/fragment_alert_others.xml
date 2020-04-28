@@ -33,6 +33,19 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/alert_info_text" />
 
+        <CheckBox
+            android:id="@+id/internet_connection_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space16"
+            android:text="@string/internet_connection"
+            android:enabled="false"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/camera_permission_box" />
+
         <Button
             android:id="@+id/alert_button"
             android:layout_width="wrap_content"
@@ -43,7 +56,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/camera_permission_box"
+            app:layout_constraintTop_toBottomOf="@+id/internet_connection_box"
             app:layout_constraintVertical_bias="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_alert_others.view.*
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.camera.startScanner
+import ro.wethecitizens.firstcontact.utils.InternetUtils
 import ro.wethecitizens.firstcontact.utils.PermissionUtils
 
 class AlertContactsFragment : Fragment(R.layout.fragment_alert_others), EasyPermissions.PermissionCallbacks {
@@ -23,11 +24,13 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others), EasyPerm
         mViewModel = ViewModelProvider(this).get(AlertContactsViewModel::class.java)
 
         view.camera_permission_box.isChecked = PermissionUtils.hasCameraPermission(view.context)
+        view.internet_connection_box.isChecked = InternetUtils.hasInternetConnection(view.context)
 
         view.alert_button.setOnClickListener {
 
             when {
                 PermissionUtils.hasCameraPermission(view.context).not() -> requestCameraPermission()
+                InternetUtils.hasInternetConnection(view.context).not() -> requestInternetConnection()
                 else -> startScanner(this)
             }
         }
@@ -65,6 +68,10 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others), EasyPerm
             PERMISSION_REQUEST_CAMERA,
             *PermissionUtils.cameraRequiredPermissions()
         )
+    }
+
+    private fun requestInternetConnection() {
+        Toast.makeText(requireContext(), R.string.no_internet_connection, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
