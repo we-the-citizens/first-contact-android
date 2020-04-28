@@ -8,13 +8,30 @@ import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService
 import ro.wethecitizens.firstcontact.streetpass.CentralDevice
 import ro.wethecitizens.firstcontact.streetpass.PeripheralDevice
+import java.util.*
 
 class TracerApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
         AppContext = applicationContext
+
+        saveInstallDate()
     }
+
+    private fun saveInstallDate() {
+
+        val ts = Preference.getInstallDateTS(AppContext)
+
+        if (ts.compareTo(0) == 0) {
+
+            Preference.putInstallDateTS(
+                AppContext,
+                Calendar.getInstance().timeInMillis
+            )
+        }
+    }
+
 
     companion object {
 

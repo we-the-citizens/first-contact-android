@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ro.wethecitizens.firstcontact.BuildConfig
+import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
@@ -246,16 +247,23 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //            }
 
 
+            val c = Calendar.getInstance()
+            c.timeInMillis = Preference.getInstallDateTS(appCtx)
+
+            //val formattedInstallDate = "2020-04-22T19:39:03.744Z"
+            val formattedInstallDate = Utils.formatCalendarToISO8601String(c)
+
+
             val id = positiveKeysStorage.getLastId()
             val inst = BackendMethods.getInstance()
 
             val keys = if (id == 0)
-                inst.getPositiveKeys("2020-04-22T19:39:03.744Z")
+                inst.getPositiveKeys(formattedInstallDate)
             else
-                inst.getPositiveKeys("2020-04-22T19:39:03.744Z", id)
+                inst.getPositiveKeys(formattedInstallDate, id)
 
 
-            d("keys.size = ${keys.size}")
+//            d("keys.size = ${keys.size}")
 
 
             for (key in keys) {
@@ -345,7 +353,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             positiveKeysStorage.purgeOldRecords(before)
 
-            ro.wethecitizens.firstcontact.Preference.putLastPurgeTime(context, System.currentTimeMillis())
+            Preference.putLastPurgeTime(context, System.currentTimeMillis())
         }
     }
 

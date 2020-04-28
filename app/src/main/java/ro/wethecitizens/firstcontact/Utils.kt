@@ -81,6 +81,22 @@ object Utils {
         return formatter.format(calendar.time)
     }
 
+    fun formatCalendarToISO8601String(c: Calendar): String {
+
+        try {
+
+            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.ROOT)
+            sdf.timeZone = TimeZone.getTimeZone("CET")
+
+            return sdf.format(c.time)
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return ""
+    }
+
     fun startBluetoothMonitoringService(context: Context) {
         val intent = Intent(context, BluetoothMonitoringService::class.java)
         intent.putExtra(
