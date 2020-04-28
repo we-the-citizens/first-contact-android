@@ -7,11 +7,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_alert_others.view.*
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.alert.AlertContactsViewModel.State.Loading
+import ro.wethecitizens.firstcontact.alert.AlertContactsViewModel.State.Success
 import ro.wethecitizens.firstcontact.camera.startScanner
 import ro.wethecitizens.firstcontact.utils.InternetUtils
 import ro.wethecitizens.firstcontact.utils.PermissionUtils
@@ -24,6 +26,11 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others),
         view?.loading_layout?.visibility = when (state) {
             Loading -> View.VISIBLE
             else -> View.GONE
+        }
+
+        when (state) {
+            Success -> Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+                .navigate(R.id.action_alertContactsFragment_to_smsFragment)
         }
     }
 

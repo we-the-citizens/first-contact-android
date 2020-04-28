@@ -100,4 +100,6 @@
     <string name="permission_camera_rationale">Permiteti accesul la camera pentru a putea scana codul QR.</string>
     <string name="camera_permission_denied">Accesul la camera a fost respins.</string>
     <string name="no_internet_connection">Aveti nevoie de o conexiune la internet inainte de a incepe.</string>
+    <string name="pin_from_sms">Introduceti PINul primit prin SMS.</string>
+    <string name="sms_pin_information_text">Asteptati sa primiti SMS cu pinul necesar validarii cererii dumneavoastra.</string>
 </resources>

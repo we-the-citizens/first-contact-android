@@ -11,7 +11,15 @@
     <fragment
         android:id="@+id/alertContactsFragment"
         android:name="ro.wethecitizens.firstcontact.alert.AlertContactsFragment"
-        android:label="AlertContactsFragment" />
+        android:label="AlertContactsFragment">
+        <action
+            android:id="@+id/action_alertContactsFragment_to_smsFragment"
+            app:destination="@id/smsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/smsFragment"
+        android:name="ro.wethecitizens.firstcontact.alert.PinFromSmsFragment"
+        android:label="SmsFragment" />
     <fragment
         android:id="@+id/helpFragment"
         android:name="ro.wethecitizens.firstcontact.fragment.HelpFragment"
@@ -23,7 +31,7 @@
     <fragment
         android:id="@+id/forUseByOTCFragment"
         android:name="ro.wethecitizens.firstcontact.fragment.ForUseByOTCFragment"
-        android:label="ForUseByOTCFragment" >
+        android:label="ForUseByOTCFragment">
         <action
             android:id="@+id/action_forUseByOTCFragment_to_uploadPageFragment"
             app:destination="@id/uploadPageFragment" />
