@@ -20,4 +20,8 @@
         android:id="@+id/uploadPageFragment"
         android:name="ro.wethecitizens.firstcontact.fragment.UploadPageFragment"
         android:label="UploadPageFragment" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="ro.wethecitizens.firstcontact.fragment.HelpFragment"
+        android:label="HelpFragment" />
 </navigation>

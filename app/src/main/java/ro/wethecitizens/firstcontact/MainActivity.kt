@@ -1,11 +1,9 @@
 package ro.wethecitizens.firstcontact
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.navigation.Navigation
+import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main_new.*
 import ro.wethecitizens.firstcontact.logging.CentralLog
@@ -14,31 +12,13 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG = "MainActivity"
 
-    // navigation
-    private var mNavigationLevel = 0
-    var LAYOUT_MAIN_ID = 0
-    private var selected = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_new)
 
         Utils.startBluetoothMonitoringService(this)
 
-        LAYOUT_MAIN_ID = R.id.content
-
-        val mOnNavigationItemSelectedListener =
-            BottomNavigationView.OnNavigationItemSelectedListener { item ->
-                when (item.itemId) {
-                    R.id.navigation_help -> {
-                        Toast.makeText(this, "To be implemented", Toast.LENGTH_LONG).show()
-                    }
-                }
-                false
-            }
-
-        nav_view.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        goToHome()
+        nav_view.setupWithNavController(Navigation.findNavController(this, R.id.nav_host_fragment))
 
         getFCMToken()
     }
@@ -56,30 +36,5 @@ class MainActivity : AppCompatActivity() {
                     CentralLog.d(TAG, "FCM token: $token")
                 }
             }
-    }
-
-    fun goToHome() {
-        nav_view.selectedItemId = R.id.homeFragment
-    }
-
-    fun openFragment(
-        containerViewId: Int,
-        fragment: Fragment,
-        tag: String,
-        title: Int
-    ) {
-        try { // pop all fragments
-            supportFragmentManager.popBackStackImmediate(
-                LAYOUT_MAIN_ID,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
-            )
-            mNavigationLevel = 0
-            val transaction =
-                supportFragmentManager.beginTransaction()
-            transaction.replace(containerViewId, fragment, tag)
-            transaction.commit()
-        } catch (e: Throwable) {
-            e.printStackTrace()
-        }
     }
 }
