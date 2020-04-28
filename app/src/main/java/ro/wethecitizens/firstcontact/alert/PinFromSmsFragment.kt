@@ -9,16 +9,19 @@ import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
 import kotlinx.android.synthetic.main.fragment_pin_from_sms.view.*
 import ro.wethecitizens.firstcontact.R
-import ro.wethecitizens.firstcontact.alert.PinFromSmsViewModel.State.ListeningFailed
-import ro.wethecitizens.firstcontact.alert.PinFromSmsViewModel.State.ListeningForSms
+import ro.wethecitizens.firstcontact.alert.PinFromSmsViewModel.State.*
 
 class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
 
     private lateinit var mViewModel: PinFromSmsViewModel
     private val stateObserver = Observer<PinFromSmsViewModel.State> { state ->
         when (state) {
-            ListeningForSms -> view?.sms_pin_input?.setHint(R.string.listening_for_sms)
-            ListeningFailed -> view?.sms_pin_input?.setHint(R.string.pin_from_sms)
+            ListeningForSms -> {
+                waitForBroadcast()
+                view?.sms_pin_input?.setHint(R.string.listening_for_sms)
+            }
+            InvalidSms, ListeningFailed -> view?.sms_pin_input?.setHint(R.string.pin_from_sms)
+            is ValidSms -> TODO("trigger server request")
         }
     }
 
@@ -35,5 +38,15 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
         view.sms_confirmation_button.setOnClickListener {
 
         }
+    }
+
+    private var listening = false
+
+    private fun waitForBroadcast() {
+        if (listening) return
+        PinSmsBroadcastReceiver.observableSmsContent.observe(viewLifecycleOwner, Observer {
+            mViewModel.handleSms(it)
+        })
+        listening = true
     }
 }
