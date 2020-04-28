@@ -31,7 +31,7 @@ class AlertContactsViewModel : ViewModel() {
         viewModelScope.launch {
 
             val patientId = UUID.randomUUID().toString()
-                .also { Preference.putPatientIdQr(it) }
+//                .also { Preference.putPatientIdQr(it) }
 
             mState.value = State.Loading
             val response = delay(5000)
