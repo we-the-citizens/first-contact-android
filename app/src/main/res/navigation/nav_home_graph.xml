@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="ro.wethecitizens.firstcontact.fragment.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/alertContactsFragment"
+        android:name="ro.wethecitizens.firstcontact.alert.AlertContactsFragment"
+        android:label="AlertContactsFragment" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="ro.wethecitizens.firstcontact.fragment.HelpFragment"
+        android:label="HelpFragment" />
+    <fragment
+        android:id="@+id/uploadPageFragment"
+        android:name="ro.wethecitizens.firstcontact.fragment.UploadPageFragment"
+        android:label="UploadPageFragment" />
+    <fragment
+        android:id="@+id/forUseByOTCFragment"
+        android:name="ro.wethecitizens.firstcontact.fragment.ForUseByOTCFragment"
+        android:label="ForUseByOTCFragment" >
+        <action
+            android:id="@+id/action_forUseByOTCFragment_to_uploadPageFragment"
+            app:destination="@id/uploadPageFragment" />
+    </fragment>
+</navigation>
