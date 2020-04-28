@@ -7,9 +7,9 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/forUseByOTCFragment"
-        android:icon="@drawable/ic_upload"
-        android:title="@string/title_upload" />
+        android:id="@+id/alertContactsFragment"
+        android:icon="@drawable/ic_notification_warning"
+        android:title="@string/title_alert" />
 
     <item
         android:id="@+id/helpFragment"

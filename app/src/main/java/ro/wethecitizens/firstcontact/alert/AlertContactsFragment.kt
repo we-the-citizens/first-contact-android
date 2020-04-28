@@ -10,14 +10,14 @@ import kotlinx.android.synthetic.main.fragment_alert_others.view.*
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.camera.startScanner
 
-class AlertOthersFragment : Fragment(R.layout.fragment_alert_others) {
+class AlertContactsFragment : Fragment(R.layout.fragment_alert_others) {
 
-    private lateinit var mViewModel: AlertOthersViewModel
+    private lateinit var mViewModel: AlertContactsViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mViewModel = ViewModelProvider(this).get(AlertOthersViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(AlertContactsViewModel::class.java)
 
         view.alert_button.setOnClickListener {
             startScanner(this)

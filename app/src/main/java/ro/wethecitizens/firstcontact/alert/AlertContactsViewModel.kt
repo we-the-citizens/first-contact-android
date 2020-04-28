@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.zxing.integration.android.IntentResult
 
-class AlertOthersViewModel : ViewModel() {
+class AlertContactsViewModel : ViewModel() {
 
     fun getScanInfo(result: IntentResult?) {
         if (result == null) {
