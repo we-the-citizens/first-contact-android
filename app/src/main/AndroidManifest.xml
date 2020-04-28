@@ -124,6 +124,16 @@
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
 
+        <!-- for SMS retriever api -->
+        <receiver
+            android:name=".alert.PinSmsBroadcastReceiver"
+            android:exported="true"
+            android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
