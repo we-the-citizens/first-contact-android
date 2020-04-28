@@ -313,8 +313,12 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             val all: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
 
-            val alg = MatchingKeysAlgorithm(all, 7)
-            alg.run()
+            val alg = MatchingKeysAlgorithm(all, minimumExposureInMinutes)
+
+            for (d in alg.getExposureDays()) {
+
+                d("${d.year}-${d.year}-${d.year}    exposureInMinutes = ${d.exposureInMinutes}")
+            }
         }
     }
 
@@ -417,6 +421,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         const val purgeInterval: Long = 24 * 60 * ONE_MIN
         const val purgeTTL: Long = BuildConfig.PURGE_TTL
         const val infiniteScanning = false
-        const val rssiThreshold = 100;
+        const val rssiThreshold = 100
+        const val minimumExposureInMinutes = 7
     }
 }

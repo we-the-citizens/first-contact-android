@@ -4,14 +4,20 @@ import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.util.*
 
 class MatchingKeysAlgorithm(
-        intersectedContacts: List<StreetPassRecord>,
-        minimumTimeExposureInMinutes: Int
-    ) {
 
-    fun run() {
+    intersectedContacts: List<StreetPassRecord>,
+    minimumExposureTimeInMinutes: Int
 
-        buildDaysList();
-        calculateAllDaysTimeExposure();
+)
+{
+
+    fun getExposureDays(): List<DayResult> {
+
+        buildDaysList()
+        calculateAllDaysExposureTime()
+        composeResult()
+
+        return resultDaysList.toList()
     }
 
 
@@ -36,7 +42,9 @@ class MatchingKeysAlgorithm(
             }
             else {
 
-                daysList.add(Day())
+                daysList.add(Day(
+                    c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)
+                ))
 
                 currentDayIdx = daysList.lastIndex
                 dayOfYear = doy
@@ -44,13 +52,13 @@ class MatchingKeysAlgorithm(
         }
     }
 
-    private fun calculateAllDaysTimeExposure() {
+    private fun calculateAllDaysExposureTime() {
 
         for (day in daysList)
-            calculateOneDayTimeExposure(day)
+            calculateOneDayExposureTime(day)
     }
 
-    private fun calculateOneDayTimeExposure(day: Day) {
+    private fun calculateOneDayExposureTime(day: Day) {
 
         var lastTempID = ""
         var lastTS: Long = 0
@@ -92,25 +100,42 @@ class MatchingKeysAlgorithm(
                 }
             }
 
-            lastTS = spr.timestamp;
+            lastTS = spr.timestamp
         }
     }
 
+    private fun composeResult() {
+
+        for (day in daysList) {
+
+            if (day.exposureInMinutes > 0)
+                resultDaysList.add(DayResult(day.year, day.month, day.dayOfMonth, day.exposureInMinutes))
+        }
+    }
 
 
     /* Private members */
 
     private val records: List<StreetPassRecord> = intersectedContacts
-    private val deltaMinutes: Int = minimumTimeExposureInMinutes
+    private val deltaMinutes: Int = minimumExposureTimeInMinutes
     private val daysList: MutableList<Day> = mutableListOf()
-
+    private val resultDaysList: MutableList<DayResult> = mutableListOf()
 
 
     /* Inner classes */
 
-    class Day {
+    class Day(
+        var year: Int, var month: Int, var dayOfMonth: Int
+    ){
 
         var exposureInMinutes: Int = 0
         var records: MutableList<StreetPassRecord> = mutableListOf()
+    }
+
+
+    class DayResult(
+        var year: Int, var month: Int, var dayOfMonth: Int, var exposureInMinutes: Int
+    ){
+
     }
 }
