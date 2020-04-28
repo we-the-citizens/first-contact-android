@@ -102,4 +102,5 @@
     <string name="no_internet_connection">Aveti nevoie de o conexiune la internet inainte de a incepe.</string>
     <string name="pin_from_sms">Introduceti PINul primit prin SMS.</string>
     <string name="sms_pin_information_text">Asteptati sa primiti SMS cu pinul necesar validarii cererii dumneavoastra.</string>
+    <string name="listening_for_sms">Se asteapta SMS cu PIN…</string>
 </resources>
