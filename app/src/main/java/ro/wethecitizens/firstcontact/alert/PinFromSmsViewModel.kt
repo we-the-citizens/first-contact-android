@@ -1,13 +1,13 @@
 package ro.wethecitizens.firstcontact.alert
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
+import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
 
 class PinFromSmsViewModel : ViewModel() {
 
-    private val mState: MutableLiveData<State> = MutableLiveData()
+    private val mState: SingleLiveEvent<State> = SingleLiveEvent()
     val observableState: LiveData<State> = mState
 
     fun listenForSms(client: SmsRetrieverClient) {

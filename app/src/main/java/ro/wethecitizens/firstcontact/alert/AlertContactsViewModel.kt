@@ -2,18 +2,18 @@ package ro.wethecitizens.firstcontact.alert
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.zxing.integration.android.IntentResult
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ro.wethecitizens.firstcontact.Preference
+import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
 import java.util.*
 
 class AlertContactsViewModel : ViewModel() {
 
-    private val mState: MutableLiveData<State> = MutableLiveData()
+    private val mState: SingleLiveEvent<State> = SingleLiveEvent()
     val observableState: LiveData<State> = mState
 
     fun getScanInfo(result: IntentResult?) {

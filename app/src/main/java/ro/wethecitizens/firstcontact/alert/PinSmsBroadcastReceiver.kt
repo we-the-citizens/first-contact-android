@@ -4,10 +4,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
+import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
 
 class PinSmsBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -31,7 +31,7 @@ class PinSmsBroadcastReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        private val mSmsContent = MutableLiveData<String>()
+        private val mSmsContent = SingleLiveEvent<String>()
         val observableSmsContent: LiveData<String> = mSmsContent
     }
 }
