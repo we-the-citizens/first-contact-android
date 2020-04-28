@@ -21,6 +21,7 @@ import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
 import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecord
 import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordStorage
 import ro.wethecitizens.firstcontact.server.BackendMethods
+import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.coroutines.CoroutineContext
@@ -310,11 +311,36 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         launch {
 
-            val all = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
+            val all: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
 
-            d("size = ${all.size}")
+            val daysList: MutableList<Day> = mutableListOf()
+            var dayOfYear = -1
+            var currentDayIdx = 0
 
-            //TODO: aici se apeleaza codul algoritmului de calcul al infectarii cu lista ca parametru
+            for (spr in all) {
+
+                val c = Calendar.getInstance()
+                c.timeInMillis = spr.timestamp
+
+                val doy = c.get(Calendar.DAY_OF_YEAR)
+
+                if (dayOfYear == doy) {
+
+                    daysList[currentDayIdx].records.add(spr)
+                }
+                else {
+
+                    daysList.add(Day())
+
+                    currentDayIdx = daysList.lastIndex
+                    dayOfYear = doy
+                }
+            }
+
+            for (day in daysList) {
+
+
+            }
         }
     }
 
@@ -370,6 +396,14 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         return (minDownloadInterval + (Math.random() * (maxDownloadInterval - minDownloadInterval))).toLong()
     }
+
+
+    class Day {
+
+        var totalExposureTime: Int = 0
+        var records: MutableList<StreetPassRecord> = mutableListOf()
+    }
+
 
 
     enum class Command(val index: Int, val string: String) {
