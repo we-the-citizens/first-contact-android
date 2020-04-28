@@ -313,34 +313,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             val all: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
 
-            val daysList: MutableList<Day> = mutableListOf()
-            var dayOfYear = -1
-            var currentDayIdx = 0
-
-            for (spr in all) {
-
-                val c = Calendar.getInstance()
-                c.timeInMillis = spr.timestamp
-
-                val doy = c.get(Calendar.DAY_OF_YEAR)
-
-                if (dayOfYear == doy) {
-
-                    daysList[currentDayIdx].records.add(spr)
-                }
-                else {
-
-                    daysList.add(Day())
-
-                    currentDayIdx = daysList.lastIndex
-                    dayOfYear = doy
-                }
-            }
-
-            for (day in daysList) {
-
-
-            }
+            val alg = MatchingKeysAlgorithm(all, 7)
+            alg.run()
         }
     }
 
@@ -396,14 +370,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         return (minDownloadInterval + (Math.random() * (maxDownloadInterval - minDownloadInterval))).toLong()
     }
-
-
-    class Day {
-
-        var totalExposureTime: Int = 0
-        var records: MutableList<StreetPassRecord> = mutableListOf()
-    }
-
 
 
     enum class Command(val index: Int, val string: String) {
