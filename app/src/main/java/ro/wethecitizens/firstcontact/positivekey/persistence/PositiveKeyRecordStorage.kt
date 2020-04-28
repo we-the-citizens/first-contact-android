@@ -35,8 +35,8 @@ class PositiveKeyRecordStorage(val context: Context) {
         return id?:0
     }
 
-    suspend fun getMatchedKeysRecords(): List<StreetPassRecord> {
+    suspend fun getMatchedKeysRecords(rssi: Int): List<StreetPassRecord> {
 
-        return dao.getMatchedKeysRecords()
+        return dao.getMatchedKeysRecords(rssi)
     }
 }

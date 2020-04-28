@@ -310,8 +310,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         launch {
 
-
-            val all = positiveKeysStorage.getMatchedKeysRecords()
+            val all = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
 
             d("size = ${all.size}")
 
@@ -418,5 +417,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         const val purgeInterval: Long = 24 * 60 * ONE_MIN
         const val purgeTTL: Long = BuildConfig.PURGE_TTL
         const val infiniteScanning = false
+        const val rssiThreshold = 100;
     }
 }

@@ -31,11 +31,11 @@ interface PositiveKeyRecordDao {
 
     @Query(
         "SELECT A.* " +
-            "FROM record_table A " +
-                "ORDER BY id DESC " +
-                "LIMIT 10"
-            //"INNER JOIN positive_key_table B ON B.key = A.msg"
+        "FROM record_table A " +
+        "INNER JOIN positive_key_table B ON B.key = A.msg " +
+        "WHERE A.rssi >= :rssi " +
+        "ORDER BY A.timestamp ASC "
     )
-    suspend fun getMatchedKeysRecords(): List<StreetPassRecord>
+    suspend fun getMatchedKeysRecords(rssi: Int): List<StreetPassRecord>
 
 }
