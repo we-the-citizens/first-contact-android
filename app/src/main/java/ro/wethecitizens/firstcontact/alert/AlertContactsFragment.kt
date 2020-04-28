@@ -3,14 +3,17 @@ package ro.wethecitizens.firstcontact.alert
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_alert_others.view.*
+import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.camera.startScanner
+import ro.wethecitizens.firstcontact.utils.PermissionUtils
 
-class AlertContactsFragment : Fragment(R.layout.fragment_alert_others) {
+class AlertContactsFragment : Fragment(R.layout.fragment_alert_others), EasyPermissions.PermissionCallbacks {
 
     private lateinit var mViewModel: AlertContactsViewModel
 
@@ -19,9 +22,31 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others) {
 
         mViewModel = ViewModelProvider(this).get(AlertContactsViewModel::class.java)
 
+        view.camera_permission_box.isChecked = PermissionUtils.hasCameraPermission(view.context)
+
         view.alert_button.setOnClickListener {
-            startScanner(this)
+
+            when {
+                PermissionUtils.hasCameraPermission(view.context).not() -> requestCameraPermission()
+                else -> startScanner(this)
+            }
         }
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        Toast.makeText(requireContext(), R.string.camera_permission_denied, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        view?.camera_permission_box?.isChecked = true
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -31,5 +56,18 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others) {
                 IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
             )
         }
+    }
+
+    private fun requestCameraPermission() {
+        EasyPermissions.requestPermissions(
+            this,
+            getString(R.string.permission_camera_rationale),
+            PERMISSION_REQUEST_CAMERA,
+            *PermissionUtils.cameraRequiredPermissions()
+        )
+    }
+
+    companion object {
+        private const val PERMISSION_REQUEST_CAMERA = 222;
     }
 }
