@@ -14,6 +14,10 @@ class StreetPassRecordStorage(val context: Context) {
         recordDao.nukeDb()
     }
 
+    suspend fun deleteAllRecords() {
+        recordDao.deleteAllRecords();
+    }
+
     fun getAllRecords(): List<StreetPassRecord> {
         return recordDao.getCurrentRecords()
     }

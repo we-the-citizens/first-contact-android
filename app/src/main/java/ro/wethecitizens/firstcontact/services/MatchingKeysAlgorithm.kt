@@ -1,5 +1,6 @@
 package ro.wethecitizens.firstcontact.services
 
+import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.util.*
@@ -43,11 +44,7 @@ class MatchingKeysAlgorithm(
 
             val doy = c.get(Calendar.DAY_OF_YEAR)
 
-            if (dayOfYear == doy) {
-
-                daysList[currentDayIdx].records.add(spr)
-            }
-            else {
+            if (dayOfYear != doy) {
 
                 daysList.add(Day(
                     c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)
@@ -56,6 +53,8 @@ class MatchingKeysAlgorithm(
                 currentDayIdx = daysList.lastIndex
                 dayOfYear = doy
             }
+
+            daysList[currentDayIdx].records.add(spr)
         }
     }
 
@@ -82,10 +81,17 @@ class MatchingKeysAlgorithm(
 
         for (spr in day.records) {
 
+            val c = Calendar.getInstance()
+            c.timeInMillis = spr.timestamp
+
+            d("${spr.id} ${spr.msg} ${Utils.formatCalendarToISO8601String(c)}")
+
             if (isTempIDIgnored) {
 
                 val msDiff = spr.timestamp - lastTS
                 val minDiff = (msDiff / (60 * 1000)).toInt()
+
+                d("1 minDiff = $minDiff");
 
                 if (minDiff < deltaMinutes) {
 
@@ -103,6 +109,8 @@ class MatchingKeysAlgorithm(
                     val msDiff = spr.timestamp - lastTS
                     val minDiff = (msDiff / (60 * 1000)).toInt()
 
+                    d("2 minDiff = $minDiff");
+
                     if (minDiff < deltaMinutes) {
 
                         day.exposureInMinutes += minDiff
@@ -118,6 +126,8 @@ class MatchingKeysAlgorithm(
 
             lastTS = spr.timestamp
         }
+
+        d("day.exposureInMinutes = ${day.exposureInMinutes}")
     }
 
     private fun composeResult() {
