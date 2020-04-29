@@ -25,9 +25,16 @@ class TracerApp : Application() {
 
         if (ts.compareTo(0) == 0) {
 
+            val c = Calendar.getInstance()
+
+            //20 zile inapoi
+            c.timeInMillis = c.timeInMillis - (20 * 24 * 60 * 60 * 1000)
+
+            CentralLog.w(TAG, c.toString())
+
             Preference.putInstallDateTS(
                 AppContext,
-                Calendar.getInstance().timeInMillis
+                c.timeInMillis
             )
         }
     }

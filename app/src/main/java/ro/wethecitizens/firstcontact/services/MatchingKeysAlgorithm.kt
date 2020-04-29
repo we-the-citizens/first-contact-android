@@ -1,5 +1,6 @@
 package ro.wethecitizens.firstcontact.services
 
+import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.util.*
 
@@ -23,6 +24,12 @@ class MatchingKeysAlgorithm(
 
 
     /* Private fun */
+
+    fun d(s: String) {
+
+        CentralLog.d("MatchingKeysAlgorithm", s)
+    }
+
 
     private fun buildDaysList() {
 
@@ -54,8 +61,17 @@ class MatchingKeysAlgorithm(
 
     private fun calculateAllDaysExposureTime() {
 
-        for (day in daysList)
+        d("-----------------------")
+        d("calculateAllDaysExposureTime")
+
+
+        for (day in daysList) {
+
+            d("-----------------------")
+            d("${day.year} ${day.month} ${day.dayOfMonth}")
+
             calculateOneDayExposureTime(day)
+        }
     }
 
     private fun calculateOneDayExposureTime(day: Day) {
@@ -115,6 +131,7 @@ class MatchingKeysAlgorithm(
 
 
     /* Private members */
+
 
     private val records: List<StreetPassRecord> = intersectedContacts
     private val deltaMinutes: Int = minimumExposureTimeInMinutes

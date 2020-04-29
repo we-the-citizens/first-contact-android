@@ -255,6 +255,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             val formattedInstallDate = Utils.formatCalendarToISO8601String(c)
 
 
+            d("formattedInstallDate = $formattedInstallDate")
+
+
             val id = positiveKeysStorage.getLastId()
             val inst = BackendMethods.getInstance()
 
@@ -296,7 +299,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //            }
 
 
-            if (isMatchKeysRequiredToSchedule)
+            //if (isMatchKeysRequiredToSchedule)
                 Utils.schedulePeriodicallyDownloadMatchKeys(appCtx, 1000)
         }
     }
@@ -306,10 +309,12 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         d("performMatchKeys")
 
         //val context = this
-        //val appCtx = this.applicationContext
+        val appCtx = this.applicationContext
 
 
         launch {
+
+            BuildFakeContacts().run(appCtx)
 
             val all: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
 
@@ -421,7 +426,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         const val purgeInterval: Long = 24 * 60 * ONE_MIN
         const val purgeTTL: Long = BuildConfig.PURGE_TTL
         const val infiniteScanning = false
-        const val rssiThreshold = 100
+        const val rssiThreshold = -100
         const val minimumExposureInMinutes = 7
     }
 }

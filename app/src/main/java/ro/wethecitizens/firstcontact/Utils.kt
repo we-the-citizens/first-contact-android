@@ -35,6 +35,7 @@ import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.time.milliseconds
 
 
 object Utils {
@@ -96,6 +97,33 @@ object Utils {
 
         return ""
     }
+
+    fun parseISO8601StringToMillis(s: String): Long {
+
+        try {
+
+            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.ROOT)
+            sdf.timeZone = TimeZone.getTimeZone("CET")
+
+            val d: Date? = sdf.parse(s)
+
+            if (d != null) {
+
+//                CentralLog.w(TAG, "----------------")
+//                CentralLog.w(TAG, d.toString())
+//                CentralLog.w(TAG, d.time.toString())
+//                CentralLog.w(TAG, System.currentTimeMillis().toString())
+
+                return d.time
+            }
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return 0
+    }
+
 
     fun startBluetoothMonitoringService(context: Context) {
         val intent = Intent(context, BluetoothMonitoringService::class.java)
