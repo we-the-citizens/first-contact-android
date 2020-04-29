@@ -258,27 +258,30 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             d("formattedInstallDate = $formattedInstallDate")
 
 
-            val id = positiveKeysStorage.getLastId()
-            val inst = BackendMethods.getInstance()
 
-            val keys = if (id == 0)
-                inst.getPositiveKeys(formattedInstallDate)
-            else
-                inst.getPositiveKeys(formattedInstallDate, id)
+            //TODO: comentat pentru ca dadea eroare retrofit
 
-
-//            d("keys.size = ${keys.size}")
-
-
-            for (key in keys) {
-
-                val keyDate = Calendar.getInstance()
-
-                positiveKeysStorage.saveRecord(PositiveKeyRecord(key.id, key.tempId, keyDate))
-
-                isMatchKeysRequiredToSchedule = true
-
-            }
+//            val id = positiveKeysStorage.getLastId()
+//            val inst = BackendMethods.getInstance()
+//
+//            val keys = if (id == 0)
+//                inst.getPositiveKeys(formattedInstallDate)
+//            else
+//                inst.getPositiveKeys(formattedInstallDate, id)
+//
+//
+////            d("keys.size = ${keys.size}")
+//
+//
+//            for (key in keys) {
+//
+//                val keyDate = Calendar.getInstance()
+//
+//                positiveKeysStorage.saveRecord(PositiveKeyRecord(key.id, key.tempId, keyDate))
+//
+//                isMatchKeysRequiredToSchedule = true
+//
+//            }
 
 
 

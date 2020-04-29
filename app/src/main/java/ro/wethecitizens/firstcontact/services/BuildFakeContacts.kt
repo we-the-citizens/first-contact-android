@@ -122,7 +122,23 @@ class BuildFakeContacts {
             rssi = -50,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r13.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:12:44.614+02:00")
+        r13.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:16:44.614+02:00")
+
+
+        val r14 = StreetPassRecord(
+            msg = "0c778b2f26ae82f59a64361698e94d1ae4ceade395100d39c4dddae0d6cd5cd0",
+            rssi = -50,
+            org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
+        )
+        r14.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:21:44.614+02:00")
+
+
+        val r15 = StreetPassRecord(
+            msg = "0c778b2f26ae82f59a64361698e94d1ae4ceade395100d39c4dddae0d6cd5cd0",
+            rssi = -50,
+            org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
+        )
+        r15.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:34:44.614+02:00")
 
 
 
@@ -139,5 +155,7 @@ class BuildFakeContacts {
         store.saveRecord(r11)
         store.saveRecord(r12)
         store.saveRecord(r13)
+        store.saveRecord(r14)
+        store.saveRecord(r15)
     }
 }
