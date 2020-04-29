@@ -14,7 +14,7 @@ internal class RetrofitInstance private constructor() {
         // FIXME: change with actual server endpoint
         // private fun getServerUrl(): String = "https://jsonplaceholder.typicode.com/"
         private fun getServerUrl(): String =
-            "http://firstcontactbackend-env.eba-cpme25pf.us-east-2.elasticbeanstalk.com/"
+            "https://first-contact-dev.us-east-2.elasticbeanstalk.com/"
 
         internal fun getInstance(): Retrofit = if (::client.isInitialized.not()) {
             synchronized(this) {
