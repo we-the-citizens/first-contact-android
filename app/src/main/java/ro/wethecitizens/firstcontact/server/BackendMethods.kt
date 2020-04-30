@@ -3,6 +3,8 @@ package ro.wethecitizens.firstcontact.server
 import androidx.annotation.WorkerThread
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
+import ro.wethecitizens.firstcontact.positivekey.server.PositiveKeyModel
 
 /**
  * Use [getInstance] to target [RetrofitInstance.getServerUrl] endpoint.
@@ -13,6 +15,21 @@ interface BackendMethods {
     @GET("/photos")
     @WorkerThread
     fun getAllPhotos(): Call<List<DummyPhotoModel>>
+
+
+    @GET("/positiveIds")
+    @WorkerThread
+    suspend fun getPositiveKeys(
+        @Query("clientInstallDate") installDate: String
+    ): List<PositiveKeyModel>
+
+    @GET("/positiveIds")
+    @WorkerThread
+    suspend fun getPositiveKeys(
+        @Query("clientInstallDate") installDate: String,
+        @Query("clientMaxId") lastId: Int
+    ): List<PositiveKeyModel>
+
 
     companion object {
         private lateinit var instance: BackendMethods

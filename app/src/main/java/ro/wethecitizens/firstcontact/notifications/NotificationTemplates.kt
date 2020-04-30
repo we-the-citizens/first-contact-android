@@ -87,5 +87,38 @@ class NotificationTemplates {
 
             return builder.build()
         }
+
+        fun getExposureNewAlertsNotification(context: Context, channel: String): Notification {
+
+            val intent = Intent(context, MainActivity::class.java)
+            val pendingIntent = PendingIntent.getActivity(context, PENDING_ACTIVITY, intent, 0)
+
+//            val intent = Intent(context, MainActivity::class.java).apply {
+//                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            }
+//            val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+
+
+            val title = context.getText(R.string.exposure_new_alerts_title)
+            val body = context.getText(R.string.exposure_new_alerts_body)
+
+            val b = NotificationCompat.Builder(context, channel)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setOngoing(true)
+                .setSmallIcon(R.drawable.ic_notification_warning)
+                .setContentIntent(pendingIntent)
+                .setTicker(body)
+                .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+                .setWhen(System.currentTimeMillis())
+                .setSound(null)
+                .setVibrate(null)
+                .setColor(ContextCompat.getColor(context, R.color.colorAccent))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setAutoCancel(true)
+
+            return b.build()
+        }
     }
 }

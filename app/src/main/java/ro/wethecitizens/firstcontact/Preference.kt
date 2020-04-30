@@ -16,6 +16,8 @@ object Preference {
 
     private const val LAST_PURGE_TIME = "LAST_PURGE_TIME"
 
+    private const val INSTALL_DATE_TS = "INSTALL_DATE_TS"
+
     private const val PATIENT_ID_QR = "PATIENT_ID_QR"
 
     private const val ANNOUNCEMENT = "ANNOUNCEMENT"
@@ -114,6 +116,16 @@ object Preference {
     fun getLastPurgeTime(context: Context): Long {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getLong(LAST_PURGE_TIME, 0)
+    }
+
+    fun putInstallDateTS(context: Context, installDateTS: Long) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putLong(INSTALL_DATE_TS, installDateTS).apply()
+    }
+
+    fun getInstallDateTS(context: Context): Long {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getLong(INSTALL_DATE_TS, 0)
     }
 
     fun registerListener(

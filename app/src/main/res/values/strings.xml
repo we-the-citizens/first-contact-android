@@ -89,6 +89,11 @@
 
     <string name="share_message">Join me in stopping the spread of COVID-19! Download OpenTrace. Go to: https://bluetrace.io</string>
 
+
+    <string name="exposure_new_alerts_title">OpenTrace exposure new alerts</string>
+    <string name="exposure_new_alerts_body">Click on this notification to see your exposure detailed info</string>
+
+
     <!-- custom strings -->
     <string name="camera_scan_message">Scanati codul de pe foaia primita de la personalul medical.</string>
 
@@ -103,4 +108,5 @@
     <string name="pin_from_sms">Introduceti PINul primit prin SMS manual.</string>
     <string name="sms_pin_information_text">Asteptati sa primiti SMS cu pinul necesar validarii cererii dumneavoastra.</string>
     <string name="listening_for_sms">PIN-ul va fi introdus automat la primirea SMS-ului…</string>
+
 </resources>
