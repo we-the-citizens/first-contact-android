@@ -7,6 +7,8 @@ import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
 
 class PinFromSmsViewModel : ViewModel() {
 
+    private lateinit var qrCode: String
+
     private val mState: SingleLiveEvent<State> = SingleLiveEvent()
     val observableState: LiveData<State> = mState
 
@@ -33,6 +35,10 @@ class PinFromSmsViewModel : ViewModel() {
     fun retrievePinFromSms(smsContent: String): String {
         // FIXME: need sms format
         return smsContent
+    }
+
+    fun setQrCode(qrCode: String) {
+        this.qrCode = qrCode
     }
 
     sealed class State {

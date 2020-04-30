@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_alert_others.view.*
 import pub.devrel.easypermissions.EasyPermissions
@@ -28,8 +28,10 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others),
         }
 
         when (state) {
-            Success -> Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-                .navigate(R.id.action_alertContactsFragment_to_smsFragment)
+            is Success -> findNavController().navigate(
+                R.id.action_alertContactsFragment_to_smsFragment,
+                Bundle().apply { putString(getString(R.string.qr_code), state.qrCode) }
+            )
             is Failed -> {
                 Toast.makeText(
                     requireContext(),

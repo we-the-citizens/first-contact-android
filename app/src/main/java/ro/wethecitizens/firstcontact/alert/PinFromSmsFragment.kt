@@ -2,9 +2,11 @@ package ro.wethecitizens.firstcontact.alert
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
 import kotlinx.android.synthetic.main.fragment_pin_from_sms.view.*
@@ -35,8 +37,11 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
         val client: SmsRetrieverClient = SmsRetriever.getClient(view.context)
         mViewModel.listenForSms(client)
 
-        view.sms_confirmation_button.setOnClickListener {
-
+        arguments?.getString(getString(R.string.qr_code))?.let { code ->
+            mViewModel.setQrCode(code)
+        } ?: run {
+            Toast.makeText(requireContext(), getString(R.string.no_qr_code), Toast.LENGTH_LONG).show()
+            findNavController().popBackStack()
         }
     }
 

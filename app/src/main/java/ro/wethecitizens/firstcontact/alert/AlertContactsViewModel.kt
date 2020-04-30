@@ -52,7 +52,8 @@ class AlertContactsViewModel : ViewModel() {
         val response = BackendMethods.getInstance().checkUploadAuthorization(requestBody)
 
         when (response.code()) {
-            HttpCode.OK.code -> mState.postValue(State.Success)
+            HttpCode.OK.code ->
+                mState.postValue(State.Success(qrCode))
             else -> {
                 val errorCode = response.code()
 
@@ -65,7 +66,7 @@ class AlertContactsViewModel : ViewModel() {
 
     sealed class State {
         object Loading : State()
-        object Success : State()
+        class Success(val qrCode: String) : State()
         class Failed(val errorType: HttpCode) : State()
     }
 }
