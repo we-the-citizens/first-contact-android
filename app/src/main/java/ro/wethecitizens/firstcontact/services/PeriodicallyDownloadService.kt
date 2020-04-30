@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
+import androidx.core.app.NotificationManagerCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +26,6 @@ import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordSt
 import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.lang.ref.WeakReference
-import java.time.Year
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -43,6 +43,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private lateinit var commandHandler: PeriodicallyDownloadCommandHandler
     private lateinit var localBroadcastManager: LocalBroadcastManager
 
+    private var cycleNoToNukeDb = 3
 
 
 
@@ -72,6 +73,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
+        d("")
+        d("------------------------------")
         d("onStartCommand")
 
         intent?.let {
@@ -141,8 +144,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
 
             val ch2 = NotificationChannel(
-                NEW_ALTERS_CHANNEL_ID,
-                NEW_ALTERS_CHANNEL_NAME,
+                NEW_ALERTS_CHANNEL_ID,
+                NEW_ALERTS_CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_HIGH
             )
             ch2.enableLights(false)
@@ -338,7 +341,14 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             //Uncomment next two lines only to fake data for test cases
 //            BuildFakeContacts().run(appCtx)
-            infectionAlertRecordStorage.nukeDb()
+
+
+            cycleNoToNukeDb--;
+
+            if (cycleNoToNukeDb == 0)
+                infectionAlertRecordStorage.nukeDb()
+
+
 
             val contacts: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
             val alerts: List<InfectionAlertRecord> = infectionAlertRecordStorage.getAllRecords()
@@ -349,10 +359,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             for (d in alg.getExposureDays()) {
 
-                d("111 ----------------------------")
-                d(Utils.formatCalendarToISO8601String(d.date))
-                d("exposureInMinutes = ${d.exposureInMinutes}")
-                d("")
+//                d("111 ----------------------------")
+//                d(Utils.formatCalendarToISO8601String(d.date))
+//                d("exposureInMinutes = ${d.exposureInMinutes}")
+//                d("")
 
                 val ed1 = d.date
                 var isDayFound = false
@@ -360,10 +370,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                 for (a in alerts) {
 
-                    d("222 ----")
-                    d(Utils.formatCalendarToISO8601String(a.exposureDate))
-                    d("exposureInMinutes = ${a.exposureInMinutes}")
-                    d("")
+//                    d("222 ----")
+//                    d(Utils.formatCalendarToISO8601String(a.exposureDate))
+//                    d("exposureInMinutes = ${a.exposureInMinutes}")
+//                    d("")
 
                     val ed2 = a.exposureDate
 
@@ -373,7 +383,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                         if (d.exposureInMinutes != a.exposureInMinutes) {
 
-                            d("updateExposureTime ${a.id} with exposureInMinutes = ${d.exposureInMinutes}")
+//                            d("updateExposureTime ${a.id} with exposureInMinutes = ${d.exposureInMinutes}")
 
                             infectionAlertRecordStorage.updateExposureTime(
                                 a.id,
@@ -388,7 +398,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                 if (!isDayFound) {
 
-                    d("saveRecord")
+//                    d("saveRecord")
 
                     infectionAlertRecordStorage.saveRecord(InfectionAlertRecord(
                         exposureDate = ed1,
@@ -403,8 +413,12 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                 d("create exposure new alert notification")
 
-                val n = NotificationTemplates.getExposureNewAlertsNotification(appCtx, NEW_ALTERS_CHANNEL_ID)
-                startForeground(NEW_ALTERS_NOTIFICATION_ID, n)
+                val n = NotificationTemplates.getExposureNewAlertsNotification(appCtx, NEW_ALERTS_CHANNEL_ID)
+                //startForeground(NEW_ALTERS_NOTIFICATION_ID, n)
+
+                with(NotificationManagerCompat.from(appCtx)) {
+                    notify(NEW_ALERTS_NOTIFICATION_ID, n)
+                }
             }
         }
     }
@@ -491,9 +505,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         private const val CHANNEL_ID = BuildConfig.SERVICE_FOREGROUND_CHANNEL_ID
         const val CHANNEL_SERVICE = BuildConfig.SERVICE_FOREGROUND_CHANNEL_NAME
 
-        private const val NEW_ALTERS_NOTIFICATION_ID = 100002
-        private const val NEW_ALTERS_CHANNEL_ID = "Exposure New Alerts ID"
-        private const val NEW_ALTERS_CHANNEL_NAME = "Exposure New Alerts Name"
+        private const val NEW_ALERTS_NOTIFICATION_ID = 100002
+        private const val NEW_ALERTS_CHANNEL_ID = "Exposure New Alerts ID"
+        private const val NEW_ALERTS_CHANNEL_NAME = "Exposure New Alerts Name"
 
 
         const val COMMAND_KEY = "${BuildConfig.APPLICATION_ID}_CMD"
