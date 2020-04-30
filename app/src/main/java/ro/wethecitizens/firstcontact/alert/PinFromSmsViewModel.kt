@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
 import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
+import java.util.regex.Pattern
 
 class PinFromSmsViewModel : ViewModel() {
 
@@ -28,13 +29,24 @@ class PinFromSmsViewModel : ViewModel() {
     fun handleSms(smsContent: String?) {
         when (smsContent) {
             null -> mState.value = State.InvalidSms
-            else -> mState.value = State.ValidSms(retrievePinFromSms(smsContent))
+            else -> {
+                retrievePinFromSms(smsContent)?.let { pin ->
+                    mState.value = State.ValidSms(pin)
+                } ?: run {
+                    mState.value = State.InvalidSms
+                }
+            }
         }
     }
 
-    fun retrievePinFromSms(smsContent: String): String {
-        // FIXME: need sms format
-        return smsContent
+    /**
+     * PIN Code should be the first number in the sms string.
+     */
+    fun retrievePinFromSms(smsContent: String): String? {
+        return Pattern.compile("\\d+")
+            .matcher(smsContent)
+            .takeIf { it.find() }
+            ?.group(0)
     }
 
     fun setQrCode(qrCode: String) {
