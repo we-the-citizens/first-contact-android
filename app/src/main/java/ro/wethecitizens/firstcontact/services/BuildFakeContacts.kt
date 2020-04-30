@@ -130,7 +130,7 @@ class BuildFakeContacts {
             rssi = -50,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r14.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:21:44.614+02:00")
+        r14.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:20:44.614+02:00")
 
 
         val r15 = StreetPassRecord(

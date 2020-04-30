@@ -8,7 +8,8 @@ import java.util.*
 class ExposureAlgorithm(
 
     contacts: List<StreetPassRecord>,
-    minimumExposureTimeInMinutes: Int
+    minimumExposureTimeInMinutes: Int,
+    enableTrace: Boolean
 
 )
 {
@@ -138,7 +139,7 @@ class ExposureAlgorithm(
 
         for (day in daysList) {
 
-            if (day.exposureInMinutes == 0)
+            if (day.exposureInMinutes < 7)
                 continue
 
             val c = Calendar.getInstance()
@@ -156,7 +157,7 @@ class ExposureAlgorithm(
 
     /* Private members */
 
-    private val isTraceActive = false
+    private val isTraceActive = enableTrace
 
     private val records: List<StreetPassRecord> = contacts
     private val deltaMinutes: Int = minimumExposureTimeInMinutes

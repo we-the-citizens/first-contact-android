@@ -20,7 +20,9 @@ import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRe
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordStorage
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
+import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecord
 import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordStorage
+import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.lang.ref.WeakReference
 import java.time.Year
@@ -264,27 +266,27 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             //TODO: comentat pentru ca dadea eroare retrofit
 
-//            val id = positiveKeysStorage.getLastId()
-//            val inst = BackendMethods.getInstance()
-//
-//            val keys = if (id == 0)
-//                inst.getPositiveKeys(formattedInstallDate)
-//            else
-//                inst.getPositiveKeys(formattedInstallDate, id)
-//
-//
-////            d("keys.size = ${keys.size}")
-//
-//
-//            for (key in keys) {
-//
-//                val keyDate = Calendar.getInstance()
-//
-//                positiveKeysStorage.saveRecord(PositiveKeyRecord(key.id, key.tempId, keyDate))
-//
-//                isMatchKeysRequiredToSchedule = true
-//
-//            }
+            val id = positiveKeysStorage.getLastId()
+            val inst = BackendMethods.getInstance()
+
+            val keys = if (id == 0)
+                inst.getPositiveKeys(formattedInstallDate)
+            else
+                inst.getPositiveKeys(formattedInstallDate, id)
+
+
+//            d("keys.size = ${keys.size}")
+
+
+            for (key in keys) {
+
+                val keyDate = Calendar.getInstance()
+
+                positiveKeysStorage.saveRecord(PositiveKeyRecord(key.id, key.tempId, keyDate))
+
+                isMatchKeysRequiredToSchedule = true
+
+            }
 
 
 
@@ -320,25 +322,31 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         launch {
 
+            //Uncomment next two lines only to fake data for test cases
             //BuildFakeContacts().run(appCtx)
+            //infectionAlertRecordStorage.nukeDb()
 
             val contacts: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
             val alerts: List<InfectionAlertRecord> = infectionAlertRecordStorage.getAllRecords()
+            val alg = ExposureAlgorithm(contacts, minimumExposureInMinutes, false)
 
-            val alg = ExposureAlgorithm(contacts, minimumExposureInMinutes)
+
+            var hasNewAlerts = false
 
             for (d in alg.getExposureDays()) {
 
-                d("-------------------------")
+                d("111 ----------------------------")
                 d(Utils.formatCalendarToISO8601String(d.date))
                 d("exposureInMinutes = ${d.exposureInMinutes}")
                 d("")
 
                 val ed1 = d.date
+                var isDayFound = false
+
 
                 for (a in alerts) {
 
-                    d("-------------------------")
+                    d("222 ----")
                     d(Utils.formatCalendarToISO8601String(a.exposureDate))
                     d("exposureInMinutes = ${a.exposureInMinutes}")
                     d("")
@@ -351,24 +359,36 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                         if (d.exposureInMinutes != a.exposureInMinutes) {
 
-                            d("update ${a.id} with exposureInMinutes = ${d.exposureInMinutes}")
+                            d("updateExposureTime ${a.id} with exposureInMinutes = ${d.exposureInMinutes}")
 
                             infectionAlertRecordStorage.updateExposureTime(
                                 a.id,
                                 d.exposureInMinutes
                             )
                         }
-                    }
-                    else {
 
-                        d("saveRecord")
-
-                        infectionAlertRecordStorage.saveRecord(InfectionAlertRecord(
-                            exposureDate = ed1,
-                            exposureInMinutes = d.exposureInMinutes
-                        ))
+                        isDayFound = true
                     }
                 }
+
+
+                if (!isDayFound) {
+
+                    d("saveRecord")
+
+                    infectionAlertRecordStorage.saveRecord(InfectionAlertRecord(
+                        exposureDate = ed1,
+                        exposureInMinutes = d.exposureInMinutes
+                    ))
+
+                    hasNewAlerts = true
+                }
+            }
+
+
+            if (hasNewAlerts) {
+
+
             }
         }
     }
