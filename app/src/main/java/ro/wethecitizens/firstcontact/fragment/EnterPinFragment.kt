@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.Task
@@ -39,21 +37,17 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
-class EnterPinFragment : Fragment() {
+class EnterPinFragment : Fragment(R.layout.fragment_upload_enterpin) {
     private var TAG = "UploadFragment"
 
     private var disposeObj: Disposable? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_upload_enterpin, container, false)
-    }
+    private lateinit var myParentFragment: UploadPageFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /** FIXME: navigation has an intermediate parent fragment as [androidx.navigation.fragment.NavHostFragment] */
+        myParentFragment = parentFragment!!.parentFragment as UploadPageFragment
 
         enterPinFragmentUploadCode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
@@ -75,7 +69,6 @@ class EnterPinFragment : Fragment() {
 
         enterPinActionButton.setOnClickListener {
             enterPinFragmentErrorMessage.visibility = View.INVISIBLE
-            var myParentFragment: UploadPageFragment = (parentFragment as UploadPageFragment)
             myParentFragment.turnOnLoadingProgress()
 
             var observableStreetRecords = Observable.create<List<StreetPassRecord>> {
@@ -116,28 +109,20 @@ class EnterPinFragment : Fragment() {
                             )
                             task.addOnFailureListener {
                                 CentralLog.d(TAG, "failed to upload")
-                                var myParentFragment: UploadPageFragment =
-                                    (parentFragment as UploadPageFragment)
                                 myParentFragment.turnOffLoadingProgress()
                                 enterPinFragmentErrorMessage.visibility = View.VISIBLE
                             }.addOnSuccessListener {
                                 CentralLog.d(TAG, "uploaded successfully")
-                                var myParentFragment: UploadPageFragment =
-                                    (parentFragment as UploadPageFragment)
                                 myParentFragment.turnOffLoadingProgress()
                                 myParentFragment.navigateToUploadComplete()
                             }
                         } catch (e: Throwable) {
                             CentralLog.d(TAG, "Failed to upload data: ${e.message}")
-                            var myParentFragment: UploadPageFragment =
-                                (parentFragment as UploadPageFragment)
                             myParentFragment.turnOffLoadingProgress()
                             enterPinFragmentErrorMessage.visibility = View.VISIBLE
                         }
                     }.addOnFailureListener {
                         CentralLog.d(TAG, "Invalid code")
-                        var myParentFragment: UploadPageFragment =
-                            (parentFragment as UploadPageFragment)
                         myParentFragment.turnOffLoadingProgress()
                         enterPinFragmentErrorMessage.visibility = View.VISIBLE
                     }
@@ -146,13 +131,11 @@ class EnterPinFragment : Fragment() {
 
         enterPinFragmentBackButtonLayout.setOnClickListener {
             println("onclick is pressed")
-            var myParentFragment: UploadPageFragment = (parentFragment as UploadPageFragment)
             myParentFragment.popStack()
         }
 
         enterPinFragmentBackButton.setOnClickListener {
             println("onclick is pressed")
-            var myParentFragment: UploadPageFragment = (parentFragment as UploadPageFragment)
             myParentFragment.popStack()
         }
     }
