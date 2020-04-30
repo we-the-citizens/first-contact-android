@@ -5,9 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.zxing.integration.android.IntentResult
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ro.wethecitizens.firstcontact.Preference
+import ro.wethecitizens.firstcontact.alert.server.AuthorizationRequest
+import ro.wethecitizens.firstcontact.server.BackendMethods
+import ro.wethecitizens.firstcontact.server.HttpCode
 import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
 import java.util.*
 
@@ -28,22 +32,40 @@ class AlertContactsViewModel : ViewModel() {
             return
         }
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
+            checkAuthorization(qrCode)
+        }
+    }
 
-            val patientId = UUID.randomUUID().toString()
-//                .also { Preference.putPatientIdQr(it) }
+    private suspend fun checkAuthorization(qrCode: String) = withContext(Dispatchers.IO) {
+        mState.postValue(State.Loading)
 
-            mState.value = State.Loading
-            val response = delay(5000)
-//            FIXME: use server method when implementation is ready
+        val patientId = UUID.randomUUID().toString()
+            // store the id locally to reuse later in sms screen
+            .also { Preference.putPatientIdQr(it) }
 
-            mState.value = State.Success
+        val requestBody = AuthorizationRequest(
+            patientId,
+            qrCode
+        )
+
+        val response = BackendMethods.getInstance().checkUploadAuthorization(requestBody)
+
+        when (response.code()) {
+            HttpCode.OK.code -> mState.postValue(State.Success)
+            else -> {
+                val errorCode = response.code()
+
+                val errorType = HttpCode.getType(errorCode)
+
+                mState.postValue(State.Failed(errorType))
+            }
         }
     }
 
     sealed class State {
-        object Loading: State()
-        object Success: State()
-        object Failed: State()
+        object Loading : State()
+        object Success : State()
+        class Failed(val errorType: HttpCode) : State()
     }
 }

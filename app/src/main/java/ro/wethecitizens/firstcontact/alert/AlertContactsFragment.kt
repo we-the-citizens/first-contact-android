@@ -12,8 +12,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_alert_others.view.*
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.R
-import ro.wethecitizens.firstcontact.alert.AlertContactsViewModel.State.Loading
-import ro.wethecitizens.firstcontact.alert.AlertContactsViewModel.State.Success
+import ro.wethecitizens.firstcontact.alert.AlertContactsViewModel.State.*
 import ro.wethecitizens.firstcontact.camera.startScanner
 import ro.wethecitizens.firstcontact.utils.InternetUtils
 import ro.wethecitizens.firstcontact.utils.PermissionUtils
@@ -31,6 +30,13 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others),
         when (state) {
             Success -> Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
                 .navigate(R.id.action_alertContactsFragment_to_smsFragment)
+            is Failed -> {
+                Toast.makeText(
+                    requireContext(),
+                    "Error code: ${state.errorType.code}, ${state.errorType::class.java.simpleName}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
@@ -93,6 +99,6 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others),
     }
 
     companion object {
-        private const val PERMISSION_REQUEST_CAMERA = 222;
+        private const val PERMISSION_REQUEST_CAMERA = 222
     }
 }
