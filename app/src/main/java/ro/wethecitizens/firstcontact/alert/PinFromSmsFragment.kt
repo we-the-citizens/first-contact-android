@@ -24,6 +24,26 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
             }
             InvalidSms, ListeningFailed -> view?.sms_pin_input?.setHint(R.string.pin_from_sms)
             ValidSms -> view?.loading_layout?.visibility = View.VISIBLE
+
+            is UploadFailed -> Toast.makeText(
+                requireContext(),
+                getString(
+                    R.string.upload_failed,
+                    state.errorType.code.toString(),
+                    state.errorType::class.java.simpleName
+                ),
+                Toast.LENGTH_LONG
+            ).show()
+
+            IdsUploaded -> {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.upload_success),
+                    Toast.LENGTH_LONG
+                ).show()
+
+                findNavController().popBackStack(R.id.homeFragment, false)
+            }
         }
     }
 
@@ -37,7 +57,8 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
 
         } ?: run {
             // close screen if no QR code provided
-            Toast.makeText(requireContext(), getString(R.string.no_qr_code), Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.no_qr_code), Toast.LENGTH_LONG)
+                .show()
             findNavController().popBackStack()
             return
         }

@@ -2,7 +2,14 @@ package ro.wethecitizens.firstcontact.alert
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import ro.wethecitizens.firstcontact.Preference
+import ro.wethecitizens.firstcontact.alert.server.PositiveIdsRequest
+import ro.wethecitizens.firstcontact.server.BackendMethods
+import ro.wethecitizens.firstcontact.server.HttpCode
 import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
 import java.util.regex.Pattern
 
@@ -42,7 +49,37 @@ class PinFromSmsViewModel : ViewModel() {
     }
 
     private fun uploadContacts(pinCode: String) {
-        // TODO()
+        viewModelScope.launch(Dispatchers.IO) {
+            val pacientId = Preference.getPatientIdQr()!!
+
+            val request = PositiveIdsRequest(
+                pacientId,
+                pinCode,
+
+                // FIXME: Load from database!!!
+
+                listOf(
+                    PositiveIdsRequest.PositiveId(
+                        tempId = "TEST_10_2_10",
+                        date = "2020-04-25T04:20:69.278Z"
+                    )
+                )
+            )
+
+            val response = BackendMethods.getInstance().uploadPositiveIds(request)
+
+            when (response.code()) {
+                HttpCode.OK.code ->
+                    mState.postValue(State.IdsUploaded)
+                else -> {
+                    val errorCode = response.code()
+
+                    val errorType = HttpCode.getType(errorCode)
+
+                    mState.postValue(State.UploadFailed(errorType))
+                }
+            }
+        }
     }
 
     /**
@@ -64,5 +101,8 @@ class PinFromSmsViewModel : ViewModel() {
         object ListeningFailed : State()
         object InvalidSms : State()
         object ValidSms : State()
+
+        object IdsUploaded : State()
+        class UploadFailed(val errorType: HttpCode) : State()
     }
 }
