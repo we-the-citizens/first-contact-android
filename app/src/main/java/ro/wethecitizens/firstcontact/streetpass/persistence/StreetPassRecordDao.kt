@@ -19,6 +19,9 @@ interface StreetPassRecordDao {
     @Query("DELETE FROM record_table")
     fun nukeDb()
 
+    @Query("DELETE FROM record_table")
+    suspend fun deleteAllRecords()
+
     @Query("DELETE FROM record_table WHERE timestamp < :before")
     suspend fun purgeOldRecords(before: Long)
 

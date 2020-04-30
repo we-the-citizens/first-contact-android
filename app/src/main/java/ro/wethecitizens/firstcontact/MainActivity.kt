@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main_new)
 
         Utils.startBluetoothMonitoringService(this)
+        Utils.startPeriodicallyDownloadService(this)
+
 
         nav_view.setupWithNavController(Navigation.findNavController(this, R.id.nav_host_fragment))
 
