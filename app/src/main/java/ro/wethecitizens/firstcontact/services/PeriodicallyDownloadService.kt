@@ -324,6 +324,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //            }
 
 
+
             //if (isMatchKeysRequiredToSchedule)
                 Utils.schedulePeriodicallyDownloadMatchKeys(appCtx, 1000)
         }
