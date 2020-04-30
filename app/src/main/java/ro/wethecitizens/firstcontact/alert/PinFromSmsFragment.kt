@@ -30,19 +30,23 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mViewModel = ViewModelProvider(this).get(PinFromSmsViewModel::class.java)
+        arguments?.getString(getString(R.string.qr_code))?.let { code ->
+            // fragment should have QR code available to go on to the next step
+            mViewModel = ViewModelProvider(this).get(PinFromSmsViewModel::class.java)
+            mViewModel.setQrCode(code)
+
+        } ?: run {
+            // close screen if no QR code provided
+            Toast.makeText(requireContext(), getString(R.string.no_qr_code), Toast.LENGTH_LONG).show()
+            findNavController().popBackStack()
+            return
+        }
+
         mViewModel.observableState.observe(viewLifecycleOwner, stateObserver)
 
         // start sms listener
         val client: SmsRetrieverClient = SmsRetriever.getClient(view.context)
         mViewModel.listenForSms(client)
-
-        arguments?.getString(getString(R.string.qr_code))?.let { code ->
-            mViewModel.setQrCode(code)
-        } ?: run {
-            Toast.makeText(requireContext(), getString(R.string.no_qr_code), Toast.LENGTH_LONG).show()
-            findNavController().popBackStack()
-        }
     }
 
     private var listening = false
