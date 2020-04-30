@@ -20,8 +20,8 @@ data class InfectionAlertRecord (
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id: Int = 0
+    var id: Int = 0
 
     @ColumnInfo(name = "create_date")
-    val createDate: Calendar = Calendar.getInstance()
+    var createDate: Calendar = Calendar.getInstance()
 }

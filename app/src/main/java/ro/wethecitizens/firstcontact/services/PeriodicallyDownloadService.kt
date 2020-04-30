@@ -16,11 +16,14 @@ import kotlinx.coroutines.launch
 import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.Utils
+import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecord
+import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordStorage
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
 import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordStorage
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.lang.ref.WeakReference
+import java.time.Year
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -34,6 +37,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private var notificationShown: NotificationState? = null
 
     private lateinit var positiveKeysStorage: PositiveKeyRecordStorage
+    private lateinit var infectionAlertRecordStorage: InfectionAlertRecordStorage
     private lateinit var commandHandler: PeriodicallyDownloadCommandHandler
     private lateinit var localBroadcastManager: LocalBroadcastManager
 
@@ -109,6 +113,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         commandHandler = PeriodicallyDownloadCommandHandler(WeakReference(this))
 
         positiveKeysStorage = PositiveKeyRecordStorage(this.applicationContext)
+        infectionAlertRecordStorage = InfectionAlertRecordStorage(this.applicationContext)
 
         setupNotifications()
     }
@@ -318,12 +323,52 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             //BuildFakeContacts().run(appCtx)
 
             val contacts: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
+            val alerts: List<InfectionAlertRecord> = infectionAlertRecordStorage.getAllRecords()
 
             val alg = ExposureAlgorithm(contacts, minimumExposureInMinutes)
 
             for (d in alg.getExposureDays()) {
 
-                d("${Utils.formatCalendarToISO8601String(d.date)}    exposureInMinutes = ${d.exposureInMinutes}")
+                d("-------------------------")
+                d(Utils.formatCalendarToISO8601String(d.date))
+                d("exposureInMinutes = ${d.exposureInMinutes}")
+                d("")
+
+                val ed1 = d.date
+
+                for (a in alerts) {
+
+                    d("-------------------------")
+                    d(Utils.formatCalendarToISO8601String(a.exposureDate))
+                    d("exposureInMinutes = ${a.exposureInMinutes}")
+                    d("")
+
+                    val ed2 = a.exposureDate
+
+                    if (ed1.get(Calendar.YEAR) == ed2.get(Calendar.YEAR) &&
+                        ed1.get(Calendar.MONTH) == ed2.get(Calendar.MONTH) &&
+                        ed1.get(Calendar.DAY_OF_MONTH) == ed2.get(Calendar.DAY_OF_MONTH)) {
+
+                        if (d.exposureInMinutes != a.exposureInMinutes) {
+
+                            d("update ${a.id} with exposureInMinutes = ${d.exposureInMinutes}")
+
+                            infectionAlertRecordStorage.updateExposureTime(
+                                a.id,
+                                d.exposureInMinutes
+                            )
+                        }
+                    }
+                    else {
+
+                        d("saveRecord")
+
+                        infectionAlertRecordStorage.saveRecord(InfectionAlertRecord(
+                            exposureDate = ed1,
+                            exposureInMinutes = d.exposureInMinutes
+                        ))
+                    }
+                }
             }
         }
     }
