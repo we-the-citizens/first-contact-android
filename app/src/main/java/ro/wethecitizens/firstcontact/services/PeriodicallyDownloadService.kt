@@ -138,6 +138,20 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             // Set the Notification Channel for the Notification Manager.
             mNotificationManager!!.createNotificationChannel(mChannel)
+
+
+            val ch2 = NotificationChannel(
+                NEW_ALTERS_CHANNEL_ID,
+                NEW_ALTERS_CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            ch2.enableLights(false)
+            ch2.enableVibration(true)
+            ch2.vibrationPattern = longArrayOf(0L)
+            ch2.setSound(null, null)
+            ch2.setShowBadge(false)
+
+            mNotificationManager!!.createNotificationChannel(ch2)
         }
     }
 
@@ -323,8 +337,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         launch {
 
             //Uncomment next two lines only to fake data for test cases
-            //BuildFakeContacts().run(appCtx)
-            //infectionAlertRecordStorage.nukeDb()
+//            BuildFakeContacts().run(appCtx)
+            infectionAlertRecordStorage.nukeDb()
 
             val contacts: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
             val alerts: List<InfectionAlertRecord> = infectionAlertRecordStorage.getAllRecords()
@@ -385,10 +399,11 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
                 }
             }
 
-
             if (hasNewAlerts) {
 
-                val n = NotificationTemplates.getExposureNewAlertsNotification(appCtx, CHANNEL_ID)
+                d("create exposure new alert notification")
+
+                val n = NotificationTemplates.getExposureNewAlertsNotification(appCtx, NEW_ALTERS_CHANNEL_ID)
                 startForeground(NEW_ALTERS_NOTIFICATION_ID, n)
             }
         }
@@ -472,10 +487,14 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         private const val TAG = "PDService"
 
-        private const val NOTIFICATION_ID = 100001
-        private const val NEW_ALTERS_NOTIFICATION_ID = 100002
+        private const val NOTIFICATION_ID = BuildConfig.SERVICE_FOREGROUND_NOTIFICATION_ID
         private const val CHANNEL_ID = BuildConfig.SERVICE_FOREGROUND_CHANNEL_ID
         const val CHANNEL_SERVICE = BuildConfig.SERVICE_FOREGROUND_CHANNEL_NAME
+
+        private const val NEW_ALTERS_NOTIFICATION_ID = 100002
+        private const val NEW_ALTERS_CHANNEL_ID = "Exposure New Alerts ID"
+        private const val NEW_ALTERS_CHANNEL_NAME = "Exposure New Alerts Name"
+
 
         const val COMMAND_KEY = "${BuildConfig.APPLICATION_ID}_CMD"
 
