@@ -88,4 +88,8 @@
     <string name="service_not_ok_action">Check app now</string>
 
     <string name="share_message">Join me in stopping the spread of COVID-19! Download OpenTrace. Go to: https://bluetrace.io</string>
+
+    <string name="exposure_new_alters_title">OpenTrace exposure new alerts</string>
+    <string name="exposure_new_alters_body">Click on this notification to see your exposure detailed info</string>
+
 </resources>

@@ -388,7 +388,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             if (hasNewAlerts) {
 
-
+                val n = NotificationTemplates.getExposureNewAlertsNotification(appCtx, CHANNEL_ID)
+                startForeground(NEW_ALTERS_NOTIFICATION_ID, n)
             }
         }
     }
@@ -471,7 +472,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         private const val TAG = "PDService"
 
-        private const val NOTIFICATION_ID = BuildConfig.SERVICE_FOREGROUND_NOTIFICATION_ID
+        private const val NOTIFICATION_ID = 100001
+        private const val NEW_ALTERS_NOTIFICATION_ID = 100002
         private const val CHANNEL_ID = BuildConfig.SERVICE_FOREGROUND_CHANNEL_ID
         const val CHANNEL_SERVICE = BuildConfig.SERVICE_FOREGROUND_CHANNEL_NAME
 
