@@ -23,7 +23,7 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
                 view?.sms_pin_input?.setHint(R.string.listening_for_sms)
             }
             InvalidSms, ListeningFailed -> view?.sms_pin_input?.setHint(R.string.pin_from_sms)
-            is ValidSms -> TODO("trigger server request")
+            ValidSms -> view?.loading_layout?.visibility = View.VISIBLE
         }
     }
 
@@ -53,9 +53,11 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
 
     private fun waitForBroadcast() {
         if (listening) return
+
         PinSmsBroadcastReceiver.observableSmsContent.observe(viewLifecycleOwner, Observer {
             mViewModel.handleSms(it)
         })
+
         listening = true
     }
 }

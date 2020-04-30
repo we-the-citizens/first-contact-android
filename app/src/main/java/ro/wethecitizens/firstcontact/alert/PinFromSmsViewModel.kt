@@ -31,12 +31,18 @@ class PinFromSmsViewModel : ViewModel() {
             null -> mState.value = State.InvalidSms
             else -> {
                 retrievePinFromSms(smsContent)?.let { pin ->
-                    mState.value = State.ValidSms(pin)
+                    mState.value = State.ValidSms
+
+                    uploadContacts(pin)
                 } ?: run {
                     mState.value = State.InvalidSms
                 }
             }
         }
+    }
+
+    private fun uploadContacts(pinCode: String) {
+        // TODO()
     }
 
     /**
@@ -57,6 +63,6 @@ class PinFromSmsViewModel : ViewModel() {
         object ListeningForSms : State()
         object ListeningFailed : State()
         object InvalidSms : State()
-        class ValidSms(val pinCode: String) : State()
+        object ValidSms : State()
     }
 }
