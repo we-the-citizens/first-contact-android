@@ -7,6 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import ro.wethecitizens.firstcontact.alert.server.AuthorizationRequest
 import retrofit2.http.Query
+import ro.wethecitizens.firstcontact.alert.server.PositiveIdsRequest
 import ro.wethecitizens.firstcontact.positivekey.server.PositiveKeyModel
 
 /**
@@ -30,6 +31,10 @@ interface BackendMethods {
     @POST("/positiveIds/authorization")
     @WorkerThread
     suspend fun checkUploadAuthorization(@Body authorizationRequest: AuthorizationRequest): Response<Unit>
+
+    @POST("/positiveIds")
+    @WorkerThread
+    suspend fun uploadPositiveIds(@Body positiveIdsRequest: PositiveIdsRequest): Response<Unit>
 
     companion object {
         private lateinit var instance: BackendMethods
