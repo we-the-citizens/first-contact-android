@@ -5,9 +5,9 @@ import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.util.*
 
-class MatchingKeysAlgorithm(
+class ExposureAlgorithm(
 
-    intersectedContacts: List<StreetPassRecord>,
+    contacts: List<StreetPassRecord>,
     minimumExposureTimeInMinutes: Int
 
 )
@@ -28,7 +28,8 @@ class MatchingKeysAlgorithm(
 
     fun d(s: String) {
 
-        CentralLog.d("MatchingKeysAlgorithm", s)
+        if (isTraceActive)
+            CentralLog.d("ExposureAlgorithm", s)
     }
 
 
@@ -62,18 +63,19 @@ class MatchingKeysAlgorithm(
 
         d("-----------------------")
         d("calculateAllDaysExposureTime")
+        d("")
 
 
-        for (day in daysList) {
-
-            d("-----------------------")
-            d("${day.year} ${day.month} ${day.dayOfMonth}")
-
+        for (day in daysList)
             calculateOneDayExposureTime(day)
-        }
     }
 
     private fun calculateOneDayExposureTime(day: Day) {
+
+        d("-----------------------")
+        d("calculateOneDayExposureTime")
+        d("")
+
 
         var lastTempID = ""
         var lastTS: Long = 0
@@ -91,7 +93,7 @@ class MatchingKeysAlgorithm(
                 val msDiff = spr.timestamp - lastTS
                 val minDiff = (msDiff / (60 * 1000)).toInt()
 
-                d("1 minDiff = $minDiff");
+                d("1 minDiff = $minDiff")
 
                 if (minDiff < deltaMinutes) {
 
@@ -109,7 +111,7 @@ class MatchingKeysAlgorithm(
                     val msDiff = spr.timestamp - lastTS
                     val minDiff = (msDiff / (60 * 1000)).toInt()
 
-                    d("2 minDiff = $minDiff");
+                    d("2 minDiff = $minDiff")
 
                     if (minDiff < deltaMinutes) {
 
@@ -128,22 +130,35 @@ class MatchingKeysAlgorithm(
         }
 
         d("day.exposureInMinutes = ${day.exposureInMinutes}")
+        d("")
+        d("")
     }
 
     private fun composeResult() {
 
         for (day in daysList) {
 
-            if (day.exposureInMinutes > 0)
-                resultDaysList.add(DayResult(day.year, day.month, day.dayOfMonth, day.exposureInMinutes))
+            if (day.exposureInMinutes == 0)
+                continue
+
+            val c = Calendar.getInstance()
+            c.set(day.year, day.month, day.dayOfMonth, 17, 0, 0)
+
+            resultDaysList.add(
+                DayResult(
+                    date = c,
+                    exposureInMinutes = day.exposureInMinutes
+                )
+            )
         }
     }
 
 
     /* Private members */
 
+    private val isTraceActive = false
 
-    private val records: List<StreetPassRecord> = intersectedContacts
+    private val records: List<StreetPassRecord> = contacts
     private val deltaMinutes: Int = minimumExposureTimeInMinutes
     private val daysList: MutableList<Day> = mutableListOf()
     private val resultDaysList: MutableList<DayResult> = mutableListOf()
@@ -161,7 +176,7 @@ class MatchingKeysAlgorithm(
 
 
     class DayResult(
-        var year: Int, var month: Int, var dayOfMonth: Int, var exposureInMinutes: Int
+        var date: Calendar, var exposureInMinutes: Int
     ){
 
     }

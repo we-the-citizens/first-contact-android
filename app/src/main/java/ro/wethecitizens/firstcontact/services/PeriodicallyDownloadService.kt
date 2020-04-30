@@ -18,9 +18,7 @@ import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
-import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecord
 import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordStorage
-import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.lang.ref.WeakReference
 import java.util.*
@@ -317,15 +315,15 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         launch {
 
-            BuildFakeContacts().run(appCtx)
+            //BuildFakeContacts().run(appCtx)
 
-            val all: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
+            val contacts: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
 
-            val alg = MatchingKeysAlgorithm(all, minimumExposureInMinutes)
+            val alg = ExposureAlgorithm(contacts, minimumExposureInMinutes)
 
             for (d in alg.getExposureDays()) {
 
-                d("${d.year}-${d.month}-${d.dayOfMonth}    exposureInMinutes = ${d.exposureInMinutes}")
+                d("${Utils.formatCalendarToISO8601String(d.date)}    exposureInMinutes = ${d.exposureInMinutes}")
             }
         }
     }
