@@ -11,8 +11,6 @@ internal class RetrofitInstance private constructor() {
     companion object {
         private lateinit var client: Retrofit
 
-        // FIXME: change with actual server endpoint
-        // private fun getServerUrl(): String = "https://jsonplaceholder.typicode.com/"
         private fun getServerUrl(): String =
             "https://first-contact-dev.us-east-2.elasticbeanstalk.com/"
 
