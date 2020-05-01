@@ -50,6 +50,7 @@ class TracerApp : Application() {
         fun thisDeviceMsg(): String {
 
             BluetoothMonitoringService.broadcastMessage?.let {
+
                 CentralLog.i(TAG, "Retrieved BM for storage: $it")
 
                 if (!it.isValidForCurrentTime()) {
@@ -66,6 +67,11 @@ class TracerApp : Application() {
 
                 }
             }
+
+
+            CentralLog.i(TAG, "thisDeviceMsg: ${BluetoothMonitoringService.broadcastMessage?.tempID}")
+
+
             return BluetoothMonitoringService.broadcastMessage?.tempID ?: "Missing TempID"
         }
 
