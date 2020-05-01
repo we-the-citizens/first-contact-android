@@ -611,6 +611,10 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
                 CentralLog.i(TAG, "TempID = ${t.v}  ts = ${t.timestamp}")
             }
+
+
+            //Se foloseste doar in dev cand sunt prea multe in lista de mai sus
+            //tempIdStorage.nukeDb()
         }
     }
 
