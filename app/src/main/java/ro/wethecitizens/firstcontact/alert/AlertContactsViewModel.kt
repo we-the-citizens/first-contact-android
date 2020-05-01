@@ -50,9 +50,9 @@ class AlertContactsViewModel : ViewModel() {
             try {
                 val response = BackendMethods.getInstance().checkUploadAuthorization(requestBody)
 
-                when (response.code()) {
-                    HttpCode.OK.code ->
-                        mState.postValue(State.Success)
+                when (response.isSuccessful) {
+                    true -> mState.postValue(State.Success)
+
                     else -> {
                         val errorCode = response.code()
 

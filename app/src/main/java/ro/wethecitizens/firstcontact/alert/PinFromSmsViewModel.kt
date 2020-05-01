@@ -53,9 +53,8 @@ class PinFromSmsViewModel : ViewModel() {
             try {
                 val response = BackendMethods.getInstance().uploadPositiveIds(request)
 
-                when (response.code()) {
-                    HttpCode.OK.code ->
-                        mState.postValue(State.IdsUploaded)
+                when (response.isSuccessful) {
+                    true -> mState.postValue(State.IdsUploaded)
                     else -> {
                         val errorCode = response.code()
 
