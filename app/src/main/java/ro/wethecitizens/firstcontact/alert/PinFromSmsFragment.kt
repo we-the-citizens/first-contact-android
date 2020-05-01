@@ -20,11 +20,11 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
         when (state) {
             ListeningForSms -> {
                 view?.sms_pin_input?.setHint(R.string.listening_for_sms)
-                view?.sms_confirmation_button?.isEnabled = false
+//                view?.sms_confirmation_button?.isEnabled = false
             }
             else -> {
                 view?.sms_pin_input?.setHint(R.string.pin_from_sms)
-                view?.sms_confirmation_button?.isEnabled = true
+//                view?.sms_confirmation_button?.isEnabled = true
             }
         }
     }
