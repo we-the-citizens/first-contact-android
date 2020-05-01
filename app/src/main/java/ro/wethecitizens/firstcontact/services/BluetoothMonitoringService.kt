@@ -275,7 +275,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         var doWork = true
 
         CentralLog.i(TAG, "")
-        CentralLog.i(TAG, "-------------------------")
+        CentralLog.i(TAG, "-------------------------------------------------------------------------")
         CentralLog.i(TAG, "runService -> Command is: ${cmd?.string}")
 
         //check for permissions

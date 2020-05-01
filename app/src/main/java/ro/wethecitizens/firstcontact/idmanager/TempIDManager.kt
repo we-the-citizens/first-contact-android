@@ -14,7 +14,7 @@ object TempIDManager {
     fun retrieveNewTemporaryID(context: Context): TemporaryID? {
 
         createMS = System.currentTimeMillis();
-        expireMS = createMS + (15 * 60 * 1000);
+        expireMS = createMS + (5 * 60 * 1000);
 
         return TemporaryID(
             createMS,

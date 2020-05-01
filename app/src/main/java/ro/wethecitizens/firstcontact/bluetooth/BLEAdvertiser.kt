@@ -100,7 +100,9 @@ class BLEAdvertiser constructor(val serviceUUID: String) {
             .build()
 
         try {
+            //CentralLog.d(TAG, "Start advertising ${data.toString()}")
             CentralLog.d(TAG, "Start advertising")
+
             advertiser = advertiser ?: BluetoothAdapter.getDefaultAdapter().bluetoothLeAdvertiser
             advertiser?.startAdvertising(settings, data, callback)
         } catch (e: Throwable) {
