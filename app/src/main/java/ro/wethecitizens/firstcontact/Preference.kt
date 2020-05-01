@@ -10,6 +10,8 @@ object Preference {
     private const val CHECK_POINT = "CHECK_POINT"
     private const val HANDSHAKE_PIN = "HANDSHAKE_PIN"
 
+    private const val TEMP_ID = "TEMP_ID"
+
     private const val NEXT_FETCH_TIME = "NEXT_FETCH_TIME"
     private const val EXPIRY_TIME = "EXPIRY_TIME"
     private const val LAST_FETCH_TIME = "LAST_FETCH_TIME"
@@ -58,6 +60,16 @@ object Preference {
     fun getCheckpoint(context: Context): Int {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getInt(CHECK_POINT, 0)
+    }
+
+    fun putTempID(context: Context, tempID: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(TEMP_ID, tempID).apply()
+    }
+
+    fun getTempID(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(TEMP_ID, "") ?: ""
     }
 
     fun getLastFetchTimeInMillis(context: Context): Long {

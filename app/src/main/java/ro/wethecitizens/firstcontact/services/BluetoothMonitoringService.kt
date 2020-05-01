@@ -8,7 +8,6 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.*
 import android.os.Build
-import android.os.Bundle
 import android.os.IBinder
 import android.os.PowerManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -39,7 +38,6 @@ import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStor
 import ro.wethecitizens.firstcontact.temp_id_db.TempId
 import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
 import java.lang.ref.WeakReference
-import java.time.LocalDateTime
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -135,7 +133,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         statusRecordStorage = StatusRecordStorage(this.applicationContext)
 
         setupNotifications()
-        broadcastMessage = TempIDManager.retrieveTemporaryID(this.applicationContext)
+
+        broadcastMessage = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
     }
 
     fun teardown() {
@@ -359,45 +358,38 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         CentralLog.d(TAG, "Action Start")
 
-//        TempIDManager.getTemporaryIDs(this, functions)
-//            .addOnCompleteListener {
-//                CentralLog.d(TAG, "Get TemporaryIDs completed")
-//                //this will run whether it starts or fails.
-//                var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-//                fetch?.let {
-//                    broadcastMessage = it
-//                    setupCycles()
-//                }
-//            }
 
-        setupCycles()
+        CentralLog.d(TAG, "Get TemporaryIDs completed")
 
-        saveGUID()
-        updateTempID()
+        val fetch = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
+        fetch?.let {
+            broadcastMessage = it
+            setupCycles()
+        }
+
+//        saveGUID()
+//        updateTempID()
     }
 
     fun actionUpdateBm() {
 
-//        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
-//            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionUpdateBM")
-//            //need to pull new BM
-//            TempIDManager.getTemporaryIDs(this, functions)
-//                .addOnCompleteListener {
-//                    //this will run whether it starts or fails.
-//                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-//                    fetch?.let {
-//                        CentralLog.i(TAG, "[TempID] Updated Temp ID")
-//                        broadcastMessage = it
-//                    }
-//
-//                    if (fetch == null) {
-//                        CentralLog.e(TAG, "[TempID] Failed to fetch new Temp ID")
-//                    }
-//                }
-//        } else {
+        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
+
+            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionUpdateBM")
+
+            val fetch = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
+            fetch?.let {
+                CentralLog.i(TAG, "[TempID] Updated Temp ID")
+                broadcastMessage = it
+            }
+
+            if (fetch == null) {
+                CentralLog.e(TAG, "[TempID] Failed to fetch new Temp ID")
+            }
+        }
+//        else {
 //            CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionUpdateBM")
 //        }
-
     }
 
     fun calcPhaseShift(min: Long, max: Long): Long {
@@ -406,22 +398,20 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
     private fun actionScan() {
 
-//        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
-//            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionScan")
-//            //need to pull new BM
-//            TempIDManager.getTemporaryIDs(this.applicationContext, functions)
-//                .addOnCompleteListener {
-//                    //this will run whether it starts or fails.
-//                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-//                    fetch?.let {
-//                        broadcastMessage = it
-//                        performScan()
-//                    }
-//                }
-//        } else {
-            CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionScan")
+        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
+
+            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionScan")
+
+            val fetch = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
+            fetch?.let {
+                broadcastMessage = it
+                performScan()
+            }
+        }
+        else {
+            //CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionScan")
             performScan()
-//        }
+        }
     }
 
     private fun actionAdvertise() {
@@ -768,6 +758,5 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         val infiniteAdvertising = false
 
         val useBlacklist = true
-        val bmValidityCheck = false
     }
 }

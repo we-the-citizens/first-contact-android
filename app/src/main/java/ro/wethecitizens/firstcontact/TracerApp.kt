@@ -53,7 +53,7 @@ class TracerApp : Application() {
 
                 if (!it.isValidForCurrentTime()) {
 
-                    var fetch = TempIDManager.retrieveTemporaryID(AppContext)
+                    var fetch = TempIDManager.retrieveNewTemporaryID(AppContext)
                     fetch?.let {
                         CentralLog.i(TAG, "Grab New Temp ID")
                         BluetoothMonitoringService.broadcastMessage = it

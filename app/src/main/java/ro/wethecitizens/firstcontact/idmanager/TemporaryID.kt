@@ -9,13 +9,16 @@ class TemporaryID(
 ) {
 
     fun isValidForCurrentTime(): Boolean {
-        var currentTime = System.currentTimeMillis()
-        return ((currentTime > (startTime * 1000)) && (currentTime < (expiryTime * 1000)))
+
+        val currentTime = System.currentTimeMillis()
+        return ((currentTime > startTime) && (currentTime < expiryTime))
     }
 
     fun print() {
-        var tempIDStartTime = startTime * 1000
-        var tempIDExpiryTime = expiryTime * 1000
+
+        val tempIDStartTime = startTime
+        val tempIDExpiryTime = expiryTime
+
         CentralLog.d(
             TAG,
             "[TempID] Start time: ${tempIDStartTime}"
