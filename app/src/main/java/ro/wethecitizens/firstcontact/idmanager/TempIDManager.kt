@@ -8,13 +8,26 @@ object TempIDManager {
 
     private const val TAG = "TempIDManager"
 
+    private var isSaved: Boolean = false
     private var createMS: Long = 0
+    private var tempID: String = "---"
     private var expireMS: Long = 0
 
     fun retrieveNewTemporaryID(context: Context): TemporaryID? {
 
+        isSaved = false
         createMS = System.currentTimeMillis();
+        tempID = UUID.randomUUID().toString()
         expireMS = createMS + (5 * 60 * 1000);
+
+        return TemporaryID(
+            createMS,
+            tempID,
+            expireMS
+        )
+    }
+
+    fun retrieveCurrentTemporaryID(context: Context): TemporaryID {
 
         return TemporaryID(
             createMS,
@@ -28,13 +41,26 @@ object TempIDManager {
         val currentTime = System.currentTimeMillis()
         val update = currentTime >= expireMS
 
-        CentralLog.i(
-            TAG,
-            "Need to update and fetch TemporaryIDs? $expireMS vs $currentTime: $update"
-        )
+        if (update) {
+            CentralLog.i(
+                TAG,
+                "Yes, need to update and fetch TemporaryIDs? $expireMS vs $currentTime: $update"
+            )
+        }
 
         return update
     }
+
+    fun needToBeSaved(): Boolean {
+
+        return !isSaved
+    }
+
+    fun markAsSaved() {
+
+        isSaved = true
+    }
+
 
     //Can Cleanup, this function always return true
     fun bmValid(context: Context): Boolean {

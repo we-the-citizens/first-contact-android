@@ -71,45 +71,44 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
     private var notificationShown: NOTIFICATION_STATE? = null
 
-    lateinit var TEMP_ID : String
-    var STORED_GUID: String? = null
-    private val PREFS_NAME: String = "GUID"
-    private val GUID: String = UUID.randomUUID().toString()
+//    lateinit var TEMP_ID : String
+//    var STORED_GUID: String? = null
+//    private val PREFS_NAME: String = "GUID"
+//    private val GUID: String = UUID.randomUUID().toString()
     private lateinit var tempIdStorage : TempIdStorage
 
-    private fun saveGUID(){
-        val settings : SharedPreferences = getSharedPreferences(PREFS_NAME,0)
-        STORED_GUID = settings.getString(PREFS_NAME,null)
-        if(STORED_GUID == null)
-        {
-            val editor : SharedPreferences.Editor = settings.edit()
-            editor.putString(PREFS_NAME,GUID)
-            editor.commit()
-            STORED_GUID = settings.getString(PREFS_NAME,null)
-        } else return
-    }
-
-    private fun updateTempID() {
-        val period : Long = 5000
-        val deletePeriod : Long = System.currentTimeMillis() - 1296000000  //15 days in millis
-        val timer = Timer()
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                val startTime = System.currentTimeMillis()
-                val endTime = startTime + period
-                TEMP_ID = STORED_GUID + "-" + startTime + "-" + endTime
-                val tempId = TempId(
-                    v = TEMP_ID
-                )
-                tempIdStorage.saveRecord(tempId)
-                tempIdStorage.purgeOldRecords(deletePeriod)
-
-            }
-        }, 0, period) //Update every 15 mins
-    }
+//    private fun saveGUID(){
+//        val settings : SharedPreferences = getSharedPreferences(PREFS_NAME,0)
+//        STORED_GUID = settings.getString(PREFS_NAME,null)
+//        if(STORED_GUID == null)
+//        {
+//            val editor : SharedPreferences.Editor = settings.edit()
+//            editor.putString(PREFS_NAME,GUID)
+//            editor.commit()
+//            STORED_GUID = settings.getString(PREFS_NAME,null)
+//        } else return
+//    }
+//
+//    private fun updateTempID() {
+//        val period : Long = 5000
+//        val deletePeriod : Long = System.currentTimeMillis() - 1296000000  //15 days in millis
+//        val timer = Timer()
+//        timer.schedule(object : TimerTask() {
+//            override fun run() {
+//                val startTime = System.currentTimeMillis()
+//                val endTime = startTime + period
+//                TEMP_ID = STORED_GUID + "-" + startTime + "-" + endTime
+//                val tempId = TempId(
+//                    v = TEMP_ID
+//                )
+//                tempIdStorage.saveRecord(tempId)
+//                tempIdStorage.purgeOldRecords(deletePeriod)
+//
+//            }
+//        }, 0, period) //Update every 15 mins
+//    }
 
     override fun onCreate() {
-        tempIdStorage= TempIdStorage(this.applicationContext)
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         setup()
     }
@@ -325,6 +324,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
                 if (doWork) {
                     actionAdvertise()
                 }
+
+                saveTempID();
             }
 
             Command.ACTION_UPDATE_BM -> {
@@ -579,6 +580,39 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         job.cancel()
     }
 
+    private fun saveTempID() {
+
+        if (!TempIDManager.needToBeSaved())
+            return
+
+        CentralLog.i(TAG, "TempID save new record start")
+
+        val appCtx = this.applicationContext;
+        val cti = TempIDManager.retrieveCurrentTemporaryID(appCtx)
+
+
+        launch {
+
+            tempIdStorage = TempIdStorage(appCtx)
+            tempIdStorage.saveRecord(TempId(v = cti.tempID))
+
+            TempIDManager.markAsSaved()
+
+            CentralLog.i(TAG, "TempID save done")
+
+
+            val deletePeriod: Long = System.currentTimeMillis() - 1296000000  //15 days in millis
+            tempIdStorage.purgeOldRecords(deletePeriod)
+
+
+            CentralLog.i(TAG, "TempID current list")
+
+            for (t in tempIdStorage.getAllRecords()) {
+
+                CentralLog.i(TAG, "TempID = ${t.v}  ts = ${t.timestamp}")
+            }
+        }
+    }
 
     private fun registerReceivers() {
         val recordAvailableFilter = IntentFilter(ACTION_RECEIVED_STREETPASS)

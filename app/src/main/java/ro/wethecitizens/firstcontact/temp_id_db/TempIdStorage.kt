@@ -6,19 +6,19 @@ class TempIdStorage(val context: Context) {
 
     val recordDao = TempIdDatabase.getDatabase(context).recordDao()
 
-     fun saveRecord(record: TempId) {
+     suspend fun saveRecord(record: TempId) {
         recordDao.insert(record)
     }
 
-    fun nukeDb() {
+    suspend fun nukeDb() {
         recordDao.nukeDb()
     }
 
-    fun getAllRecords(): List<TempId> {
+    suspend fun getAllRecords(): List<TempId> {
         return recordDao.getCurrentRecords()
     }
 
-    fun purgeOldRecords(before: Long) {
+    suspend fun purgeOldRecords(before: Long) {
         recordDao.purgeOldRecords(before)
     }
 }
