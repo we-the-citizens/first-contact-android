@@ -5,10 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.zxing.integration.android.IntentResult
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ro.wethecitizens.firstcontact.Preference
+import ro.wethecitizens.firstcontact.alert.server.AuthorizationRequest
+import ro.wethecitizens.firstcontact.server.BackendMethods
+import ro.wethecitizens.firstcontact.server.HttpCode
 import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
+import java.lang.Exception
 import java.util.*
 
 class AlertContactsViewModel : ViewModel() {
@@ -28,22 +32,45 @@ class AlertContactsViewModel : ViewModel() {
             return
         }
 
-        viewModelScope.launch {
+        mState.value = State.Loading(qrCode)
+    }
+
+    fun checkAuthorization(qrCode: String) {
+        viewModelScope.launch(Dispatchers.IO) {
 
             val patientId = UUID.randomUUID().toString()
-//                .also { Preference.putPatientIdQr(it) }
+                // store the id locally to reuse later in sms screen
+                .also { Preference.putPatientIdQr(it) }
 
-            mState.value = State.Loading
-            val response = delay(5000)
-//            FIXME: use server method when implementation is ready
+            val requestBody = AuthorizationRequest(
+                patientId,
+                qrCode
+            )
 
-            mState.value = State.Success
+            try {
+                val response = BackendMethods.getInstance().checkUploadAuthorization(requestBody)
+
+                when (response.isSuccessful) {
+                    true -> mState.postValue(State.Success)
+
+                    else -> {
+                        val errorCode = response.code()
+
+                        val errorType = HttpCode.getType(errorCode)
+
+                        mState.postValue(State.Failed(errorType))
+                    }
+                }
+            } catch (e: Exception) {
+                mState.postValue(State.Failed(HttpCode.UNKNOWN_ERROR(-1)))
+                e.printStackTrace()
+            }
         }
     }
 
     sealed class State {
-        object Loading: State()
-        object Success: State()
-        object Failed: State()
+        class Loading(val qrCode: String) : State()
+        object Success : State()
+        class Failed(val errorType: HttpCode) : State()
     }
 }

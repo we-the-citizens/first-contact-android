@@ -19,7 +19,8 @@
     <fragment
         android:id="@+id/smsFragment"
         android:name="ro.wethecitizens.firstcontact.alert.PinFromSmsFragment"
-        android:label="SmsFragment" />
+        android:label="SmsFragment" >
+    </fragment>
     <fragment
         android:id="@+id/helpFragment"
         android:name="ro.wethecitizens.firstcontact.fragment.HelpFragment"

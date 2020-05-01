@@ -180,6 +180,8 @@ dependencies {
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
     kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
+    testImplementation "android.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 
     // ViewModel Kotlin support
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
@@ -219,4 +221,7 @@ dependencies {
     // sms retrieve
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
+
+    // mockito testing
+    testImplementation 'org.mockito:mockito-core:3.3.3'
 }

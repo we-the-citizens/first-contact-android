@@ -1,21 +1,19 @@
 package ro.wethecitizens.firstcontact.server
 
 import androidx.annotation.WorkerThread
-import retrofit2.Call
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
+import ro.wethecitizens.firstcontact.alert.server.AuthorizationRequest
 import retrofit2.http.Query
+import ro.wethecitizens.firstcontact.alert.server.PositiveIdsRequest
 import ro.wethecitizens.firstcontact.positivekey.server.PositiveKeyModel
 
 /**
  * Use [getInstance] to target [RetrofitInstance.getServerUrl] endpoint.
  */
 interface BackendMethods {
-
-    // FIXME: Delete after using actual method
-    @GET("/photos")
-    @WorkerThread
-    fun getAllPhotos(): Call<List<DummyPhotoModel>>
-
 
     @GET("/positiveIds")
     @WorkerThread
@@ -30,6 +28,13 @@ interface BackendMethods {
         @Query("clientMaxId") lastId: Int
     ): List<PositiveKeyModel>
 
+    @POST("/positiveIds/authorization")
+    @WorkerThread
+    suspend fun checkUploadAuthorization(@Body authorizationRequest: AuthorizationRequest): Response<Unit>
+
+    @POST("/positiveIds")
+    @WorkerThread
+    suspend fun uploadPositiveIds(@Body positiveIdsRequest: PositiveIdsRequest): Response<Unit>
 
     companion object {
         private lateinit var instance: BackendMethods
