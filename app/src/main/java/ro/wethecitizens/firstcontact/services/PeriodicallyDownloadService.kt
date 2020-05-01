@@ -270,6 +270,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //            }
 
 
+
             val c = Calendar.getInstance()
             c.timeInMillis = Preference.getInstallDateTS(appCtx)
 
