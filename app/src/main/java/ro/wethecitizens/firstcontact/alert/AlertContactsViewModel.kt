@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.zxing.integration.android.IntentResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.alert.server.AuthorizationRequest
 import ro.wethecitizens.firstcontact.server.BackendMethods
@@ -32,40 +31,39 @@ class AlertContactsViewModel : ViewModel() {
             return
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
-            checkAuthorization(qrCode)
-        }
+        mState.value = State.Loading(qrCode)
     }
 
-    private suspend fun checkAuthorization(qrCode: String) = withContext(Dispatchers.IO) {
-        mState.postValue(State.Loading)
+    fun checkAuthorization(qrCode: String) {
+        viewModelScope.launch(Dispatchers.IO) {
 
-        val patientId = UUID.randomUUID().toString()
-            // store the id locally to reuse later in sms screen
-            .also { Preference.putPatientIdQr(it) }
+            val patientId = UUID.randomUUID().toString()
+                // store the id locally to reuse later in sms screen
+                .also { Preference.putPatientIdQr(it) }
 
-        val requestBody = AuthorizationRequest(
-            patientId,
-            qrCode
-        )
+            val requestBody = AuthorizationRequest(
+                patientId,
+                qrCode
+            )
 
-        val response = BackendMethods.getInstance().checkUploadAuthorization(requestBody)
+            val response = BackendMethods.getInstance().checkUploadAuthorization(requestBody)
 
-        when (response.code()) {
-            HttpCode.OK.code ->
-                mState.postValue(State.Success(qrCode))
-            else -> {
-                val errorCode = response.code()
+            when (response.code()) {
+                HttpCode.OK.code ->
+                    mState.postValue(State.Success(qrCode))
+                else -> {
+                    val errorCode = response.code()
 
-                val errorType = HttpCode.getType(errorCode)
+                    val errorType = HttpCode.getType(errorCode)
 
-                mState.postValue(State.Failed(errorType))
+                    mState.postValue(State.Failed(errorType))
+                }
             }
         }
     }
 
     sealed class State {
-        object Loading : State()
+        class Loading(val qrCode: String) : State()
         class Success(val qrCode: String) : State()
         class Failed(val errorType: HttpCode) : State()
     }

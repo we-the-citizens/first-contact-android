@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_alert_others.view.*
 import pub.devrel.easypermissions.EasyPermissions
@@ -23,11 +25,12 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others),
     private lateinit var mViewModel: AlertContactsViewModel
     private val stateObserver = Observer<AlertContactsViewModel.State> { state ->
         view?.loading_layout?.visibility = when (state) {
-            Loading -> View.VISIBLE
+            is Loading -> View.VISIBLE
             else -> View.GONE
         }
 
         when (state) {
+            is Loading -> startSmsListener(state.qrCode)
             is Success -> findNavController().navigate(
                 R.id.action_alertContactsFragment_to_smsFragment,
                 Bundle().apply { putString(getString(R.string.qr_code), state.qrCode) }
@@ -40,6 +43,31 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others),
                 ).show()
             }
         }
+    }
+
+    /**
+     * Starts the SMS Retriever flow before doing the authorization request due to SMS being received too fast.
+     */
+    private fun startSmsListener(qrCode: String) {
+
+        // retrieve SMS client from activity context
+        val client: SmsRetrieverClient = SmsRetriever.getClient(requireActivity())
+
+        // get shared view model
+        ViewModelProvider(requireActivity()).get(SmsListenerViewModel::class.java)
+            .also { sharedViewModel ->
+
+                sharedViewModel.observableState.observe(
+                    viewLifecycleOwner,
+                    Observer {
+                        // listen for the SMS Retriever callback to do the authorization request
+                        mViewModel.checkAuthorization(qrCode)
+                    }
+                )
+
+                // start SMS retriever
+                sharedViewModel.listenForSms(client)
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
