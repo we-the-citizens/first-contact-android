@@ -48,6 +48,7 @@ class TracerApp : Application() {
         lateinit var AppContext: Context
 
         fun thisDeviceMsg(): String {
+
             BluetoothMonitoringService.broadcastMessage?.let {
                 CentralLog.i(TAG, "Retrieved BM for storage: $it")
 

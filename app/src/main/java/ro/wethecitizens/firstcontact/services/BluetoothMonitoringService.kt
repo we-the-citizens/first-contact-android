@@ -115,6 +115,14 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     fun setup() {
+
+        val fetch = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
+        fetch?.let {
+            broadcastMessage = it
+            CentralLog.i(TAG, "Setup TemporaryID to ${it.tempID}")
+        }
+
+
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
 
         CentralLog.setPowerManager(pm)
@@ -133,8 +141,6 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         statusRecordStorage = StatusRecordStorage(this.applicationContext)
 
         setupNotifications()
-
-        broadcastMessage = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
     }
 
     fun teardown() {
@@ -220,7 +226,10 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        CentralLog.i(TAG, "Service onStartCommand")
+
+        CentralLog.i(TAG, "")
+        CentralLog.i(TAG, "----------------------")
+        CentralLog.i(TAG, "onStartCommand")
 
         //check for permissions
         if (!hasLocationPermissions() || !isBluetoothEnabled()) {
@@ -264,7 +273,10 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     fun runService(cmd: Command?) {
 
         var doWork = true
-        CentralLog.i(TAG, "Command is:${cmd?.string}")
+
+        CentralLog.i(TAG, "")
+        CentralLog.i(TAG, "-------------------------")
+        CentralLog.i(TAG, "runService -> Command is: ${cmd?.string}")
 
         //check for permissions
         if (!hasLocationPermissions() || !isBluetoothEnabled()) {
@@ -358,14 +370,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         CentralLog.d(TAG, "Action Start")
 
-
-        CentralLog.d(TAG, "Get TemporaryIDs completed")
-
-        val fetch = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
-        fetch?.let {
-            broadcastMessage = it
-            setupCycles()
-        }
+        setupCycles()
 
 //        saveGUID()
 //        updateTempID()
@@ -375,16 +380,18 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
 
-            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionUpdateBM")
+            CentralLog.i(TAG, "Need to update TemporaryID in actionUpdateBM")
 
             val fetch = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
             fetch?.let {
-                CentralLog.i(TAG, "[TempID] Updated Temp ID")
+
                 broadcastMessage = it
+
+                CentralLog.i(TAG, "Update TemporaryID to ${it.tempID}")
             }
 
             if (fetch == null) {
-                CentralLog.e(TAG, "[TempID] Failed to fetch new Temp ID")
+                CentralLog.e(TAG, "Failed to fetch new Temp ID")
             }
         }
 //        else {
@@ -400,11 +407,14 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
 
-            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionScan")
+            CentralLog.i(TAG, "Need to update TemporaryID in actionScan")
 
             val fetch = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
             fetch?.let {
                 broadcastMessage = it
+
+                CentralLog.i(TAG, "Update TemporaryID to ${it.tempID}")
+
                 performScan()
             }
         }
