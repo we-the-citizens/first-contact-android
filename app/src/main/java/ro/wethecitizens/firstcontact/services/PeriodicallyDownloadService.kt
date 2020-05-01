@@ -244,7 +244,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         d("scheduleDownload")
 
         if (!infiniteScanning) {
-            commandHandler.scheduleNextDownload(downloadDuration + calcDownloadPhaseShift())
+            commandHandler.scheduleNextDownload(downloadDuration + downloadInterval)
         }
     }
 
@@ -270,6 +270,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //            }
 
 
+
             val c = Calendar.getInstance()
             c.timeInMillis = Preference.getInstallDateTS(appCtx)
 
@@ -278,6 +279,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
 
             d("formattedInstallDate = $formattedInstallDate")
+
 
 
 
@@ -324,6 +326,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //            }
 
 
+
             //if (isMatchKeysRequiredToSchedule)
                 Utils.schedulePeriodicallyDownloadMatchKeys(appCtx, 1000)
         }
@@ -343,7 +346,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 //            BuildFakeContacts().run(appCtx)
 
 
-            cycleNoToNukeDb--;
+            cycleNoToNukeDb--
 
             if (cycleNoToNukeDb == 0)
                 infectionAlertRecordStorage.nukeDb()
@@ -471,11 +474,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         job.cancel()
     }
 
-    private fun calcDownloadPhaseShift(): Long {
-
-        return (minDownloadInterval + (Math.random() * (maxDownloadInterval - minDownloadInterval))).toLong()
-    }
-
 
     enum class Command(val index: Int, val string: String) {
         INVALID(-1, "INVALID"),
@@ -517,17 +515,20 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         const val PENDING_PURGE_CODE = 12
 
 
+
+        private const val DOWNLOAD_DURATION: Int = BuildConfig.DOWNLOAD_DURATION_IN_MINUTES
+        private const val DOWNLOAD_INTERVAL: Int = BuildConfig.DOWNLOAD_INTERVAL_IN_MINUTES
+
         private const val ONE_MIN: Long = 60 * 1000             // In milliseconds
 
-        const val downloadDuration: Long = ONE_MIN
-        const val minDownloadInterval: Long = 1 * ONE_MIN
-        const val maxDownloadInterval: Long = 2 * ONE_MIN
-        const val matchKeysInterval: Long = 3 * 60 * ONE_MIN
-        const val healthCheckInterval: Long = ONE_MIN
+        const val downloadDuration: Long = DOWNLOAD_DURATION * ONE_MIN
+        const val downloadInterval: Long = DOWNLOAD_INTERVAL * ONE_MIN
+        const val matchKeysInterval: Long = 8 * 60 * ONE_MIN
+        const val healthCheckInterval: Long = 10 * ONE_MIN
         const val purgeInterval: Long = 24 * 60 * ONE_MIN
         const val purgeTTL: Long = BuildConfig.PURGE_TTL
         const val infiniteScanning = false
-        const val rssiThreshold = -100
-        const val minimumExposureInMinutes = 7
+        const val rssiThreshold: Int = BuildConfig.RSSI_MIN_VALUE
+        const val minimumExposureInMinutes: Int = BuildConfig.EXPOSURE_MIN_VALUE_IN_MINUTES
     }
 }

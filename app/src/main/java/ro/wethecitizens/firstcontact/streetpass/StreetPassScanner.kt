@@ -80,6 +80,9 @@ class StreetPassScanner constructor(
         private fun processScanResult(scanResult: ScanResult?) {
 
             scanResult?.let { result ->
+
+                CentralLog.i(TAG, "Scanned begin")
+
                 val device = result.device
                 var rssi = result.rssi // get RSSI value
 

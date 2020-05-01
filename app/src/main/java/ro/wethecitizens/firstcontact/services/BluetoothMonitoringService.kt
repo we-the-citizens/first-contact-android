@@ -8,14 +8,9 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.*
 import android.os.Build
-import android.os.Bundle
 import android.os.IBinder
 import android.os.PowerManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.functions.FirebaseFunctions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -43,7 +38,6 @@ import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStor
 import ro.wethecitizens.firstcontact.temp_id_db.TempId
 import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
 import java.lang.ref.WeakReference
-import java.time.LocalDateTime
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -68,17 +62,12 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
     private var job: Job = Job()
 
-    private lateinit var functions: FirebaseFunctions
-
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
     private lateinit var commandHandler: CommandHandler
 
     private lateinit var localBroadcastManager: LocalBroadcastManager
-
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
-    private lateinit var auth: FirebaseAuth
 
     private var notificationShown: NOTIFICATION_STATE? = null
 
@@ -126,6 +115,14 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     fun setup() {
+
+        val fetch = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
+        fetch?.let {
+            broadcastMessage = it
+            CentralLog.i(TAG, "Setup TemporaryID to ${it.tempID}")
+        }
+
+
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
 
         CentralLog.setPowerManager(pm)
@@ -144,8 +141,6 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         statusRecordStorage = StatusRecordStorage(this.applicationContext)
 
         setupNotifications()
-        functions = FirebaseFunctions.getInstance(BuildConfig.FIREBASE_REGION)
-        broadcastMessage = TempIDManager.retrieveTemporaryID(this.applicationContext)
     }
 
     fun teardown() {
@@ -231,7 +226,10 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        CentralLog.i(TAG, "Service onStartCommand")
+
+        CentralLog.i(TAG, "")
+        CentralLog.i(TAG, "----------------------")
+        CentralLog.i(TAG, "onStartCommand")
 
         //check for permissions
         if (!hasLocationPermissions() || !isBluetoothEnabled()) {
@@ -275,7 +273,10 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     fun runService(cmd: Command?) {
 
         var doWork = true
-        CentralLog.i(TAG, "Command is:${cmd?.string}")
+
+        CentralLog.i(TAG, "")
+        CentralLog.i(TAG, "-------------------------------------------------------------------------")
+        CentralLog.i(TAG, "runService -> Command is: ${cmd?.string}")
 
         //check for permissions
         if (!hasLocationPermissions() || !isBluetoothEnabled()) {
@@ -357,7 +358,6 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     private fun actionHealthCheck() {
-        performUserLoginCheck()
         performHealthCheck()
         ro.wethecitizens.firstcontact.Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
     }
@@ -367,44 +367,36 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     private fun actionStart() {
+
         CentralLog.d(TAG, "Action Start")
 
-        TempIDManager.getTemporaryIDs(this, functions)
-            .addOnCompleteListener {
-                CentralLog.d(TAG, "Get TemporaryIDs completed")
-                //this will run whether it starts or fails.
-                var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-                fetch?.let {
-                    broadcastMessage = it
-                    setupCycles()
-                }
-            }
-        saveGUID()
-        updateTempID()
+        setupCycles()
+
+//        saveGUID()
+//        updateTempID()
     }
 
     fun actionUpdateBm() {
 
         if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
-            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionUpdateBM")
-            //need to pull new BM
-            TempIDManager.getTemporaryIDs(this, functions)
-                .addOnCompleteListener {
-                    //this will run whether it starts or fails.
-                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-                    fetch?.let {
-                        CentralLog.i(TAG, "[TempID] Updated Temp ID")
-                        broadcastMessage = it
-                    }
 
-                    if (fetch == null) {
-                        CentralLog.e(TAG, "[TempID] Failed to fetch new Temp ID")
-                    }
-                }
-        } else {
-            CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionUpdateBM")
+            CentralLog.i(TAG, "Need to update TemporaryID in actionUpdateBM")
+
+            val fetch = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
+            fetch?.let {
+
+                broadcastMessage = it
+
+                CentralLog.i(TAG, "Update TemporaryID to ${it.tempID}")
+            }
+
+            if (fetch == null) {
+                CentralLog.e(TAG, "Failed to fetch new Temp ID")
+            }
         }
-
+//        else {
+//            CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionUpdateBM")
+//        }
     }
 
     fun calcPhaseShift(min: Long, max: Long): Long {
@@ -412,20 +404,22 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     private fun actionScan() {
+
         if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
-            CentralLog.i(TAG, "[TempID] Need to update TemporaryID in actionScan")
-            //need to pull new BM
-            TempIDManager.getTemporaryIDs(this.applicationContext, functions)
-                .addOnCompleteListener {
-                    //this will run whether it starts or fails.
-                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
-                    fetch?.let {
-                        broadcastMessage = it
-                        performScan()
-                    }
-                }
-        } else {
-            CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionScan")
+
+            CentralLog.i(TAG, "Need to update TemporaryID in actionScan")
+
+            val fetch = TempIDManager.retrieveNewTemporaryID(this.applicationContext)
+            fetch?.let {
+                broadcastMessage = it
+
+                CentralLog.i(TAG, "Update TemporaryID to ${it.tempID}")
+
+                performScan()
+            }
+        }
+        else {
+            //CentralLog.i(TAG, "[TempID] Don't need to update Temp ID in actionScan")
             performScan()
         }
     }
@@ -508,22 +502,6 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
             }
         } else {
             CentralLog.w(TAG, "Unable to start scan - bluetooth is off")
-        }
-    }
-
-    private fun performUserLoginCheck() {
-        firebaseAnalytics = FirebaseAnalytics.getInstance(applicationContext)
-        auth = FirebaseAuth.getInstance()
-        val currentUser: FirebaseUser? = auth.currentUser
-        if (currentUser == null && ro.wethecitizens.firstcontact.Preference.isOnBoarded(this)) {
-            CentralLog.d(TAG, "User is not login but has completed onboarding")
-            val bundle = Bundle()
-            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Android")
-            bundle.putString(
-                FirebaseAnalytics.Param.ITEM_NAME,
-                "Have not login yet but in main activity"
-            )
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
         }
     }
 
@@ -790,6 +768,5 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         val infiniteAdvertising = false
 
         val useBlacklist = true
-        val bmValidityCheck = false
     }
 }

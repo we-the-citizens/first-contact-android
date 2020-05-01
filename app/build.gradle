@@ -76,6 +76,10 @@ android {
 
         buildConfigField "String", "V2_CHARACTERISTIC_ID", V2_CHARACTERISTIC_ID
 
+        buildConfigField "int", "DOWNLOAD_DURATION_IN_MINUTES", DOWNLOAD_DURATION_IN_MINUTES
+        buildConfigField "int", "DOWNLOAD_INTERVAL_IN_MINUTES", DOWNLOAD_INTERVAL_IN_MINUTES
+        buildConfigField "int", "RSSI_MIN_VALUE", RSSI_MIN_VALUE
+        buildConfigField "int", "EXPOSURE_MIN_VALUE_IN_MINUTES", EXPOSURE_MIN_VALUE_IN_MINUTES
     }
 
     buildTypes {

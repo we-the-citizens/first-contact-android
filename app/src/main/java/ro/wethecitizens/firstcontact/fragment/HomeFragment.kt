@@ -22,10 +22,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
@@ -44,7 +40,6 @@ class HomeFragment : Fragment() {
     private var mIsBroadcastListenerRegistered = false
     private var counter = 0
 
-    private lateinit var remoteConfig: FirebaseRemoteConfig
     private lateinit var lastKnownScanningStarted: LiveData<StatusRecord?>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,22 +92,6 @@ class HomeFragment : Fragment() {
         btn_announcement_close.setOnClickListener {
             clearAndHideAnnouncement()
         }
-
-        remoteConfig = Firebase.remoteConfig
-        val configSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 3600
-        }
-        remoteConfig.setConfigSettingsAsync(configSettings)
-        remoteConfig.setDefaultsAsync(mapOf("ShareText" to getString(R.string.share_message)))
-        remoteConfig.fetchAndActivate()
-            .addOnCompleteListener(activity as Activity) { task ->
-                if (task.isSuccessful) {
-                    val updated = task.result
-                    CentralLog.d(TAG, "Remote config fetch - success: $updated")
-                } else {
-                    CentralLog.d(TAG, "Remote config fetch - failed")
-                }
-            }
     }
 
     private fun isShowRestartSetup(): Boolean {
@@ -198,11 +177,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun shareThisApp() {
-        var newIntent = Intent(Intent.ACTION_SEND)
+
+        val newIntent = Intent(Intent.ACTION_SEND)
         newIntent.type = "text/plain"
-        newIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
-        var shareMessage = remoteConfig.getString("ShareText")
-        newIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+        newIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_app_subject))
+        newIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app_text))
+
         startActivity(Intent.createChooser(newIntent, "choose one"))
     }
 
