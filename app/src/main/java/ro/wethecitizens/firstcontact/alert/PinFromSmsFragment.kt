@@ -10,14 +10,26 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_pin_from_sms.view.*
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.alert.PinFromSmsViewModel.State.*
+import ro.wethecitizens.firstcontact.alert.SmsListenerViewModel.State.ListeningFailed
+import ro.wethecitizens.firstcontact.alert.SmsListenerViewModel.State.ListeningForSms
 
 class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
+
+    private lateinit var mSharedViewModel: SmsListenerViewModel
+    private val smsObserver = Observer<SmsListenerViewModel.State> { state ->
+        when (state) {
+            ListeningForSms ->
+                view?.sms_pin_input?.setHint(R.string.listening_for_sms)
+
+            ListeningFailed ->
+                view?.sms_pin_input?.setHint(R.string.pin_from_sms)
+        }
+    }
 
     private lateinit var mViewModel: PinFromSmsViewModel
     private val stateObserver = Observer<PinFromSmsViewModel.State> { state ->
         when (state) {
-            ListeningForSms -> view?.sms_pin_input?.setHint(R.string.listening_for_sms)
-            InvalidSms, ListeningFailed -> view?.sms_pin_input?.setHint(R.string.pin_from_sms)
+            InvalidSms -> view?.sms_pin_input?.setHint(R.string.pin_from_sms)
             ValidSms -> view?.loading_layout?.visibility = View.VISIBLE
 
             is UploadFailed -> Toast.makeText(
@@ -48,5 +60,10 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
         mViewModel = ViewModelProvider(this).get(PinFromSmsViewModel::class.java)
 
         mViewModel.observableState.observe(viewLifecycleOwner, stateObserver)
+
+        mSharedViewModel =
+            ViewModelProvider(requireActivity()).get(SmsListenerViewModel::class.java)
+
+        mSharedViewModel.observableState.observe(viewLifecycleOwner, smsObserver)
     }
 }

@@ -1,11 +1,7 @@
 package ro.wethecitizens.firstcontact.alert
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
-import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
 
 /**
  * View Model shared via activity to keep listener alive.
@@ -15,7 +11,7 @@ class SmsListenerViewModel : ViewModel() {
     private val mSmsText = MediatorLiveData<String>()
     val smsText: LiveData<String> = mSmsText
 
-    private val mState = SingleLiveEvent<State>()
+    private val mState = MutableLiveData<State>()
     val observableState: LiveData<State> = mState
 
     fun listenForSms(client: SmsRetrieverClient) {
@@ -41,6 +37,9 @@ class SmsListenerViewModel : ViewModel() {
                 value = sms
                 removeSource(PinSmsBroadcastReceiver.observableSmsContent)
                 removeObserver(dummyObserver)
+
+                // reset listener state for future uses
+                mState.value = null
             }
         }
     }

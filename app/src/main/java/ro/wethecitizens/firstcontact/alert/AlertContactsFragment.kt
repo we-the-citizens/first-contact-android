@@ -57,9 +57,9 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others),
 
                 sharedViewModel.observableState.observe(
                     viewLifecycleOwner,
-                    Observer {
+                    Observer { state ->
                         // listen for the SMS Retriever callback to do the authorization request
-                        mViewModel.checkAuthorization(qrCode)
+                        state?.let { mViewModel.checkAuthorization(qrCode) }
                     }
                 )
 

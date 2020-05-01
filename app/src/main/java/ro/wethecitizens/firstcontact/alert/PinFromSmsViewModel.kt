@@ -77,8 +77,6 @@ class PinFromSmsViewModel : ViewModel() {
     }
 
     sealed class State {
-        object ListeningForSms : State()
-        object ListeningFailed : State()
         object InvalidSms : State()
         object ValidSms : State()
 
