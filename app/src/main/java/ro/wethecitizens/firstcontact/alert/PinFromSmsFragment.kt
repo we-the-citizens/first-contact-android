@@ -30,7 +30,10 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
     private val stateObserver = Observer<PinFromSmsViewModel.State> { state ->
         when (state) {
             InvalidSms -> view?.sms_pin_input?.setHint(R.string.pin_from_sms)
-            ValidSms -> view?.loading_layout?.visibility = View.VISIBLE
+            is ValidSms -> {
+                view?.loading_layout?.visibility = View.VISIBLE
+                view?.sms_pin_input?.setText(state.pin)
+            }
 
             is UploadFailed -> Toast.makeText(
                 requireContext(),
@@ -65,5 +68,9 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
             ViewModelProvider(requireActivity()).get(SmsListenerViewModel::class.java)
 
         mSharedViewModel.observableState.observe(viewLifecycleOwner, smsObserver)
+
+        mSharedViewModel.smsText.observe(viewLifecycleOwner, Observer { sms ->
+            mViewModel.handleSms(sms)
+        })
     }
 }

@@ -22,7 +22,7 @@ class PinFromSmsViewModel : ViewModel() {
             null -> mState.value = State.InvalidSms
             else -> {
                 retrievePinFromSms(smsContent)?.let { pin ->
-                    mState.value = State.ValidSms
+                    mState.value = State.ValidSms(pin)
 
                     uploadContacts(pin)
                 } ?: run {
@@ -78,7 +78,7 @@ class PinFromSmsViewModel : ViewModel() {
 
     sealed class State {
         object InvalidSms : State()
-        object ValidSms : State()
+        class ValidSms(val pin: String) : State()
 
         object IdsUploaded : State()
         class UploadFailed(val errorType: HttpCode) : State()
