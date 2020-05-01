@@ -78,6 +78,7 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
 
         view.sms_confirmation_button.setOnClickListener {
             view.sms_pin_input.text?.takeIf { it.isNotEmpty() }?.let {
+                view.loading_layout?.visibility = View.VISIBLE
                 mViewModel.uploadContacts(it.toString())
             } ?: run {
                 Toast.makeText(
