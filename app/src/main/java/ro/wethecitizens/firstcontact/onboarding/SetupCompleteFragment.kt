@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.analytics.FirebaseAnalytics
 import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.logging.CentralLog
@@ -15,7 +14,6 @@ import ro.wethecitizens.firstcontact.logging.CentralLog
 class SetupCompleteFragment : OnboardingFragmentInterface() {
     private var listener: OnFragmentInteractionListener? = null
     private val TAG: String = "SetupCompleteFragment"
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var mainContext: Context
 
     override fun getButtonText(): String = "Continue"
@@ -26,10 +24,6 @@ class SetupCompleteFragment : OnboardingFragmentInterface() {
         CentralLog.d(TAG, "OnButtonClick 2")
         Preference.putCheckpoint(view.context, 0)
         Preference.putIsOnBoarded(view.context, true)
-        val bundle = Bundle()
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "P1234")
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Onboard Completed for Android Device")
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle)
         var intent = Intent(context, ro.wethecitizens.firstcontact.MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context?.startActivity(intent)
@@ -41,7 +35,6 @@ class SetupCompleteFragment : OnboardingFragmentInterface() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        firebaseAnalytics = FirebaseAnalytics.getInstance(mainContext)
         return inflater.inflate(R.layout.fragment_setup_complete, container, false)
     }
 

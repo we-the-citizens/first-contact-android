@@ -106,4 +106,8 @@
     <string name="camera_permission_denied">Accesul la camera a fost respins.</string>
     <string name="no_internet_connection">Aveti nevoie de o conexiune la internet inainte de a incepe.</string>
 
+    <string name="share_app_subject">OpenTrace</string>
+    <string name="share_app_text">Share this app</string>
+
+
 </resources>

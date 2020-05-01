@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -106,10 +105,9 @@ class PeekActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val uid = FirebaseAuth.getInstance().currentUser!!.uid
         val serviceUUID = BuildConfig.BLE_SSID
-        info.text =
-            "UID: ${uid.substring(uid.length - 4)}   SSID: ${serviceUUID.substring(serviceUUID.length - 4)}"
+        val txt = "SSID: " + serviceUUID.substring(serviceUUID.length - 4)
+        info.text = txt
 
         if (!BuildConfig.DEBUG) {
             start.visibility = View.GONE

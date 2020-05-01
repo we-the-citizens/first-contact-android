@@ -12,9 +12,6 @@ import android.provider.Settings
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.google.android.gms.tasks.Task
-import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.functions.HttpsCallableResult
 import ro.wethecitizens.firstcontact.bluetooth.gatt.*
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.scheduler.Scheduler
@@ -35,7 +32,6 @@ import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.time.milliseconds
 
 
 object Utils {
@@ -392,25 +388,6 @@ object Utils {
                 bluetoothAdapter.isEnabled && bluetoothAdapter.state == BluetoothAdapter.STATE_ON
     }
 
-    fun getHandShakePin(
-        context: Context,
-        functions: FirebaseFunctions
-    ): Task<HttpsCallableResult> {
-        return functions
-            .getHttpsCallable("getHandshakePin")
-            .call()
-            .addOnSuccessListener {
-                val result: HashMap<String, Any> = it.data as HashMap<String, Any>
-                val handShakePin = result["pin"].toString()
-                Preference.putHandShakePin(
-                    context,
-                    handShakePin
-                )
-                CentralLog.d(TAG, "Result from handshake pin: " + result.toString())
-            }.addOnFailureListener { e ->
-                CentralLog.w(TAG, "get handshake pin (failure): ${e.message}")
-            }
-    }
 
 
     fun startPeriodicallyDownloadService(context: Context) {
