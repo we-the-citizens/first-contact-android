@@ -18,6 +18,8 @@ object Preference {
 
     private const val INSTALL_DATE_TS = "INSTALL_DATE_TS"
 
+    private const val PATIENT_ID_QR = "PATIENT_ID_QR"
+
     private const val ANNOUNCEMENT = "ANNOUNCEMENT"
 
     fun putHandShakePin(context: Context, value: String) {
@@ -140,5 +142,15 @@ object Preference {
     ) {
         context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .unregisterOnSharedPreferenceChangeListener(listener)
+    }
+
+    fun putPatientIdQr(value: String) {
+        TracerApp.AppContext.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(PATIENT_ID_QR, value).apply()
+    }
+
+    fun getPatientIdQr(): String? {
+        return TracerApp.AppContext.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(PATIENT_ID_QR, null)
     }
 }

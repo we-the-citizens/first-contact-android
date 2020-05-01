@@ -5,23 +5,40 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_alert_others.view.*
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.R
+import ro.wethecitizens.firstcontact.alert.AlertContactsViewModel.State.Loading
+import ro.wethecitizens.firstcontact.alert.AlertContactsViewModel.State.Success
 import ro.wethecitizens.firstcontact.camera.startScanner
 import ro.wethecitizens.firstcontact.utils.InternetUtils
 import ro.wethecitizens.firstcontact.utils.PermissionUtils
 
-class AlertContactsFragment : Fragment(R.layout.fragment_alert_others), EasyPermissions.PermissionCallbacks {
+class AlertContactsFragment : Fragment(R.layout.fragment_alert_others),
+    EasyPermissions.PermissionCallbacks {
 
     private lateinit var mViewModel: AlertContactsViewModel
+    private val stateObserver = Observer<AlertContactsViewModel.State> { state ->
+        view?.loading_layout?.visibility = when (state) {
+            Loading -> View.VISIBLE
+            else -> View.GONE
+        }
+
+        when (state) {
+            Success -> Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+                .navigate(R.id.action_alertContactsFragment_to_smsFragment)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         mViewModel = ViewModelProvider(this).get(AlertContactsViewModel::class.java)
+        mViewModel.observableState.observe(viewLifecycleOwner, stateObserver)
 
         view.camera_permission_box.isChecked = PermissionUtils.hasCameraPermission(view.context)
         view.internet_connection_box.isChecked = InternetUtils.hasInternetConnection(view.context)
@@ -37,7 +54,8 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others), EasyPerm
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        Toast.makeText(requireContext(), R.string.camera_permission_denied, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), R.string.camera_permission_denied, Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {

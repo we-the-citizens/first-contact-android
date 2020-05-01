@@ -47,4 +47,6 @@
     <color name="light_yellow">#FFF5DC</color>
 
     <color name="blue_update">#0030A1</color>
+
+    <color name="loading_screen">#33333333</color>
 </resources>

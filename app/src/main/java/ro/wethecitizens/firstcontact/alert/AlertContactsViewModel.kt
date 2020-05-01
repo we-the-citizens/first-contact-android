@@ -1,10 +1,20 @@
 package ro.wethecitizens.firstcontact.alert
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.zxing.integration.android.IntentResult
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import ro.wethecitizens.firstcontact.Preference
+import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
+import java.util.*
 
 class AlertContactsViewModel : ViewModel() {
+
+    private val mState: SingleLiveEvent<State> = SingleLiveEvent()
+    val observableState: LiveData<State> = mState
 
     fun getScanInfo(result: IntentResult?) {
         if (result == null) {
@@ -12,12 +22,28 @@ class AlertContactsViewModel : ViewModel() {
             return
         }
 
-        val content = result.contents
-        if (content == null) {
+        val qrCode = result.contents
+        if (qrCode == null) {
             Log.d("Alert", "scan did not return anything")
             return
         }
 
-        Log.d("Alert", "Content of scan: $content")
+        viewModelScope.launch {
+
+            val patientId = UUID.randomUUID().toString()
+//                .also { Preference.putPatientIdQr(it) }
+
+            mState.value = State.Loading
+            val response = delay(5000)
+//            FIXME: use server method when implementation is ready
+
+            mState.value = State.Success
+        }
+    }
+
+    sealed class State {
+        object Loading: State()
+        object Success: State()
+        object Failed: State()
     }
 }
