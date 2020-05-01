@@ -31,10 +31,8 @@ class AlertContactsFragment : Fragment(R.layout.fragment_alert_others),
 
         when (state) {
             is Loading -> startSmsListener(state.qrCode)
-            is Success -> findNavController().navigate(
-                R.id.action_alertContactsFragment_to_smsFragment,
-                Bundle().apply { putString(getString(R.string.qr_code), state.qrCode) }
-            )
+            is Success -> findNavController()
+                .navigate(R.id.action_alertContactsFragment_to_smsFragment)
             is Failed -> {
                 Toast.makeText(
                     requireContext(),

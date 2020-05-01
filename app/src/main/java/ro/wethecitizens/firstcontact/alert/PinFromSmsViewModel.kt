@@ -14,8 +14,6 @@ import java.util.regex.Pattern
 
 class PinFromSmsViewModel : ViewModel() {
 
-    private lateinit var qrCode: String
-
     private val mState: SingleLiveEvent<State> = SingleLiveEvent()
     val observableState: LiveData<State> = mState
 
@@ -76,10 +74,6 @@ class PinFromSmsViewModel : ViewModel() {
             .matcher(smsContent)
             .takeIf { it.find() }
             ?.group(0)
-    }
-
-    fun setQrCode(qrCode: String) {
-        this.qrCode = qrCode
     }
 
     sealed class State {

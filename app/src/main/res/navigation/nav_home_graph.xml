@@ -20,10 +20,6 @@
         android:id="@+id/smsFragment"
         android:name="ro.wethecitizens.firstcontact.alert.PinFromSmsFragment"
         android:label="SmsFragment" >
-        <argument
-            android:name="@string/qr_code"
-            app:argType="string"
-            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/helpFragment"

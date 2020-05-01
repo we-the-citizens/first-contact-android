@@ -50,7 +50,7 @@ class AlertContactsViewModel : ViewModel() {
 
             when (response.code()) {
                 HttpCode.OK.code ->
-                    mState.postValue(State.Success(qrCode))
+                    mState.postValue(State.Success)
                 else -> {
                     val errorCode = response.code()
 
@@ -64,7 +64,7 @@ class AlertContactsViewModel : ViewModel() {
 
     sealed class State {
         class Loading(val qrCode: String) : State()
-        class Success(val qrCode: String) : State()
+        object Success : State()
         class Failed(val errorType: HttpCode) : State()
     }
 }

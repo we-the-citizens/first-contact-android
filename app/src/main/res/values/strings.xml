@@ -108,7 +108,6 @@
     <string name="pin_from_sms">Introduceti PINul primit prin SMS manual.</string>
     <string name="sms_pin_information_text">Asteptati sa primiti SMS cu pinul necesar validarii cererii dumneavoastra.</string>
     <string name="listening_for_sms">PIN-ul va fi introdus automat la primirea SMS-ului…</string>
-    <string name="no_qr_code">Nu a fost gasit codul QR.</string>
     <string name="upload_success">Incarcare cu succes!</string>
     <string name="upload_failed">UPLOAD FAILED: %s, %s</string>
 
