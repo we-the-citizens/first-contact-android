@@ -50,18 +50,23 @@ class PinFromSmsViewModel : ViewModel() {
                 )
             )
 
-            val response = BackendMethods.getInstance().uploadPositiveIds(request)
+            try {
+                val response = BackendMethods.getInstance().uploadPositiveIds(request)
 
-            when (response.code()) {
-                HttpCode.OK.code ->
-                    mState.postValue(State.IdsUploaded)
-                else -> {
-                    val errorCode = response.code()
+                when (response.code()) {
+                    HttpCode.OK.code ->
+                        mState.postValue(State.IdsUploaded)
+                    else -> {
+                        val errorCode = response.code()
 
-                    val errorType = HttpCode.getType(errorCode)
+                        val errorType = HttpCode.getType(errorCode)
 
-                    mState.postValue(State.UploadFailed(errorType))
+                        mState.postValue(State.UploadFailed(errorType))
+                    }
                 }
+            } catch (e: Exception) {
+                mState.postValue(State.UploadFailed(HttpCode.UNKNOWN_ERROR(-1)))
+                e.printStackTrace()
             }
         }
     }

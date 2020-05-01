@@ -12,6 +12,7 @@ import ro.wethecitizens.firstcontact.alert.server.AuthorizationRequest
 import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.server.HttpCode
 import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
+import java.lang.Exception
 import java.util.*
 
 class AlertContactsViewModel : ViewModel() {
@@ -46,18 +47,23 @@ class AlertContactsViewModel : ViewModel() {
                 qrCode
             )
 
-            val response = BackendMethods.getInstance().checkUploadAuthorization(requestBody)
+            try {
+                val response = BackendMethods.getInstance().checkUploadAuthorization(requestBody)
 
-            when (response.code()) {
-                HttpCode.OK.code ->
-                    mState.postValue(State.Success)
-                else -> {
-                    val errorCode = response.code()
+                when (response.code()) {
+                    HttpCode.OK.code ->
+                        mState.postValue(State.Success)
+                    else -> {
+                        val errorCode = response.code()
 
-                    val errorType = HttpCode.getType(errorCode)
+                        val errorType = HttpCode.getType(errorCode)
 
-                    mState.postValue(State.Failed(errorType))
+                        mState.postValue(State.Failed(errorType))
+                    }
                 }
+            } catch (e: Exception) {
+                mState.postValue(State.Failed(HttpCode.UNKNOWN_ERROR(-1)))
+                e.printStackTrace()
             }
         }
     }
