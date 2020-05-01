@@ -32,7 +32,7 @@ class PinFromSmsViewModel : ViewModel() {
         }
     }
 
-    private fun uploadContacts(pinCode: String) {
+    fun uploadContacts(pinCode: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val pacientId = Preference.getPatientIdQr()!!
 

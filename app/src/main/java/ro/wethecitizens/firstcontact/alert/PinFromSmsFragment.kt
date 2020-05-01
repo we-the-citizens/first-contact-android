@@ -18,11 +18,14 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
     private lateinit var mSharedViewModel: SmsListenerViewModel
     private val smsObserver = Observer<SmsListenerViewModel.State> { state ->
         when (state) {
-            ListeningForSms ->
+            ListeningForSms -> {
                 view?.sms_pin_input?.setHint(R.string.listening_for_sms)
-
-            ListeningFailed ->
+                view?.sms_confirmation_button?.isEnabled = false
+            }
+            else -> {
                 view?.sms_pin_input?.setHint(R.string.pin_from_sms)
+                view?.sms_confirmation_button?.isEnabled = true
+            }
         }
     }
 
@@ -72,5 +75,17 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
         mSharedViewModel.smsText.observe(viewLifecycleOwner, Observer { sms ->
             mViewModel.handleSms(sms)
         })
+
+        view.sms_confirmation_button.setOnClickListener {
+            view.sms_pin_input.text?.takeIf { it.isNotEmpty() }?.let {
+                mViewModel.uploadContacts(it.toString())
+            } ?: run {
+                Toast.makeText(
+                    it.context,
+                    getString(R.string.add_pin_before_upload),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 }

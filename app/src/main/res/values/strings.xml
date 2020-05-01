@@ -110,5 +110,6 @@
     <string name="listening_for_sms">PIN-ul va fi introdus automat la primirea SMS-ului…</string>
     <string name="upload_success">Incarcare cu succes!</string>
     <string name="upload_failed">UPLOAD FAILED: %s, %s</string>
+    <string name="add_pin_before_upload">Adaugati pin-ul primit prin sms pentru a continua.</string>
 
 </resources>
