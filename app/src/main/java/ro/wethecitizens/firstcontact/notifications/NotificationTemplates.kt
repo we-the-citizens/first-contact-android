@@ -4,6 +4,8 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.provider.Settings
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import ro.wethecitizens.firstcontact.MainActivity
@@ -111,8 +113,9 @@ class NotificationTemplates {
                 .setTicker(body)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(body))
                 .setWhen(System.currentTimeMillis())
-//                .setSound(null)
-//                .setVibrate(null)
+                .setVibrate(longArrayOf(0, 1000, 1000, 1000, 1000))
+                .setLights(Color.RED, 3000, 3000)
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                 .setColor(ContextCompat.getColor(context, R.color.colorAccent))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
