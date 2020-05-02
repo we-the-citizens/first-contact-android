@@ -16,6 +16,9 @@ interface StreetPassRecordDao {
     @Query("SELECT * from record_table ORDER BY timestamp ASC")
     fun getCurrentRecords(): List<StreetPassRecord>
 
+    @Query("SELECT * from record_table ORDER BY id DESC LIMIT 10")
+    suspend fun getLast10Records(): List<StreetPassRecord>
+
     @Query("DELETE FROM record_table")
     fun nukeDb()
 

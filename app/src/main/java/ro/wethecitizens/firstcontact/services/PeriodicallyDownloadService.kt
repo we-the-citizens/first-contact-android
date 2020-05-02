@@ -262,14 +262,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             var isMatchKeysRequiredToSchedule = false
 
 
-//            val all = positiveKeysStorage.getAllRecords()
-//
-//            for (pkr in all) {
-//
-//                d(pkr.id.toString() + " " + pkr.key)
-//            }
-
-
 
             val c = Calendar.getInstance()
             c.timeInMillis = Preference.getInstallDateTS(appCtx)
@@ -278,8 +270,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             val formattedInstallDate = Utils.formatCalendarToISO8601String(c)
 
 
-            d("formattedInstallDate = $formattedInstallDate")
 
+            d("PositiveKey install date = $formattedInstallDate")
 
 
 
@@ -294,7 +286,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
                 inst.getPositiveKeys(formattedInstallDate, id)
 
 
-//            d("keys.size = ${keys.size}")
+            d("PositiveKey downloaded keys size = ${keys.size}")
 
 
             for (key in keys) {
@@ -307,28 +299,19 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             }
 
+            if (isMatchKeysRequiredToSchedule) {
+
+                d("PositiveKey save done")
+                d("PositiveKey all records")
+
+                for (pkr in positiveKeysStorage.getAllRecords()) {
+
+                    d("PositiveKey  key = ${pkr.key} ")
+                }
 
 
-//            fake data
-//
-//            var id = positiveKeysStorage.getLastId()
-//
-//            for (i in 1..10) {
-//
-//                id++
-//
-//                val key = "dfalsdjkfalsdfjkasldfj_$id"
-//                val keyDate = Calendar.getInstance()
-//
-//                positiveKeysStorage.saveRecord(PositiveKeyRecord(id, key, keyDate))
-//
-//                isMatchKeysRequiredToSchedule = true
-//            }
-
-
-
-            //if (isMatchKeysRequiredToSchedule)
                 Utils.schedulePeriodicallyDownloadMatchKeys(appCtx, 1000)
+            }
         }
     }
 
@@ -343,19 +326,20 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         launch {
 
             //Uncomment next two lines only to fake data for test cases
-//            BuildFakeContacts().run(appCtx)
+            BuildFakeContacts().run(appCtx)
+            infectionAlertRecordStorage.nukeDb()
 
 
-            cycleNoToNukeDb--
-
-            if (cycleNoToNukeDb == 0)
-                infectionAlertRecordStorage.nukeDb()
+//            cycleNoToNukeDb--
+//
+//            if (cycleNoToNukeDb == 0)
+//                infectionAlertRecordStorage.nukeDb()
 
 
 
             val contacts: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
             val alerts: List<InfectionAlertRecord> = infectionAlertRecordStorage.getAllRecords()
-            val alg = ExposureAlgorithm(contacts, minimumExposureInMinutes, false)
+            val alg = ExposureAlgorithm(contacts, minimumExposureInMinutes, true)
 
 
             var hasNewAlerts = false
@@ -523,7 +507,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         const val downloadDuration: Long = DOWNLOAD_DURATION * ONE_MIN
         const val downloadInterval: Long = DOWNLOAD_INTERVAL * ONE_MIN
-        const val matchKeysInterval: Long = 8 * 60 * ONE_MIN
+        const val matchKeysInterval: Long = 5 * ONE_MIN
         const val healthCheckInterval: Long = 10 * ONE_MIN
         const val purgeInterval: Long = 24 * 60 * ONE_MIN
         const val purgeTTL: Long = BuildConfig.PURGE_TTL

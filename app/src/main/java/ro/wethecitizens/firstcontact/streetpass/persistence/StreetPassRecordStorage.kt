@@ -22,6 +22,11 @@ class StreetPassRecordStorage(val context: Context) {
         return recordDao.getCurrentRecords()
     }
 
+    suspend fun getLast10Records(): List<StreetPassRecord> {
+        return recordDao.getLast10Records()
+    }
+
+
     suspend fun purgeOldRecords(before: Long) {
         recordDao.purgeOldRecords(before)
     }

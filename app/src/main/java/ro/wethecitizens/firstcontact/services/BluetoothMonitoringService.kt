@@ -38,7 +38,6 @@ import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStor
 import ro.wethecitizens.firstcontact.temp_id_db.TempId
 import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
 import java.lang.ref.WeakReference
-import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class BluetoothMonitoringService : Service(), CoroutineScope {
@@ -59,6 +58,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
     private lateinit var streetPassRecordStorage: StreetPassRecordStorage
     private lateinit var statusRecordStorage: StatusRecordStorage
+    private lateinit var tempIdStorage : TempIdStorage
 
     private var job: Job = Job()
 
@@ -75,7 +75,6 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 //    var STORED_GUID: String? = null
 //    private val PREFS_NAME: String = "GUID"
 //    private val GUID: String = UUID.randomUUID().toString()
-    private lateinit var tempIdStorage : TempIdStorage
 
 //    private fun saveGUID(){
 //        val settings : SharedPreferences = getSharedPreferences(PREFS_NAME,0)
@@ -138,6 +137,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         streetPassRecordStorage = StreetPassRecordStorage(this.applicationContext)
         statusRecordStorage = StatusRecordStorage(this.applicationContext)
+        tempIdStorage = TempIdStorage(this.applicationContext)
 
         setupNotifications()
     }
@@ -559,6 +559,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
             streetPassRecordStorage.purgeOldRecords(before)
             statusRecordStorage.purgeOldRecords(before)
+            tempIdStorage.purgeOldRecords(before)
+
             ro.wethecitizens.firstcontact.Preference.putLastPurgeTime(context, System.currentTimeMillis())
         }
     }
@@ -593,28 +595,25 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         launch {
 
-            tempIdStorage = TempIdStorage(appCtx)
             tempIdStorage.saveRecord(TempId(v = cti.tempID))
 
             TempIDManager.markAsSaved()
 
+            CentralLog.i(TAG, "TempID = ${cti.tempID}")
             CentralLog.i(TAG, "TempID save done")
 
 
-            val deletePeriod: Long = System.currentTimeMillis() - 1296000000  //15 days in millis
-            tempIdStorage.purgeOldRecords(deletePeriod)
 
+            CentralLog.i(TAG, "TempID last 10 records")
 
-            CentralLog.i(TAG, "TempID current list")
-
-            for (t in tempIdStorage.getAllRecords()) {
+            for (t in tempIdStorage.getLast10Records().asReversed()) {
 
                 CentralLog.i(TAG, "TempID = ${t.v}  ts = ${t.timestamp}")
             }
 
 
             //Se foloseste doar in dev cand sunt prea multe in lista de mai sus
-            //tempIdStorage.nukeDb()
+            tempIdStorage.nukeDb()
         }
     }
 
@@ -710,11 +709,21 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
                     )
 
                     launch {
-                        CentralLog.d(
-                            TAG,
-                            "Coroutine - Saving StreetPassRecord: ${ro.wethecitizens.firstcontact.Utils.getDate(record.timestamp)}"
-                        )
+
                         streetPassRecordStorage.saveRecord(record)
+
+                        CentralLog.d(TAG,
+                            "StreetPassRecord save done " +
+                                    "msg = ${record.msg} " +
+                                    "ts = ${ro.wethecitizens.firstcontact.Utils.getDate(record.timestamp)}"
+                        )
+
+                        CentralLog.i(TAG, "StreetPassRecord last 10 records")
+
+                        for (t in streetPassRecordStorage.getLast10Records().asReversed()) {
+
+                            CentralLog.i(TAG, "StreetPassRecord   msg = ${t.msg}  ts = ${t.timestamp}")
+                        }
                     }
                 }
             }

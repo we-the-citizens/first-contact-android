@@ -18,6 +18,11 @@ class TempIdStorage(val context: Context) {
         return recordDao.getCurrentRecords()
     }
 
+    suspend fun getLast10Records(): List<TempId> {
+        return recordDao.getLast10Records()
+    }
+
+
     suspend fun purgeOldRecords(before: Long) {
         recordDao.purgeOldRecords(before)
     }
