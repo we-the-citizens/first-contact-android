@@ -15,19 +15,19 @@ interface TempIdDao {
     fun getMostRecentRecord(): LiveData<TempId?>
 
     @Query("SELECT * from record_table ORDER BY timestamp ASC")
-    fun getCurrentRecords(): List<TempId>
+    suspend fun getCurrentRecords(): List<TempId>
 
     @Query("DELETE FROM record_table")
-    fun nukeDb()
+    suspend fun nukeDb()
 
     @Query("DELETE FROM record_table WHERE timestamp < :before")
-    fun purgeOldRecords(before: Long)
+    suspend fun purgeOldRecords(before: Long)
 
     @RawQuery
     fun getRecordsViaQuery(query: SupportSQLiteQuery): List<TempId>
 
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(record: TempId)
+    suspend fun insert(record: TempId)
 
 }
