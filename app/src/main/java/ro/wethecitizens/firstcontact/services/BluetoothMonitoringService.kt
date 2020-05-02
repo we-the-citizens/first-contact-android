@@ -3,13 +3,19 @@ package ro.wethecitizens.firstcontact.services
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.*
+import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
+import android.provider.Settings
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +23,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.BuildConfig
+import ro.wethecitizens.firstcontact.MainActivity
+import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.bluetooth.gatt.ACTION_RECEIVED_STATUS
 import ro.wethecitizens.firstcontact.bluetooth.gatt.ACTION_RECEIVED_STREETPASS
 import ro.wethecitizens.firstcontact.bluetooth.gatt.STATUS
@@ -71,44 +79,53 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
     private var notificationShown: NOTIFICATION_STATE? = null
 
-//    lateinit var TEMP_ID : String
-//    var STORED_GUID: String? = null
-//    private val PREFS_NAME: String = "GUID"
-//    private val GUID: String = UUID.randomUUID().toString()
     private lateinit var tempIdStorage : TempIdStorage
 
-//    private fun saveGUID(){
-//        val settings : SharedPreferences = getSharedPreferences(PREFS_NAME,0)
-//        STORED_GUID = settings.getString(PREFS_NAME,null)
-//        if(STORED_GUID == null)
-//        {
-//            val editor : SharedPreferences.Editor = settings.edit()
-//            editor.putString(PREFS_NAME,GUID)
-//            editor.commit()
-//            STORED_GUID = settings.getString(PREFS_NAME,null)
-//        } else return
-//    }
-//
-//    private fun updateTempID() {
-//        val period : Long = 5000
-//        val deletePeriod : Long = System.currentTimeMillis() - 1296000000  //15 days in millis
-//        val timer = Timer()
-//        timer.schedule(object : TimerTask() {
-//            override fun run() {
-//                val startTime = System.currentTimeMillis()
-//                val endTime = startTime + period
-//                TEMP_ID = STORED_GUID + "-" + startTime + "-" + endTime
-//                val tempId = TempId(
-//                    v = TEMP_ID
-//                )
-//                tempIdStorage.saveRecord(tempId)
-//                tempIdStorage.purgeOldRecords(deletePeriod)
-//
-//            }
-//        }, 0, period) //Update every 15 mins
-//    }
+    fun alertaInfectare(){
+        var intent = Intent(this.applicationContext, MainActivity::class.java)
+
+        val activityPendingIntent = PendingIntent.getActivity(
+            this.applicationContext, PENDING_ACTIVITY,
+            intent, 0
+        )
+        var builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle("Alerta de infectare posibila COVID19")
+            .setSmallIcon(R.drawable.ic_notification_service)
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText("Auto-izolativa, evitati contactul cu alte persoane, anuntati posibilitatea infectarii la medicul de familie si la DSU in vederea programarii pentru testare."))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setVibrate(longArrayOf(0, 1000, 1000, 1000, 1000))
+            .setLights(Color.RED, 3000, 3000)
+            .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+            .setContentIntent(activityPendingIntent)
+            .setColor(ContextCompat.getColor(this, R.color.colorAccent))
+        with(NotificationManagerCompat.from(this)) {
+            // notificationId is a unique int for each notification that you must define
+            notify(1, builder.build())
+        }
+    }
+
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "nume"
+            val descriptionText = "descriere"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
 
     override fun onCreate() {
+        createNotificationChannel()
+        alertaInfectare()
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         setup()
     }
