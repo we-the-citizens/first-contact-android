@@ -43,7 +43,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private lateinit var commandHandler: PeriodicallyDownloadCommandHandler
     private lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private var cycleNoToNukeDb = 3
+//    private var cycleNoToNukeDb = 3
 
 
 
@@ -326,8 +326,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         launch {
 
             //Uncomment next two lines only to fake data for test cases
-            BuildFakeContacts().run(appCtx)
-            infectionAlertRecordStorage.nukeDb()
+//            BuildFakeContacts().run(appCtx)
+//            infectionAlertRecordStorage.nukeDb()
 
 
 //            cycleNoToNukeDb--
