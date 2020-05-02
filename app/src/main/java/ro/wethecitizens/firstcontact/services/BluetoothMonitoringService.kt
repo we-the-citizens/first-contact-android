@@ -613,7 +613,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
 
             //Se foloseste doar in dev cand sunt prea multe in lista de mai sus
-            tempIdStorage.nukeDb()
+            //tempIdStorage.nukeDb()
         }
     }
 

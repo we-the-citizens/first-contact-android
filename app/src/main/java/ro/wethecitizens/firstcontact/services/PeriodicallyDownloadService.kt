@@ -150,8 +150,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             )
             ch2.enableLights(false)
             ch2.enableVibration(true)
-            ch2.vibrationPattern = longArrayOf(0L)
-            ch2.setSound(null, null)
             ch2.setShowBadge(false)
 
             mNotificationManager!!.createNotificationChannel(ch2)
@@ -310,7 +308,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
                 }
 
 
-                Utils.schedulePeriodicallyDownloadMatchKeys(appCtx, 1000)
+                Utils.schedulePeriodicallyDownloadMatchKeys(appCtx, 200)
             }
         }
     }
@@ -507,7 +505,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         const val downloadDuration: Long = DOWNLOAD_DURATION * ONE_MIN
         const val downloadInterval: Long = DOWNLOAD_INTERVAL * ONE_MIN
-        const val matchKeysInterval: Long = 5 * ONE_MIN
+        const val matchKeysInterval: Long = 3 * ONE_MIN
         const val healthCheckInterval: Long = 10 * ONE_MIN
         const val purgeInterval: Long = 24 * 60 * ONE_MIN
         const val purgeTTL: Long = BuildConfig.PURGE_TTL
