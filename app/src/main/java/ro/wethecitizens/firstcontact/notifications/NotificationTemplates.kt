@@ -106,7 +106,7 @@ class NotificationTemplates {
 
             val b = NotificationCompat.Builder(context, channel)
                 .setContentTitle(title)
-                .setContentText(body)
+                //.setContentText(body)
                 .setOngoing(true)
                 .setSmallIcon(R.drawable.ic_notification_warning)
                 .setContentIntent(pendingIntent)

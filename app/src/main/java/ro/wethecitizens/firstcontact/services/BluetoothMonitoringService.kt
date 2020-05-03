@@ -123,8 +123,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     override fun onCreate() {
-        createNotificationChannel()
-        alertaInfectare()
+//        createNotificationChannel()
+//        alertaInfectare()
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         setup()
     }
