@@ -111,7 +111,7 @@ class NotificationTemplates {
                 .setSmallIcon(R.drawable.ic_notification_warning)
                 .setContentIntent(pendingIntent)
                 .setTicker(body)
-                .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+                //.setStyle(NotificationCompat.BigTextStyle().bigText(body))
                 .setWhen(System.currentTimeMillis())
                 .setVibrate(longArrayOf(0, 1000, 1000, 1000, 1000))
                 .setLights(Color.RED, 3000, 3000)
