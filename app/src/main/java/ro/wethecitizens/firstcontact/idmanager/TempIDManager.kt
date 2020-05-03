@@ -18,7 +18,7 @@ object TempIDManager {
         isSaved = false
         createMS = System.currentTimeMillis();
         tempID = UUID.randomUUID().toString()
-        expireMS = createMS + (5 * 60 * 1000);
+        expireMS = createMS + (15 * 60 * 1000);
 
         return TemporaryID(
             createMS,
