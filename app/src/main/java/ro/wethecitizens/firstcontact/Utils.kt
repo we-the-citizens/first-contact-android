@@ -82,7 +82,8 @@ object Utils {
 
         try {
 
-            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.ROOT)
+            //val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.ROOT)
+            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)
             sdf.timeZone = TimeZone.getTimeZone("CET")
 
             return sdf.format(c.time)
@@ -98,7 +99,8 @@ object Utils {
 
         try {
 
-            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.ROOT)
+            //val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.ROOT)
+            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)
             sdf.timeZone = TimeZone.getTimeZone("CET")
 
             val d: Date? = sdf.parse(s)

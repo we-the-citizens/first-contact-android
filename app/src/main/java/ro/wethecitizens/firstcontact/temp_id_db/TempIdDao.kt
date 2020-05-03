@@ -17,6 +17,9 @@ interface TempIdDao {
     @Query("SELECT * from record_table ORDER BY timestamp ASC")
     suspend fun getCurrentRecords(): List<TempId>
 
+    @Query("SELECT * from record_table ORDER BY timestamp DESC LIMIT 10")
+    suspend fun getLast10Records(): List<TempId>
+
     @Query("DELETE FROM record_table")
     suspend fun nukeDb()
 

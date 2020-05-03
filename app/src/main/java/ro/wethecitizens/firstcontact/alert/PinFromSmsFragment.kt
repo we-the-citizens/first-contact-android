@@ -1,5 +1,6 @@
 package ro.wethecitizens.firstcontact.alert
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -63,6 +64,9 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val appCtx: Context = view.context
+
+
         mViewModel = ViewModelProvider(this).get(PinFromSmsViewModel::class.java)
 
         mViewModel.observableState.observe(viewLifecycleOwner, stateObserver)
@@ -73,13 +77,14 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
         mSharedViewModel.observableState.observe(viewLifecycleOwner, smsObserver)
 
         mSharedViewModel.smsText.observe(viewLifecycleOwner, Observer { sms ->
-            mViewModel.handleSms(sms)
+            mViewModel.handleSms(sms, appCtx)
         })
+
 
         view.sms_confirmation_button.setOnClickListener {
             view.sms_pin_input.text?.takeIf { it.isNotEmpty() }?.let {
                 view.loading_layout?.visibility = View.VISIBLE
-                mViewModel.uploadContacts(it.toString())
+                mViewModel.uploadContacts(it.toString(), appCtx)
             } ?: run {
                 Toast.makeText(
                     it.context,
