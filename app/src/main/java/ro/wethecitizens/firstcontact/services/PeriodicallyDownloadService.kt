@@ -343,7 +343,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         launch {
 
             //Uncomment next two lines only to fake data for test cases
-//            BuildFakeContacts().run(appCtx)
+  //          BuildFakeContacts().run(appCtx)
 
 
             cycleNoToNukeDb--

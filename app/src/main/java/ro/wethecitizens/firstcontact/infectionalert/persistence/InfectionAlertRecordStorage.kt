@@ -1,6 +1,7 @@
 package ro.wethecitizens.firstcontact.infectionalert.persistence
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordDatabase
 
 class InfectionAlertRecordStorage(val context: Context) {
@@ -25,5 +26,10 @@ class InfectionAlertRecordStorage(val context: Context) {
     suspend fun saveRecord(record: InfectionAlertRecord) {
 
         dao.insert(record)
+    }
+
+    fun getall(): LiveData<List<InfectionAlertRecord>> {
+
+        return dao.allRecords()
     }
 }

@@ -36,13 +36,16 @@ import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.*
 import ro.wethecitizens.firstcontact.adapter.MyAdapter
+import ro.wethecitizens.firstcontact.infectionalert.InfectionAlert
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecord
+import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordDao
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordStorage
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.onboarding.OnboardingActivity
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordDatabase
 import java.util.*
+import javax.annotation.Nullable
 import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
 
@@ -61,8 +64,7 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-
-    private  var myDataset : ArrayList<MyAdapter.objType> = ArrayList<MyAdapter.objType>()
+    lateinit var storage : InfectionAlertRecordStorage
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,43 +80,52 @@ class HomeFragment : Fragment() {
                 }
             })
 
-        fun recyclerData(){
-        myDataset.add(MyAdapter.objType("23/4/2020" , "30"))
-        myDataset.add(MyAdapter.objType("12/4/2020" , "22"))
-        myDataset.add(MyAdapter.objType("10/4/2020" , "25"))
-        myDataset.add(MyAdapter.objType("15/4/2020" , "20"))
-        viewManager = LinearLayoutManager(this.context)
-        viewAdapter = MyAdapter(myDataset)
-        recyclerView = view.findViewById<RecyclerView>(R.id.recycler_alert).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
+        storage.getall().observe(viewLifecycleOwner, Observer {
+            viewManager = LinearLayoutManager(this.context)
+            viewAdapter = MyAdapter(it)
+            recyclerView = view.findViewById<RecyclerView>(R.id.recycler_alert).apply {
+                // use this setting to improve performance if you know that changes
+                // in content do not change the layout size of the RecyclerView
+                setHasFixedSize(true)
 
-            // use a linear layout manager
-            layoutManager = viewManager
+                // use a linear layout manager
+                layoutManager = viewManager
 
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
-        }
-        }
+                // specify an viewAdapter (see also next example)
+                adapter = viewAdapter
+            }
+        })
 
-        recyclerData()
+
+
+
+
+
         showSetup()
 
         Preference.registerListener(activity!!.applicationContext, listener)
         showNonEmptyAnnouncement()
     }
 
+//    fun task(){
+//        valstorage.getall().observe(viewLifecycleOwner, Observer {
+//            MyAdapter(it)
+//        })
+//    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        storage= InfectionAlertRecordStorage(this.requireContext())
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         Preference.registerListener(activity!!.applicationContext, listener)
 
         return view
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

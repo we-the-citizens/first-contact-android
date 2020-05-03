@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ro.wethecitizens.firstcontact.R
+import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecord
+import java.text.SimpleDateFormat
+import java.util.*
 
-class MyAdapter(private val myDataset: List<objType>) :
+class MyAdapter(private val myDataset: List<InfectionAlertRecord>) :
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     class objType {
@@ -50,10 +53,24 @@ class MyAdapter(private val myDataset: List<objType>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.txt_date?.text = myDataset.get(position).getDate()
-        holder.txt_time?.text = myDataset.get(position).getTime()
+//        val format1 = SimpleDateFormat("dd-MM-yyyy")
+//        val formatted = format1.format(myDataset.get(position).exposureDate)
+        holder.txt_date?.text = formatCalendar(myDataset.get(position).exposureDate)
+        holder.txt_time?.text = myDataset.get(position).exposureInMinutes.toString() + " min"
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
+
+    fun formatCalendar(c: Calendar): String {
+        try {
+            val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.ROOT)
+            sdf.timeZone = TimeZone.getTimeZone("CET")
+            return sdf.format(c.time)
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return ""
+    }
 }
