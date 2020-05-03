@@ -91,7 +91,7 @@
 
 
     <string name="exposure_new_alerts_title">OpenTrace exposure new alerts</string>
-    <string name="exposure_new_alerts_body">Click on this notification to see your exposure detailed info</string>
+    <string name="exposure_new_alerts_body">Click to see detailed exposure info</string>
 
 
     <!-- custom strings -->

@@ -26,7 +26,7 @@ class BuildFakeContacts {
             rssi = -72,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r1.timestamp = Utils.parseISO8601StringToMillis("2020-04-17T17:36:40.614+02:00")
+        r1.timestamp = Utils.parseISO8601StringToMillis("2020-04-17T17:36:40+02:00")
 
 
         val r2 = StreetPassRecord(
@@ -34,7 +34,7 @@ class BuildFakeContacts {
             rssi = -78,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r2.timestamp = Utils.parseISO8601StringToMillis("2020-04-17T17:42:40.614+02:00")
+        r2.timestamp = Utils.parseISO8601StringToMillis("2020-04-17T17:42:40+02:00")
 
 
         val r3 = StreetPassRecord(
@@ -42,7 +42,7 @@ class BuildFakeContacts {
             rssi = -82,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r3.timestamp = Utils.parseISO8601StringToMillis("2020-04-17T17:47:40.614+02:00")
+        r3.timestamp = Utils.parseISO8601StringToMillis("2020-04-17T17:47:40+02:00")
 
 
         val r4 = StreetPassRecord(
@@ -50,7 +50,7 @@ class BuildFakeContacts {
             rssi = -74,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r4.timestamp = Utils.parseISO8601StringToMillis("2020-04-18T19:39:40.614+02:00")
+        r4.timestamp = Utils.parseISO8601StringToMillis("2020-04-18T19:39:40+02:00")
 
 
         val r5 = StreetPassRecord(
@@ -58,7 +58,7 @@ class BuildFakeContacts {
             rssi = -76,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r5.timestamp = Utils.parseISO8601StringToMillis("2020-04-18T19:45:40.614+02:00")
+        r5.timestamp = Utils.parseISO8601StringToMillis("2020-04-18T19:45:40+02:00")
 
 
         val r6 = StreetPassRecord(
@@ -66,7 +66,7 @@ class BuildFakeContacts {
             rssi = -72,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r6.timestamp = Utils.parseISO8601StringToMillis("2020-04-19T17:39:40.614+02:00")
+        r6.timestamp = Utils.parseISO8601StringToMillis("2020-04-19T17:39:40+02:00")
 
 
         val r7 = StreetPassRecord(
@@ -74,7 +74,7 @@ class BuildFakeContacts {
             rssi = -84,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r7.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T17:36:40.614+02:00")
+        r7.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T17:36:40+02:00")
 
 
         val r8 = StreetPassRecord(
@@ -82,7 +82,7 @@ class BuildFakeContacts {
             rssi = -77,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r8.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T17:42:40.614+02:00")
+        r8.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T17:42:40+02:00")
 
 
         val r9 = StreetPassRecord(
@@ -90,7 +90,7 @@ class BuildFakeContacts {
             rssi = -50,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r9.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T17:56:40.614+02:00")
+        r9.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T17:56:40+02:00")
 
 
         val r10 = StreetPassRecord(
@@ -98,7 +98,7 @@ class BuildFakeContacts {
             rssi = -50,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r10.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T17:59:40.614+02:00")
+        r10.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T17:59:40+02:00")
 
 
         val r11 = StreetPassRecord(
@@ -106,7 +106,7 @@ class BuildFakeContacts {
             rssi = -50,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r11.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:09:40.614+02:00")
+        r11.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:09:40+02:00")
 
 
         val r12 = StreetPassRecord(
@@ -114,7 +114,7 @@ class BuildFakeContacts {
             rssi = -50,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r12.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:12:40.614+02:00")
+        r12.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:12:40+02:00")
 
 
         val r13 = StreetPassRecord(
@@ -122,7 +122,7 @@ class BuildFakeContacts {
             rssi = -50,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r13.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:16:44.614+02:00")
+        r13.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:16:44+02:00")
 
 
         val r14 = StreetPassRecord(
@@ -130,7 +130,7 @@ class BuildFakeContacts {
             rssi = -50,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r14.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:20:44.614+02:00")
+        r14.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:20:44+02:00")
 
 
         val r15 = StreetPassRecord(
@@ -138,7 +138,7 @@ class BuildFakeContacts {
             rssi = -50,
             org = or, modelP = mp, modelC = mc, txPower = 1, v = 2
         )
-        r15.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:34:44.614+02:00")
+        r15.timestamp = Utils.parseISO8601StringToMillis("2020-04-25T18:34:44+02:00")
 
 
 
