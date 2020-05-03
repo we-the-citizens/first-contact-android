@@ -31,7 +31,7 @@ object TempIDManager {
 
         return TemporaryID(
             createMS,
-            UUID.randomUUID().toString(),
+            tempID,
             expireMS
         )
     }
