@@ -22,14 +22,32 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.*
+import ro.wethecitizens.firstcontact.adapter.MyAdapter
+import ro.wethecitizens.firstcontact.infectionalert.InfectionAlert
+import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecord
+import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordDao
+import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordStorage
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.onboarding.OnboardingActivity
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordDatabase
+import java.util.*
+import javax.annotation.Nullable
+import kotlin.collections.ArrayList
+import kotlin.coroutines.CoroutineContext
 
 private const val REQUEST_ENABLE_BT = 123
 private const val PERMISSION_REQUEST_ACCESS_LOCATION = 456
@@ -40,7 +58,13 @@ class HomeFragment : Fragment() {
     private var mIsBroadcastListenerRegistered = false
     private var counter = 0
 
+    private lateinit var remoteConfig: FirebaseRemoteConfig
     private lateinit var lastKnownScanningStarted: LiveData<StatusRecord?>
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    lateinit var storage : InfectionAlertRecordStorage
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,8 +76,30 @@ class HomeFragment : Fragment() {
                 if (record != null) {
                     tv_last_update.visibility = View.VISIBLE
                     tv_last_update.text = "Last updated: ${Utils.getTime(record.timestamp)}"
+
                 }
             })
+
+        storage.getall().observe(viewLifecycleOwner, Observer {
+            viewManager = LinearLayoutManager(this.context)
+            viewAdapter = MyAdapter(it)
+            recyclerView = view.findViewById<RecyclerView>(R.id.recycler_alert).apply {
+                // use this setting to improve performance if you know that changes
+                // in content do not change the layout size of the RecyclerView
+                setHasFixedSize(true)
+
+                // use a linear layout manager
+                layoutManager = viewManager
+
+                // specify an viewAdapter (see also next example)
+                adapter = viewAdapter
+            }
+        })
+
+
+
+
+
 
         showSetup()
 
@@ -61,16 +107,25 @@ class HomeFragment : Fragment() {
         showNonEmptyAnnouncement()
     }
 
+//    fun task(){
+//        valstorage.getall().observe(viewLifecycleOwner, Observer {
+//            MyAdapter(it)
+//        })
+//    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        storage= InfectionAlertRecordStorage(this.requireContext())
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         Preference.registerListener(activity!!.applicationContext, listener)
 
         return view
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -92,6 +147,22 @@ class HomeFragment : Fragment() {
         btn_announcement_close.setOnClickListener {
             clearAndHideAnnouncement()
         }
+
+        remoteConfig = Firebase.remoteConfig
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 3600
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(mapOf("ShareText" to getString(R.string.share_message)))
+        remoteConfig.fetchAndActivate()
+            .addOnCompleteListener(activity as Activity) { task ->
+                if (task.isSuccessful) {
+                    val updated = task.result
+                    CentralLog.d(TAG, "Remote config fetch - success: $updated")
+                } else {
+                    CentralLog.d(TAG, "Remote config fetch - failed")
+                }
+            }
     }
 
     private fun isShowRestartSetup(): Boolean {
@@ -177,12 +248,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun shareThisApp() {
-
-        val newIntent = Intent(Intent.ACTION_SEND)
+        var newIntent = Intent(Intent.ACTION_SEND)
         newIntent.type = "text/plain"
-        newIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_app_subject))
-        newIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app_text))
-
+        newIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
+        var shareMessage = remoteConfig.getString("ShareText")
+        newIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
         startActivity(Intent.createChooser(newIntent, "choose one"))
     }
 

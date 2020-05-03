@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/light_blue"
+    app:cardCornerRadius="12dp"
+    app:cardMaxElevation="2dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="0dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    >
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/titlu_alerta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alerta de infectare posibila COVID19 !"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:foregroundGravity="center_horizontal"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="16sp"
+        android:paddingLeft="2dp"
+        android:paddingBottom="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="4dp"/>
+
+    <TextView
+        android:id="@+id/in_data_de"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="La"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:padding="2dp"
+        android:layout_marginLeft="4dp"
+        android:layout_below="@id/titlu_alerta"/>
+        <TextView
+            android:id="@+id/data_alerta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/in_data_de"
+            android:layout_below="@id/titlu_alerta"
+            android:text="20/04/2020"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="14sp"
+            android:padding="2dp"/>
+        <TextView
+            android:id="@+id/timp_de"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ati fost expus timp de "
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:padding="2dp"
+            android:layout_toRightOf="@id/data_alerta"
+            android:layout_below="@id/titlu_alerta"/>
+        <TextView
+            android:id="@+id/timp_data_alerta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/timp_de"
+            android:layout_below="@id/titlu_alerta"
+            android:text="30 min"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="14sp"
+            android:paddingTop="2dp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/in_data_de"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"
+            android:text="la o persoana confirmata in prezent cu COVID19."
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
