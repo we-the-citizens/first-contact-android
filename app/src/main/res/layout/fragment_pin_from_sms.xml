@@ -23,6 +23,7 @@
             android:id="@+id/sms_pin_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:layout_margin="@dimen/space16"
             android:hint="@string/pin_from_sms"
             app:layout_constrainedWidth="false"
