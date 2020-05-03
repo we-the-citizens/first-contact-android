@@ -14,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.CoroutineExceptionHandler
 import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.Utils
@@ -246,6 +247,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         }
     }
 
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, t ->
+        t.printStackTrace()
+    }
+
     private fun performDownload() {
 
         d("performDownload")
@@ -254,8 +259,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         //val context = this
         val appCtx = this.applicationContext
 
-
-        launch {
+        launch(Dispatchers.IO + coroutineExceptionHandler) {
 
             var isMatchKeysRequiredToSchedule = false
 
@@ -278,14 +282,12 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             val id = positiveKeysStorage.getLastId()
             val inst = BackendMethods.getInstance()
 
-            val keys = if (id == 0)
-                inst.getPositiveKeys(formattedInstallDate)
-            else
-                inst.getPositiveKeys(formattedInstallDate, id)
-
+            val keys = when (id) {
+                0 -> inst.getPositiveKeys(formattedInstallDate)
+                else -> inst.getPositiveKeys(formattedInstallDate, id)
+            }
 
             d("PositiveKey downloaded keys size = ${keys.size}")
-
 
             for (key in keys) {
 
