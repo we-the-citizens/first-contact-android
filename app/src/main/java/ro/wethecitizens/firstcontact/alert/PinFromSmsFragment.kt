@@ -39,15 +39,18 @@ class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
                 view?.sms_pin_input?.setText(state.pin)
             }
 
-            is UploadFailed -> Toast.makeText(
-                requireContext(),
-                getString(
-                    R.string.upload_failed,
-                    state.errorType.code.toString(),
-                    state.errorType::class.java.simpleName
-                ),
-                Toast.LENGTH_LONG
-            ).show()
+            is UploadFailed -> {
+                view?.loading_layout?.visibility = View.GONE
+                Toast.makeText(
+                    requireContext(),
+                    getString(
+                        R.string.upload_failed,
+                        state.errorType.code.toString(),
+                        state.errorType::class.java.simpleName
+                    ),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
 
             IdsUploaded -> {
                 Toast.makeText(
