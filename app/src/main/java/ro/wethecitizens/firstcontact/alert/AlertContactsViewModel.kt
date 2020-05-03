@@ -11,6 +11,7 @@ import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.alert.server.AuthorizationRequest
 import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.server.HttpCode
+import ro.wethecitizens.firstcontact.utils.AppSignatureHelper
 import ro.wethecitizens.firstcontact.utils.SingleLiveEvent
 import java.lang.Exception
 import java.util.*
@@ -48,7 +49,10 @@ class AlertContactsViewModel : ViewModel() {
             )
 
             try {
-                val response = BackendMethods.getInstance().checkUploadAuthorization(requestBody)
+                val response = BackendMethods.getInstance().checkUploadAuthorization(
+                    AppSignatureHelper.getAppHash(),
+                    requestBody
+                )
 
                 when (response.isSuccessful) {
                     true -> mState.postValue(State.Success)
