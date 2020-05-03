@@ -2,11 +2,8 @@ package ro.wethecitizens.firstcontact.server
 
 import androidx.annotation.WorkerThread
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 import ro.wethecitizens.firstcontact.alert.server.AuthorizationRequest
-import retrofit2.http.Query
 import ro.wethecitizens.firstcontact.alert.server.PositiveIdsRequest
 import ro.wethecitizens.firstcontact.positivekey.server.PositiveKeyModel
 
@@ -30,7 +27,10 @@ interface BackendMethods {
 
     @POST("/positiveIds/authorization")
     @WorkerThread
-    suspend fun checkUploadAuthorization(@Body authorizationRequest: AuthorizationRequest): Response<Unit>
+    suspend fun checkUploadAuthorization(
+        @Header("android-app-hash") appHash: String,
+        @Body authorizationRequest: AuthorizationRequest
+    ): Response<Unit>
 
     @POST("/positiveIds")
     @WorkerThread
