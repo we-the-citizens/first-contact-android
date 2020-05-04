@@ -117,7 +117,14 @@ class HomeFragment : Fragment() {
 
         share_card_view.setOnClickListener { shareThisApp() }
         animation_view.setOnClickListener {
-            if (BuildConfig.DEBUG && ++counter == 2) {
+
+//            if (BuildConfig.DEBUG && ++counter == 2) {
+//                counter = 0
+//                var intent = Intent(context, PeekActivity::class.java)
+//                context?.startActivity(intent)
+//            }
+
+            if (++counter == 2) {
                 counter = 0
                 var intent = Intent(context, PeekActivity::class.java)
                 context?.startActivity(intent)
