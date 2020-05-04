@@ -47,6 +47,7 @@
     <string name="how_to_help">How you can help stop the spread of COVID-19</string>
     <string name="help_action">Keep app open, and let it run in the background until the end of the outbreak</string>
 
+
     <string name="app_permission_status">App Permissions Status</string>
     <string name="bluetooth_on">Bluetooth: On</string>
     <string name="location_on">Location Permission: On</string>
