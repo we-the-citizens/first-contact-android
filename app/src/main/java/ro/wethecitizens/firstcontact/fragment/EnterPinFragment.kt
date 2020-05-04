@@ -1,28 +1,17 @@
 package ro.wethecitizens.firstcontact.fragment
 
-import android.content.Context
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import com.google.android.gms.tasks.Task
-import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.functions.HttpsCallableResult
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.UploadTask
-import com.google.gson.Gson
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_upload_enterpin.*
-import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.TracerApp
 import ro.wethecitizens.firstcontact.Utils
@@ -31,11 +20,6 @@ import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecordStorage
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStorage
-import java.io.File
-import java.io.FileOutputStream
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.HashMap
 
 class EnterPinFragment : Fragment(R.layout.fragment_upload_enterpin) {
     private var TAG = "UploadFragment"
@@ -95,37 +79,6 @@ class EnterPinFragment : Fragment(R.layout.fragment_upload_enterpin) {
                 .subscribe { exportedData ->
                     Log.d(TAG, "records: ${exportedData.recordList}")
                     Log.d(TAG, "status: ${exportedData.statusList}")
-
-                    getUploadToken(enterPinFragmentUploadCode.text.toString()).addOnSuccessListener {
-                        val response = it.data as HashMap<String, String>
-                        try {
-                            val uploadToken = response["token"]
-                            CentralLog.d(TAG, "uploadToken: $uploadToken")
-                            var task = writeToInternalStorageAndUpload(
-                                TracerApp.AppContext,
-                                exportedData.recordList,
-                                exportedData.statusList,
-                                uploadToken
-                            )
-                            task.addOnFailureListener {
-                                CentralLog.d(TAG, "failed to upload")
-                                myParentFragment.turnOffLoadingProgress()
-                                enterPinFragmentErrorMessage.visibility = View.VISIBLE
-                            }.addOnSuccessListener {
-                                CentralLog.d(TAG, "uploaded successfully")
-                                myParentFragment.turnOffLoadingProgress()
-                                myParentFragment.navigateToUploadComplete()
-                            }
-                        } catch (e: Throwable) {
-                            CentralLog.d(TAG, "Failed to upload data: ${e.message}")
-                            myParentFragment.turnOffLoadingProgress()
-                            enterPinFragmentErrorMessage.visibility = View.VISIBLE
-                        }
-                    }.addOnFailureListener {
-                        CentralLog.d(TAG, "Invalid code")
-                        myParentFragment.turnOffLoadingProgress()
-                        enterPinFragmentErrorMessage.visibility = View.VISIBLE
-                    }
                 }
         }
 
@@ -144,93 +97,4 @@ class EnterPinFragment : Fragment(R.layout.fragment_upload_enterpin) {
         super.onDestroy()
         disposeObj?.dispose()
     }
-
-    private fun getUploadToken(uploadCode: String): Task<HttpsCallableResult> {
-        val functions = FirebaseFunctions.getInstance(BuildConfig.FIREBASE_REGION)
-        return functions
-            .getHttpsCallable("getUploadToken")
-            .call(uploadCode)
-    }
-
-    private fun writeToInternalStorageAndUpload(
-        context: Context,
-        deviceDataList: List<StreetPassRecord>,
-        statusList: List<StatusRecord>,
-        uploadToken: String?
-    ): UploadTask {
-        var date = Utils.getDateFromUnix(System.currentTimeMillis())
-        var gson = Gson()
-
-        val manufacturer = Build.MANUFACTURER
-        val model = Build.MODEL
-
-        var updatedDeviceList = deviceDataList.map {
-            it.timestamp = it.timestamp / 1000
-            return@map it
-        }
-
-        var updatedStatusList = statusList.map {
-            it.timestamp = it.timestamp / 1000
-            return@map it
-        }
-
-        var map: MutableMap<String, Any> = HashMap()
-        map["token"] = uploadToken as Any
-        map["records"] = updatedDeviceList as Any
-        map["events"] = updatedStatusList as Any
-
-        val mapString = gson.toJson(map)
-
-        val fileName = "StreetPassRecord_${manufacturer}_${model}_$date.json"
-        val fileOutputStream: FileOutputStream
-
-        val uploadDir = File(context.filesDir, "upload")
-
-        if (uploadDir.exists()) {
-            uploadDir.deleteRecursively()
-        }
-
-        uploadDir.mkdirs()
-        val fileToUpload = File(uploadDir, fileName)
-//        fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE)
-        fileOutputStream = FileOutputStream(fileToUpload)
-
-        fileOutputStream.write(mapString.toByteArray())
-        fileOutputStream.close()
-
-        CentralLog.i(TAG, "File wrote: ${fileToUpload.absolutePath}")
-
-        return uploadToCloudStorage(context, fileToUpload)
-    }
-
-    private fun uploadToCloudStorage(context: Context, fileToUpload: File): UploadTask {
-        CentralLog.d(TAG, "Uploading to Cloud Storage")
-
-        val bucketName = BuildConfig.FIREBASE_UPLOAD_BUCKET
-        val storage = FirebaseStorage.getInstance("gs://${bucketName}")
-        var storageRef = storage.getReferenceFromUrl("gs://${bucketName}")
-
-        val dateString = SimpleDateFormat("yyyyMMdd").format(Date())
-        var streetPassRecordsRef =
-            storageRef.child("streetPassRecords/$dateString/${fileToUpload.name}")
-
-        val fileUri: Uri =
-            FileProvider.getUriForFile(
-                context,
-                "${BuildConfig.APPLICATION_ID}.fileprovider",
-                fileToUpload
-            )
-
-        var uploadTask = streetPassRecordsRef.putFile(fileUri)
-        uploadTask.addOnCompleteListener {
-            try {
-                fileToUpload.delete()
-                CentralLog.i(TAG, "upload file deleted")
-            } catch (e: Exception) {
-                CentralLog.e(TAG, "Failed to delete upload file")
-            }
-        }
-        return uploadTask
-    }
-
 }
