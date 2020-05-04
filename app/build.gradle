@@ -89,7 +89,7 @@ android {
 
             String ssid = STAGING_SERVICE_UUID
             versionNameSuffix "-debug-${getGitHash()}-${ssid.substring(ssid.length() - 5, ssid.length() - 1)}"
-            resValue "string", "app_name", "OpenTrace Debug"
+            resValue "string", "app_name", "First Contact Debug"
             applicationIdSuffix "stg"
         }
 
@@ -104,7 +104,7 @@ android {
             minifyEnabled false
             multiDexEnabled false
             zipAlignEnabled true
-            resValue "string", "app_name", "OpenTrace"
+            resValue "string", "app_name", "First Contact"
 
             lintOptions {
                 // Ignore lint errors for now
