@@ -327,8 +327,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             //Uncomment next two lines only to fake data for test cases
 
-            BuildFakeContacts().run(appCtx)
-            infectionAlertRecordStorage.nukeDb()
+//            BuildFakeContacts().run(appCtx)
+//            infectionAlertRecordStorage.nukeDb()
 
 
 //            cycleNoToNukeDb--
