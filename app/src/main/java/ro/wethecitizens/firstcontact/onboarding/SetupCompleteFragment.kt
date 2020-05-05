@@ -27,7 +27,7 @@ class SetupCompleteFragment : OnboardingFragmentInterface() {
         var intent = Intent(context, ro.wethecitizens.firstcontact.MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context?.startActivity(intent)
-        (context as OnboardingActivity?)?.finish()
+        (context as OnBoardingActivity?)?.finish()
     }
 
     override fun onCreateView(

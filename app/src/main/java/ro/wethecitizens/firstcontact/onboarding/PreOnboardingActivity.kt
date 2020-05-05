@@ -11,7 +11,7 @@ class PreOnboardingActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity_onboarding)
         btn_onboardingStart.setOnClickListener {
-            var intent = Intent(this, HowItWorksActivity::class.java)
+            var intent = Intent(this, OnBoardingActivity::class.java)
             startActivity(intent)
         }
     }

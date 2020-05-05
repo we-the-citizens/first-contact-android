@@ -31,7 +31,7 @@ class SetupFragment : OnboardingFragmentInterface() {
 
     override fun onButtonClick(view: View) {
         CentralLog.d(TAG, "OnButtonClick 2")
-        val activity = context as OnboardingActivity?
+        val activity = context as OnBoardingActivity?
         activity?.enableBluetooth()
     }
 

@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import ro.wethecitizens.firstcontact.MainActivity
 import ro.wethecitizens.firstcontact.R
-import ro.wethecitizens.firstcontact.onboarding.OnboardingActivity
+import ro.wethecitizens.firstcontact.onboarding.OnBoardingActivity
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Companion.PENDING_ACTIVITY
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Companion.PENDING_WIZARD_REQ_CODE
 
@@ -61,7 +61,7 @@ class NotificationTemplates {
         }
 
         fun lackingThingsNotification(context: Context, channel: String): Notification {
-            var intent = Intent(context, OnboardingActivity::class.java)
+            var intent = Intent(context, OnBoardingActivity::class.java)
             intent.putExtra("page", 3)
 
             val activityPendingIntent = PendingIntent.getActivity(

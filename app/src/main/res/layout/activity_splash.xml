@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_weight="0.7"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_opentrace_blue_transparent"
+            android:src="@drawable/ic_blue_transparent"
             app:layout_constraintTop_toTopOf="@+id/center" />
 
         <View

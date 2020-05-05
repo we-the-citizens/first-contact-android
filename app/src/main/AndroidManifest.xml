@@ -53,7 +53,7 @@
         </activity>
 
         <activity
-            android:name="ro.wethecitizens.firstcontact.onboarding.OnboardingActivity"
+            android:name="ro.wethecitizens.firstcontact.onboarding.OnBoardingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="ro.wethecitizens.firstcontact.onboarding.HowItWorksActivity"

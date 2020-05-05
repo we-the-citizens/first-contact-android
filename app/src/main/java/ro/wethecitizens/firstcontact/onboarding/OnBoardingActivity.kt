@@ -8,7 +8,6 @@ import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -16,105 +15,36 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
+import ro.wethecitizens.firstcontact.MainActivity
 import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
-import java.util.*
-import kotlin.collections.HashMap
 
 private const val REQUEST_ENABLE_BT = 123
 private const val PERMISSION_REQUEST_ACCESS_LOCATION = 456
 private const val BATTERY_OPTIMISER = 789
 
-class OnboardingActivity : FragmentActivity(),
-    SetupFragment.OnFragmentInteractionListener,
-    SetupCompleteFragment.OnFragmentInteractionListener,
-    TOUFragment.OnFragmentInteractionListener {
+class OnBoardingActivity : AppCompatActivity() {
 
-
-    private var TAG: String = "OnboardingActivity"
-    private var pagerAdapter: ScreenSlidePagerAdapter? = null
+    private var TAG: String = "OnBoardingActivity"
     private var bleSupported = false
-    private var speedUp = false
-
     private var mIsOpenSetting = false
-    private var mIsResetup = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_onboarding)
-        pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
-        pager.adapter = pagerAdapter
 
-        tabDots.setupWithViewPager(pager, true)
-
-        pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-                CentralLog.d(TAG, "OnPageScrollStateChanged")
-            }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                CentralLog.d(TAG, "OnPageScrolled")
-            }
-
-            override fun onPageSelected(position: Int) {
-                CentralLog.d(TAG, "position: $position")
-                val onboardingFragment: OnboardingFragmentInterface =
-                    pagerAdapter!!.getItem(position)
-                onboardingFragment.becomesVisible()
-                when (position) {
-
-                    0 -> {
-                        Preference.putCheckpoint(
-                            baseContext,
-                            position
-                        )
-                    }
-                    1 -> {
-                        Preference.putCheckpoint(
-                            baseContext,
-                            position
-                        )
-                    }
-                    2 -> {
-                        Preference.putCheckpoint(
-                            baseContext,
-                            position
-                        )
-                    }
-                }
-
-            }
-        })
-
-        //disable swiping
-        pager.setPagingEnabled(false)
-        pager.offscreenPageLimit = 3
-
-        val extras = intent.extras
-        if (extras != null) {
-            mIsResetup = true
-            var page = extras.getInt("page", 0)
-            navigateTo(page)
-        } else {
-            var checkPoint = Preference.getCheckpoint(this)
-            navigateTo(checkPoint)
-        }
+        btnOnBoardingStart.setOnClickListener({
+            enableBluetooth();
+        });
     }
 
     override fun onResume() {
@@ -122,14 +52,6 @@ class OnboardingActivity : FragmentActivity(),
         if (mIsOpenSetting) {
             Handler().postDelayed(Runnable { setupPermissionsAndSettings() }, 1000)
         }
-    }
-
-    override fun onBackPressed() {
-        if (pager.currentItem > 0 && pager.currentItem != 2) {
-            navigateToPreviousPage()
-            return
-        }
-        super.onBackPressed()
     }
 
     private val bluetoothAdapter: BluetoothAdapter? by lazy(LazyThreadSafetyMode.NONE) {
@@ -315,66 +237,13 @@ class OnboardingActivity : FragmentActivity(),
     }
 
     fun navigateToNextPage() {
+
         CentralLog.d(TAG, "Navigating to next page")
-        onboardingActivityLoadingProgressBarFrame.visibility = View.GONE
 
-        if (!speedUp) {
-            pager.currentItem = pager.currentItem + 1
-            pagerAdapter!!.notifyDataSetChanged()
-        } else {
-            pager.currentItem = pager.currentItem + 2
-            pagerAdapter!!.notifyDataSetChanged()
-            speedUp = false
-        }
+        Preference.putIsOnBoarded(this, true)
+
+        startActivity(
+            Intent(this, MainActivity::class.java)
+        )
     }
-
-    fun navigateToPreviousPage() {
-        CentralLog.d(TAG, "Navigating to previous page")
-        if (mIsResetup) {
-            if (pager.currentItem >= 2) {
-                pager.currentItem = pager.currentItem - 1
-                pagerAdapter!!.notifyDataSetChanged()
-            } else {
-                finish()
-            }
-        } else {
-            pager.currentItem = pager.currentItem - 1
-            pagerAdapter!!.notifyDataSetChanged()
-        }
-    }
-
-    private fun navigateTo(page: Int) {
-        CentralLog.d(TAG, "Navigating to page")
-        pager.currentItem = page
-        pagerAdapter!!.notifyDataSetChanged()
-    }
-
-    override fun onFragmentInteraction(uri: Uri) {
-        CentralLog.d(TAG, "########## fragment interaction: $uri")
-    }
-
-    private inner class ScreenSlidePagerAdapter(fm: FragmentManager) :
-        FragmentStatePagerAdapter(fm) {
-
-        val fragmentMap: MutableMap<Int, OnboardingFragmentInterface> = HashMap()
-
-        override fun getCount(): Int = 3
-
-        override fun getItem(position: Int): OnboardingFragmentInterface {
-            return fragmentMap.getOrPut(position, { createFragAtIndex(position) })
-        }
-
-        private fun createFragAtIndex(index: Int): OnboardingFragmentInterface {
-            return when (index) {
-                0 -> return TOUFragment()
-                1 -> return SetupFragment()
-                2 -> return SetupCompleteFragment()
-                else -> {
-                    TOUFragment()
-                }
-            }
-        }
-
-    }
-
 }

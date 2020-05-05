@@ -31,7 +31,7 @@ import ro.wethecitizens.firstcontact.*
 import ro.wethecitizens.firstcontact.adapter.MyAdapter
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordStorage
 import ro.wethecitizens.firstcontact.logging.CentralLog
-import ro.wethecitizens.firstcontact.onboarding.OnboardingActivity
+import ro.wethecitizens.firstcontact.onboarding.OnBoardingActivity
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordDatabase
 
@@ -131,7 +131,7 @@ class HomeFragment : Fragment() {
             }
         }
         btn_restart_app_setup.setOnClickListener {
-            var intent = Intent(context, OnboardingActivity::class.java)
+            var intent = Intent(context, OnBoardingActivity::class.java)
             intent.putExtra("page", 1)
             context?.startActivity(intent)
         }
