@@ -444,6 +444,7 @@
                 android:textSize="18sp"
                 android:text="@string/view_infection_instructions_text"
                 android:textColor="#fff"
+                android:visibility="gone"
             />
 
 
