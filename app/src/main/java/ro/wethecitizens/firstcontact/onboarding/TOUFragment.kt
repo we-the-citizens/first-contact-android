@@ -41,7 +41,7 @@ class TOUFragment : OnboardingFragmentInterface() {
 
     override fun onButtonClick(buttonView: View) {
         CentralLog.d(TAG, "OnButtonClick 4")
-        val onboardActivity = context as OnboardingActivity
+        val onboardActivity = context as OnBoardingActivity
         onboardActivity.navigateToNextPage()
     }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".onboarding.OnboardingActivity">
+    tools:context=".onboarding.OnBoardingActivity">
 
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -16,7 +16,7 @@
         android:layout_marginRight="50dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/ic_opentrace_blue_transparent"
+        app:srcCompat="@drawable/ic_blue_transparent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
