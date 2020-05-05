@@ -10,6 +10,7 @@ import android.os.PowerManager
 import android.text.Spannable
 import android.text.method.LinkMovementMethod
 import android.text.style.URLSpan
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -79,10 +80,30 @@ class HomeFragment : Fragment() {
                 // specify an viewAdapter (see also next example)
                 adapter = viewAdapter
             }
+
+            if (it.isNotEmpty()) {
+
+                animation_view.layoutParams.height =
+                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100f, resources.displayMetrics).toInt()
+
+                btnViewInstructions.visibility = View.VISIBLE
+            }
+            else {
+
+                animation_view.layoutParams.height =
+                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250f, resources.displayMetrics).toInt()
+
+                btnViewInstructions.visibility = View.GONE
+            }
         })
 
 
 
+        btnViewInstructions.setOnClickListener {
+
+            val i = Intent(context, InfectionInstructionsActivity::class.java)
+            context?.startActivity(i)
+        }
 
 
 
