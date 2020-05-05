@@ -116,5 +116,6 @@
     <string name="share_app_subject">First Contact</string>
     <string name="share_app_text">Share this app</string>
 
+    <string name="view_infection_instructions_text">View infection instructions</string>
 
 </resources>

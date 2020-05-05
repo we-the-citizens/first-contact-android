@@ -79,10 +79,17 @@ class HomeFragment : Fragment() {
                 // specify an viewAdapter (see also next example)
                 adapter = viewAdapter
             }
+
+            animation_view.layoutParams.height = 250
         })
 
 
 
+        btnViewInstructions.setOnClickListener {
+
+            val i = Intent(context, InfectionInstructionsActivity::class.java)
+            context?.startActivity(i)
+        }
 
 
 

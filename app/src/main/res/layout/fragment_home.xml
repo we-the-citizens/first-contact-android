@@ -431,6 +431,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+            <Button
+                android:id="@+id/btnViewInstructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:background="@drawable/gradient"
+                android:layout_margin="24dp"
+                android:textAllCaps="false"
+                android:textFontWeight="600"
+                android:fontFamily="@font/font"
+                android:textSize="18sp"
+                android:text="@string/view_infection_instructions_text"
+                android:textColor="#fff"
+            />
+
+
         </LinearLayout>
 
     </ScrollView>
