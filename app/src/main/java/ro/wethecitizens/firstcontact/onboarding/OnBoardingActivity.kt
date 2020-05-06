@@ -15,7 +15,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
 import android.provider.Settings
-import android.view.View
+import android.text.method.ScrollingMovementMethod
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import pub.devrel.easypermissions.AfterPermissionGranted
@@ -42,9 +42,11 @@ class OnBoardingActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_onboarding)
 
-        btnOnBoardingStart.setOnClickListener({
-            enableBluetooth();
-        });
+        tv_note_1.movementMethod = ScrollingMovementMethod()
+
+        btnOnBoardingStart.setOnClickListener{
+            enableBluetooth()
+        }
     }
 
     override fun onResume() {
