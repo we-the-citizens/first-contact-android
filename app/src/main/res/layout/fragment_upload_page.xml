@@ -51,15 +51,12 @@
             app:layout_constraintTop_toBottomOf="@+id/topLayout"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <fragment
-                android:id="@+id/nav_upload_fragment"
-                android:name="androidx.navigation.fragment.NavHostFragment"
+            <FrameLayout
+                android:id="@+id/fragment_placeholder"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:defaultNavHost="true"
-                app:navGraph="@navigation/nav_upload_graph" />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
