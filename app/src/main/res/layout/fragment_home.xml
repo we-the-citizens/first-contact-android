@@ -99,12 +99,13 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imv_incomplete"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
-                        android:padding="16dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="25dp"
+                        android:paddingLeft="66dp"
+                        android:paddingRight="66dp"
                         app:srcCompat="@drawable/ic_blue_transparent"/>
 
 
