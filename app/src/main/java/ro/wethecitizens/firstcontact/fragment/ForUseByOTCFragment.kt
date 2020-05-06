@@ -1,20 +1,42 @@
 package ro.wethecitizens.firstcontact.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.fragment_upload_foruse.*
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import ro.wethecitizens.firstcontact.MainActivity
 import ro.wethecitizens.firstcontact.R
 
-class ForUseByOTCFragment : Fragment(R.layout.fragment_forusebyotc) {
+class ForUseByOTCFragment : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_forusebyotc, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        forUseFragmentActionButton.setOnClickListener {
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-                .navigate(R.id.action_forUseByOTCFragment_to_uploadPageFragment)
-        }
+        val childFragMan: FragmentManager = childFragmentManager
+        val childFragTrans: FragmentTransaction = childFragMan.beginTransaction()
+        val fragB = ForUseFragment()
+        childFragTrans.add(R.id.fragment_placeholder, fragB)
+        childFragTrans.addToBackStack("VerifyCaller")
+        childFragTrans.commit()
+    }
+
+    fun goToUploadFragment() {
+        val parentActivity: MainActivity = activity as MainActivity
+        parentActivity.openFragment(
+            parentActivity.LAYOUT_MAIN_ID,
+            UploadPageFragment(),
+            UploadPageFragment::class.java.name,
+            0
+        )
     }
 }
