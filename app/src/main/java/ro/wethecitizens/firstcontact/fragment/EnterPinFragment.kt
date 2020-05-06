@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,23 +17,26 @@ import kotlinx.android.synthetic.main.fragment_upload_enterpin.*
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.TracerApp
 import ro.wethecitizens.firstcontact.Utils
-import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecordStorage
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStorage
 
-class EnterPinFragment : Fragment(R.layout.fragment_upload_enterpin) {
+class EnterPinFragment : Fragment() {
     private var TAG = "UploadFragment"
 
     private var disposeObj: Disposable? = null
-    private lateinit var myParentFragment: UploadPageFragment
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_upload_enterpin, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        /** FIXME: navigation has an intermediate parent fragment as [androidx.navigation.fragment.NavHostFragment] */
-        myParentFragment = parentFragment!!.parentFragment as UploadPageFragment
 
         enterPinFragmentUploadCode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
@@ -53,6 +58,7 @@ class EnterPinFragment : Fragment(R.layout.fragment_upload_enterpin) {
 
         enterPinActionButton.setOnClickListener {
             enterPinFragmentErrorMessage.visibility = View.INVISIBLE
+            var myParentFragment: UploadPageFragment = (parentFragment as UploadPageFragment)
             myParentFragment.turnOnLoadingProgress()
 
             var observableStreetRecords = Observable.create<List<StreetPassRecord>> {
@@ -84,11 +90,13 @@ class EnterPinFragment : Fragment(R.layout.fragment_upload_enterpin) {
 
         enterPinFragmentBackButtonLayout.setOnClickListener {
             println("onclick is pressed")
+            var myParentFragment: UploadPageFragment = (parentFragment as UploadPageFragment)
             myParentFragment.popStack()
         }
 
         enterPinFragmentBackButton.setOnClickListener {
             println("onclick is pressed")
+            var myParentFragment: UploadPageFragment = (parentFragment as UploadPageFragment)
             myParentFragment.popStack()
         }
     }
