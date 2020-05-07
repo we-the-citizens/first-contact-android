@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.fragment.alert.server.PositiveIdsRequest
+import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.server.HttpCode
 import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
@@ -26,8 +27,7 @@ class PinFromSmsViewModel : ViewModel() {
             null -> mState.value = State.InvalidSms
             else -> {
                 retrievePinFromSms(smsContent)?.let { pin ->
-                    mState.value = State.ValidSms(pin)
-
+                    mState.value = State.ValidSms
                     uploadContacts(pin, appCtx)
                 } ?: run {
                     mState.value = State.InvalidSms
@@ -36,7 +36,9 @@ class PinFromSmsViewModel : ViewModel() {
         }
     }
 
-    fun uploadContacts(pinCode: String, appCtx: Context) {
+    private fun uploadContacts(pinCode: String, appCtx: Context) {
+
+        CentralLog.d(TAG, "PIN $pinCode  uploadContacts")
 
         val tempIdStorage = TempIdStorage(appCtx)
 
@@ -107,9 +109,13 @@ class PinFromSmsViewModel : ViewModel() {
 
     sealed class State {
         object InvalidSms : State()
-        class ValidSms(val pin: String) : State()
+        object ValidSms : State()
 
         object IdsUploaded : State()
         class UploadFailed(val errorType: HttpCode) : State()
+    }
+
+    companion object {
+        const val TAG = "PinFromSmsViewModel"
     }
 }

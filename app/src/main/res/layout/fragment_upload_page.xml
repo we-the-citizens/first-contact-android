@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="For use by OTC"
+                android:text="@string/upload_steps_background_title"
                 android:textSize="32sp"
                 android:textFontWeight="600" />
 
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="Upload data for contact tracing"
+                android:text="@string/upload_steps_background_data"
                 android:textSize="18sp"
                 android:textFontWeight="600" />
 

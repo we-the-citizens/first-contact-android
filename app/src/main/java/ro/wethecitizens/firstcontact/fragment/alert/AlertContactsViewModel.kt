@@ -1,10 +1,8 @@
 package ro.wethecitizens.firstcontact.fragment.alert
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.zxing.integration.android.IntentResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ro.wethecitizens.firstcontact.Preference
@@ -21,17 +19,7 @@ class AlertContactsViewModel : ViewModel() {
     private val mState: SingleLiveEvent<State> = SingleLiveEvent()
     val observableState: LiveData<State> = mState
 
-    fun getScanInfo(result: IntentResult?) {
-        if (result == null) {
-            Log.d("Alert", "result null")
-            return
-        }
-
-        val qrCode = result.contents
-        if (qrCode == null) {
-            Log.d("Alert", "scan did not return anything")
-            return
-        }
+    fun setQRCode(qrCode: String) {
 
         mState.value = State.Loading(qrCode)
     }

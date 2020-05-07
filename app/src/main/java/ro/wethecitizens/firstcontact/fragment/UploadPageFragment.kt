@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_upload_page.*
 import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.MainActivity
@@ -49,10 +48,10 @@ class UploadPageFragment : Fragment() {
         uploadPageFragmentLoadingProgressBarFrame.visibility = View.INVISIBLE
     }
 
-    fun navigateToUploadPin() {
+    fun navigateToUploadPin(qrCode: String) {
         val childFragMan: FragmentManager = childFragmentManager
         val childFragTrans: FragmentTransaction = childFragMan.beginTransaction()
-        val fragB = EnterPinFragment()
+        val fragB = EnterPinFragment(qrCode)
         childFragTrans.add(R.id.fragment_placeholder, fragB)
         childFragTrans.addToBackStack("C")
         childFragTrans.commit()

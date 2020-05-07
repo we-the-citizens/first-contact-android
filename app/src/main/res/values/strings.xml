@@ -82,6 +82,7 @@
     <string name="no_internet_connection">Ai nevoie de o conexiune la internet înainte de a începe.</string>
     <string name="pin_from_sms">Introdu PIN-ul primit prin SMS.</string>
     <string name="sms_pin_information_text">Asteaptă să primești SMS cu PIN-ul necesar validarii cererii de upload.</string>
+    <string name="invalid_sms">Invalid SMS</string>
     <string name="listening_for_sms">PIN-ul va fi introdus automat la primirea SMS-ului</string>
     <string name="upload_success">Încărcarea pseudonimelor tale s-a făcut cu succes!</string>
     <string name="upload_failed">UPLOAD FAILED: %s, %s</string>
@@ -92,9 +93,10 @@
     <string name="share_app_text">Distribuie aplicația</string>
     <string name="share_message">Ne putem proteja reciproc. Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
 
-    
     <string name="view_infection_instructions_text">Instructiuni de urmat</string>
     
+    <string name="upload_steps_background_title">For use by OTC</string>
+    <string name="upload_steps_background_data">Upload data for contact tracing</string>
     <string name="upload_for_use_tap_next_text">Tap \'Next\' only if a contact tracer tells you to do so</string>
     <string name="upload_step_1_title">STEP 1</string>
     <string name="upload_step_1_verify_that_the_contact">Scanati codul QR obtinut de la medic</string>
@@ -105,7 +107,6 @@
     <string name="upload_step_2_invalid_pin">Invalid PIN</string>
     <string name="upload_step_2_upload_data">Upload data</string>
     <string name="upload_step_3_your_data_has_been_uploaded">Your data has been uploaded to OTC</string>
-
     
     <!-- de eliminat -->
     
@@ -144,8 +145,5 @@
     <string name="unknown_error">An error has occurred. Please try again</string>
     <string name="must_be_six_digit">Must be a 6-digit number</string>
     <string name="invalid_user">Your account has been disabled. Please contact support.</string>
-    
-    
-    
-    
+
 </resources>
