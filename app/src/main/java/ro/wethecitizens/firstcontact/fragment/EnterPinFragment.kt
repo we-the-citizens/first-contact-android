@@ -1,29 +1,26 @@
 package ro.wethecitizens.firstcontact.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_upload_enterpin.*
 import ro.wethecitizens.firstcontact.R
-import ro.wethecitizens.firstcontact.TracerApp
 import ro.wethecitizens.firstcontact.Utils
-import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
-import ro.wethecitizens.firstcontact.status.persistence.StatusRecordStorage
-import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
-import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStorage
+import ro.wethecitizens.firstcontact.fragment.alert.PinFromSmsViewModel
+import ro.wethecitizens.firstcontact.fragment.alert.SmsListenerViewModel
 
 class EnterPinFragment : Fragment() {
-    private var TAG = "UploadFragment"
+
+    //private var TAG = "UploadFragment"
 
     private var disposeObj: Disposable? = null
 
@@ -38,8 +35,26 @@ class EnterPinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val appCtx: Context = view.context
+
+        mViewModel = ViewModelProvider(this).get(PinFromSmsViewModel::class.java)
+
+        mViewModel.observableState.observe(viewLifecycleOwner, stateObserver)
+
+        mSharedViewModel =
+            ViewModelProvider(requireActivity()).get(SmsListenerViewModel::class.java)
+
+        mSharedViewModel.observableState.observe(viewLifecycleOwner, smsObserver)
+
+        mSharedViewModel.smsText.observe(viewLifecycleOwner, Observer { sms ->
+            mViewModel.handleSms(sms, appCtx)
+        })
+
+
         enterPinFragmentUploadCode.addTextChangedListener(object : TextWatcher {
+
             override fun afterTextChanged(s: Editable) {}
+
             override fun beforeTextChanged(
                 s: CharSequence, start: Int,
                 count: Int, after: Int
@@ -57,52 +72,100 @@ class EnterPinFragment : Fragment() {
         })
 
         enterPinActionButton.setOnClickListener {
-            enterPinFragmentErrorMessage.visibility = View.INVISIBLE
-            var myParentFragment: UploadPageFragment = (parentFragment as UploadPageFragment)
-            myParentFragment.turnOnLoadingProgress()
 
-            var observableStreetRecords = Observable.create<List<StreetPassRecord>> {
-                val result = StreetPassRecordStorage(TracerApp.AppContext).getAllRecords()
-                it.onNext(result)
+            enterPinFragmentUploadCode.text?.takeIf { it.isNotEmpty() }?.let {
+
+                enterPinFragmentErrorMessage.visibility = View.INVISIBLE
+
+                showLoader()
+
+                mViewModel.uploadContacts(it.toString(), appCtx)
+
+            } ?: run {
+
+                enterPinFragmentErrorMessage.visibility = View.VISIBLE
             }
-            var observableStatusRecords = Observable.create<List<StatusRecord>> {
-                val result = StatusRecordStorage(TracerApp.AppContext).getAllRecords()
-                it.onNext(result)
-            }
-
-            disposeObj = Observable.zip(observableStreetRecords, observableStatusRecords,
-
-                BiFunction<List<StreetPassRecord>, List<StatusRecord>, ExportData> { records, status ->
-                    ExportData(
-                        records,
-                        status
-                    )
-                }
-
-            )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe { exportedData ->
-                    Log.d(TAG, "records: ${exportedData.recordList}")
-                    Log.d(TAG, "status: ${exportedData.statusList}")
-                }
         }
 
         enterPinFragmentBackButtonLayout.setOnClickListener {
-            println("onclick is pressed")
-            var myParentFragment: UploadPageFragment = (parentFragment as UploadPageFragment)
-            myParentFragment.popStack()
+
+            val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
+            pf.popStack()
         }
 
         enterPinFragmentBackButton.setOnClickListener {
-            println("onclick is pressed")
-            var myParentFragment: UploadPageFragment = (parentFragment as UploadPageFragment)
-            myParentFragment.popStack()
+
+            val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
+            pf.popStack()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         disposeObj?.dispose()
+    }
+
+
+
+    /* Private */
+
+    private lateinit var mSharedViewModel: SmsListenerViewModel
+    private val smsObserver = Observer<SmsListenerViewModel.State> { state ->
+        when (state) {
+            SmsListenerViewModel.State.ListeningForSms -> {
+                enterPinFragmentUploadCode?.setHint(R.string.listening_for_sms)
+            }
+            else -> {
+                enterPinFragmentUploadCode?.setHint(R.string.pin_from_sms)
+            }
+        }
+    }
+
+    private lateinit var mViewModel: PinFromSmsViewModel
+    private val stateObserver = Observer<PinFromSmsViewModel.State> { state ->
+        when (state) {
+            PinFromSmsViewModel.State.InvalidSms -> enterPinFragmentUploadCode?.setHint(R.string.pin_from_sms)
+            is PinFromSmsViewModel.State.ValidSms -> {
+
+                hideLoader()
+
+                enterPinFragmentUploadCode?.setText(state.pin)
+            }
+
+            is PinFromSmsViewModel.State.UploadFailed -> {
+
+                hideLoader()
+
+                Toast.makeText(
+                    requireContext(),
+                    getString(
+                        R.string.upload_failed,
+                        state.errorType.code.toString(),
+                        state.errorType::class.java.simpleName
+                    ),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            PinFromSmsViewModel.State.IdsUploaded -> {
+
+                hideLoader()
+
+                val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
+                pf.navigateToUploadComplete()
+            }
+        }
+    }
+
+    private fun showLoader() {
+
+        val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
+        pf.turnOnLoadingProgress()
+    }
+
+    private fun hideLoader() {
+
+        val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
+        pf.turnOffLoadingProgress()
     }
 }
