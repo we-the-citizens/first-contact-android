@@ -90,16 +90,17 @@ class EnterPinFragment(private val inQRCode: String) : Fragment() {
     private lateinit var mViewModel: PinFromSmsViewModel
     private val stateObserver = Observer<PinFromSmsViewModel.State> { state ->
 
-        hideLoader()
-
         when (state) {
-            PinFromSmsViewModel.State.InvalidSms ->
+            PinFromSmsViewModel.State.InvalidSms -> {
+                hideLoader()
                 Toast.makeText(requireContext(), R.string.invalid_sms, Toast.LENGTH_LONG).show()
+            }
 
             is PinFromSmsViewModel.State.ValidSms -> {
             }
 
             is PinFromSmsViewModel.State.UploadFailed -> {
+                hideLoader()
                 Toast.makeText(
                     requireContext(),
                     getString(
@@ -112,6 +113,7 @@ class EnterPinFragment(private val inQRCode: String) : Fragment() {
             }
 
             PinFromSmsViewModel.State.IdsUploaded -> {
+                hideLoader()
                 (parentFragment as UploadPageFragment).navigateToUploadComplete()
             }
         }
