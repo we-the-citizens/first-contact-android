@@ -98,6 +98,7 @@
     <string name="upload_steps_background_title">For use by OTC</string>
     <string name="upload_steps_background_data">Upload data for contact tracing</string>
     <string name="upload_for_use_tap_next_text">Tap \'Next\' only if a contact tracer tells you to do so</string>
+    <string name="upload_for_use_next_btn">Next</string>
     <string name="upload_step_1_title">STEP 1</string>
     <string name="upload_step_1_verify_that_the_contact">Scanati codul QR obtinut de la medic</string>
     <string name="upload_step_1_make_sure_they_give">Este necesara acordarea permisiunii de accesare a camerei pentru scanare</string>
@@ -107,7 +108,12 @@
     <string name="upload_step_2_invalid_pin">Invalid PIN</string>
     <string name="upload_step_2_upload_data">Upload data</string>
     <string name="upload_step_3_your_data_has_been_uploaded">Your data has been uploaded to OTC</string>
-    
+    <string name="upload_step_3_done_btn">Done</string>
+
+    <string name="for_use_by_otc_title">For use by OTC</string>
+    <string name="for_use_by_otc_use_only">Use only if OTC contacts you</string>
+
+
     <!-- de eliminat -->
     
     <string name="see_connections">See connections</string>
@@ -145,5 +151,6 @@
     <string name="unknown_error">An error has occurred. Please try again</string>
     <string name="must_be_six_digit">Must be a 6-digit number</string>
     <string name="invalid_user">Your account has been disabled. Please contact support.</string>
+
 
 </resources>
