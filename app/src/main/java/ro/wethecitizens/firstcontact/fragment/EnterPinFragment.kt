@@ -17,6 +17,8 @@ import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.fragment.alert.PinFromSmsViewModel
 import ro.wethecitizens.firstcontact.fragment.alert.SmsListenerViewModel
+import java.util.*
+import kotlin.concurrent.schedule
 
 class EnterPinFragment : Fragment() {
 
@@ -149,10 +151,13 @@ class EnterPinFragment : Fragment() {
 
             PinFromSmsViewModel.State.IdsUploaded -> {
 
-                hideLoader()
+                Timer("CompleteDelayed", false).schedule(1000) {
 
-                val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
-                pf.navigateToUploadComplete()
+                    hideLoader()
+
+                    val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
+                    pf.navigateToUploadComplete()
+                }
             }
         }
     }

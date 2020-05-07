@@ -22,6 +22,8 @@ import ro.wethecitizens.firstcontact.fragment.alert.AlertContactsViewModel
 import ro.wethecitizens.firstcontact.fragment.alert.SmsListenerViewModel
 import ro.wethecitizens.firstcontact.utils.InternetUtils
 import ro.wethecitizens.firstcontact.utils.PermissionUtils
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 class VerifyCallerFragment : Fragment(), EasyPermissions.PermissionCallbacks {
@@ -101,8 +103,12 @@ class VerifyCallerFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         when (state) {
             is AlertContactsViewModel.State.Loading -> startSmsListener(state.qrCode)
             is AlertContactsViewModel.State.Success -> {
-                val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
-                pf.navigateToUploadPin()
+
+                Timer("UploadPinDelayed", false).schedule(300) {
+
+                    val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
+                    pf.navigateToUploadPin()
+                }
             }
             is AlertContactsViewModel.State.Failed -> {
                 Toast.makeText(
