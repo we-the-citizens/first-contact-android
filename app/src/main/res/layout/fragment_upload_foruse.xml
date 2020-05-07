@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tapNextText"
                     android:layout_marginTop="30dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textColor="@color/white"
-            android:text="Next"
+            android:text="@string/upload_for_use_next_btn"
             android:textStyle="normal"
             android:textAllCaps="false" />
     </LinearLayout>

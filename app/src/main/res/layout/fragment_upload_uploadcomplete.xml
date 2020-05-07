@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textColor="@color/white"
-            android:text="Done"
+            android:text="@string/upload_step_3_done_btn"
             android:textStyle="normal"
             android:textAllCaps="false" />
     </LinearLayout>

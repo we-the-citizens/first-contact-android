@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_upload_uploadcomplete.*
+import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.R
 
 class UploadCompleteFragment : Fragment() {
@@ -20,9 +21,10 @@ class UploadCompleteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Preference.putIsUploadComplete(view.context, true)
+
         uploadCompleteFragmentActionButton.setOnClickListener {
-            var myParentFragment: UploadPageFragment = (parentFragment as UploadPageFragment)
-            myParentFragment.goBackToHome()
+            (parentFragment as UploadPageFragment).goBackToHome()
         }
     }
 }

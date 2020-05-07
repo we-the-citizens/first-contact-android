@@ -17,12 +17,11 @@ object Preference {
 //    private const val LAST_FETCH_TIME = "LAST_FETCH_TIME"
 
     private const val LAST_PURGE_TIME = "LAST_PURGE_TIME"
-
     private const val INSTALL_DATE_TS = "INSTALL_DATE_TS"
-
     private const val PATIENT_ID_QR = "PATIENT_ID_QR"
-
     private const val ANNOUNCEMENT = "ANNOUNCEMENT"
+    private const val IS_UPLOAD_COMPLETE = "IS_UPLOAD_COMPLETE"
+
 
     fun putHandShakePin(context: Context, value: String) {
         context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
@@ -164,5 +163,16 @@ object Preference {
     fun getPatientIdQr(): String? {
         return TracerApp.AppContext.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getString(PATIENT_ID_QR, null)
+    }
+
+
+    fun putIsUploadComplete(context: Context, value: Boolean) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putBoolean(IS_UPLOAD_COMPLETE, value).apply()
+    }
+
+    fun isUploadComplete(context: Context): Boolean {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getBoolean(IS_UPLOAD_COMPLETE, false)
     }
 }
