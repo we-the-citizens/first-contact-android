@@ -17,7 +17,7 @@
     <string name="setup_app_permission_title">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:</string>
     <string name="bluetooth">1. Bluetooth</string>
     <string name="location_permissions">2. Location Permissions</string>
-    <string name="battery_optimiser_opt">3. Battery Optimiser</string>
+    <string name="battery_optimiser_opt">3. Battery Optimisation</string>
     <string name="notes">De ce Location Permissions? \nSistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. Însă First Contact nu va avea acces la localizarea ta fizică - nu folosește GPS, Wi-Fi sau celulele GSM - și nici nu are nevoie de asta. Contactul apropiat cu alți utilizatori se determină doar pe baza puterii semnalului Bluetooth recepționat de la telefoanele din proximitate și a timpului cât ai stat în apropierea lor.</string>
     <string name="proceed">Începe</string>
     <string name="continue_">Continuă</string>
@@ -38,8 +38,9 @@
     <string name="share_this_app">Distribuie aplicația</string>
     <string name="ask_friend">Ajută-ți prietenii și familia să-și instaleze și ei First Contact</string>
     
-    <string name="help_us_identify">Protejează-te și protejează-ți apropiații, acordând aplicației permisiunile necesare</string>
-    <string name="restart_app_setup">Continuă configurarea</string>
+    <string name="setup_incomplete">Configurarea este incompletă!</string>
+    <string name="help_us_identify">Protejează-te acordând aplicației permisiunile necesare</string>
+    <string name="restart_app_setup">Completează configurarea</string>
     
     <string name="upload_data">Upload Data</string>
     <string name="for_official_use">For use by contact tracers</string>
@@ -51,7 +52,6 @@
     <string name="open_location_setting">Application needs location permission in order to work. Do you want to enable location permission?</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="setup_incomplete">Configurarea este incompletă!</string>
     
     <string name="keep_push_on">Keep push notifications on too, so we can alert you if the app is not scanning.</string>
     <string name="too_many_requests">Too many requests. Please try again later.</string>
@@ -90,10 +90,21 @@
     
     <string name="share_app_subject">First Contact</string>
     <string name="share_app_text">Distribuie aplicația</string>
-    <string name="share_message">Hai să ne protejăm reciproc! Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
+    <string name="share_message">Ne putem proteja reciproc. Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
 
     
     <string name="view_infection_instructions_text">Instructiuni de urmat</string>
+    
+    <string name="upload_for_use_tap_next_text">Tap \'Next\' only if a contact tracer tells you to do so</string>
+    <string name="upload_step_1_title">STEP 1</string>
+    <string name="upload_step_1_verify_that_the_contact">Scanati codul QR obtinut de la medic</string>
+    <string name="upload_step_1_make_sure_they_give">Este necesara acordarea permisiunii de accesare a camerei pentru scanare</string>
+    <string name="upload_step_1_next_btn">Scanare QR</string>
+    <string name="upload_step_2_title">STEP 2</string>
+    <string name="upload_step_2_enter_pin_to_upload">Enter PIN to upload</string>
+    <string name="upload_step_2_invalid_pin">Invalid PIN</string>
+    <string name="upload_step_2_upload_data">Upload data</string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Your data has been uploaded to OTC</string>
 
     
     <!-- de eliminat -->
@@ -133,17 +144,8 @@
     <string name="unknown_error">An error has occurred. Please try again</string>
     <string name="must_be_six_digit">Must be a 6-digit number</string>
     <string name="invalid_user">Your account has been disabled. Please contact support.</string>
-
-    <string name="upload_for_use_tap_next_text">Tap \'Next\' only if a contact tracer tells you to do so</string>
-    <string name="upload_step_1_title">STEP 1</string>
-    <string name="upload_step_1_verify_that_the_contact">Scanati codul QR obtinut de la medic</string>
-    <string name="upload_step_1_make_sure_they_give">Este necesara acordarea permisiunii de accesare a camerei pentru scanare</string>
-    <string name="upload_step_1_next_btn">Scanare QR</string>
-    <string name="upload_step_2_title">STEP 2</string>
-    <string name="upload_step_2_enter_pin_to_upload">Enter PIN to upload</string>
-    <string name="upload_step_2_invalid_pin">Invalid PIN</string>
-    <string name="upload_step_2_upload_data">Upload data</string>
-    <string name="upload_step_3_your_data_has_been_uploaded">Your data has been uploaded to OTC</string>
-
-
+    
+    
+    
+    
 </resources>
