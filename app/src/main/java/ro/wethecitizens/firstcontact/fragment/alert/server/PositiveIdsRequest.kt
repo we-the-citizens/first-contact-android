@@ -1,4 +1,4 @@
-package ro.wethecitizens.firstcontact.alert.server
+package ro.wethecitizens.firstcontact.fragment.alert.server
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package ro.wethecitizens.firstcontact.alert
+package ro.wethecitizens.firstcontact.fragment.alert
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -8,7 +8,7 @@ import com.google.zxing.integration.android.IntentResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ro.wethecitizens.firstcontact.Preference
-import ro.wethecitizens.firstcontact.alert.server.AuthorizationRequest
+import ro.wethecitizens.firstcontact.fragment.alert.server.AuthorizationRequest
 import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.server.HttpCode
 import ro.wethecitizens.firstcontact.utils.AppSignatureHelper

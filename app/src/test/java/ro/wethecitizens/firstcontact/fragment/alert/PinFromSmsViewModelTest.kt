@@ -1,4 +1,4 @@
-package ro.wethecitizens.firstcontact.alert
+package ro.wethecitizens.firstcontact.fragment.alert
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import junit.framework.Assert.assertEquals

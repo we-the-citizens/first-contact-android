@@ -128,7 +128,7 @@
 
         <!-- for SMS retriever api -->
         <receiver
-            android:name=".alert.PinSmsBroadcastReceiver"
+            android:name="ro.wethecitizens.firstcontact.fragment.alert.PinSmsBroadcastReceiver"
             android:exported="true"
             android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
             <intent-filter>

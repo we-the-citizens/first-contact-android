@@ -51,8 +51,8 @@
             app:layout_constraintTop_toBottomOf="@+id/topLayout"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <include
-                layout="@layout/fragment_upload_foruse"
+            <FrameLayout
+                android:id="@+id/fragment_placeholder"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_width="match_parent"
