@@ -75,7 +75,7 @@ class EnterPinFragment : Fragment() {
 
         enterPinActionButton.setOnClickListener {
 
-            enterPinFragmentUploadCode.text?.takeIf { it.isNotEmpty() }?.let {
+            enterPinFragmentUploadCode.text.takeIf { it.isNotEmpty() }?.let {
 
                 enterPinFragmentErrorMessage.visibility = View.INVISIBLE
 
@@ -151,7 +151,7 @@ class EnterPinFragment : Fragment() {
 
             PinFromSmsViewModel.State.IdsUploaded -> {
 
-                Timer("CompleteDelayed", false).schedule(1000) {
+                Timer("CompleteDelayed", false).schedule(100) {
 
                     hideLoader()
 

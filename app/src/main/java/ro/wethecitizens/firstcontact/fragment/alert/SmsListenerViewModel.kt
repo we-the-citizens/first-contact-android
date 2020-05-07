@@ -14,6 +14,9 @@ class SmsListenerViewModel : ViewModel() {
     private val mState = MutableLiveData<State>()
     val observableState: LiveData<State> = mState
 
+    private var isAlreadyListening = false
+
+
     fun listenForSms(client: SmsRetrieverClient) {
         client.startSmsRetriever().apply {
             addOnSuccessListener {
@@ -31,6 +34,12 @@ class SmsListenerViewModel : ViewModel() {
     private val dummyObserver = Observer<String> { }
 
     fun startListening() {
+
+        if (isAlreadyListening)
+            return
+
+        isAlreadyListening = true
+
         with(mSmsText) {
             observeForever(dummyObserver)
             addSource(PinSmsBroadcastReceiver.observableSmsContent) { sms ->
