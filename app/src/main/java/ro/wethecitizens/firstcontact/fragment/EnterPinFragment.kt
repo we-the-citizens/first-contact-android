@@ -53,6 +53,8 @@ class EnterPinFragment(private val inQRCode: String) : Fragment() {
 
         enterPinActionButton.setOnClickListener {
 
+            showLoader()
+
             CentralLog.d(TAG, "QR Code = $inQRCode   enterPinActionButton.setOnClickListener ")
 
             alertContactsViewModel.setQRCode(inQRCode)
@@ -125,17 +127,10 @@ class EnterPinFragment(private val inQRCode: String) : Fragment() {
         when (state) {
 
             is AlertContactsViewModel.State.Loading -> {
-                showLoader()
                 startSmsListener(state.qrCode)
             }
 
             is AlertContactsViewModel.State.Success -> {
-                hideLoader()
-//                Timer("UploadPinDelayed", false).schedule(300) {
-//
-//                    val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
-//                    pf.navigateToUploadPin()
-//                }
             }
             is AlertContactsViewModel.State.Failed -> {
                 hideLoader()
