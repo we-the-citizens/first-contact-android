@@ -2,8 +2,6 @@ package ro.wethecitizens.firstcontact.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +9,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_upload_enterpin.*
 import ro.wethecitizens.firstcontact.R
-import ro.wethecitizens.firstcontact.Utils
+import ro.wethecitizens.firstcontact.fragment.alert.AlertContactsViewModel
 import ro.wethecitizens.firstcontact.fragment.alert.PinFromSmsViewModel
 import ro.wethecitizens.firstcontact.fragment.alert.SmsListenerViewModel
 import java.util.*
 import kotlin.concurrent.schedule
 
-class EnterPinFragment : Fragment() {
+class EnterPinFragment(private val inQRCode: String) : Fragment() {
 
     //private var TAG = "UploadFragment"
 
@@ -39,66 +39,31 @@ class EnterPinFragment : Fragment() {
 
         val appCtx: Context = view.context
 
-        mViewModel = ViewModelProvider(this).get(PinFromSmsViewModel::class.java)
 
+        alertContactsViewModel = ViewModelProvider(this).get(AlertContactsViewModel::class.java)
+        alertContactsViewModel.observableState.observe(viewLifecycleOwner, alertContactsObserver)
+
+
+        mViewModel = ViewModelProvider(this).get(PinFromSmsViewModel::class.java)
         mViewModel.observableState.observe(viewLifecycleOwner, stateObserver)
 
-        mSharedViewModel =
-            ViewModelProvider(requireActivity()).get(SmsListenerViewModel::class.java)
-
+        mSharedViewModel = ViewModelProvider(requireActivity()).get(SmsListenerViewModel::class.java)
         mSharedViewModel.observableState.observe(viewLifecycleOwner, smsObserver)
-
         mSharedViewModel.smsText.observe(viewLifecycleOwner, Observer { sms ->
             mViewModel.handleSms(sms, appCtx)
         })
 
 
-        enterPinFragmentUploadCode.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable) {}
-
-            override fun beforeTextChanged(
-                s: CharSequence, start: Int,
-                count: Int, after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                s: CharSequence, start: Int,
-                before: Int, count: Int
-            ) {
-                if (s.length == 6) {
-                    Utils.hideKeyboardFrom(view.context, view)
-                }
-            }
-        })
-
         enterPinActionButton.setOnClickListener {
-
-            enterPinFragmentUploadCode.text.takeIf { it.isNotEmpty() }?.let {
-
-                enterPinFragmentErrorMessage.visibility = View.INVISIBLE
-
-                showLoader()
-
-                mViewModel.uploadContacts(it.toString(), appCtx)
-
-            } ?: run {
-
-                enterPinFragmentErrorMessage.visibility = View.VISIBLE
-            }
+            alertContactsViewModel.setQRCode(inQRCode)
         }
 
         enterPinFragmentBackButtonLayout.setOnClickListener {
-
-            val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
-            pf.popStack()
+            (parentFragment as UploadPageFragment).popStack()
         }
 
         enterPinFragmentBackButton.setOnClickListener {
-
-            val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
-            pf.popStack()
+            (parentFragment as UploadPageFragment).popStack()
         }
     }
 
@@ -115,10 +80,9 @@ class EnterPinFragment : Fragment() {
     private val smsObserver = Observer<SmsListenerViewModel.State> { state ->
         when (state) {
             SmsListenerViewModel.State.ListeningForSms -> {
-                enterPinFragmentUploadCode?.setHint(R.string.listening_for_sms)
             }
             else -> {
-                enterPinFragmentUploadCode?.setHint(R.string.pin_from_sms)
+                //Toast.makeText(requireContext(), R.string.invalid_sms, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -126,12 +90,14 @@ class EnterPinFragment : Fragment() {
     private lateinit var mViewModel: PinFromSmsViewModel
     private val stateObserver = Observer<PinFromSmsViewModel.State> { state ->
         when (state) {
-            PinFromSmsViewModel.State.InvalidSms -> enterPinFragmentUploadCode?.setHint(R.string.pin_from_sms)
+            PinFromSmsViewModel.State.InvalidSms ->
+                Toast.makeText(requireContext(), R.string.invalid_sms, Toast.LENGTH_LONG).show()
+
             is PinFromSmsViewModel.State.ValidSms -> {
 
-                hideLoader()
-
-                enterPinFragmentUploadCode?.setText(state.pin)
+//                hideLoader()
+//
+//                enterPinFragmentUploadCode?.setText(state.pin)
             }
 
             is PinFromSmsViewModel.State.UploadFailed -> {
@@ -161,6 +127,62 @@ class EnterPinFragment : Fragment() {
             }
         }
     }
+
+    private lateinit var alertContactsViewModel: AlertContactsViewModel
+    private val alertContactsObserver = Observer<AlertContactsViewModel.State> { state ->
+
+        when (state) {
+
+            is AlertContactsViewModel.State.Loading -> {
+                showLoader()
+                startSmsListener(state.qrCode)
+            }
+
+            is AlertContactsViewModel.State.Success -> {
+                hideLoader()
+//                Timer("UploadPinDelayed", false).schedule(300) {
+//
+//                    val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
+//                    pf.navigateToUploadPin()
+//                }
+            }
+            is AlertContactsViewModel.State.Failed -> {
+                hideLoader()
+                Toast.makeText(
+                    requireContext(),
+                    "Error code: ${state.errorType.code}, ${state.errorType::class.java.simpleName}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+
+    /**
+     * Starts the SMS Retriever flow before doing the authorization request due to SMS being received too fast.
+     */
+    private fun startSmsListener(qrCode: String) {
+
+        // retrieve SMS client from activity context
+        val client: SmsRetrieverClient = SmsRetriever.getClient(requireActivity())
+
+        // get shared view model
+        ViewModelProvider(requireActivity()).get(SmsListenerViewModel::class.java)
+            .also { sharedViewModel ->
+
+                sharedViewModel.observableState.observe(
+                    viewLifecycleOwner,
+                    Observer { state ->
+                        // listen for the SMS Retriever callback to do the authorization request
+                        state?.let { alertContactsViewModel.checkAuthorization(qrCode) }
+                    }
+                )
+
+                // start SMS retriever
+                sharedViewModel.listenForSms(client)
+            }
+    }
+
 
     private fun showLoader() {
 

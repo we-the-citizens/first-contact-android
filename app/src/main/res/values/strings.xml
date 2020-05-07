@@ -82,6 +82,7 @@
     <string name="no_internet_connection">Ai nevoie de o conexiune la internet înainte de a începe.</string>
     <string name="pin_from_sms">Introdu PIN-ul primit prin SMS.</string>
     <string name="sms_pin_information_text">Asteaptă să primești SMS cu PIN-ul necesar validarii cererii de upload.</string>
+    <string name="invalid_sms">Invalid SMS</string>
     <string name="listening_for_sms">PIN-ul va fi introdus automat la primirea SMS-ului</string>
     <string name="upload_success">Încărcarea pseudonimelor tale s-a făcut cu succes!</string>
     <string name="upload_failed">UPLOAD FAILED: %s, %s</string>

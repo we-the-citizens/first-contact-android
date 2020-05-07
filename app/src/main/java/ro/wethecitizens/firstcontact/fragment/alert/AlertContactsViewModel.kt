@@ -21,17 +21,7 @@ class AlertContactsViewModel : ViewModel() {
     private val mState: SingleLiveEvent<State> = SingleLiveEvent()
     val observableState: LiveData<State> = mState
 
-    fun getScanInfo(result: IntentResult?) {
-        if (result == null) {
-            Log.d("Alert", "result null")
-            return
-        }
-
-        val qrCode = result.contents
-        if (qrCode == null) {
-            Log.d("Alert", "scan did not return anything")
-            return
-        }
+    fun setQRCode(qrCode: String) {
 
         mState.value = State.Loading(qrCode)
     }
