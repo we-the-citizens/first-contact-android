@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_upload_foruse.*
+import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.R
 
 class ForUseFragment : Fragment() {
@@ -20,9 +21,22 @@ class ForUseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        forUseFragmentActionButton.setOnClickListener {
-            var myParentFragment: ForUseByOTCFragment = (parentFragment as ForUseByOTCFragment)
-            myParentFragment.goToUploadFragment()
+        val isComplete = Preference.isUploadComplete(view.context)
+
+        if (isComplete) {
+
+            tapNextText.setText(R.string.upload_for_use_tap_next_text_2)
+            forUseFragmentActionButton.setText(R.string.upload_for_use_next_btn_2)
+
+            forUseFragmentActionButton.isEnabled = false
+        }
+        else {
+
+            forUseFragmentActionButton.isEnabled = true
+
+            forUseFragmentActionButton.setOnClickListener {
+                (parentFragment as ForUseByOTCFragment).goToUploadFragment()
+            }
         }
     }
 }

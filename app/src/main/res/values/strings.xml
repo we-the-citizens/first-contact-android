@@ -98,7 +98,9 @@
     <string name="upload_steps_background_title">For use by OTC</string>
     <string name="upload_steps_background_data">Upload data for contact tracing</string>
     <string name="upload_for_use_tap_next_text">Tap \'Next\' only if a contact tracer tells you to do so</string>
+    <string name="upload_for_use_tap_next_text_2">Tap \'Next\' only if a contact tracer tells you to do so - disabled</string>
     <string name="upload_for_use_next_btn">Next</string>
+    <string name="upload_for_use_next_btn_2">Next - disabled</string>
     <string name="upload_step_1_title">STEP 1</string>
     <string name="upload_step_1_verify_that_the_contact">Scanati codul QR obtinut de la medic</string>
     <string name="upload_step_1_make_sure_they_give">Este necesara acordarea permisiunii de accesare a camerei pentru scanare</string>
