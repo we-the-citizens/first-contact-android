@@ -3,8 +3,8 @@ package ro.wethecitizens.firstcontact.server
 import androidx.annotation.WorkerThread
 import retrofit2.Response
 import retrofit2.http.*
-import ro.wethecitizens.firstcontact.alert.server.AuthorizationRequest
-import ro.wethecitizens.firstcontact.alert.server.PositiveIdsRequest
+import ro.wethecitizens.firstcontact.fragment.alert.server.AuthorizationRequest
+import ro.wethecitizens.firstcontact.fragment.alert.server.PositiveIdsRequest
 import ro.wethecitizens.firstcontact.positivekey.server.PositiveKeyModel
 
 /**

@@ -1,4 +1,4 @@
-package ro.wethecitizens.firstcontact.alert
+package ro.wethecitizens.firstcontact.fragment.alert
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,7 +14,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_alert_others.view.*
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.R
-import ro.wethecitizens.firstcontact.alert.AlertContactsViewModel.State.*
+import ro.wethecitizens.firstcontact.fragment.alert.AlertContactsViewModel.State.*
 import ro.wethecitizens.firstcontact.camera.startScanner
 import ro.wethecitizens.firstcontact.utils.InternetUtils
 import ro.wethecitizens.firstcontact.utils.PermissionUtils

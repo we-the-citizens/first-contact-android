@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:text="STEP 1" />
+                android:text="@string/upload_step_1_title" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:textSize="18sp"
@@ -38,17 +38,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="Verify that the contact tracer is from OTC" />
+                android:text="@string/upload_step_1_verify_that_the_contact" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Make sure they give you a code that matches the one below." />
+                android:text="@string/upload_step_1_make_sure_they_give" />
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_marginTop="60dp"
             android:orientation="vertical"
             android:layout_marginLeft="30dp"
@@ -95,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textColor="@color/white"
-            android:text="Next"
+            android:text="@string/upload_step_1_next_btn"
             android:fontFamily="@font/font"
             android:textFontWeight="600"
             android:textSize="18sp"

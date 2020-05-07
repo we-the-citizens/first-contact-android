@@ -1,4 +1,4 @@
-package ro.wethecitizens.firstcontact.alert
+package ro.wethecitizens.firstcontact.fragment.alert
 
 import android.content.Context
 import android.os.Bundle
@@ -10,9 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_pin_from_sms.view.*
 import ro.wethecitizens.firstcontact.R
-import ro.wethecitizens.firstcontact.alert.PinFromSmsViewModel.State.*
-import ro.wethecitizens.firstcontact.alert.SmsListenerViewModel.State.ListeningFailed
-import ro.wethecitizens.firstcontact.alert.SmsListenerViewModel.State.ListeningForSms
+import ro.wethecitizens.firstcontact.fragment.alert.PinFromSmsViewModel.State.*
+import ro.wethecitizens.firstcontact.fragment.alert.SmsListenerViewModel.State.ListeningForSms
 
 class PinFromSmsFragment : Fragment(R.layout.fragment_pin_from_sms) {
 

@@ -1,4 +1,4 @@
-package ro.wethecitizens.firstcontact.alert
+package ro.wethecitizens.firstcontact.fragment.alert
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.Utils
-import ro.wethecitizens.firstcontact.alert.server.PositiveIdsRequest
+import ro.wethecitizens.firstcontact.fragment.alert.server.PositiveIdsRequest
 import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.server.HttpCode
 import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage

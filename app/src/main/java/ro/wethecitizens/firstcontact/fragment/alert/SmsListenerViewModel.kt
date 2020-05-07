@@ -1,4 +1,4 @@
-package ro.wethecitizens.firstcontact.alert
+package ro.wethecitizens.firstcontact.fragment.alert
 
 import androidx.lifecycle.*
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient

@@ -10,7 +10,7 @@
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/alertContactsFragment"
-        android:name="ro.wethecitizens.firstcontact.alert.AlertContactsFragment"
+        android:name="ro.wethecitizens.firstcontact.fragment.alert.AlertContactsFragment"
         android:label="AlertContactsFragment">
         <action
             android:id="@+id/action_alertContactsFragment_to_smsFragment"
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/smsFragment"
-        android:name="ro.wethecitizens.firstcontact.alert.PinFromSmsFragment"
+        android:name="ro.wethecitizens.firstcontact.fragment.alert.PinFromSmsFragment"
         android:label="SmsFragment" >
     </fragment>
     <fragment
