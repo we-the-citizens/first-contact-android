@@ -139,6 +139,11 @@
     <string name="upload_step_1_verify_that_the_contact">Scanati codul QR obtinut de la medic</string>
     <string name="upload_step_1_make_sure_they_give">Este necesara acordarea permisiunii de accesare a camerei pentru scanare</string>
     <string name="upload_step_1_next_btn">Scanare QR</string>
+    <string name="upload_step_2_title">STEP 2</string>
+    <string name="upload_step_2_enter_pin_to_upload">Enter PIN to upload</string>
+    <string name="upload_step_2_invalid_pin">Invalid PIN</string>
+    <string name="upload_step_2_upload_data">Upload data</string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Your data has been uploaded to OTC</string>
 
 
 </resources>

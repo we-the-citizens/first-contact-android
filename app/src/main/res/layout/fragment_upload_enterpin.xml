@@ -49,13 +49,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:text="STEP 2" />
+                android:text="@string/upload_step_2_title" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Enter PIN to upload"
+                android:text="@string/upload_step_2_enter_pin_to_upload"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Invalid PIN"
+                android:text="@string/upload_step_2_invalid_pin"
                 android:textColor="#C20000"
                 android:textSize="16sp"
                 android:visibility="invisible" />
@@ -121,7 +121,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/gradient"
-            android:text="Upload data"
+            android:text="@string/upload_step_2_upload_data"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="normal" />

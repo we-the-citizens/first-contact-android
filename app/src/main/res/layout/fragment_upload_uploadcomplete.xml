@@ -40,7 +40,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textAlignment="center"
-                android:text="Your data has been uploaded to OTC" />
+                android:text="@string/upload_step_3_your_data_has_been_uploaded" />
         </LinearLayout>
 
         <LinearLayout
