@@ -29,6 +29,7 @@ class ForUseFragment : Fragment() {
             forUseFragmentActionButton.setText(R.string.upload_for_use_next_btn_2)
 
             forUseFragmentActionButton.isEnabled = false
+            forUseFragmentActionButton.alpha = 0.7f
         }
         else {
 
