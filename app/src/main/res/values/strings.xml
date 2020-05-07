@@ -135,6 +135,8 @@
     <string name="must_be_six_digit">Must be a 6-digit number</string>
     <string name="invalid_user">Your account has been disabled. Please contact support.</string>
 
+    <string name="upload_steps_background_title">For use by OTC</string>
+    <string name="upload_steps_background_data">Upload data for contact tracing</string>
     <string name="upload_for_use_tap_next_text">Tap \'Next\' only if a contact tracer tells you to do so</string>
     <string name="upload_step_1_title">STEP 1</string>
     <string name="upload_step_1_verify_that_the_contact">Scanati codul QR obtinut de la medic</string>
