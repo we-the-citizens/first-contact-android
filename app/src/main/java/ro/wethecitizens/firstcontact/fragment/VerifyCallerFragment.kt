@@ -100,8 +100,10 @@ class VerifyCallerFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
         when (state) {
             is AlertContactsViewModel.State.Loading -> startSmsListener(state.qrCode)
-            is AlertContactsViewModel.State.Success -> findNavController()
-                .navigate(R.id.action_alertContactsFragment_to_smsFragment)
+            is AlertContactsViewModel.State.Success -> {
+                val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
+                pf.navigateToUploadPin()
+            }
             is AlertContactsViewModel.State.Failed -> {
                 Toast.makeText(
                     requireContext(),
