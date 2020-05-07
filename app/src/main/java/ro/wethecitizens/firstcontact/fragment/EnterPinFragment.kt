@@ -17,12 +17,9 @@ import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.fragment.alert.AlertContactsViewModel
 import ro.wethecitizens.firstcontact.fragment.alert.PinFromSmsViewModel
 import ro.wethecitizens.firstcontact.fragment.alert.SmsListenerViewModel
-import java.util.*
-import kotlin.concurrent.schedule
+import ro.wethecitizens.firstcontact.logging.CentralLog
 
 class EnterPinFragment(private val inQRCode: String) : Fragment() {
-
-    //private var TAG = "UploadFragment"
 
     private var disposeObj: Disposable? = null
 
@@ -55,6 +52,9 @@ class EnterPinFragment(private val inQRCode: String) : Fragment() {
 
 
         enterPinActionButton.setOnClickListener {
+
+            CentralLog.d(TAG, "QR Code = $inQRCode   enterPinActionButton.setOnClickListener ")
+
             alertContactsViewModel.setQRCode(inQRCode)
         }
 
@@ -89,21 +89,17 @@ class EnterPinFragment(private val inQRCode: String) : Fragment() {
 
     private lateinit var mViewModel: PinFromSmsViewModel
     private val stateObserver = Observer<PinFromSmsViewModel.State> { state ->
+
+        hideLoader()
+
         when (state) {
             PinFromSmsViewModel.State.InvalidSms ->
                 Toast.makeText(requireContext(), R.string.invalid_sms, Toast.LENGTH_LONG).show()
 
             is PinFromSmsViewModel.State.ValidSms -> {
-
-//                hideLoader()
-//
-//                enterPinFragmentUploadCode?.setText(state.pin)
             }
 
             is PinFromSmsViewModel.State.UploadFailed -> {
-
-                hideLoader()
-
                 Toast.makeText(
                     requireContext(),
                     getString(
@@ -116,14 +112,7 @@ class EnterPinFragment(private val inQRCode: String) : Fragment() {
             }
 
             PinFromSmsViewModel.State.IdsUploaded -> {
-
-                Timer("CompleteDelayed", false).schedule(100) {
-
-                    hideLoader()
-
-                    val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
-                    pf.navigateToUploadComplete()
-                }
+                (parentFragment as UploadPageFragment).navigateToUploadComplete()
             }
         }
     }
@@ -163,6 +152,8 @@ class EnterPinFragment(private val inQRCode: String) : Fragment() {
      */
     private fun startSmsListener(qrCode: String) {
 
+        CentralLog.d(TAG, "QR Code = $inQRCode   startSmsListener")
+
         // retrieve SMS client from activity context
         val client: SmsRetrieverClient = SmsRetriever.getClient(requireActivity())
 
@@ -186,13 +177,16 @@ class EnterPinFragment(private val inQRCode: String) : Fragment() {
 
     private fun showLoader() {
 
-        val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
-        pf.turnOnLoadingProgress()
+        (parentFragment as UploadPageFragment).turnOnLoadingProgress()
     }
 
     private fun hideLoader() {
 
-        val pf: UploadPageFragment = (parentFragment as UploadPageFragment)
-        pf.turnOffLoadingProgress()
+        (parentFragment as UploadPageFragment).turnOffLoadingProgress()
+    }
+
+
+    companion object {
+        private const val TAG = "EnterPinFragment"
     }
 }
