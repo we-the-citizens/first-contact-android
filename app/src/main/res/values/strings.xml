@@ -113,6 +113,11 @@
 
     <string name="upload_step_2_enter_pin_to_upload">Enter PIN to upload</string>
     <string name="upload_step_2_invalid_pin">Invalid PIN</string>
+
+    <string name="exposure_alert_title">Alerta de infectare posibila COVID19!</string>
+    <string name="exposure_alert_body_1">La</string>
+	<string name="exposure_alert_body_2">ati fost expus timp de </string>
+	<string name="exposure_alert_body_3">la o persoana confirmata in prezent cu COVID19.</string>
     
     <!-- de eliminat -->
     
