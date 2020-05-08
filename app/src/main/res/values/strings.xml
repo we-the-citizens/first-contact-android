@@ -72,7 +72,6 @@
     <string name="camera_scan_message">Scanati codul QR de pe Autorizația primită de la personalul medical.</string>
 
     <string name="title_alert">Avertizează</string>
-    <string name="alert_information">Dacă ai fost testat pozitiv cu COVID-19 și ai primit o Autorizație de upload, poți să-ți avertizezi anonim contacții care utilizează aplicația, adăugând în lista publică și pseudonimele utilizate de tine în ultima perioadă. Astfel, aceștia vor putea lua din timp masurile necesare pentru a se proteja pe ei și pe cei din jur.\n\nAlerta este voluntară, anonimă și respectă dreptul la viață privată. Celor avertizați aplicația le va spune doar că au fost expuși contaminării într-o anumită zi, fără a li se putea spune cine era cel infectat. Și nimeni nu poate afla dacă au fost expuși, fiindcă doar în telefonul lor există lista întâlnirilor Bluetooth - iar lista e criptată și nu părăsește niciodată telefonul.\n\nPentru a putea lansa avertizarea, ai nevoie de Autorizația de upload cu codul QR, primită de la personalul medical, să permiți aplicației utilizarea camerei pentru a scana acest cod și o conexiune la internet. Prin apasarea butonului Avertizare contacți îți exprimi acordul să încarci pseudonimele tale pe serverul central, pentru ca toți utilizatori să le poată descărca și compara cu propria listă de întâlniri Bluetooth. Nu se trimit niciun fel de date de localizare sau care ar permite identificarea ta.</string>
     <string name="alert_button">Avertizare contacți</string>
     <string name="camera_permission">Permisiune cameră acordată</string>
     <string name="internet_connection">Dispozitiv conectat la internet</string>
@@ -94,18 +93,18 @@
 
     <string name="view_infection_instructions_text">Recomandări</string>
     
-    <string name="upload_steps_background_title">Avertizare Contacți</string>
-    <string name="upload_steps_background_data">doar dacă ai o Autorizație</string>
-    <string name="upload_for_use_tap_next_text">Apasă \'Next\' numai dacă ai primit o Autorizație de avertizare contacți</string>
+    <string name="upload_steps_background_title">Avertizare contacți</string>
+    <string name="upload_steps_background_data">doar dacă ai primit o Autorizație</string>
+    <string name="upload_for_use_tap_next_text">Apasă \'Avertizează contacții\' numai dacă ai primit o Autorizație de avertizare.\nAvertizarea va fi anonimă! </string>
     <string name="upload_step_1_title">PASUL 1</string>
-    <string name="upload_step_1_verify_that_the_contact">Scanează codul QR din Autorizație</string>
+    <string name="upload_step_1_verify_that_the_contact">Scanează codul QR din Autorizația de avertizare</string>
     <string name="upload_step_1_make_sure_they_give">Pentru a putea scana codul QR, trebuie să permiți utilizarea camerei</string>
     <string name="upload_step_1_next_btn">Scanare QR</string>
     <string name="upload_step_2_title">PASUL 2</string>
     <string name="upload_step_2_upload_data">Sunt de acord</string>
-    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale au fost încărcate pe server. Contacții tăi vor fi avertizați.\nMulțumim că ai ajutat la limitarea răspândirii virusului!</string>
-    <string name="upload_agreement">Ești de acord să încarci pe serverul central pseudonimele pe care le-ai utilizat în ultimele 14 zile, pentru ca ceilalți utilizatori să le poată descărca și compara cu propria listă de întâlniri Bluetooth?\n<b>Nu se vor stoca pe server niciun fel de date de localizare sau care ar putea permite identificarea ta.</b></string>
-    <string name="upload_for_use_tap_next_text_2">Ți-ai avertizat deja contacții. Mulțumim că ai contribuit și tu la limitarea răspândirii virusului!</string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale au fost încărcate pe server. Contacții tăi vor primi o alertă.\n\nMulțumim că ai ajutat și tu la limitarea răspândirii virusului!</string>
+    <string name="upload_agreement">Ești de acord să încarci pe serverul central pseudonimele tale temporare din ultimele 14 zile, pentru ca cei cu care ai fost în contact apropiat să fie avertizați că au fost expuși?\n\n<b>Nu se vor încărca pe server niciun fel de date de localizare sau date care ar permite identificarea ta. Cei avertizați nu vor afla cine ești.</b></string>
+    <string name="upload_for_use_tap_next_text_2">Ți-ai avertizat deja contacții.\n\nMulțumim că ai contribuit și tu la limitarea răspândirii virusului!</string>
     <string name="upload_for_use_next_btn">Avertizează contacții</string>
     <string name="upload_for_use_next_btn_2">contacții sunt avertizați</string>
     <string name="upload_step_3_done_btn">OK</string>
@@ -119,6 +118,7 @@
     
     <string name="see_connections">See connections</string>
     
+    <string name="alert_information">Dacă ai fost testat pozitiv cu COVID-19 și ai primit o Autorizație de upload, poți să-ți avertizezi anonim contacții care utilizează aplicația, adăugând în lista publică și pseudonimele utilizate de tine în ultima perioadă. Astfel, aceștia vor putea lua din timp masurile necesare pentru a se proteja pe ei și pe cei din jur.\n\nAlerta este voluntară, anonimă și respectă dreptul la viață privată. Celor avertizați aplicația le va spune doar că au fost expuși contaminării într-o anumită zi, fără a li se putea spune cine era cel infectat. Și nimeni nu poate afla dacă au fost expuși, fiindcă doar în telefonul lor există lista întâlnirilor Bluetooth - iar lista e criptată și nu părăsește niciodată telefonul.\n\nPentru a putea lansa avertizarea, ai nevoie de Autorizația de upload cu codul QR, primită de la personalul medical, să permiți aplicației utilizarea camerei pentru a scana acest cod și o conexiune la internet. Prin apasarea butonului Avertizare contacți îți exprimi acordul să încarci pseudonimele tale pe serverul central, pentru ca toți utilizatori să le poată descărca și compara cu propria listă de întâlniri Bluetooth. Nu se trimit niciun fel de date de localizare sau care ar permite identificarea ta. Cei</string>
     <string name="tv_howitworks_title">Protejează-te pe tine și pe cei din jur!</string>
     <string name="tv_howitworks_explanation_1">First Contact folosește semnalele Bluetooth ca să determine dacă ai avut un contact apropiat cu un alt utilizator al aplicației.</string>
     <string name="tv_howitworks_explanation_2">Datele anonime despre contactele tale Bluetooth sunt criptate și stocate doar pe telefonul tău - și nu vor fi niciodată transferate în altă parte.</string>
