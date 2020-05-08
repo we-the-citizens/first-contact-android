@@ -250,7 +250,7 @@ class HomeFragment : Fragment() {
         newIntent.type = "text/plain"
         newIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
 
-        var shareMessage = getString(R.string.share_app_text)
+        var shareMessage = getString(R.string.share_message)
         newIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
         startActivity(Intent.createChooser(newIntent, "choose one"))
     }

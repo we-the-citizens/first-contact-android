@@ -95,15 +95,15 @@
     
     <string name="upload_steps_background_title">Avertizare contacți</string>
     <string name="upload_steps_background_data">doar dacă ai primit o Autorizație</string>
-    <string name="upload_for_use_tap_next_text">Apasă \'Avertizează contacții\' numai dacă ai primit o Autorizație de avertizare.\nAvertizarea va fi anonimă! </string>
+    <string name="upload_for_use_tap_next_text">Apasă \'Avertizează contacții\' numai dacă ai primit o Autorizație de avertizare.\n\nAvertizarea va fi anonimă! </string>
     <string name="upload_step_1_title">PASUL 1</string>
     <string name="upload_step_1_verify_that_the_contact">Scanează codul QR din Autorizația de avertizare</string>
     <string name="upload_step_1_make_sure_they_give">Pentru a putea scana codul QR, trebuie să permiți utilizarea camerei</string>
     <string name="upload_step_1_next_btn">Scanare QR</string>
     <string name="upload_step_2_title">PASUL 2</string>
     <string name="upload_step_2_upload_data">Sunt de acord</string>
-    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale au fost încărcate pe server. Contacții tăi vor primi o alertă.\n\nMulțumim că ai ajutat și tu la limitarea răspândirii virusului!</string>
-    <string name="upload_agreement">Ești de acord să încarci pe serverul central pseudonimele tale temporare din ultimele 14 zile, pentru ca cei cu care ai fost în contact apropiat să fie avertizați că au fost expuși?\n\n<b>Nu se vor încărca pe server niciun fel de date de localizare sau date care ar permite identificarea ta. Cei avertizați nu vor afla cine ești.</b></string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale au fost încărcate pe server. Contacții tăi vor primi o alertă anonimă.\n\nMulțumim că ai ajutat și tu la limitarea răspândirii virusului!</string>
+    <string name="upload_agreement">Ești de acord să încarci pe serverul central pseudonimele tale temporare, pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai fost în contact apropiat să fie avertizați că au fost expuși?\n<b>Nu se vor încărca pe server niciun fel de date de localizare sau date care ar permite identificarea ta. Cei avertizați nu vor afla cine ești.</b></string>
     <string name="upload_for_use_tap_next_text_2">Ți-ai avertizat deja contacții.\n\nMulțumim că ai contribuit și tu la limitarea răspândirii virusului!</string>
     <string name="upload_for_use_next_btn">Avertizează contacții</string>
     <string name="upload_for_use_next_btn_2">contacții sunt avertizați</string>
