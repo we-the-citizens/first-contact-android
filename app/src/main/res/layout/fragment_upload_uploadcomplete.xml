@@ -32,15 +32,15 @@
                 android:src="@drawable/done_icon"></ImageView>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/upload_step_3_your_data_has_been_uploaded"
                 android:textAlignment="center"
-                android:text="@string/upload_step_3_your_data_has_been_uploaded" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout

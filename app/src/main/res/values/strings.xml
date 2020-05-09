@@ -8,7 +8,7 @@
 
     <string name="ble_not_supported">Acest dispozitiv nu suportă tehnologia Bluetooth Low Energy</string>
 
-    <string name="tv_onboarding_title">Protejează-te pe tine și pe cei din jur!</string>
+    <string name="tv_onboarding_title">Protejează-te!\npe tine și pe cei din jur</string>
     <string name="tv_onboarding_desc">First Contact te va avertiza dacă ai avut un contact apropiat cu o persoană infectată.</string>
     <string name="tv_onboarding_desc_sub">Cum poate face asta? \nFirst Contact va scana semnalele Bluetooth din proximitate și va înregistra în telefonul tău pseudonimele altor utilizatori cu care ai avut un contact apropiat. Dacă ulterior unul dintre ei va fi depistat ca fiind infectat, vei primi o Alertă de expunere. \nDoar tu vei putea afla dacă ai fost expus infectării. First Contact îți va face recomandări, însă tu vei fi cel care va decide cum vei acționa în acel caz.</string>
     <string name="i_want_to_help">Continuă</string>
@@ -26,8 +26,8 @@
     <string name="title_upload">Avertizează</string>
     <string name="title_help">Detalii</string>
 
-    <string name="how_to_help">Continuă să te protejezi pe tine și pe cei din jur</string>
-    <string name="help_action">Ține Bluetooth pornit și lasă aplicația să ruleze în background, până la sfârșitul epidemiei.</string>
+    <string name="how_to_help">Continuă să te protejezi\npe tine și pe cei din jur</string>
+    <string name="help_action">Ține Bluetooth pornit și lasă aplicația să ruleze în background, până se va termina epidemia.</string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
     <string name="bluetooth_on">Bluetooth - pornit</string>
@@ -40,7 +40,7 @@
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
     <string name="help_us_identify">Protejează-te acordând aplicației permisiunile necesare</string>
-    <string name="restart_app_setup">Completează configurarea</string>
+    <string name="restart_app_setup"> Completează configurarea </string>
     
     <string name="upload_data">Upload Data</string>
     <string name="for_official_use">For use by contact tracers</string>
@@ -64,7 +64,7 @@
     <string name="service_not_ok_body">Scanarea First Contact nu funcționează.</string>
     <string name="service_not_ok_action">Verifică aplicația acum!</string>
 
-    <string name="exposure_new_alerts_title">Alertă nouă de expunere First Contact !!!</string>
+    <string name="exposure_new_alerts_title">Alertă de intectare First Contact !!!</string>
     <string name="exposure_new_alerts_body">Click aici pentru detalii</string>
 
 
@@ -91,11 +91,11 @@
     <string name="share_app_text">Distribuie aplicația</string>
     <string name="share_message">Ne putem proteja reciproc. Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
 
-    <string name="view_infection_instructions_text">Recomandări</string>
     
+    <string name="for_use_by_otc_title">Avertizare Contacți</string>
     <string name="upload_steps_background_title">Avertizare contacți</string>
     <string name="upload_steps_background_data">doar dacă ai primit o Autorizație</string>
-    <string name="upload_for_use_tap_next_text">Apasă \'Avertizează contacții\' numai dacă ai primit o Autorizație de avertizare.\n\nAvertizarea va fi anonimă! </string>
+    <string name="upload_for_use_tap_next_text">Apasă \'Avertizează contacții\' numai dacă ai primit o Autorizație de avertizare.\n\n<b>Avertizarea va fi anonimă!</b></string>
     <string name="upload_step_1_title">PASUL 1</string>
     <string name="upload_step_1_verify_that_the_contact">Scanează codul QR din Autorizația de avertizare</string>
     <string name="upload_step_1_make_sure_they_give">Pentru a putea scana codul QR, trebuie să permiți utilizarea camerei</string>
@@ -103,21 +103,23 @@
     <string name="upload_step_2_title">PASUL 2</string>
     <string name="upload_step_2_upload_data">Sunt de acord</string>
     <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale au fost încărcate pe server. Contacții tăi vor primi o alertă anonimă.\n\nMulțumim că ai ajutat și tu la limitarea răspândirii virusului!</string>
-    <string name="upload_agreement">Ești de acord să încarci pe serverul central pseudonimele tale temporare, pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai fost în contact apropiat să fie avertizați că au fost expuși?\n<b>Nu se vor încărca pe server niciun fel de date de localizare sau date care ar permite identificarea ta. Cei avertizați nu vor afla cine ești.</b></string>
+    <string name="upload_agreement">Ești de acord să încarci pe serverul central pseudonimele tale temporare, pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai fost în contact apropiat să fie avertizați că au fost expuși?\n\n<b>Nu se vor încărca pe server niciun fel de date de localizare sau date care ar permite identificarea ta. Cei avertizați nu vor afla cine ești.</b></string>
     <string name="upload_for_use_tap_next_text_2">Ți-ai avertizat deja contacții.\n\nMulțumim că ai contribuit și tu la limitarea răspândirii virusului!</string>
     <string name="upload_for_use_next_btn">Avertizează contacții</string>
     <string name="upload_for_use_next_btn_2">contacții sunt avertizați</string>
     <string name="upload_step_3_done_btn">OK</string>
-    <string name="for_use_by_otc_title">Avertizare Contacți</string>
+
+    <string name="exposure_alert_title">Alertă de infectare cu Coronavirus!</string>
+    <string name="exposure_alert_body_1">Pe </string>
+    <string name="exposure_alert_body_2">ați avut un contact apropiat timp de </string>
+    <string name="exposure_alert_body_3">cu cineva diagnosticat acum cu COVID-19.</string>
+    <string name="view_infection_instructions_text">Instructiuni</string>
+
+
     <string name="for_use_by_otc_use_only">doar dacă ai o Autorizație</string>
 
     <string name="upload_step_2_enter_pin_to_upload">Enter PIN to upload</string>
     <string name="upload_step_2_invalid_pin">Invalid PIN</string>
-
-    <string name="exposure_alert_title">Alerta de infectare posibila COVID19!</string>
-    <string name="exposure_alert_body_1">La</string>
-	<string name="exposure_alert_body_2">ati fost expus timp de </string>
-	<string name="exposure_alert_body_3">la o persoana confirmata in prezent cu COVID19.</string>
     
     <!-- de eliminat -->
     
