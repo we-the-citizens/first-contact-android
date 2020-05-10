@@ -1,20 +1,20 @@
 package ro.wethecitizens.firstcontact.services
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
+import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationManagerCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.*
 import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.Utils
@@ -29,6 +29,7 @@ import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.coroutines.CoroutineContext
+
 
 class PeriodicallyDownloadService : Service(), CoroutineScope {
 
@@ -403,12 +404,30 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                 val n = NotificationTemplates.getExposureNewAlertsNotification(appCtx, NEW_ALERTS_CHANNEL_ID)
                 //startForeground(NEW_ALTERS_NOTIFICATION_ID, n)
+                showSystemAlert(n)
 
                 with(NotificationManagerCompat.from(appCtx)) {
                     notify(NEW_ALERTS_NOTIFICATION_ID, n)
                 }
             }
         }
+    }
+
+    private fun showSystemAlert(n: Notification) {
+        //passing the notification here so in the future we can use information from it into the alert dialog
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle("Test dialog")
+        builder.setMessage("Content")
+        builder.setPositiveButton("OK",
+            DialogInterface.OnClickListener { dialog, whichButton -> //Do something
+                dialog.dismiss()
+            })
+        builder.setNegativeButton("Close",
+            DialogInterface.OnClickListener { dialog, whichButton -> dialog.dismiss() })
+        val alert: AlertDialog = builder.create()
+        // alert.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG) - deprecated but below should do the same
+        alert.window?.setType(WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG)
+        alert.show()
     }
 
     private fun performHealthCheck() {
