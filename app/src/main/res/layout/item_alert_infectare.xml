@@ -21,6 +21,7 @@
             android:id="@+id/titlu_alerta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
             android:layout_centerHorizontal="true"
             android:foregroundGravity="center_horizontal"
             android:gravity="center_horizontal"
@@ -38,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/titlu_alerta"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="10dp"
             android:padding="2dp"
             android:text="@string/exposure_alert_body_1"
             android:textColor="@android:color/black"
@@ -65,28 +66,26 @@
             android:text="@string/exposure_alert_body_2"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/timp_data_alerta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/timp_de"
-            android:layout_below="@id/titlu_alerta"
+            android:layout_below="@id/data_alerta"
+            android:layout_marginLeft="10dp"
+            android:padding="2dp"
             android:text="30 min"
             android:textColor="@android:color/holo_red_light"
             android:textSize="14sp"
-            android:paddingTop="2dp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/cu_cineva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/in_data_de"
-            android:layout_centerHorizontal="true"
-            android:foregroundGravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:paddingBottom="2dp"
+            android:layout_below="@id/data_alerta"
+            android:layout_toRightOf="@id/timp_data_alerta"
+            android:padding="2dp"
             android:text="@string/exposure_alert_body_3"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
