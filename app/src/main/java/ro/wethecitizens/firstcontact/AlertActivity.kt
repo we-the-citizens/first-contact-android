@@ -2,6 +2,7 @@ package ro.wethecitizens.firstcontact
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
@@ -15,6 +16,7 @@ class AlertActivity : AppCompatActivity() {
         alert.setView(alertDialog)
         alert.setCancelable(false)
         val dialog = alert.create()
+        dialog.window?.setType(WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG)
         dialog.show()
     }
 }
