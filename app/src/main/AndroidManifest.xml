@@ -58,6 +58,11 @@
         <activity
             android:name="ro.wethecitizens.firstcontact.onboarding.OnBoardingActivity"
             android:screenOrientation="portrait" />
+        <!-- this activity will be triggered on infection alert-->
+        <activity
+            android:name="ro.wethecitizens.firstcontact.AlertActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert"/>
         <activity
             android:name="ro.wethecitizens.firstcontact.onboarding.HowItWorksActivity"
             android:screenOrientation="portrait" />

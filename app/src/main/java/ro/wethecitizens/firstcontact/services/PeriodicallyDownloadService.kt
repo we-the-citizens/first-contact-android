@@ -5,18 +5,15 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
-import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationManagerCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import kotlinx.coroutines.*
+import ro.wethecitizens.firstcontact.AlertActivity
 import ro.wethecitizens.firstcontact.BuildConfig
-import ro.wethecitizens.firstcontact.MainActivity
 import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecord
@@ -416,19 +413,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun showSystemAlert(n: Notification) {
         //passing the notification here so in the future we can use information from it into the alert dialog
-        val builder: AlertDialog.Builder = AlertDialog.Builder(MainActivity())
-        builder.setTitle("Test dialog")
-        builder.setMessage("Content")
-        builder.setPositiveButton("OK",
-            DialogInterface.OnClickListener { dialog, whichButton -> //Do something
-                dialog.dismiss()
-            })
-        builder.setNegativeButton("Close",
-            DialogInterface.OnClickListener { dialog, whichButton -> dialog.dismiss() })
-        val alert: AlertDialog = builder.create()
-        // alert.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG) - deprecated but below should do the same
-        alert.window?.setType(WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG)
-        alert.show()
+        val dialogIntent = Intent(this, AlertActivity::class.java)
+        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(dialogIntent)
     }
 
     private fun performHealthCheck() {

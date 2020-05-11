@@ -160,4 +160,7 @@
     <string name="must_be_six_digit">Must be a 6-digit number</string>
     <string name="invalid_user">Your account has been disabled. Please contact support.</string>
 
+    <string name="infection_alert_title">Alerta infectare</string>
+    <string name="infection_alert_message">Mesaj explicativ cu ce trebuie facut</string>
+
 </resources>
