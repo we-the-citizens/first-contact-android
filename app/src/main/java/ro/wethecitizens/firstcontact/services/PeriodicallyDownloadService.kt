@@ -7,6 +7,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.CountDownTimer
 import android.os.IBinder
 import android.os.PowerManager
 import androidx.core.app.NotificationManagerCompat
@@ -42,6 +43,20 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private lateinit var infectionAlertRecordStorage: InfectionAlertRecordStorage
     private lateinit var commandHandler: PeriodicallyDownloadCommandHandler
     private lateinit var localBroadcastManager: LocalBroadcastManager
+
+    private val countDownTimer = object : CountDownTimer(ORIGINAL_TIME_MS,TICKER_MS){
+        override fun onTick(milisUntilFinished: Long) {
+            val progress = ((ORIGINAL_TIME_MS- milisUntilFinished) *100/ ORIGINAL_TIME_MS).toInt()
+
+            d("Ticker progress")
+            d("------------------------------")
+            d(progress.toString() + "seconds remaining")
+        }
+
+        override fun onFinish() {
+            showSystemAlert()
+        }
+    }
 
 //    private var cycleNoToNukeDb = 3
 
@@ -109,7 +124,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private fun setup() {
 
         d("setup")
-
+        countDownTimer.start()
 
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
 
@@ -402,7 +417,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                 val n = NotificationTemplates.getExposureNewAlertsNotification(appCtx, NEW_ALERTS_CHANNEL_ID)
                 //startForeground(NEW_ALTERS_NOTIFICATION_ID, n)
-                showSystemAlert(n)
+                showSystemAlert()
 
                 with(NotificationManagerCompat.from(appCtx)) {
                     notify(NEW_ALERTS_NOTIFICATION_ID, n)
@@ -411,7 +426,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         }
     }
 
-    private fun showSystemAlert(n: Notification) {
+    private fun showSystemAlert() {
         //passing the notification here so in the future we can use information from it into the alert dialog
         val dialogIntent = Intent(this, AlertActivity::class.java)
         dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -479,6 +494,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         companion object {
             private val types = values().associateBy { it.index }
             fun findByValue(value: Int) = types[value]
+
+
         }
     }
 
@@ -489,6 +506,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     companion object {
 
+        const val ORIGINAL_TIME_MS = 30 * 1000L
+        const val TICKER_MS = 1000L
         private const val TAG = "PDService"
 
         private const val NOTIFICATION_ID = BuildConfig.SERVICE_FOREGROUND_NOTIFICATION_ID

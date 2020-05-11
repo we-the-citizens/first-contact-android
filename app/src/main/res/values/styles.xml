@@ -9,7 +9,7 @@
         <item name="fontFamily">@font/font</item>
     </style>
 
-    <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.AlertDialog" parent="Theme.MaterialComponents.Dialog">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>

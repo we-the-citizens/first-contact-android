@@ -5,6 +5,7 @@ import android.os.PersistableBundle
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDialog
 
 class AlertActivity : AppCompatActivity() {
 

@@ -62,7 +62,7 @@
         <activity
             android:name="ro.wethecitizens.firstcontact.AlertActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert"/>
+            android:theme="@style/AppTheme.AlertDialog"/>
         <activity
             android:name="ro.wethecitizens.firstcontact.onboarding.HowItWorksActivity"
             android:screenOrientation="portrait" />
