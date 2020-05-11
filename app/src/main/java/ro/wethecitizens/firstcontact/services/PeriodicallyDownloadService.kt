@@ -13,10 +13,7 @@ import android.os.PowerManager
 import androidx.core.app.NotificationManagerCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import kotlinx.coroutines.*
-import ro.wethecitizens.firstcontact.AlertActivity
-import ro.wethecitizens.firstcontact.BuildConfig
-import ro.wethecitizens.firstcontact.Preference
-import ro.wethecitizens.firstcontact.Utils
+import ro.wethecitizens.firstcontact.*
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecord
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordStorage
 import ro.wethecitizens.firstcontact.logging.CentralLog
@@ -43,21 +40,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private lateinit var infectionAlertRecordStorage: InfectionAlertRecordStorage
     private lateinit var commandHandler: PeriodicallyDownloadCommandHandler
     private lateinit var localBroadcastManager: LocalBroadcastManager
-
-    private val countDownTimer = object : CountDownTimer(ORIGINAL_TIME_MS,TICKER_MS){
-        override fun onTick(milisUntilFinished: Long) {
-            val progress = ((ORIGINAL_TIME_MS- milisUntilFinished) *100/ ORIGINAL_TIME_MS).toInt()
-
-            d("Ticker progress")
-            d("------------------------------")
-            d(progress.toString() + "seconds remaining")
-        }
-
-        override fun onFinish() {
-            showSystemAlert()
-        }
-    }
-
+    
 //    private var cycleNoToNukeDb = 3
 
 
@@ -124,8 +107,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private fun setup() {
 
         d("setup")
-        countDownTimer.start()
-
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
 
         CentralLog.setPowerManager(pm)
@@ -417,7 +398,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                 val n = NotificationTemplates.getExposureNewAlertsNotification(appCtx, NEW_ALERTS_CHANNEL_ID)
                 //startForeground(NEW_ALTERS_NOTIFICATION_ID, n)
-                showSystemAlert()
+                startMainActivity()
 
                 with(NotificationManagerCompat.from(appCtx)) {
                     notify(NEW_ALERTS_NOTIFICATION_ID, n)
@@ -426,9 +407,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         }
     }
 
-    private fun showSystemAlert() {
+    private fun startMainActivity() {
         //passing the notification here so in the future we can use information from it into the alert dialog
-        val dialogIntent = Intent(this, AlertActivity::class.java)
+        val dialogIntent = Intent(this, MainActivity::class.java)
         dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(dialogIntent)
     }
