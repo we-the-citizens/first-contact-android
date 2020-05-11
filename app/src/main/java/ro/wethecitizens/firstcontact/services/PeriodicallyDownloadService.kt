@@ -16,6 +16,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import kotlinx.coroutines.*
 import ro.wethecitizens.firstcontact.BuildConfig
+import ro.wethecitizens.firstcontact.MainActivity
 import ro.wethecitizens.firstcontact.Preference
 import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecord
@@ -415,7 +416,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     private fun showSystemAlert(n: Notification) {
         //passing the notification here so in the future we can use information from it into the alert dialog
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(MainActivity())
         builder.setTitle("Test dialog")
         builder.setMessage("Content")
         builder.setPositiveButton("OK",
