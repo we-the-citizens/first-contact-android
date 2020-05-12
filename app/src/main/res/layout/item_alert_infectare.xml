@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/light_blue"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="16dp"
+    app:cardBackgroundColor="@color/error"
     app:cardCornerRadius="12dp"
     app:cardMaxElevation="2dp"
     app:cardUseCompatPadding="true"
-    app:contentPadding="0dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    >
+    app:contentPadding="0dp">
 
     <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/titlu_alerta"
@@ -30,7 +29,7 @@
             android:paddingRight="2dp"
             android:paddingBottom="2dp"
             android:text="@string/exposure_alert_title"
-            android:textColor="@android:color/holo_red_dark"
+            android:textColor="@android:color/primary_text_dark"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -42,19 +41,20 @@
             android:layout_marginLeft="10dp"
             android:padding="2dp"
             android:text="@string/exposure_alert_body_1"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/background_light"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/data_alerta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/in_data_de"
             android:layout_below="@id/titlu_alerta"
+            android:layout_toRightOf="@id/in_data_de"
+            android:padding="2dp"
             android:text="20/04/2020"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@android:color/primary_text_dark"
             android:textSize="14sp"
-            android:padding="2dp"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/timp_de"
@@ -64,7 +64,7 @@
             android:layout_toRightOf="@id/data_alerta"
             android:padding="2dp"
             android:text="@string/exposure_alert_body_2"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/background_light"
             android:textSize="14sp" />
 
         <TextView
@@ -75,7 +75,7 @@
             android:layout_marginLeft="10dp"
             android:padding="2dp"
             android:text="30 min"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@android:color/primary_text_dark"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -87,7 +87,7 @@
             android:layout_toRightOf="@id/timp_data_alerta"
             android:padding="2dp"
             android:text="@string/exposure_alert_body_3"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/background_light"
             android:textSize="14sp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

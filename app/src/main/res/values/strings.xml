@@ -10,7 +10,7 @@
 
     <string name="tv_onboarding_title">Protejează-te!\npe tine și pe cei din jur</string>
     <string name="tv_onboarding_desc">First Contact te va avertiza dacă ai avut un contact apropiat cu o persoană infectată.</string>
-    <string name="tv_onboarding_desc_sub">Cum poate face asta? \nFirst Contact va scana semnalele Bluetooth din proximitate și va înregistra în telefonul tău pseudonimele altor utilizatori cu care ai avut un contact apropiat. Dacă ulterior unul dintre ei va fi depistat ca fiind infectat, vei primi o Alertă de expunere. \nDoar tu vei putea afla dacă ai fost expus infectării. First Contact îți va face recomandări, însă tu vei fi cel care va decide cum vei acționa în acel caz.</string>
+    <string name="tv_onboarding_desc_sub">Cum se poate face asta? \nFirst Contact va scana semnalele Bluetooth din proximitate și va înregistra în telefonul tău pseudonimele altor utilizatori cu care ai avut un contact apropiat. Dacă ulterior unul dintre ei va fi diagnosticat cu COVID-19, vei primi o Alertă de expunere. \nDoar tu vei putea afla dacă ai fost expus infectării. First Contact îți va face recomandări, însă tu vei fi cel care va decide cum vei acționa în acel caz.</string>
     <string name="i_want_to_help">Continuă</string>
 
     <string name="setup_app_permission">\Acordă permisiuni aplicației</string>
@@ -27,7 +27,7 @@
     <string name="title_help">Detalii</string>
 
     <string name="how_to_help">Continuă să te protejezi\npe tine și pe cei din jur</string>
-    <string name="help_action">Ține Bluetooth pornit și lasă aplicația să ruleze în background, până se va termina epidemia.</string>
+    <string name="help_action">Ține Bluetooth pornit și lasă aplicația să ruleze în background, până la sfârșitul epidemiei.</string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
     <string name="bluetooth_on">Bluetooth - pornit</string>
@@ -40,13 +40,7 @@
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
     <string name="help_us_identify">Protejează-te acordând aplicației permisiunile necesare</string>
-    <string name="restart_app_setup"> Completează configurarea </string>
-    
-    <string name="upload_data">Upload Data</string>
-    <string name="for_official_use">For use by contact tracers</string>
-    <string name="data_uploaded">Data has been uploaded to contact tracers</string>
-    <string name="enter_code">Enter Code</string>
-    <string name="submit">Submit</string>
+    <string name="restart_app_setup"> Remediază </string>
     
     <string name="open_location_setting">Application needs location permission in order to work. Do you want to enable location permission?</string>
     <string name="ok">OK</string>
@@ -55,42 +49,29 @@
     <string name="keep_push_on">Keep push notifications on too, so we can alert you if the app is not scanning.</string>
     <string name="too_many_requests">Too many requests. Please try again later.</string>
 
-    <string name="privacy_safeguards"><u>privacy safeguards</u></string>
-
     <string name="service_ok_title">First Contact scanează și te protejează! :)</string>
     <string name="service_ok_body">Repornește telefonul dacă această notificare dispare</string>
 
     <string name="service_not_ok_title">Oh nu! :(</string>
-    <string name="service_not_ok_body">Scanarea First Contact nu funcționează.</string>
+    <string name="service_not_ok_body">Scanarea First Contact nu funcționează. Verifică!</string>
     <string name="service_not_ok_action">Verifică aplicația acum!</string>
 
-    <string name="exposure_new_alerts_title">Alertă de intectare First Contact !!!</string>
+    <string name="exposure_new_alerts_title">Alertă de expunere FIRST CONTACT !!!</string>
     <string name="exposure_new_alerts_body">Click aici pentru detalii</string>
 
 
     <!-- custom strings -->
-    <string name="camera_scan_message">Scanati codul QR de pe Autorizația primită de la personalul medical.</string>
-
     <string name="title_alert">Avertizează</string>
     <string name="alert_button">Avertizare contacți</string>
-    <string name="camera_permission">Permisiune cameră acordată</string>
-    <string name="internet_connection">Dispozitiv conectat la internet</string>
     <string name="permission_camera_rationale">Permite accesul la cameră pentru a putea scana codul QR.</string>
     <string name="camera_permission_denied">Accesul la cameră a fost respins.</string>
     <string name="no_internet_connection">Ai nevoie de o conexiune la internet înainte de a începe.</string>
-    <string name="pin_from_sms">Introdu PIN-ul primit prin SMS.</string>
-    <string name="sms_pin_information_text">Asteaptă să primești SMS cu PIN-ul necesar validarii cererii de upload.</string>
-    <string name="invalid_sms">Invalid SMS</string>
-    <string name="listening_for_sms">PIN-ul va fi introdus automat la primirea SMS-ului</string>
-    <string name="upload_success">Încărcarea pseudonimelor tale s-a făcut cu succes!</string>
+    <string name="upload_success">Încărcarea pseudonimelor tale s-a făcut cu succes.</string>
     <string name="upload_failed">UPLOAD FAILED: %s, %s</string>
-    <string name="add_pin_before_upload">Introdu PIN-ul primit prin SMS pentru a continua.</string>
 
-    
     <string name="share_app_subject">First Contact</string>
     <string name="share_app_text">Distribuie aplicația</string>
     <string name="share_message">Ne putem proteja reciproc. Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
-
     
     <string name="for_use_by_otc_title">Avertizare Contacți</string>
     <string name="upload_steps_background_title">Avertizare contacți</string>
@@ -109,19 +90,41 @@
     <string name="upload_for_use_next_btn_2">contacții sunt avertizați</string>
     <string name="upload_step_3_done_btn">OK</string>
 
-    <string name="exposure_alert_title">Alertă de infectare cu Coronavirus!</string>
+    <string name="exposure_alert_title">Alertă de expunere la Coronavirus!</string>
     <string name="exposure_alert_body_1">Pe </string>
     <string name="exposure_alert_body_2">ați avut un contact apropiat timp de </string>
     <string name="exposure_alert_body_3">cu cineva diagnosticat acum cu COVID-19.</string>
-    <string name="view_infection_instructions_text">Instructiuni</string>
-
+    <string name="view_infection_instructions_text">Instrucțiuni</string>
 
     <string name="for_use_by_otc_use_only">doar dacă ai o Autorizație</string>
 
+
+    
+    
+    
+    
+    <!-- de eliminat -->
+    
     <string name="upload_step_2_enter_pin_to_upload">Enter PIN to upload</string>
     <string name="upload_step_2_invalid_pin">Invalid PIN</string>
     
-    <!-- de eliminat -->
+    <string name="add_pin_before_upload">Introdu PIN-ul primit prin SMS pentru a continua.</string>
+    <string name="pin_from_sms">Introdu PIN-ul primit prin SMS.</string>
+    <string name="sms_pin_information_text">Asteaptă să primești SMS cu PIN-ul necesar validarii cererii de upload.</string>
+    <string name="invalid_sms">Invalid SMS</string>
+    <string name="listening_for_sms">PIN-ul va fi introdus automat la primirea SMS-ului</string>
+
+    <string name="privacy_safeguards"><u>privacy safeguards</u></string>
+
+    <string name="camera_scan_message">Scanati codul QR de pe Autorizația primită de la personalul medical.</string>
+    <string name="camera_permission">Permisiune cameră acordată</string>
+    <string name="internet_connection">Dispozitiv conectat la internet</string>
+
+    <string name="upload_data">Upload Data</string>
+    <string name="for_official_use">For use by contact tracers</string>
+    <string name="data_uploaded">Data has been uploaded to contact tracers</string>
+    <string name="enter_code">Enter Code</string>
+    <string name="submit">Submit</string>
     
     <string name="see_connections">See connections</string>
     
