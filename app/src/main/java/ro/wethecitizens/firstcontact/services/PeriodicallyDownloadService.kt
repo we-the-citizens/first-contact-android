@@ -5,19 +5,15 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
+import android.os.CountDownTimer
 import android.os.IBinder
 import android.os.PowerManager
-import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationManagerCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import kotlinx.coroutines.*
-import ro.wethecitizens.firstcontact.BuildConfig
-import ro.wethecitizens.firstcontact.Preference
-import ro.wethecitizens.firstcontact.Utils
+import ro.wethecitizens.firstcontact.*
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecord
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordStorage
 import ro.wethecitizens.firstcontact.logging.CentralLog
@@ -44,7 +40,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private lateinit var infectionAlertRecordStorage: InfectionAlertRecordStorage
     private lateinit var commandHandler: PeriodicallyDownloadCommandHandler
     private lateinit var localBroadcastManager: LocalBroadcastManager
-
+    
 //    private var cycleNoToNukeDb = 3
 
 
@@ -111,8 +107,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private fun setup() {
 
         d("setup")
-
-
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
 
         CentralLog.setPowerManager(pm)
@@ -404,7 +398,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                 val n = NotificationTemplates.getExposureNewAlertsNotification(appCtx, NEW_ALERTS_CHANNEL_ID)
                 //startForeground(NEW_ALTERS_NOTIFICATION_ID, n)
-                showSystemAlert(n)
+                startMainActivity()
 
                 with(NotificationManagerCompat.from(appCtx)) {
                     notify(NEW_ALERTS_NOTIFICATION_ID, n)
@@ -413,21 +407,11 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         }
     }
 
-    private fun showSystemAlert(n: Notification) {
+    private fun startMainActivity() {
         //passing the notification here so in the future we can use information from it into the alert dialog
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle("Test dialog")
-        builder.setMessage("Content")
-        builder.setPositiveButton("OK",
-            DialogInterface.OnClickListener { dialog, whichButton -> //Do something
-                dialog.dismiss()
-            })
-        builder.setNegativeButton("Close",
-            DialogInterface.OnClickListener { dialog, whichButton -> dialog.dismiss() })
-        val alert: AlertDialog = builder.create()
-        // alert.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG) - deprecated but below should do the same
-        alert.window?.setType(WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG)
-        alert.show()
+        val dialogIntent = Intent(this, MainActivity::class.java)
+        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(dialogIntent)
     }
 
     private fun performHealthCheck() {
@@ -491,6 +475,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         companion object {
             private val types = values().associateBy { it.index }
             fun findByValue(value: Int) = types[value]
+
+
         }
     }
 
@@ -501,6 +487,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     companion object {
 
+        const val ORIGINAL_TIME_MS = 30 * 1000L
+        const val TICKER_MS = 1000L
         private const val TAG = "PDService"
 
         private const val NOTIFICATION_ID = BuildConfig.SERVICE_FOREGROUND_NOTIFICATION_ID

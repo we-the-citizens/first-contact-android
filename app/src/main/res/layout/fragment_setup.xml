@@ -14,7 +14,7 @@
 
         <ImageView
             style="@style/OnboardingImage"
-            android:id="@+id/on_boarding_banner"
+            android:id="@+id/ivAlertIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_blue_transparent"
@@ -24,7 +24,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/OnboardingTitle"
-            android:id="@+id/tv_title"
+            android:id="@+id/tvAlertTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="left"
@@ -32,10 +32,10 @@
             android:visibility="visible"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/on_boarding_banner" />
+            app:layout_constraintTop_toBottomOf="@+id/ivAlertIcon" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_desc"
+            android:id="@+id/tvAlertMessage"
             style="@style/OnboardingDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tvAlertTitle" />
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/OnboardingSubDesc"
@@ -60,7 +60,7 @@
             android:visibility="visible"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+            app:layout_constraintTop_toBottomOf="@+id/tvAlertMessage" />
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/OnboardingSubDesc"

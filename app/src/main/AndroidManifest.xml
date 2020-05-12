@@ -58,6 +58,11 @@
         <activity
             android:name="ro.wethecitizens.firstcontact.onboarding.OnBoardingActivity"
             android:screenOrientation="portrait" />
+        <!-- this activity will be triggered on infection alert-->
+        <activity
+            android:name="ro.wethecitizens.firstcontact.AlertActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.AlertDialog"/>
         <activity
             android:name="ro.wethecitizens.firstcontact.onboarding.HowItWorksActivity"
             android:screenOrientation="portrait" />
@@ -94,7 +99,7 @@
         <activity
             android:name="ro.wethecitizens.firstcontact.permissions.RequestFileWritePermission"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" />
+            android:theme="@style/AppTheme.AlertDialog" />
 
         <service
             android:name="ro.wethecitizens.firstcontact.services.BluetoothMonitoringService"
