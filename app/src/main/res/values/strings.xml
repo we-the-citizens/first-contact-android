@@ -91,9 +91,7 @@
     <string name="upload_step_3_done_btn">OK</string>
 
     <string name="exposure_alert_title">Alertă de expunere la Coronavirus!</string>
-    <string name="exposure_alert_body_1">Pe </string>
-    <string name="exposure_alert_body_2">ați avut un contact apropiat timp de </string>
-    <string name="exposure_alert_body_3">cu cineva diagnosticat acum cu COVID-19.</string>
+    <string name="exposure_body">Pe <b>####</b> ați avut un contact apropiat timp de <b>$$ min</b> cu cineva diagnosticat acum cu COVID-19.</string>
     <string name="view_infection_instructions_text">Instrucțiuni</string>
 
     <string name="for_use_by_otc_use_only">doar dacă ai o Autorizație</string>

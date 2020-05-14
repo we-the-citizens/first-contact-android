@@ -1,9 +1,12 @@
 package ro.wethecitizens.firstcontact.adapter
 
+import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecord
@@ -33,9 +36,7 @@ class MyAdapter(private val myDataset: List<InfectionAlertRecord>) :
     }
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        var txt_date: TextView? = itemView.findViewById<View>(R.id.data_alerta) as TextView
-        var txt_time: TextView? = itemView.findViewById<View>(R.id.timp_data_alerta) as TextView
-
+        var txt_body: AppCompatTextView? = itemView.findViewById<View>(R.id.alert_body) as AppCompatTextView
     }
 
 
@@ -55,8 +56,9 @@ class MyAdapter(private val myDataset: List<InfectionAlertRecord>) :
         // - replace the contents of the view with that element
 //        val format1 = SimpleDateFormat("dd-MM-yyyy")
 //        val formatted = format1.format(myDataset.get(position).exposureDate)
-        holder.txt_date?.text = formatCalendar(myDataset.get(position).exposureDate)
-        holder.txt_time?.text = myDataset.get(position).exposureInMinutes.toString() + " min"
+
+        var text:String = "Pe <b>"+formatCalendar(myDataset.get(position).exposureDate)+"</b> ați avut un contact apropiat timp de <b>"+myDataset.get(position).exposureInMinutes.toString()+" min</b> cu cineva diagnosticat acum cu COVID-19."//R.string.exposure_body
+        holder.txt_body?.setText(Html.fromHtml(text));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
