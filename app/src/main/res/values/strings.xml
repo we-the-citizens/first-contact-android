@@ -8,9 +8,9 @@
 
     <string name="ble_not_supported">Acest dispozitiv nu suportă tehnologia Bluetooth Low Energy</string>
 
-    <string name="tv_onboarding_title">Protejează-te!\npe tine și pe cei din jur</string>
-    <string name="tv_onboarding_desc">First Contact te va avertiza dacă ai avut un contact apropiat cu o persoană infectată.</string>
-    <string name="tv_onboarding_desc_sub">Cum se poate face asta? \nFirst Contact va scana semnalele Bluetooth din proximitate și va înregistra în telefonul tău pseudonimele altor utilizatori cu care ai avut un contact apropiat. Dacă ulterior unul dintre ei va fi diagnosticat cu COVID-19, vei primi o Alertă de expunere. \nDoar tu vei putea afla dacă ai fost expus infectării. First Contact îți va face recomandări, însă tu vei fi cel care va decide cum vei acționa în acel caz.</string>
+    <string name="tv_onboarding_title">Testează cum te poți proteja\npe tine și pe cei din jur</string>
+    <string name="tv_onboarding_desc">First Contact te va avertiza dacă ai avut un contact apropiat cu un infec-tester (tester cu rol de infectat).</string>
+    <string name="tv_onboarding_desc_sub">Cum se poate face asta? \nFirst Contact va scana semnalele Bluetooth din proximitate și va înregistra în telefonul tău pseudonimele temporare ale altor utilizatori cu care ai avut contact. Dacă ulterior unul dintre ei e desemnat ca infec-tester și First Contact determină că acel contact a fost apropiat, vei primi o Alertă. \nDoar tu vei putea afla dacă ai fost expus unui astfel de contact. First Contact îți va face recomandări, însă tu vei decide cum vei acționa în acel caz.</string>
     <string name="i_want_to_help">Continuă</string>
 
     <string name="setup_app_permission">\Acordă permisiuni aplicației</string>
@@ -18,7 +18,7 @@
     <string name="bluetooth">1. Bluetooth</string>
     <string name="location_permissions">2. Location Permissions</string>
     <string name="battery_optimiser_opt">3. Battery Optimisation</string>
-    <string name="notes">De ce Location Permissions? \nSistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. Însă First Contact nu va avea acces la localizarea ta fizică - nu folosește GPS, Wi-Fi sau celulele GSM - și nici nu are nevoie de asta. Contactul apropiat cu alți utilizatori se determină doar pe baza puterii semnalului Bluetooth recepționat de la telefoanele din proximitate și a timpului cât ai stat în apropierea lor.</string>
+    <string name="notes">De ce Location Permissions? \nSistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. Însă First Contact nu va avea acces la localizarea ta fizică - nu folosește GPS, Wi-Fi sau celulele GSM - și nici nu permite urmărirea ta prin semnalul Bluetooth pe care-l emite.\nÎn versiunea finală, cu motor Google API, această permisiune nici nu va mai fi necesară.</string>
     <string name="proceed">Începe</string>
     <string name="continue_">Continuă</string>
   
@@ -26,8 +26,8 @@
     <string name="title_upload">Avertizează</string>
     <string name="title_help">Detalii</string>
 
-    <string name="how_to_help">Continuă să te protejezi\npe tine și pe cei din jur</string>
-    <string name="help_action">Ține Bluetooth pornit și lasă aplicația să ruleze în background, până la sfârșitul epidemiei.</string>
+    <string name="how_to_help">Continuă să testezi\npentru tine și ceilalți participanți</string>
+    <string name="help_action">Ține Bluetooth pornit și lasă aplicația să ruleze în background, până la sfârșitul Programului de testare.</string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
     <string name="bluetooth_on">Bluetooth - pornit</string>
@@ -39,7 +39,7 @@
     <string name="ask_friend">Ajută-ți prietenii și familia să-și instaleze și ei First Contact</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
-    <string name="help_us_identify">Protejează-te acordând aplicației permisiunile necesare</string>
+    <string name="help_us_identify">Testează aplicația acordându-i permisiunile necesare</string>
     <string name="restart_app_setup"> Remediază </string>
     
     <string name="open_location_setting">Application needs location permission in order to work. Do you want to enable location permission?</string>
@@ -84,15 +84,15 @@
     <string name="upload_step_2_title">PASUL 2</string>
     <string name="upload_step_2_upload_data">Sunt de acord</string>
     <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale au fost încărcate pe server. Contacții tăi vor primi o alertă anonimă.\n\nMulțumim că ai ajutat și tu la limitarea răspândirii virusului!</string>
-    <string name="upload_agreement">Ești de acord să încarci pe serverul central pseudonimele tale temporare, pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai fost în contact apropiat să fie avertizați că au fost expuși?\n\n<b>Nu se vor încărca pe server niciun fel de date de localizare sau date care ar permite identificarea ta. Cei avertizați nu vor afla cine ești.</b></string>
-    <string name="upload_for_use_tap_next_text_2">Ți-ai avertizat deja contacții.\n\nMulțumim că ai contribuit și tu la limitarea răspândirii virusului!</string>
+    <string name="upload_agreement">Ești de acord să încarci pe serverul central pseudonimele tale temporare, pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai avut contact apropiat să fie avertizați că au fost expuși unui infec-tester?\n\n<b>Nu se vor încărca pe server niciun fel de date de localizare sau date care ar permite identificarea ta. Cei avertizați nu vor afla cine ești.</b></string>
+    <string name="upload_for_use_tap_next_text_2">Ți-ai avertizat deja contacții.\n\nMulțumim că ai contribuit și în acest fel la testarea First Contact Prototip!</string>
     <string name="upload_for_use_next_btn">Avertizează contacții</string>
     <string name="upload_for_use_next_btn_2">contacții sunt avertizați</string>
     <string name="upload_step_3_done_btn">OK</string>
 
-    <string name="exposure_alert_title">Alertă de expunere la Coronavirus!</string>
-    <string name="exposure_body">Pe <b>####</b> ați avut un contact apropiat timp de <b>$$ min</b> cu cineva diagnosticat acum cu COVID-19.</string>
-    <string name="view_infection_instructions_text">Instrucțiuni</string>
+    <string name="exposure_alert_title">Alertă de expunere First Contact!</string>
+    <string name="exposure_body">Pe <b>####</b> ați avut un contact apropiat timp de <b>$$ min</b> cu cineva desemnat acum ca infec-tester.</string>
+    <string name="view_infection_instructions_text">Recomandări</string>
 
     <string name="for_use_by_otc_use_only">doar dacă ai o Autorizație</string>
 
