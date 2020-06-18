@@ -51,15 +51,14 @@
                         android:id="@+id/tv_last_update"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Last update: X:XX XX"
+                        android:autoLink="web"
+                        android:text="@string/copyright"
                         android:textColor="@color/blue_update"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        android:visibility="invisible"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="272dp" />
+                        app:layout_constraintRight_toRightOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -323,6 +322,7 @@
                         android:id="@+id/push_card_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="invisible"
                         card_view:cardBackgroundColor="@color/white"
                         card_view:cardCornerRadius="12dp"
                         card_view:cardMaxElevation="2dp"

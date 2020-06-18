@@ -1,5 +1,7 @@
 package ro.wethecitizens.firstcontact
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -55,7 +57,9 @@ class MainActivity : AppCompatActivity() {
                         return@OnNavigationItemSelectedListener true
                     }
                     R.id.navigation_help -> {
-                        Toast.makeText(this, "To be implemented", Toast.LENGTH_LONG).show()
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.HELP_URL))
+                        startActivity(browserIntent)
+                        //Toast.makeText(this, "To be implemented", Toast.LENGTH_LONG).show()
                     }
                 }
                 false

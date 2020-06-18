@@ -24,7 +24,7 @@
   
     <string name="title_home">Acasă</string>
     <string name="title_upload">Avertizează</string>
-    <string name="title_help">Detalii</string>
+    <string name="title_help">Ajutor</string>
 
     <string name="how_to_help">Continuă să testezi\npentru tine și ceilalți participanți</string>
     <string name="help_action">Ține Bluetooth pornit și lasă aplicația să ruleze în background, până la sfârșitul Programului de testare.</string>
@@ -96,9 +96,9 @@
 
     <string name="for_use_by_otc_use_only">doar dacă ai o Autorizație</string>
 
+    <string name="copyright">© 2020 Noi, Cetățenii</string>
 
-    
-    
+
     
     
     <!-- de eliminat -->

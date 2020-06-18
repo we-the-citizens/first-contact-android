@@ -57,7 +57,7 @@ class MyAdapter(private val myDataset: List<InfectionAlertRecord>) :
 //        val format1 = SimpleDateFormat("dd-MM-yyyy")
 //        val formatted = format1.format(myDataset.get(position).exposureDate)
 
-        var text:String = "Pe <b>"+formatCalendar(myDataset.get(position).exposureDate)+"</b> ați avut un contact apropiat timp de <b>"+myDataset.get(position).exposureInMinutes.toString()+" min</b> cu cineva diagnosticat acum cu COVID-19."//R.string.exposure_body
+        var text:String = "Pe <b>"+formatCalendar(myDataset.get(position).exposureDate)+"</b> ați avut un contact apropiat timp de <b>"+myDataset.get(position).exposureInMinutes.toString()+" min</b> cu cineva desemnat acum ca infec-tester"//R.string.exposure_body
         holder.txt_body?.setText(Html.fromHtml(text));
     }
 

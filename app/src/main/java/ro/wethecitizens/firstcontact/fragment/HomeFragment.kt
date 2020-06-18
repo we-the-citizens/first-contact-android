@@ -4,6 +4,7 @@ import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.*
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
@@ -45,7 +46,7 @@ class HomeFragment : Fragment() {
     private var mIsBroadcastListenerRegistered = false
     private var counter = 0
 
-    private lateinit var lastKnownScanningStarted: LiveData<StatusRecord?>
+    //private lateinit var lastKnownScanningStarted: LiveData<StatusRecord?>
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -56,7 +57,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val db = StreetPassRecordDatabase.getDatabase(view.context)
 
-        lastKnownScanningStarted = db.statusDao().getMostRecentRecord("Scanning Started")
+        tv_last_update.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.COPYRIGHT_URL))
+            startActivity(browserIntent)
+        }
+
+        /*lastKnownScanningStarted = db.statusDao().getMostRecentRecord("Scanning Started")
         lastKnownScanningStarted.observe(viewLifecycleOwner,
             Observer { record ->
                 if (record != null) {
@@ -64,7 +70,7 @@ class HomeFragment : Fragment() {
                     tv_last_update.text = "Last updated: ${Utils.getTime(record.timestamp)}"
 
                 }
-            })
+            })*/
 
         storage.getall().observe(viewLifecycleOwner, Observer {
             viewManager = LinearLayoutManager(this.context)
@@ -97,15 +103,15 @@ class HomeFragment : Fragment() {
             }
         })
 
-
-
         btnViewInstructions.setOnClickListener {
 
-            val i = Intent(context, InfectionInstructionsActivity::class.java)
-            context?.startActivity(i)
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.INFECTION_INSTRUCTIONS_URL))
+            startActivity(browserIntent)
+
+            //webview implementation
+            //val i = Intent(context, InfectionInstructionsActivity::class.java)
+            //context?.startActivity(i)
         }
-
-
 
         showSetup()
 
@@ -139,13 +145,7 @@ class HomeFragment : Fragment() {
         share_card_view.setOnClickListener { shareThisApp() }
         animation_view.setOnClickListener {
 
-//            if (BuildConfig.DEBUG && ++counter == 2) {
-//                counter = 0
-//                var intent = Intent(context, PeekActivity::class.java)
-//                context?.startActivity(intent)
-//            }
-
-            if (++counter == 2) {
+            if (/*BuildConfig.DEBUG && */++counter == 3) {
                 counter = 0
                 var intent = Intent(context, PeekActivity::class.java)
                 context?.startActivity(intent)
@@ -241,7 +241,7 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         Preference.unregisterListener(activity!!.applicationContext, listener)
-        lastKnownScanningStarted.removeObservers(viewLifecycleOwner)
+        //lastKnownScanningStarted.removeObservers(viewLifecycleOwner)
     }
 
     private fun shareThisApp() {

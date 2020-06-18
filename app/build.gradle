@@ -81,6 +81,8 @@ android {
         buildConfigField "int", "RSSI_MIN_VALUE", RSSI_MIN_VALUE
         buildConfigField "int", "EXPOSURE_MIN_VALUE_IN_MINUTES", EXPOSURE_MIN_VALUE_IN_MINUTES
         buildConfigField "String", "INFECTION_INSTRUCTIONS_URL", INFECTION_INSTRUCTIONS_URL
+        buildConfigField "String", "HELP_URL", HELP_URL
+        buildConfigField "String", "COPYRIGHT_URL", COPYRIGHT_URL
     }
 
     buildTypes {
