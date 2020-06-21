@@ -242,7 +242,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         d("scheduleDownload")
 
         if (!infiniteScanning) {
-            commandHandler.scheduleNextDownload(downloadDuration + downloadInterval)
+            commandHandler.scheduleNextDownload((Firebase.remoteConfig.getLong("download_duration_in_minutes") + Firebase.remoteConfig.getLong("download_interval_in_minutes")) * ONE_MIN)
         }
     }
 
@@ -337,9 +337,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
 
 
-            val contacts: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(rssiThreshold)
+            val contacts: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(Firebase.remoteConfig.getLong("rssi_min_value").toInt())
             val alerts: List<InfectionAlertRecord> = infectionAlertRecordStorage.getAllRecords()
-            val alg = ExposureAlgorithm(contacts, minimumExposureInMinutes, true)
+            val alg = ExposureAlgorithm(contacts, Firebase.remoteConfig.getLong("exposure_min_value_in_minutes").toInt(), true)
 
 
             var hasNewAlerts = false
@@ -512,14 +512,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
         private const val ONE_MIN: Long = 60 * 1000             // In milliseconds
 
-        val downloadDuration: Long = Firebase.remoteConfig.getLong("download_duration_in_minutes") * ONE_MIN
-        val downloadInterval: Long = Firebase.remoteConfig.getLong("download_interval_in_minutes") * ONE_MIN
         const val matchKeysInterval: Long = 3 * ONE_MIN
         const val healthCheckInterval: Long = 10 * ONE_MIN
         const val purgeInterval: Long = 24 * 60 * ONE_MIN
         const val purgeTTL: Long = BuildConfig.PURGE_TTL
         const val infiniteScanning = false
-        val rssiThreshold: Int = Firebase.remoteConfig.getLong("rssi_min_value").toInt()
-        val minimumExposureInMinutes: Int = Firebase.remoteConfig.getLong("exposure_min_value_in_minutes").toInt()
     }
 }
