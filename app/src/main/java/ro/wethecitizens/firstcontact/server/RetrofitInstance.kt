@@ -14,7 +14,7 @@ internal class RetrofitInstance private constructor() {
         private lateinit var client: Retrofit
 
         private fun getServerUrl(): String =
-            "https://first-contact-dev.us-east-2.elasticbeanstalk.com/"
+            BuildConfig.BACKEND_URL
 
         internal fun getInstance(): Retrofit = if (::client.isInitialized.not()) {
             synchronized(this) {

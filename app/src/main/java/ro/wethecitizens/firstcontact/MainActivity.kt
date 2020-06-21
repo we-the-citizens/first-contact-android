@@ -6,11 +6,15 @@ package ro.wethecitizens.firstcontact
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import kotlinx.android.synthetic.main.activity_main_new.*
 import ro.wethecitizens.firstcontact.fragment.ForUseByOTCFragment
 import ro.wethecitizens.firstcontact.fragment.HomeFragment
@@ -30,7 +34,22 @@ class MainActivity : AppCompatActivity() {
         Utils.startBluetoothMonitoringService(this)
         Utils.startPeriodicallyDownloadService(this)
 
-
+        //Firebase Remote Config
+        val remoteConfig = Firebase.remoteConfig
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 3600 * 6    //fetch not more often then once every 6 hours
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+        remoteConfig.fetchAndActivate()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val updated = task.result
+                    Log.d(TAG, "Config params updated: $updated")
+                } else {
+                    Log.d(TAG, "Config params update failed")
+                }
+            }
 
         LAYOUT_MAIN_ID = R.id.content
 
@@ -60,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                         return@OnNavigationItemSelectedListener true
                     }
                     R.id.navigation_help -> {
-                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.HELP_URL))
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Firebase.remoteConfig.getString("help_url")))
                         startActivity(browserIntent)
                         //Toast.makeText(this, "To be implemented", Toast.LENGTH_LONG).show()
                     }

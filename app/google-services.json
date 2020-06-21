@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "215941659150",
+    "firebase_url": "https://first-contact-ro.firebaseio.com",
+    "project_id": "first-contact-ro",
+    "storage_bucket": "first-contact-ro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215941659150:android:ab9e70000258429cf09a5f",
+        "android_client_info": {
+          "package_name": "ro.wethecitizens.firstcontact"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "215941659150-t0kb13m1cabbdkhhqi3d19aaa9lsldrp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEQtkScfLf77gO7C4JhVC5EFVBaR5EXUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "215941659150-t0kb13m1cabbdkhhqi3d19aaa9lsldrp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215941659150:android:0f47ddb358e55d1df09a5f",
+        "android_client_info": {
+          "package_name": "ro.wethecitizens.firstcontact.stg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "215941659150-t0kb13m1cabbdkhhqi3d19aaa9lsldrp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEQtkScfLf77gO7C4JhVC5EFVBaR5EXUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "215941659150-t0kb13m1cabbdkhhqi3d19aaa9lsldrp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

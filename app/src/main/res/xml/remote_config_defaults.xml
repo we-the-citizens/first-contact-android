@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- START xml_defaults -->
+<defaultsMap>
+
+    <!-- PIN source number -->
+    <entry>
+        <key>sms_gateway_number</key>
+        <value>+40722710063</value>
+    </entry>
+
+    <!-- Exposure algorithm parameters -->
+    <entry>
+        <key>rssi_min_value</key>
+        <value>-75</value>
+    </entry>
+    <entry>
+        <key>exposure_min_value_in_minutes</key>
+        <value>3</value>
+    </entry>
+
+    <!-- Infected keys download time -->
+    <entry>
+        <key>download_duration_in_minutes</key>
+        <value>1</value>
+    </entry>
+    <entry>
+        <key>download_interval_in_minutes</key>
+        <value>60</value>
+    </entry>
+
+    <!-- External URLs -->
+    <entry>
+        <key>infection_instructions_url</key>
+        <value>https://poll.app.do/test-first-contact</value>
+    </entry>
+    <entry>
+        <key>help_url</key>
+        <value>https://first-contact.ro/faq/</value>
+    </entry>
+    <entry>
+        <key>copyright_url</key>
+        <value>https://www.facebook.com/asociatia.Noi.Cetatenii</value>
+    </entry>
+
+</defaultsMap>
+<!-- END xml_defaults -->

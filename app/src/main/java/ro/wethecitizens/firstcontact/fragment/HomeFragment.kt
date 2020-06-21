@@ -29,6 +29,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
@@ -61,7 +63,7 @@ class HomeFragment : Fragment() {
         val db = StreetPassRecordDatabase.getDatabase(view.context)
 
         tv_last_update.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.COPYRIGHT_URL))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Firebase.remoteConfig.getString("copyright_url")))
             startActivity(browserIntent)
         }
 
@@ -108,7 +110,7 @@ class HomeFragment : Fragment() {
 
         btnViewInstructions.setOnClickListener {
 
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.INFECTION_INSTRUCTIONS_URL))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Firebase.remoteConfig.getString("infection_instructions_url")))
             startActivity(browserIntent)
 
             //webview implementation

@@ -14,6 +14,8 @@ import android.os.IBinder
 import android.os.PowerManager
 import androidx.core.app.NotificationManagerCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import kotlinx.coroutines.*
 import ro.wethecitizens.firstcontact.*
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecord
@@ -508,21 +510,16 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         const val PENDING_MATCH_KEYS_CODE = 11
         const val PENDING_PURGE_CODE = 12
 
-
-
-        private const val DOWNLOAD_DURATION: Int = BuildConfig.DOWNLOAD_DURATION_IN_MINUTES
-        private const val DOWNLOAD_INTERVAL: Int = BuildConfig.DOWNLOAD_INTERVAL_IN_MINUTES
-
         private const val ONE_MIN: Long = 60 * 1000             // In milliseconds
 
-        const val downloadDuration: Long = DOWNLOAD_DURATION * ONE_MIN
-        const val downloadInterval: Long = DOWNLOAD_INTERVAL * ONE_MIN
+        val downloadDuration: Long = Firebase.remoteConfig.getLong("download_duration_in_minutes") * ONE_MIN
+        val downloadInterval: Long = Firebase.remoteConfig.getLong("download_interval_in_minutes") * ONE_MIN
         const val matchKeysInterval: Long = 3 * ONE_MIN
         const val healthCheckInterval: Long = 10 * ONE_MIN
         const val purgeInterval: Long = 24 * 60 * ONE_MIN
         const val purgeTTL: Long = BuildConfig.PURGE_TTL
         const val infiniteScanning = false
-        const val rssiThreshold: Int = BuildConfig.RSSI_MIN_VALUE
-        const val minimumExposureInMinutes: Int = BuildConfig.EXPOSURE_MIN_VALUE_IN_MINUTES
+        val rssiThreshold: Int = Firebase.remoteConfig.getLong("rssi_min_value").toInt()
+        val minimumExposureInMinutes: Int = Firebase.remoteConfig.getLong("exposure_min_value_in_minutes").toInt()
     }
 }

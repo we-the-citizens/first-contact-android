@@ -6,6 +6,8 @@ import android.net.http.SslError
 import android.os.Bundle
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import kotlinx.android.synthetic.main.activity_infection_instructions.*
 
 
@@ -61,6 +63,6 @@ class InfectionInstructionsActivity : AppCompatActivity() {
     }
 
 
-    val url:String = BuildConfig.INFECTION_INSTRUCTIONS_URL
+    val url:String = Firebase.remoteConfig.getString("infection_instructions_url")
 
 }

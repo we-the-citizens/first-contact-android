@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
 //apply plugin: 'io.fabric'
 //apply plugin: 'com.google.firebase.appdistribution'
 apply plugin: "com.cookpad.android.plugin.license-tools"
@@ -50,6 +50,8 @@ android {
         buildConfigField "String", "STORE_URL", STORE_URL
         buildConfigField "String", "PRIVACY_URL", PRIVACY_URL
 
+        buildConfigField "String", "BACKEND_URL", BACKEND_URL
+
         buildConfigField "String", "FIREBASE_REGION", FIREBASE_REGION
 
         buildConfigField "String", "ORG", ORG
@@ -75,14 +77,6 @@ android {
         buildConfigField "long", "ADVERTISING_INTERVAL", ADVERTISING_INTERVAL
 
         buildConfigField "String", "V2_CHARACTERISTIC_ID", V2_CHARACTERISTIC_ID
-
-        buildConfigField "int", "DOWNLOAD_DURATION_IN_MINUTES", DOWNLOAD_DURATION_IN_MINUTES
-        buildConfigField "int", "DOWNLOAD_INTERVAL_IN_MINUTES", DOWNLOAD_INTERVAL_IN_MINUTES
-        buildConfigField "int", "RSSI_MIN_VALUE", RSSI_MIN_VALUE
-        buildConfigField "int", "EXPOSURE_MIN_VALUE_IN_MINUTES", EXPOSURE_MIN_VALUE_IN_MINUTES
-        buildConfigField "String", "INFECTION_INSTRUCTIONS_URL", INFECTION_INSTRUCTIONS_URL
-        buildConfigField "String", "HELP_URL", HELP_URL
-        buildConfigField "String", "COPYRIGHT_URL", COPYRIGHT_URL
     }
 
     buildTypes {
@@ -147,8 +141,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'pub.devrel:easypermissions:3.0.0'
     implementation 'com.google.code.gson:gson:2.8.5'
-//    implementation 'com.google.firebase:firebase-config-ktx:19.1.2'
-//    implementation 'com.google.firebase:firebase-analytics:17.2.3'
+    implementation 'com.google.firebase:firebase-config-ktx:19.1.4'
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
 //    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 //    implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
