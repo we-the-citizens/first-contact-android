@@ -4,6 +4,7 @@ import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ExposureAlgorithm(
 
@@ -77,57 +78,31 @@ class ExposureAlgorithm(
         d("calculateOneDayExposureTime")
         d("")
 
+        val records: MutableList<StreetPassRecord> = ArrayList(day.records)    //clone day records, so we can remove elements
 
-        var lastTempID = ""
-        var lastTS: Long = 0
-        var isTempIDIgnored = false
+        var i = 0;
+        while (i < records.size - 1) {
 
-        for (spr in day.records) {
-
+            var rec = records[i]
             val c = Calendar.getInstance()
-            c.timeInMillis = spr.timestamp
+            c.timeInMillis = rec.timestamp
+            d("${rec.id} ${rec.msg} ${Utils.formatCalendarToISO8601String(c)}")
 
-            d("${spr.id} ${spr.msg} ${Utils.formatCalendarToISO8601String(c)}")
-
-            if (isTempIDIgnored) {
-
-                val msDiff = spr.timestamp - lastTS
-                val minDiff = (msDiff / (60 * 1000)).toInt()
-
-                d("1 minDiff = $minDiff")
-
-                if (minDiff < deltaMinutes) {
-
-                    day.exposureInMinutes += minDiff
-                }
-                else {
-
-                    isTempIDIgnored = false
-                }
-            }
-            else {
-
-                if (lastTempID == spr.msg) {
-
-                    val msDiff = spr.timestamp - lastTS
-                    val minDiff = (msDiff / (60 * 1000)).toInt()
-
-                    d("2 minDiff = $minDiff")
-
-                    if (minDiff < deltaMinutes) {
-
-                        day.exposureInMinutes += minDiff
-
-                        isTempIDIgnored = true
-                    }
-                }
-                else {
-
-                    lastTempID = spr.msg
+            var lastRec: StreetPassRecord = rec
+            var j = i + 1;
+            while (j < Math.min(i + 50, day.records.size)) {   //50 records later and we're sure to cover the 15 min lifespan of the current id
+                if (rec.msg == records[j].msg) {
+                    lastRec = records[j]    //remember the lat occurance of the tempID
+                    records.removeAt(j)     //remove that record
+                    j--;
                 }
             }
 
-            lastTS = spr.timestamp
+            if(rec != lastRec) {
+                val diff: Int = ((lastRec.timestamp - rec.timestamp) / (60 * 1000)).toInt()
+                if (diff >= deltaMinutes)
+                    day.exposureInMinutes += diff;
+            }
         }
 
         d("day.exposureInMinutes = ${day.exposureInMinutes}")
@@ -139,7 +114,7 @@ class ExposureAlgorithm(
 
         for (day in daysList) {
 
-            if (day.exposureInMinutes < 7)
+            if (day.exposureInMinutes < deltaMinutes * 2)   //remove
                 continue
 
             val c = Calendar.getInstance()
