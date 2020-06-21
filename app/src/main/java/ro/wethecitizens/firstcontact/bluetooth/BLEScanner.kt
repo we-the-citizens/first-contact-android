@@ -1,3 +1,5 @@
+// Copyright (c) 2020 BlueTrace.io
+
 package ro.wethecitizens.firstcontact.bluetooth
 
 import android.bluetooth.BluetoothAdapter

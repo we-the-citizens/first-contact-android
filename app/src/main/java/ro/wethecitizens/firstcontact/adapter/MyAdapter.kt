@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Noi, Cetatenii
+
 package ro.wethecitizens.firstcontact.adapter
 
 import android.content.Context

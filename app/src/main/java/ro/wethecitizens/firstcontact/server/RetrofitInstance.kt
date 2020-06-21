@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Noi, Cetatenii
+
 package ro.wethecitizens.firstcontact.server
 
 import okhttp3.OkHttpClient

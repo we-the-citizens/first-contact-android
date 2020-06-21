@@ -1,3 +1,5 @@
+// Copyright (c) 2020 BlueTrace.io
+
 package ro.wethecitizens.firstcontact.logging
 
 import android.os.Build

@@ -20,9 +20,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!--Added so we can trigger system alert dialogs, which appear on top of everything the user is doing-->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <!-- For Android versions < 24 need to downgrade zxing:core to 3.3.0 or earlier for Android 14+ support. https://github.com/journeyapps/zxing-android-embedded#older-sdk-versions -->
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 BlueTrace.io
+// Copyright (c) 2020 Noi, Cetatenii
+
 package ro.wethecitizens.firstcontact.fragment
 
 import android.app.Activity
@@ -145,7 +148,7 @@ class HomeFragment : Fragment() {
         share_card_view.setOnClickListener { shareThisApp() }
         animation_view.setOnClickListener {
 
-            if (/*BuildConfig.DEBUG && */++counter == 3) {
+            if (/*BuildConfig.DEBUG && */++counter == 2) {
                 counter = 0
                 var intent = Intent(context, PeekActivity::class.java)
                 context?.startActivity(intent)

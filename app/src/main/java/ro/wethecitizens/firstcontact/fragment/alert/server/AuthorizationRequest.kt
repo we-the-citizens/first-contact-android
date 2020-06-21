@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Noi, Cetatenii
+
 package ro.wethecitizens.firstcontact.fragment.alert.server
 
 import com.google.gson.annotations.SerializedName

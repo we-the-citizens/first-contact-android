@@ -1,3 +1,5 @@
+// Copyright (c) 2020 BlueTrace.io
+
 package ro.wethecitizens.firstcontact.bluetooth.gatt
 
 import android.bluetooth.BluetoothGattCharacteristic

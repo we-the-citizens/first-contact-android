@@ -1,3 +1,6 @@
+// Copyright (c) 2020 BlueTrace.io
+// Copyright (c) 2020 Noi, Cetatenii
+
 package ro.wethecitizens.firstcontact.idmanager
 
 import android.content.Context

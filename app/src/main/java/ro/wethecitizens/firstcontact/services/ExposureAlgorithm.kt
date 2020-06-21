@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Noi, Cetatenii
+
 package ro.wethecitizens.firstcontact.services
 
 import ro.wethecitizens.firstcontact.Utils
@@ -90,12 +92,13 @@ class ExposureAlgorithm(
 
             var lastRec: StreetPassRecord = rec
             var j = i + 1;
-            while (j < Math.min(i + 50, day.records.size)) {   //50 records later and we're sure to cover the 15 min lifespan of the current id
+            while (j < Math.min(i + 50, records.size)) {   //50 records later and we're sure to cover the 15 min lifespan of the current id
                 if (rec.msg == records[j].msg) {
                     lastRec = records[j]    //remember the lat occurance of the tempID
                     records.removeAt(j)     //remove that record
                     j--;
                 }
+                j++;
             }
 
             if(rec != lastRec) {
@@ -103,6 +106,8 @@ class ExposureAlgorithm(
                 if (diff >= deltaMinutes)
                     day.exposureInMinutes += diff;
             }
+
+            i++;
         }
 
         d("day.exposureInMinutes = ${day.exposureInMinutes}")

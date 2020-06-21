@@ -1,3 +1,5 @@
+// Copyright (c) 2020 BlueTrace.io
+
 package ro.wethecitizens.firstcontact.protocol
 
 import ro.wethecitizens.firstcontact.BuildConfig
