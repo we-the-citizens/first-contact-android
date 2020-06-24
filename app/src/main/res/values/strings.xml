@@ -18,7 +18,7 @@
     <string name="bluetooth">1. Bluetooth</string>
     <string name="location_permissions">2. Location Permissions</string>
     <string name="battery_optimiser_opt">3. Battery Optimisation</string>
-    <string name="notes">De ce Location Permissions? \nSistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. Însă First Contact nu va avea acces la localizarea ta fizică - nu folosește GPS, Wi-Fi sau celulele GSM - și nici nu permite urmărirea ta prin semnalul Bluetooth pe care-l emite.\nÎn versiunea finală, cu motor Google API, această permisiune nici nu va mai fi necesară.</string>
+    <string name="notes">De ce Location Permissions? \nSistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. Însă First Contact nu va avea acces la localizarea ta fizică - nu folosește GPS, Wi-Fi sau celulele GSM - și nici nu permite urmărirea ta prin semnalul Bluetooth pe care-l emite.\nÎn versiunea finală, această permisiune nici nu va mai fi necesară.</string>
     <string name="proceed">Începe</string>
     <string name="continue_">Continuă</string>
   
@@ -26,7 +26,7 @@
     <string name="title_upload">Avertizează</string>
     <string name="title_help">Ajutor</string>
 
-    <string name="how_to_help">Continuă să testezi\npentru tine și ceilalți participanți</string>
+    <string name="how_to_help">Continuă să testezi pentru tine și ceilalți participanți</string>
     <string name="help_action">Ține Bluetooth pornit și lasă aplicația să ruleze în background, până la sfârșitul Programului de testare.</string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
@@ -49,7 +49,7 @@
     <string name="keep_push_on">Keep push notifications on too, so we can alert you if the app is not scanning.</string>
     <string name="too_many_requests">Too many requests. Please try again later.</string>
 
-    <string name="service_ok_title">First Contact scanează și te protejează! :)</string>
+    <string name="service_ok_title">First Contact scanează ca să poți testa! :)</string>
     <string name="service_ok_body">Repornește telefonul dacă această notificare dispare</string>
 
     <string name="service_not_ok_title">Oh nu! :(</string>
@@ -71,7 +71,7 @@
 
     <string name="share_app_subject">First Contact</string>
     <string name="share_app_text">Distribuie aplicația</string>
-    <string name="share_message">Ne putem proteja reciproc. Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
+    <string name="share_message">Hai să testăm împreună! Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
     
     <string name="for_use_by_otc_title">Avertizare Contacți</string>
     <string name="upload_steps_background_title">Avertizare contacți</string>
@@ -83,8 +83,8 @@
     <string name="upload_step_1_next_btn">Scanare QR</string>
     <string name="upload_step_2_title">PASUL 2</string>
     <string name="upload_step_2_upload_data">Sunt de acord</string>
-    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale au fost încărcate pe server. Contacții tăi vor primi o alertă anonimă.\n\nMulțumim că ai ajutat și tu la limitarea răspândirii virusului!</string>
-    <string name="upload_agreement">Ești de acord să încarci pe serverul central pseudonimele tale temporare, pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai avut contact apropiat să fie avertizați că au fost expuși unui infec-tester?\n\n<b>Nu se vor încărca pe server niciun fel de date de localizare sau date care ar permite identificarea ta. Cei avertizați nu vor afla cine ești.</b></string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale au fost încărcate pe server. Contacții tăi vor primi o alertă anonimă.\n\nMulțumim că ai ajutat și tu la testarea First Contact Prototip!</string>
+    <string name="upload_agreement">Ești de acord să încarci pe serverul central pseudonimele tale temporare, pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai avut contact apropiat să fie avertizați că au avut contact cu un infec-tester?\n\n<b>Nu se vor încărca pe server niciun fel de date de localizare sau date care ar permite identificarea ta. Cei avertizați nu vor afla cine ești.</b></string>
     <string name="upload_for_use_tap_next_text_2">Ți-ai avertizat deja contacții.\n\nMulțumim că ai contribuit și în acest fel la testarea First Contact Prototip!</string>
     <string name="upload_for_use_next_btn">Avertizează contacții</string>
     <string name="upload_for_use_next_btn_2">contacții sunt avertizați</string>
@@ -114,7 +114,7 @@
 
     <string name="privacy_safeguards"><u>privacy safeguards</u></string>
 
-    <string name="camera_scan_message">Scanati codul QR de pe Autorizația primită de la personalul medical.</string>
+    <string name="camera_scan_message">Scanati codul QR de pe Autorizația primită.</string>
     <string name="camera_permission">Permisiune cameră acordată</string>
     <string name="internet_connection">Dispozitiv conectat la internet</string>
 
