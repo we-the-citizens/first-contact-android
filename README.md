@@ -6,10 +6,9 @@ First Contact is built to become the Romanian component of the cross-border netw
 
 Out project is split into 3 stages:
 - Stage 1: the implementation of a prototype app, based on a heavily modified version of the Bluetrace protocol (https://bluetrace.io/), that has been changed to follow a fully descentralized, privacy-centric model, identical with the Exposure Notifications architecture. 
-- Stage 2: public release of the prototype in order to demostrate the viability of the concept and convice authorities and the general public that Romania should adop a contact tracing solution based on Exposure Notifications API and that First Contact could easily become the official Contact Tracing application of Romania.
+- Stage 2: public release of the prototype in order to demostrate the viability of the concept and persuade authorities and the general public that Romania should adop a contact tracing solution based on Exposure Notifications API and that First Contact could easily become the official Contact Tracing application of Romania.
 - Stage 3: after receiving approval from the authorities, we replace the core engine of the app, from the current Bluetrace BLE detection to the Exposure Notification API and finalize the final, official COVID-19 Contact Tracing application of Romania.
 
-We are currently in Stage 2.
 Full client sources are released under GPL3 license (https://github.com/we-the-citizens/first-contact-android/blob/prototype/LICENSE.md), as the original OpenTrace (https://github.com/opentrace-community/opentrace-android) codebase. We invite everybody to review our code and make comments, suggestions or contributions. 
 
-Visit https://first-contact.ro to learn more.
+Visit https://first-contact.ro to learn more. Check our progress here https://first-contact.ro/#strategie
