@@ -80,7 +80,7 @@
     <string name="upload_step_1_title">PASUL 1</string>
     <string name="upload_step_1_verify_that_the_contact">Scanează codul QR din Autorizația de avertizare</string>
     <string name="upload_step_1_make_sure_they_give">Pentru a putea scana codul QR, trebuie să permiți utilizarea camerei</string>
-    <string name="upload_step_1_next_btn">Scanare QR</string>
+    <string name="upload_step_1_next_btn">Selectare imagine</string>
     <string name="upload_step_2_title">PASUL 2</string>
     <string name="upload_step_2_upload_data">Sunt de acord</string>
     <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale au fost încărcate pe server. Contacții tăi vor primi o alertă anonimă.\n\nMulțumim că ai ajutat și tu la testarea First Contact Prototip!</string>

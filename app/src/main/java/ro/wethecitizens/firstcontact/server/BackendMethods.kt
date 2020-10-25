@@ -38,6 +38,11 @@ interface BackendMethods {
     @WorkerThread
     suspend fun uploadPositiveIds(@Body positiveIdsRequest: PositiveIdsRequest): Response<Unit>
 
+    /*@Multipart
+    @POST("/document")
+    @WorkerThread
+    suspend fun uploadDocument(@Part file : MultipartBody.Part, @Part("body") documentRequest: DocumentRequest): Response<Unit>*/
+
     companion object {
         private lateinit var instance: BackendMethods
 
