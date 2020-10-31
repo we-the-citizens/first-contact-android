@@ -59,6 +59,8 @@
     <string name="exposure_new_alerts_title">Alertă de expunere FIRST CONTACT !!!</string>
     <string name="exposure_new_alerts_body">Click aici pentru detalii</string>
 
+    <string name="own_upload_approved_title">Contactele au fost notificate anonim!</string>
+    <string name="own_upload_approved_body">Va multumim ca ati ajutat la oprirea raspandirii COVID19.</string>
 
     <!-- custom strings -->
     <string name="title_alert">Avertizează</string>
@@ -74,7 +76,9 @@
     <string name="for_use_by_otc_title">Avertizare Contacți</string>
     <string name="upload_steps_background_title">Avertizare contacți</string>
     <string name="upload_steps_background_data">dacă ai Rezultatul testului Pozitiv</string>
-    <string name="upload_for_use_tap_next_text">Apasă \'Avertizează contacții\' numai dacă ți-ai pregătit deja fișierul imagine (jpg, png) cu Rezultatul testului (pozitiv), <u>anonimizat</u>.\nDacă nu, vezi Instrucțiunile de anonimizare <a href="https://first-contact.ro/recomandari/" style="font-weight: bold; display: inline !important;"><u>AICI</u></a>.</string>
+    <string name="upload_for_use_tap_next_text">Apasă \'Avertizează contacții\' numai dacă ți-ai pregătit deja fișierul imagine (jpg, png) cu Rezultatul testului (pozitiv), <u>anonimizat</u>.\nDacă nu, vezi instructiunile de mai jos.</string>
+    <string name="anonimization_instructions">Instrucțiuni de anonimizare </string>
+
     <string name="upload_step_1_title">PASUL 1</string>
     <string name="upload_step_1_verify_that_the_contact">Scanează codul QR din Autorizația de avertizare</string>
     <string name="upload_step_1_make_sure_they_give">Pentru a putea scana codul QR, trebuie să permiți utilizarea camerei</string>

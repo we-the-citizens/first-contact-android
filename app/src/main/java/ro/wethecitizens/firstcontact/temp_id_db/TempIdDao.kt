@@ -28,6 +28,9 @@ interface TempIdDao {
     @Query("DELETE FROM record_table WHERE timestamp < :before")
     suspend fun purgeOldRecords(before: Long)
 
+    @Query("SELECT * FROM record_table WHERE v = :id")
+    suspend fun checkIfPresent(id: String): List<TempId>
+
     @RawQuery
     fun getRecordsViaQuery(query: SupportSQLiteQuery): List<TempId>
 

@@ -24,7 +24,7 @@ class UploadCompleteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Preference.putIsUploadComplete(view.context, true)
+        //Preference.putIsUploadComplete(view.context, true)        //postpone until
 
         uploadCompleteFragmentActionButton.setOnClickListener {
             (parentFragment as UploadPageFragment).goBackToHome()

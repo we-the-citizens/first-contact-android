@@ -26,6 +26,7 @@ import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecord
 import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordStorage
 import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
+import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
 import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.coroutines.CoroutineContext
@@ -41,6 +42,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
     private var notificationShown: NotificationState? = null
 
     private lateinit var positiveKeysStorage: PositiveKeyRecordStorage
+    private lateinit var tempIdStorage: TempIdStorage
     private lateinit var infectionAlertRecordStorage: InfectionAlertRecordStorage
     private lateinit var commandHandler: PeriodicallyDownloadCommandHandler
     private lateinit var localBroadcastManager: LocalBroadcastManager
@@ -118,6 +120,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         commandHandler = PeriodicallyDownloadCommandHandler(WeakReference(this))
 
         positiveKeysStorage = PositiveKeyRecordStorage(this.applicationContext)
+        tempIdStorage = TempIdStorage(this.applicationContext)
         infectionAlertRecordStorage = InfectionAlertRecordStorage(this.applicationContext)
 
         setupNotifications()
@@ -153,6 +156,18 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             ch2.setShowBadge(false)
 
             mNotificationManager!!.createNotificationChannel(ch2)
+
+
+            val ch3 = NotificationChannel(
+                OWN_UPLOAD_CHANNEL_ID,
+                OWN_UPLOAD_CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            ch2.enableLights(false)
+            ch2.enableVibration(true)
+            ch2.setShowBadge(false)
+
+            mNotificationManager!!.createNotificationChannel(ch3)
         }
     }
 
@@ -263,7 +278,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             var isMatchKeysRequiredToSchedule = false
 
 
-
             val c = Calendar.getInstance()
             c.timeInMillis = Preference.getInstallDateTS(appCtx)
 
@@ -273,7 +287,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
 
             d("PositiveKey install date = $formattedInstallDate")
-
 
 
             //TODO: comentat pentru ca dadea eroare retrofit
@@ -288,6 +301,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             d("PositiveKey downloaded keys size = ${keys.size}")
 
+            var ownUploadApproved = false
             for (key in keys) {
 
                 val keyDate = Calendar.getInstance()
@@ -296,6 +310,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                 isMatchKeysRequiredToSchedule = true
 
+                if (tempIdStorage.checkIfPresent(key.tempId).size > 0)
+                    ownUploadApproved = true;
             }
 
             if (isMatchKeysRequiredToSchedule) {
@@ -310,6 +326,20 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
 
                 Utils.schedulePeriodicallyDownloadMatchKeys(appCtx, 200)
+            }
+
+            if (ownUploadApproved) {
+                val n = NotificationTemplates.getOwnUploadApprovedNotification(
+                    appCtx,
+                    OWN_UPLOAD_CHANNEL_ID
+                )
+                startMainActivity()
+
+                with(NotificationManagerCompat.from(appCtx)) {
+                    notify(OWN_UPLOAD_NOTIFICATION_ID, n)
+                }
+
+                Preference.putIsUploadComplete(appCtx, true)  //lock further uploading
             }
         }
     }
@@ -395,6 +425,8 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
                     hasNewAlerts = true
                 }
             }
+
+
 
             if (hasNewAlerts) {
 
@@ -502,6 +534,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         private const val NEW_ALERTS_NOTIFICATION_ID = 100002
         private const val NEW_ALERTS_CHANNEL_ID = "Exposure New Alerts ID"
         private const val NEW_ALERTS_CHANNEL_NAME = "Exposure New Alerts Name"
+
+        private const val OWN_UPLOAD_NOTIFICATION_ID = 100003
+        private const val OWN_UPLOAD_CHANNEL_ID = "Own Upload Approved ID"
+        private const val OWN_UPLOAD_CHANNEL_NAME = "Own Upload Approved Name"
 
 
         const val COMMAND_KEY = "${BuildConfig.APPLICATION_ID}_CMD"

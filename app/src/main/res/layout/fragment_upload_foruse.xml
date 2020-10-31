@@ -15,23 +15,6 @@
         tools:ignore="Suspicious0dp">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="66dp"
-            android:layout_marginRight="66dp"
-            android:layout_width="match_parent"
-            android:gravity="center_horizontal|top"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ic_blue_transparent" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_marginTop="30dp"
             android:orientation="vertical"
             android:layout_weight="2"
@@ -39,14 +22,14 @@
             android:layout_height="0dp">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tapNextText"
                     android:layout_width="match_parent"
-                    android:layout_height="216dp"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginRight="16dp"
@@ -55,6 +38,26 @@
                     android:textSize="20sp"
                     android:textStyle="normal" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_anonimization"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/anonimization_instructions"
+                    android:textAlignment="center"
+                    android:textColor="@color/blue_update"
+                    android:textSize="20sp"
+                    android:textStyle="normal" />
             </LinearLayout>
 
         </LinearLayout>

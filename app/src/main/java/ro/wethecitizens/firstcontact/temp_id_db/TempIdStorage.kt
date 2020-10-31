@@ -24,6 +24,9 @@ class TempIdStorage(val context: Context) {
         return recordDao.getLast10Records()
     }
 
+    suspend fun checkIfPresent(id: String): List<TempId> {
+        return recordDao.checkIfPresent(id)
+    }
 
     suspend fun purgeOldRecords(before: Long) {
         recordDao.purgeOldRecords(before)
