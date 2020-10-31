@@ -8,9 +8,9 @@
 
     <string name="ble_not_supported">Acest dispozitiv nu suportă tehnologia Bluetooth Low Energy</string>
 
-    <string name="tv_onboarding_title">Testează cum te poți proteja\npe tine și pe cei din jur</string>
-    <string name="tv_onboarding_desc">First Contact te va avertiza dacă ai avut un contact apropiat cu un infec-tester (tester cu rol de infectat).</string>
-    <string name="tv_onboarding_desc_sub">Cum se poate face asta? \nFirst Contact va scana semnalele Bluetooth din proximitate și va înregistra în telefonul tău pseudonimele temporare ale altor utilizatori cu care ai avut contact. Dacă ulterior unul dintre ei e desemnat ca infec-tester și First Contact determină că acel contact a fost apropiat, vei primi o Alertă. \nDoar tu vei putea afla dacă ai fost expus unui astfel de contact. First Contact îți va face recomandări, însă tu vei decide cum vei acționa în acel caz.</string>
+    <string name="tv_onboarding_title">Protejează-te pe tine și pe cei din jur</string>
+    <string name="tv_onboarding_desc">First Contact te va avertiza dacă ai avut contact cu cineva autoraportat ca Pozitiv.</string>
+    <string name="tv_onboarding_desc_sub">Cum poate face asta?\nFirst Contact scanează semnalele Bluetooth din proximitate și înregistrează în telefonul tău toate pseudonimele (anonime și temporare) ale telefoanelor celor cu care te întâlnești. Dacă (ulterior) unul dintre ei se autoraportează Pozitiv și aplicația determină că ați avut contact (sau contacte) apropiat(e) și prelungit(e) într-o zi, vei primi o Alertă de expunere cu data și durata cumulată a expunerii din acea zi.\nDoar tu vei vei primi această informație!</string>
     <string name="i_want_to_help">Continuă</string>
 
     <string name="setup_app_permission">\Acordă permisiuni aplicației</string>
@@ -18,16 +18,16 @@
     <string name="bluetooth">1. Bluetooth</string>
     <string name="location_permissions">2. Location Permissions</string>
     <string name="battery_optimiser_opt">3. Battery Optimisation</string>
-    <string name="notes">De ce Location Permissions? \nSistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. Însă First Contact nu va avea acces la localizarea ta fizică - nu folosește GPS, Wi-Fi sau celulele GSM - și nici nu permite urmărirea ta prin semnalul Bluetooth pe care-l emite.\nÎn versiunea finală, această permisiune nici nu va mai fi necesară.</string>
-    <string name="proceed">Începe</string>
+    <string name="notes">De ce și Location Permissions? \nSistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. Însă First Contact nu va avea acces la localizarea ta fizică (nu folosește GPS, Wi-Fi sau celulele GSM) și nici nu permite urmărirea ta prin semnalul Bluetooth pe care-l emite (fiindcă pseudonimul tău se va schimba frecvent). Detalii pe site la secțiunea FAQ.</string>
+    <string name="proceed">OK</string>
     <string name="continue_">Continuă</string>
   
     <string name="title_home">Acasă</string>
     <string name="title_upload">Avertizează</string>
     <string name="title_help">Ajutor</string>
 
-    <string name="how_to_help">Continuă să testezi pentru tine și ceilalți participanți</string>
-    <string name="help_action">Ține Bluetooth pornit și lasă aplicația să ruleze în background, până la sfârșitul Programului de testare.</string>
+    <string name="how_to_help">Continuă să te protejezi pe tine și pe cei din jur</string>
+    <string name="help_action">Ține Bluetooth-ul pornit permanent și evită să ții telefonul în buzunarul din spate.</string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
     <string name="bluetooth_on">Bluetooth - pornit</string>
@@ -36,10 +36,10 @@
     <string name="push_noti">Push Notification - pornit</string>
     
     <string name="share_this_app">Distribuie aplicația</string>
-    <string name="ask_friend">Ajută-ți prietenii și familia să-și instaleze și ei First Contact</string>
+    <string name="ask_friend">Ajută-ți colegii, prietenii și familia să-și instaleze First Contact</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
-    <string name="help_us_identify">Testează aplicația acordându-i permisiunile necesare</string>
+    <string name="help_us_identify">Reactivează protecția acordând aplicației permisiunile necesare</string>
     <string name="restart_app_setup"> Remediază </string>
     
     <string name="open_location_setting">Application needs location permission in order to work. Do you want to enable location permission?</string>
@@ -49,7 +49,7 @@
     <string name="keep_push_on">Keep push notifications on too, so we can alert you if the app is not scanning.</string>
     <string name="too_many_requests">Too many requests. Please try again later.</string>
 
-    <string name="service_ok_title">First Contact scanează ca să poți testa! :)</string>
+    <string name="service_ok_title">First Contact scanează și vă protejează! :)</string>
     <string name="service_ok_body">Repornește telefonul dacă această notificare dispare</string>
 
     <string name="service_not_ok_title">Oh nu! :(</string>
@@ -63,20 +63,18 @@
     <!-- custom strings -->
     <string name="title_alert">Avertizează</string>
     <string name="alert_button">Avertizare contacți</string>
-    <string name="permission_camera_rationale">Permite accesul la cameră pentru a putea scana codul QR.</string>
-    <string name="camera_permission_denied">Accesul la cameră a fost respins.</string>
     <string name="no_internet_connection">Ai nevoie de o conexiune la internet înainte de a începe.</string>
-    <string name="upload_success">Încărcarea pseudonimelor tale s-a făcut cu succes.</string>
+    <string name="upload_success">Încărcarea în Cloud s-a făcut cu succes.</string>
     <string name="upload_failed">UPLOAD FAILED: %s, %s</string>
 
     <string name="share_app_subject">First Contact</string>
     <string name="share_app_text">Distribuie aplicația</string>
-    <string name="share_message">Hai să testăm împreună! Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
+    <string name="share_message">Hai să ne protejăm reciproc! Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
     
     <string name="for_use_by_otc_title">Avertizare Contacți</string>
     <string name="upload_steps_background_title">Avertizare contacți</string>
-    <string name="upload_steps_background_data">doar dacă ai primit o Autorizație</string>
-    <string name="upload_for_use_tap_next_text">Apasă \'Avertizează contacții\' numai dacă ai primit o Autorizație de avertizare.\n\n<b>Avertizarea va fi anonimă!</b></string>
+    <string name="upload_steps_background_data">dacă ai Rezultatul testului Pozitiv</string>
+    <string name="upload_for_use_tap_next_text">Apasă \'Avertizează contacții\' numai dacă ți-ai pregătit deja fișierul imagine (jpg, png) cu Rezultatul testului (pozitiv), <u>anonimizat</u>.\nDacă nu, vezi Instrucțiunile de anonimizare <a href="https://first-contact.ro/recomandari/" style="font-weight: bold; display: inline !important;"><u>AICI</u></a>.</string>
     <string name="upload_step_1_title">PASUL 1</string>
     <string name="upload_step_1_verify_that_the_contact">Scanează codul QR din Autorizația de avertizare</string>
     <string name="upload_step_1_make_sure_they_give">Pentru a putea scana codul QR, trebuie să permiți utilizarea camerei</string>
@@ -102,6 +100,10 @@
     
     
     <!-- de eliminat -->
+    
+    <string name="permission_camera_rationale">Permite accesul la cameră pentru a putea scana codul QR.</string>
+    <string name="camera_permission_denied">Accesul la cameră a fost respins.</string>
+
     
     <string name="upload_step_2_enter_pin_to_upload">Enter PIN to upload</string>
     <string name="upload_step_2_invalid_pin">Invalid PIN</string>

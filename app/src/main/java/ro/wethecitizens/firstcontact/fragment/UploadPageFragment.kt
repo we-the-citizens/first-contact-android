@@ -3,6 +3,7 @@
 
 package ro.wethecitizens.firstcontact.fragment
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,10 +49,10 @@ class UploadPageFragment : Fragment() {
         uploadPageFragmentLoadingProgressBarFrame.visibility = View.INVISIBLE
     }
 
-    fun navigateToUploadPin(qrCode: String) {
+    fun navigateToUploadPin(selectedImage:Uri?) {
         val childFragMan: FragmentManager = childFragmentManager
         val childFragTrans: FragmentTransaction = childFragMan.beginTransaction()
-        val fragB = EnterPinFragment(qrCode)
+        val fragB = EnterPinFragment(selectedImage)
         childFragTrans.add(R.id.fragment_placeholder, fragB)
         childFragTrans.addToBackStack("C")
         childFragTrans.commit()

@@ -3,9 +3,11 @@
 package ro.wethecitizens.firstcontact.server
 
 import androidx.annotation.WorkerThread
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 import ro.wethecitizens.firstcontact.fragment.alert.server.AuthorizationRequest
+import ro.wethecitizens.firstcontact.fragment.alert.server.DocumentRequest
 import ro.wethecitizens.firstcontact.fragment.alert.server.PositiveIdsRequest
 import ro.wethecitizens.firstcontact.positivekey.server.PositiveKeyModel
 
@@ -38,10 +40,10 @@ interface BackendMethods {
     @WorkerThread
     suspend fun uploadPositiveIds(@Body positiveIdsRequest: PositiveIdsRequest): Response<Unit>
 
-    /*@Multipart
+    @Multipart
     @POST("/document")
     @WorkerThread
-    suspend fun uploadDocument(@Part file : MultipartBody.Part, @Part("body") documentRequest: DocumentRequest): Response<Unit>*/
+    suspend fun uploadDocument(@Part file : MultipartBody.Part, @Part("body") documentRequest: DocumentRequest): Response<Unit>
 
     companion object {
         private lateinit var instance: BackendMethods

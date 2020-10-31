@@ -4,7 +4,9 @@
 package ro.wethecitizens.firstcontact.fragment
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +14,33 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_upload_enterpin.*
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import ro.wethecitizens.firstcontact.R
+import ro.wethecitizens.firstcontact.Utils
 import ro.wethecitizens.firstcontact.fragment.alert.AlertContactsViewModel
 import ro.wethecitizens.firstcontact.fragment.alert.PinFromSmsViewModel
 import ro.wethecitizens.firstcontact.fragment.alert.SmsListenerViewModel
+import ro.wethecitizens.firstcontact.fragment.alert.server.DocumentRequest
+import ro.wethecitizens.firstcontact.fragment.alert.server.PositiveIdsRequest
 import ro.wethecitizens.firstcontact.logging.CentralLog
+import ro.wethecitizens.firstcontact.server.BackendMethods
+import ro.wethecitizens.firstcontact.server.HttpCode
+import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.lang.Exception
+import java.util.*
 
-class EnterPinFragment(private val inQRCode: String) : Fragment() {
+class EnterPinFragment(private val selectedImage: Uri?) : Fragment() {
 
     private var disposeObj: Disposable? = null
 
@@ -37,30 +55,10 @@ class EnterPinFragment(private val inQRCode: String) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val appCtx: Context = view.context
-
-
-        alertContactsViewModel = ViewModelProvider(this).get(AlertContactsViewModel::class.java)
-        alertContactsViewModel.observableState.observe(viewLifecycleOwner, alertContactsObserver)
-
-
-        mViewModel = ViewModelProvider(this).get(PinFromSmsViewModel::class.java)
-        mViewModel.observableState.observe(viewLifecycleOwner, stateObserver)
-
-        mSharedViewModel = ViewModelProvider(requireActivity()).get(SmsListenerViewModel::class.java)
-        mSharedViewModel.observableState.observe(viewLifecycleOwner, smsObserver)
-        mSharedViewModel.smsText.observe(viewLifecycleOwner, Observer { sms ->
-            mViewModel.handleSms(sms, appCtx)
-        })
-
-
         enterPinActionButton.setOnClickListener {
-
             showLoader()
-
-            CentralLog.d(TAG, "QR Code = $inQRCode   enterPinActionButton.setOnClickListener ")
-
-            alertContactsViewModel.setQRCode(inQRCode)
+            CentralLog.d(TAG, "Uploading image and keys")
+            uploadImage(selectedImage);
         }
 
         enterPinFragmentBackButtonLayout.setOnClickListener {
@@ -78,100 +76,91 @@ class EnterPinFragment(private val inQRCode: String) : Fragment() {
     }
 
 
-
-    /* Private */
-
-    private lateinit var mSharedViewModel: SmsListenerViewModel
-    private val smsObserver = Observer<SmsListenerViewModel.State> { state ->
-        when (state) {
-            SmsListenerViewModel.State.ListeningForSms -> {
-            }
-            else -> {
-                //Toast.makeText(requireContext(), R.string.invalid_sms, Toast.LENGTH_LONG).show()
-            }
+    private fun uploadImage(selectedImage:Uri?) {
+        if (selectedImage == null) {
+            Toast.makeText(context, "Selectati o imagine valida", Toast.LENGTH_LONG).show()
+            return
         }
-    }
 
-    private lateinit var mViewModel: PinFromSmsViewModel
-    private val stateObserver = Observer<PinFromSmsViewModel.State> { state ->
-
-        when (state) {
-            PinFromSmsViewModel.State.InvalidSms -> {
-                hideLoader()
-                Toast.makeText(requireContext(), R.string.invalid_sms, Toast.LENGTH_LONG).show()
-            }
-
-            is PinFromSmsViewModel.State.ValidSms -> {
-            }
-
-            is PinFromSmsViewModel.State.UploadFailed -> {
-                hideLoader()
-                Toast.makeText(
-                    requireContext(),
-                    getString(
-                        R.string.upload_failed,
-                        state.errorType.code.toString(),
-                        state.errorType::class.java.simpleName
-                    ),
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-
-            PinFromSmsViewModel.State.IdsUploaded -> {
-                hideLoader()
-                (parentFragment as UploadPageFragment).navigateToUploadComplete()
-            }
+        val contentResolver = context?.contentResolver
+        if (contentResolver == null) {
+            Toast.makeText(context, "Eroare interna", Toast.LENGTH_SHORT).show()
+            return
         }
-    }
 
-    private lateinit var alertContactsViewModel: AlertContactsViewModel
-    private val alertContactsObserver = Observer<AlertContactsViewModel.State> { state ->
+        val parcelFileDescriptor = contentResolver.openFileDescriptor(selectedImage!!, "r", null) ?: return
 
-        when (state) {
+        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+        val file = File(context?.cacheDir,  getFileName(selectedImage!!))
+        val outputStream = FileOutputStream(file)
+        inputStream.copyTo(outputStream)
 
-            is AlertContactsViewModel.State.Loading -> {
-                startSmsListener(state.qrCode)
-            }
+        val requestBody = file.asRequestBody(file.extension.toMediaTypeOrNull())
+        val filePart = MultipartBody.Part.createFormData(
+            "document",file.name,requestBody
+        )
 
-            is AlertContactsViewModel.State.Success -> {
-            }
-            is AlertContactsViewModel.State.Failed -> {
-                hideLoader()
-                Toast.makeText(
-                    requireContext(),
-                    "Error code: ${state.errorType.code}, ${state.errorType::class.java.simpleName}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
+        val tempIdStorage = context?.let { TempIdStorage(it) }
 
+        lifecycleScope.launch {
 
-    /**
-     * Starts the SMS Retriever flow before doing the authorization request due to SMS being received too fast.
-     */
-    private fun startSmsListener(qrCode: String) {
+            try {
+                val docModel = DocumentRequest(data = getPositiveIdsList(tempIdStorage!!))
+                if (docModel.data.isEmpty()) {
+                    Toast.makeText(context, "Nu exista ID-uri anonime!", Toast.LENGTH_LONG).show()
+                } else {
+                    val response = BackendMethods.getInstance().uploadDocument(filePart, docModel)
 
-        CentralLog.d(TAG, "QR Code = $inQRCode   startSmsListener")
+                    when (response.isSuccessful) {
+                        true -> {
+                            hideLoader()
+                            (parentFragment as UploadPageFragment).navigateToUploadComplete()
+                        }
 
-        // retrieve SMS client from activity context
-        val client: SmsRetrieverClient = SmsRetriever.getClient(requireActivity())
-
-        // get shared view model
-        ViewModelProvider(requireActivity()).get(SmsListenerViewModel::class.java)
-            .also { sharedViewModel ->
-
-                sharedViewModel.observableState.observe(
-                    viewLifecycleOwner,
-                    Observer { state ->
-                        // listen for the SMS Retriever callback to do the authorization request
-                        state?.let { alertContactsViewModel.checkAuthorization(qrCode) }
+                        else -> {
+                            val errorCode = response.code()
+                            val errorType = HttpCode.getType(errorCode)
+                            Toast.makeText(context, "Eroare la upload:" + errorType.toString(), Toast.LENGTH_SHORT).show()
+                        }
                     }
-                )
-
-                // start SMS retriever
-                sharedViewModel.listenForSms(client)
+                }
+            } catch (e: Exception) {
+                Toast.makeText(context, "Eroare interna", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
             }
+
+        }
+    }
+
+    private suspend fun getPositiveIdsList(tis: TempIdStorage) : List<PositiveIdsRequest.PositiveId> {
+
+        val list: MutableList<PositiveIdsRequest.PositiveId> = mutableListOf()
+
+        for (r in tis.getAllRecords()) {
+
+            val c = Calendar.getInstance()
+            c.timeInMillis = r.timestamp
+
+            list.add(
+                PositiveIdsRequest.PositiveId(
+                    tempId = r.v,
+                    date = Utils.formatCalendarToISO8601String(c)
+                ))
+        }
+
+        return list.toList()
+    }
+
+    fun getFileName(fileUri: Uri): String {
+        var name = ""
+        val returnCursor = context?.contentResolver?.query(fileUri, null, null, null, null)
+        if (returnCursor != null) {
+            val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            returnCursor.moveToFirst()
+            name = returnCursor.getString(nameIndex)
+            returnCursor.close()
+        }
+        return name
     }
 
 
