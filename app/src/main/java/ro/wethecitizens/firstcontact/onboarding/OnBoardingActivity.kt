@@ -24,9 +24,9 @@ import kotlinx.android.synthetic.main.activity_onboarding.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.MainActivity
-import ro.wethecitizens.firstcontact.Preference
+import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.R
-import ro.wethecitizens.firstcontact.Utils
+import ro.wethecitizens.firstcontact.utils.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
 
 private const val REQUEST_ENABLE_BT = 123

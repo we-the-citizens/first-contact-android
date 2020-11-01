@@ -2,7 +2,7 @@
 
 package ro.wethecitizens.firstcontact.services
 
-import ro.wethecitizens.firstcontact.Utils
+import ro.wethecitizens.firstcontact.utils.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.util.*

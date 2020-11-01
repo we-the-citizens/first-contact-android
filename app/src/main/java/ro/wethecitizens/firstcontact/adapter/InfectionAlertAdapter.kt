@@ -2,12 +2,10 @@
 
 package ro.wethecitizens.firstcontact.adapter
 
-import android.content.Context
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import ro.wethecitizens.firstcontact.R
@@ -15,8 +13,8 @@ import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRe
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MyAdapter(private val myDataset: List<InfectionAlertRecord>) :
-    RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class InfectionAlertAdapter(private val myDataset: List<InfectionAlertRecord>) :
+    RecyclerView.Adapter<InfectionAlertAdapter.MyViewHolder>() {
 
     class objType {
         private var date: String? = null
@@ -44,7 +42,7 @@ class MyAdapter(private val myDataset: List<InfectionAlertRecord>) :
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): MyAdapter.MyViewHolder {
+                                    viewType: Int): InfectionAlertAdapter.MyViewHolder {
         // create a new view
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_alert_infectare , parent , false)
         // set the view's size, margins, paddings and layout parameters

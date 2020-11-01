@@ -2,14 +2,12 @@
 
 package ro.wethecitizens.firstcontact.services
 
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.CountDownTimer
 import android.os.IBinder
 import android.os.PowerManager
 import androidx.core.app.NotificationManagerCompat
@@ -24,9 +22,11 @@ import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
 import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecord
 import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordStorage
+import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
+import ro.wethecitizens.firstcontact.utils.Utils
 import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.coroutines.CoroutineContext

@@ -13,9 +13,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_upload_foruse.*
-import ro.wethecitizens.firstcontact.Preference
+import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.R
 
 class ForUseFragment : Fragment() {

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import ro.wethecitizens.firstcontact.onboarding.PreOnboardingActivity
+import ro.wethecitizens.firstcontact.preference.Preference
 
 class SplashActivity : AppCompatActivity() {
 

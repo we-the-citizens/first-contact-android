@@ -3,7 +3,6 @@
 
 package ro.wethecitizens.firstcontact.fragment
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -12,11 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.auth.api.phone.SmsRetriever
-import com.google.android.gms.auth.api.phone.SmsRetrieverClient
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_upload_enterpin.*
 import kotlinx.coroutines.launch
@@ -24,12 +19,9 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import ro.wethecitizens.firstcontact.R
-import ro.wethecitizens.firstcontact.Utils
-import ro.wethecitizens.firstcontact.fragment.alert.AlertContactsViewModel
-import ro.wethecitizens.firstcontact.fragment.alert.PinFromSmsViewModel
-import ro.wethecitizens.firstcontact.fragment.alert.SmsListenerViewModel
-import ro.wethecitizens.firstcontact.fragment.alert.server.DocumentRequest
-import ro.wethecitizens.firstcontact.fragment.alert.server.PositiveIdsRequest
+import ro.wethecitizens.firstcontact.utils.Utils
+import ro.wethecitizens.firstcontact.server.DocumentRequest
+import ro.wethecitizens.firstcontact.server.PositiveIdsRequest
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.server.HttpCode
@@ -105,7 +97,10 @@ class EnterPinFragment(private val selectedImage: Uri?) : Fragment() {
         lifecycleScope.launch {
 
             try {
-                val docModel = DocumentRequest(data = getPositiveIdsList(tempIdStorage!!))
+                val docModel =
+                    DocumentRequest(
+                        data = getPositiveIdsList(tempIdStorage!!)
+                    )
                 if (docModel.data.isEmpty()) {
                     Toast.makeText(context, "Nu exista ID-uri anonime!", Toast.LENGTH_LONG).show()
                 } else {

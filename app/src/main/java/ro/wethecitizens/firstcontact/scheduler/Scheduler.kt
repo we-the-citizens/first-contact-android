@@ -8,7 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.SystemClock
-import ro.wethecitizens.firstcontact.Preference
+import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.logging.CentralLog
 
 object Scheduler {

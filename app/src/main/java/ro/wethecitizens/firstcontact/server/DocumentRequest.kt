@@ -1,6 +1,7 @@
-package ro.wethecitizens.firstcontact.fragment.alert.server
+package ro.wethecitizens.firstcontact.server
 
 import com.google.gson.annotations.SerializedName
+import ro.wethecitizens.firstcontact.server.PositiveIdsRequest
 import java.util.*
 
 data class DocumentRequest(

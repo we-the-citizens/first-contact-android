@@ -9,7 +9,7 @@ import android.bluetooth.le.ScanFilter
 import android.bluetooth.le.ScanSettings
 import android.content.Context
 import android.os.ParcelUuid
-import ro.wethecitizens.firstcontact.Utils
+import ro.wethecitizens.firstcontact.utils.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import java.util.*
 import kotlin.collections.ArrayList

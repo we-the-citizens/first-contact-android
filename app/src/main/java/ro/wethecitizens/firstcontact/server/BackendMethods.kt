@@ -6,9 +6,6 @@ import androidx.annotation.WorkerThread
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
-import ro.wethecitizens.firstcontact.fragment.alert.server.AuthorizationRequest
-import ro.wethecitizens.firstcontact.fragment.alert.server.DocumentRequest
-import ro.wethecitizens.firstcontact.fragment.alert.server.PositiveIdsRequest
 import ro.wethecitizens.firstcontact.positivekey.server.PositiveKeyModel
 
 /**

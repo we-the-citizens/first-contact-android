@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.R
-import ro.wethecitizens.firstcontact.Utils
+import ro.wethecitizens.firstcontact.utils.Utils
 
 class RequestFileWritePermission : AppCompatActivity() {
 

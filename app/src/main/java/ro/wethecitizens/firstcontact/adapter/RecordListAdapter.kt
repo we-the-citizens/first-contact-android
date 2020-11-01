@@ -1,7 +1,7 @@
 // Copyright (c) 2020 BlueTrace.io
 // Copyright (c) 2020 Noi, Cetatenii
 
-package ro.wethecitizens.firstcontact
+package ro.wethecitizens.firstcontact.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_item.view.*
+import ro.wethecitizens.firstcontact.R
+import ro.wethecitizens.firstcontact.utils.Utils
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import ro.wethecitizens.firstcontact.streetpass.view.StreetPassRecordViewModel
 
@@ -24,7 +26,8 @@ class RecordListAdapter internal constructor(context: Context) :
         ALL, COLLAPSE, MODEL_P, MODEL_C
     }
 
-    private var mode = RecordListAdapter.MODE.ALL
+    private var mode =
+        MODE.ALL
 
     inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val modelCView: TextView = itemView.modelc
@@ -40,12 +43,12 @@ class RecordListAdapter internal constructor(context: Context) :
         val org: TextView = itemView.org
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordListAdapter.RecordViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
         val itemView = inflater.inflate(R.layout.recycler_view_item, parent, false)
         return RecordViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: RecordListAdapter.RecordViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val current = records[position]
         holder.msgView.text = current.msg
         holder.modelCView.text = current.modelC
@@ -66,21 +69,21 @@ class RecordListAdapter internal constructor(context: Context) :
 
         holder.filterModelP.setOnClickListener {
             val model = it.tag as StreetPassRecordViewModel
-            setMode(RecordListAdapter.MODE.MODEL_P, model)
+            setMode(MODE.MODEL_P, model)
         }
 
         holder.filterModelC.setOnClickListener {
             val model = it.tag as StreetPassRecordViewModel
-            setMode(RecordListAdapter.MODE.MODEL_C, model)
+            setMode(MODE.MODEL_C, model)
         }
     }
 
     private fun filter(sample: StreetPassRecordViewModel?): List<StreetPassRecordViewModel> {
         return when (mode) {
-            RecordListAdapter.MODE.COLLAPSE -> prepareCollapsedData(sourceData)
-            RecordListAdapter.MODE.ALL -> prepareViewData(sourceData)
-            RecordListAdapter.MODE.MODEL_P -> filterByModelP(sample, sourceData)
-            RecordListAdapter.MODE.MODEL_C -> filterByModelC(sample, sourceData)
+            MODE.COLLAPSE -> prepareCollapsedData(sourceData)
+            MODE.ALL -> prepareViewData(sourceData)
+            MODE.MODEL_P -> filterByModelP(sample, sourceData)
+            MODE.MODEL_C -> filterByModelC(sample, sourceData)
         }
     }
 
@@ -137,11 +140,11 @@ class RecordListAdapter internal constructor(context: Context) :
         }
     }
 
-    fun setMode(mode: RecordListAdapter.MODE) {
+    fun setMode(mode: MODE) {
         setMode(mode, null)
     }
 
-    private fun setMode(mode: RecordListAdapter.MODE, model: StreetPassRecordViewModel?) {
+    private fun setMode(mode: MODE, model: StreetPassRecordViewModel?) {
         this.mode = mode
 
         val list = filter(model)

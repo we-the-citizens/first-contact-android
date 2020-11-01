@@ -25,7 +25,6 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,12 +34,13 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.*
-import ro.wethecitizens.firstcontact.adapter.MyAdapter
+import ro.wethecitizens.firstcontact.adapter.InfectionAlertAdapter
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordStorage
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.onboarding.OnBoardingActivity
-import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
+import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordDatabase
+import ro.wethecitizens.firstcontact.utils.Utils
 
 private const val REQUEST_ENABLE_BT = 123
 private const val PERMISSION_REQUEST_ACCESS_LOCATION = 456
@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
 
         storage.getall().observe(viewLifecycleOwner, Observer {
             viewManager = LinearLayoutManager(this.context)
-            viewAdapter = MyAdapter(it)
+            viewAdapter = InfectionAlertAdapter(it)
             recyclerView = view.findViewById<RecyclerView>(R.id.recycler_alert).apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView

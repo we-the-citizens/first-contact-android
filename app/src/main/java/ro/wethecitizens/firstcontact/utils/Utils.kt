@@ -1,7 +1,7 @@
 // Copyright (c) 2020 BlueTrace.io
 // Copyright (c) 2020 Noi, Cetatenii
 
-package ro.wethecitizens.firstcontact
+package ro.wethecitizens.firstcontact.utils
 
 import android.Manifest
 import android.app.Activity
@@ -410,7 +410,9 @@ object Utils {
     fun schedulePeriodicallyDownloadNextHealthCheck(context: Context, timeInMillis: Long) {
 
         //cancels any outstanding check schedules.
-        cancelPeriodicallyDownloadNextHealthCheck(context)
+        cancelPeriodicallyDownloadNextHealthCheck(
+            context
+        )
 
         val nextIntent = Intent(context, PeriodicallyDownloadService::class.java)
         nextIntent.putExtra(
@@ -457,7 +459,9 @@ object Utils {
 
     fun schedulePeriodicallyDownloadMatchKeys(context: Context, intervalMillis: Long) {
 
-        cancelPeriodicallyDownloadMatchKeys(context)
+        cancelPeriodicallyDownloadMatchKeys(
+            context
+        )
 
         val intent = Intent(context, PeriodicallyDownloadService::class.java)
         intent.putExtra(

@@ -1,10 +1,11 @@
 // Copyright (c) 2020 BlueTrace.io
 // Copyright (c) 2020 Noi, Cetatenii
 
-package ro.wethecitizens.firstcontact
+package ro.wethecitizens.firstcontact.preference
 
 import android.content.Context
 import android.content.SharedPreferences
+import ro.wethecitizens.firstcontact.TracerApp
 
 object Preference {
 
@@ -159,12 +160,14 @@ object Preference {
     }
 
     fun putPatientIdQr(value: String) {
-        TracerApp.AppContext.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+        TracerApp.AppContext.getSharedPreferences(
+            PREF_ID, Context.MODE_PRIVATE)
             .edit().putString(PATIENT_ID_QR, value).apply()
     }
 
     fun getPatientIdQr(): String? {
-        return TracerApp.AppContext.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+        return TracerApp.AppContext.getSharedPreferences(
+            PREF_ID, Context.MODE_PRIVATE)
             .getString(PATIENT_ID_QR, null)
     }
 

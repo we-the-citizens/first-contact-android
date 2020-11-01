@@ -37,6 +37,7 @@ import ro.wethecitizens.firstcontact.idmanager.TemporaryID
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.notifications.NotificationTemplates
 import ro.wethecitizens.firstcontact.permissions.RequestFileWritePermission
+import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.status.Status
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
 import ro.wethecitizens.firstcontact.status.persistence.StatusRecordStorage
@@ -48,6 +49,7 @@ import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStorage
 import ro.wethecitizens.firstcontact.temp_id_db.TempId
 import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
+import ro.wethecitizens.firstcontact.utils.Utils
 import java.lang.ref.WeakReference
 import kotlin.coroutines.CoroutineContext
 
@@ -171,9 +173,9 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         commandHandler.removeCallbacksAndMessages(null)
 
-        ro.wethecitizens.firstcontact.Utils.cancelBMUpdateCheck(this.applicationContext)
-        ro.wethecitizens.firstcontact.Utils.cancelNextScan(this.applicationContext)
-        ro.wethecitizens.firstcontact.Utils.cancelNextAdvertise(this.applicationContext)
+        Utils.cancelBMUpdateCheck(this.applicationContext)
+        Utils.cancelNextScan(this.applicationContext)
+        Utils.cancelNextAdvertise(this.applicationContext)
     }
 
     private fun setupNotifications() {
@@ -216,7 +218,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     private fun hasLocationPermissions(): Boolean {
-        val perms = ro.wethecitizens.firstcontact.Utils.getRequiredPermissions()
+        val perms = Utils.getRequiredPermissions()
         return EasyPermissions.hasPermissions(this.applicationContext, *perms)
     }
 
@@ -325,9 +327,9 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         when (cmd) {
             Command.ACTION_START -> {
                 setupService()
-                ro.wethecitizens.firstcontact.Utils.scheduleNextHealthCheck(this.applicationContext, healthCheckInterval)
-                ro.wethecitizens.firstcontact.Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
-                ro.wethecitizens.firstcontact.Utils.scheduleBMUpdateCheck(this.applicationContext, bmCheckInterval)
+                Utils.scheduleNextHealthCheck(this.applicationContext, healthCheckInterval)
+                Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
+                Utils.scheduleBMUpdateCheck(this.applicationContext, bmCheckInterval)
                 actionStart()
             }
 
@@ -349,7 +351,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
             }
 
             Command.ACTION_UPDATE_BM -> {
-                ro.wethecitizens.firstcontact.Utils.scheduleBMUpdateCheck(this.applicationContext, bmCheckInterval)
+                Utils.scheduleBMUpdateCheck(this.applicationContext, bmCheckInterval)
                 actionUpdateBm()
             }
 
@@ -358,7 +360,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
             }
 
             Command.ACTION_SELF_CHECK -> {
-                ro.wethecitizens.firstcontact.Utils.scheduleNextHealthCheck(this.applicationContext, healthCheckInterval)
+                Utils.scheduleNextHealthCheck(this.applicationContext, healthCheckInterval)
                 if (doWork) {
                     actionHealthCheck()
                 }
@@ -380,7 +382,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
     private fun actionHealthCheck() {
         performHealthCheck()
-        ro.wethecitizens.firstcontact.Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
+        Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
     }
 
     private fun actionPurge() {
@@ -581,7 +583,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
             statusRecordStorage.purgeOldRecords(before)
             tempIdStorage.purgeOldRecords(before)
 
-            ro.wethecitizens.firstcontact.Preference.putLastPurgeTime(context, System.currentTimeMillis())
+            Preference.putLastPurgeTime(context, System.currentTimeMillis())
         }
     }
 
@@ -696,7 +698,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
                         }
                         BluetoothAdapter.STATE_ON -> {
                             CentralLog.d(TAG, "BluetoothAdapter.STATE_ON")
-                            ro.wethecitizens.firstcontact.Utils.startBluetoothMonitoringService(this@BluetoothMonitoringService.applicationContext)
+                            Utils.startBluetoothMonitoringService(this@BluetoothMonitoringService.applicationContext)
                         }
                     }
                 }
@@ -735,7 +737,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
                         CentralLog.d(TAG,
                             "StreetPassRecord save done " +
                                     "msg = ${record.msg} " +
-                                    "ts = ${ro.wethecitizens.firstcontact.Utils.getDate(record.timestamp)}"
+                                    "ts = ${Utils.getDate(record.timestamp)}"
                         )
 
                         CentralLog.i(TAG, "StreetPassRecord last 10 records")

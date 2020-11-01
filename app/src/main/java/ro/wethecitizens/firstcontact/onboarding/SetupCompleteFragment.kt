@@ -10,7 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ro.wethecitizens.firstcontact.Preference
+import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.logging.CentralLog
 

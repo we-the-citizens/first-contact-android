@@ -20,6 +20,7 @@ import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Companion.blacklistDuration
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Companion.maxQueueTime
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Companion.useBlacklist
+import ro.wethecitizens.firstcontact.utils.Utils
 import java.util.*
 import java.util.concurrent.PriorityBlockingQueue
 
@@ -375,7 +376,7 @@ class StreetPassWorker(val context: Context) {
         }
 
         if (work.isCriticalsCompleted()) {
-            ro.wethecitizens.firstcontact.Utils.broadcastDeviceProcessed(context, work.device.address)
+            Utils.broadcastDeviceProcessed(context, work.device.address)
 //            Utils.broadcastDeviceProcessed(context, work.connectable.manuData)
         }
 
@@ -558,7 +559,7 @@ class StreetPassWorker(val context: Context) {
 
                             //if the deserializing was a success, connectionRecord will not be null, save it
                             connectionRecord?.let {
-                                ro.wethecitizens.firstcontact.Utils.broadcastStreetPassReceived(
+                                Utils.broadcastStreetPassReceived(
                                     context,
                                     connectionRecord
                                 )

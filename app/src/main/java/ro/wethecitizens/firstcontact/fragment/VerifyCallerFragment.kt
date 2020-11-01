@@ -5,33 +5,13 @@ package ro.wethecitizens.firstcontact.fragment
 
 import android.app.Activity
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore.MediaColumns
-import android.provider.OpenableColumns
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.fragment_upload_verifycaller.*
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import ro.wethecitizens.firstcontact.R
-import ro.wethecitizens.firstcontact.Utils
-import ro.wethecitizens.firstcontact.fragment.alert.server.DocumentRequest
-import ro.wethecitizens.firstcontact.fragment.alert.server.PositiveIdsRequest
-import ro.wethecitizens.firstcontact.server.BackendMethods
-import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.util.*
 
 
 class VerifyCallerFragment : Fragment()/*, EasyPermissions.PermissionCallbacks*/ {

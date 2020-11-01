@@ -6,7 +6,7 @@ import android.bluetooth.*
 import android.bluetooth.BluetoothGatt.GATT_FAILURE
 import android.bluetooth.BluetoothGatt.GATT_SUCCESS
 import android.content.Context
-import ro.wethecitizens.firstcontact.Utils
+import ro.wethecitizens.firstcontact.utils.Utils
 import ro.wethecitizens.firstcontact.idmanager.TempIDManager
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.protocol.BlueTrace
