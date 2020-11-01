@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.fragment_upload_enterpin.*
+import kotlinx.android.synthetic.main.fragment_upload_confirm.*
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -32,7 +32,7 @@ import java.io.FileOutputStream
 import java.lang.Exception
 import java.util.*
 
-class EnterPinFragment(private val selectedImage: Uri?) : Fragment() {
+class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
 
     private var disposeObj: Disposable? = null
 
@@ -41,7 +41,7 @@ class EnterPinFragment(private val selectedImage: Uri?) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_upload_enterpin, container, false)
+        return inflater.inflate(R.layout.fragment_upload_confirm, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

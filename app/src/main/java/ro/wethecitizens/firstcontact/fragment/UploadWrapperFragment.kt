@@ -12,13 +12,13 @@ import androidx.fragment.app.FragmentTransaction
 import ro.wethecitizens.firstcontact.MainActivity
 import ro.wethecitizens.firstcontact.R
 
-class ForUseByOTCFragment : Fragment() {
+class UploadWrapperFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_forusebyotc, container, false)
+        return inflater.inflate(R.layout.fragment_upload_wrapper, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,7 +26,7 @@ class ForUseByOTCFragment : Fragment() {
 
         val childFragMan: FragmentManager = childFragmentManager
         val childFragTrans: FragmentTransaction = childFragMan.beginTransaction()
-        val fragB = ForUseFragment()
+        val fragB = UploadStartFragment()
         childFragTrans.add(R.id.fragment_placeholder, fragB)
         childFragTrans.addToBackStack("VerifyCaller")
         childFragTrans.commit()

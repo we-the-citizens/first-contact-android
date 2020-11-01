@@ -13,17 +13,17 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
-import kotlinx.android.synthetic.main.fragment_upload_foruse.*
+import kotlinx.android.synthetic.main.fragment_upload_start.*
 import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.R
 
-class ForUseFragment : Fragment() {
+class UploadStartFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_upload_foruse, container, false)
+        return inflater.inflate(R.layout.fragment_upload_start, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ class ForUseFragment : Fragment() {
             forUseFragmentActionButton.isEnabled = true
 
             forUseFragmentActionButton.setOnClickListener {
-                (parentFragment as ForUseByOTCFragment).goToUploadFragment()
+                (parentFragment as UploadWrapperFragment).goToUploadFragment()
             }
 
             tv_anonimization.isVisible = true

@@ -10,18 +10,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_upload_verifycaller.*
+import kotlinx.android.synthetic.main.fragment_upload_select_image.*
 import ro.wethecitizens.firstcontact.R
 
 
-class VerifyCallerFragment : Fragment()/*, EasyPermissions.PermissionCallbacks*/ {
+class SelectImageFragment : Fragment()/*, EasyPermissions.PermissionCallbacks*/ {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_upload_verifycaller, container, false)
+        return inflater.inflate(R.layout.fragment_upload_select_image, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +47,7 @@ class VerifyCallerFragment : Fragment()/*, EasyPermissions.PermissionCallbacks*/
 
         if (requestCode == REQUEST_IMAGE_GET && resultCode == Activity.RESULT_OK) {
             val selectedImage = data?.data
-            (parentFragment as UploadPageFragment).navigateToUploadPin(selectedImage)
+            (parentFragment as UploadPageFragment).navigateToConfirmUpload(selectedImage)
         }
     }
 

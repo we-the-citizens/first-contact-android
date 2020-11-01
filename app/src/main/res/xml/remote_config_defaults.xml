@@ -41,6 +41,10 @@
         <key>copyright_url</key>
         <value>https://www.facebook.com/asociatia.Noi.Cetatenii</value>
     </entry>
+    <entry>
+        <key>anonimization_url</key>
+        <value>https://first-contact.ro/recomandari/</value>
+    </entry>
 
 </defaultsMap>
 <!-- END xml_defaults -->
