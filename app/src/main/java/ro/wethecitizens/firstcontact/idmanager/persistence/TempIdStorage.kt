@@ -1,8 +1,10 @@
 // Copyright (c) 2020 Noi, Cetatenii
 
-package ro.wethecitizens.firstcontact.temp_id_db
+package ro.wethecitizens.firstcontact.idmanager.persistence
 
 import android.content.Context
+import ro.wethecitizens.firstcontact.idmanager.persistence.TempId
+import ro.wethecitizens.firstcontact.idmanager.persistence.TempIdDatabase
 
 class TempIdStorage(val context: Context) {
 

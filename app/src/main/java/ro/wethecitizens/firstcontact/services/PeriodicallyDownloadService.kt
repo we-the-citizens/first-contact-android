@@ -25,7 +25,7 @@ import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordSt
 import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
-import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
+import ro.wethecitizens.firstcontact.idmanager.persistence.TempIdStorage
 import ro.wethecitizens.firstcontact.utils.Utils
 import java.lang.ref.WeakReference
 import java.util.*
@@ -120,7 +120,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         commandHandler = PeriodicallyDownloadCommandHandler(WeakReference(this))
 
         positiveKeysStorage = PositiveKeyRecordStorage(this.applicationContext)
-        tempIdStorage = TempIdStorage(this.applicationContext)
+        tempIdStorage =
+            TempIdStorage(
+                this.applicationContext
+            )
         infectionAlertRecordStorage = InfectionAlertRecordStorage(this.applicationContext)
 
         setupNotifications()

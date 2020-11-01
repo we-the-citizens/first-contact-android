@@ -1,10 +1,10 @@
 // Copyright (c) 2020 Noi, Cetatenii
 
-package ro.wethecitizens.firstcontact.temp_id_db
+package ro.wethecitizens.firstcontact.idmanager.persistence
 
 import androidx.lifecycle.LiveData
-import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
-import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordDao
+import ro.wethecitizens.firstcontact.idmanager.persistence.TempId
+import ro.wethecitizens.firstcontact.idmanager.persistence.TempIdDao
 
 class TempIdRepository(private val recordDao: TempIdDao) {
     // Room executes all queries on a separate thread.

@@ -38,14 +38,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="@string/upload_step_1_verify_that_the_contact" />
+                android:text="@string/upload_step_1_message" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/upload_step_1_make_sure_they_give" />
+                android:text="@string/upload_step_1_second_message" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textColor="@color/white"
-            android:text="@string/upload_step_1_next_btn"
+            android:text="@string/upload_step_1_select_image_button"
             android:fontFamily="@font/font"
             android:textFontWeight="600"
             android:textSize="18sp"

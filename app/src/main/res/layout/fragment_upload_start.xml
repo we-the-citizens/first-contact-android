@@ -33,7 +33,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginRight="16dp"
-                    android:text="@string/upload_for_use_tap_next_text"
+                    android:text="@string/preupload_message"
                     android:textAlignment="textStart"
                     android:textSize="20sp"
                     android:textStyle="normal" />
@@ -53,7 +53,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_weight="1"
-                    android:text="@string/anonimization_instructions"
+                    android:text="@string/preupload_anonimization_instructions"
                     android:textAlignment="center"
                     android:textColor="@color/blue_update"
                     android:textSize="20sp"
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textColor="@color/white"
-            android:text="@string/upload_for_use_next_btn"
+            android:text="@string/preupload_go_button"
             android:textStyle="normal"
             android:textAllCaps="false" />
     </LinearLayout>

@@ -26,7 +26,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/for_use_by_otc_title"
+                android:text="@string/preupload_title"
                 android:textAlignment="center"
                 android:textColor="#383838"
                 android:textFontWeight="600"

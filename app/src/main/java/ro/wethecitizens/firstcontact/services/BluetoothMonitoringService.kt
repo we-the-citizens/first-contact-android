@@ -47,8 +47,8 @@ import ro.wethecitizens.firstcontact.streetpass.StreetPassServer
 import ro.wethecitizens.firstcontact.streetpass.StreetPassWorker
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStorage
-import ro.wethecitizens.firstcontact.temp_id_db.TempId
-import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
+import ro.wethecitizens.firstcontact.idmanager.persistence.TempId
+import ro.wethecitizens.firstcontact.idmanager.persistence.TempIdStorage
 import ro.wethecitizens.firstcontact.utils.Utils
 import java.lang.ref.WeakReference
 import kotlin.coroutines.CoroutineContext
@@ -159,7 +159,10 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         streetPassRecordStorage = StreetPassRecordStorage(this.applicationContext)
         statusRecordStorage = StatusRecordStorage(this.applicationContext)
-        tempIdStorage = TempIdStorage(this.applicationContext)
+        tempIdStorage =
+            TempIdStorage(
+                this.applicationContext
+            )
 
         setupNotifications()
     }
@@ -617,7 +620,11 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         launch {
 
-            tempIdStorage.saveRecord(TempId(v = cti.tempID))
+            tempIdStorage.saveRecord(
+                TempId(
+                    v = cti.tempID
+                )
+            )
 
             TempIDManager.markAsSaved()
 

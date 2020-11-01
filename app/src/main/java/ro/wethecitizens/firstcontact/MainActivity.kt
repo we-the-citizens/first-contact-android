@@ -14,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import kotlinx.android.synthetic.main.activity_main_new.*
+import kotlinx.android.synthetic.main.activity_main.*
 import ro.wethecitizens.firstcontact.fragment.UploadWrapperFragment
 import ro.wethecitizens.firstcontact.fragment.HomeFragment
 import ro.wethecitizens.firstcontact.utils.Utils
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private var selected = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_new)
+        setContentView(R.layout.activity_main)
 
         Utils.startBluetoothMonitoringService(this)
         Utils.startPeriodicallyDownloadService(this)

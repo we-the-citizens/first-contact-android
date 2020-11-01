@@ -34,8 +34,8 @@ class UploadStartFragment : Fragment() {
         if (isComplete) {
 
             tv_anonimization.isVisible = false
-            tapNextText.setText(R.string.upload_for_use_tap_next_text_2)
-            forUseFragmentActionButton.setText(R.string.upload_for_use_next_btn_2)
+            tapNextText.setText(R.string.preupload_message_disabled)
+            forUseFragmentActionButton.setText(R.string.preupload_go_button_disabled)
 
             forUseFragmentActionButton.isEnabled = false
             forUseFragmentActionButton.alpha = 0.7f

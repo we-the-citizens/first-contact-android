@@ -25,7 +25,7 @@ import ro.wethecitizens.firstcontact.server.PositiveIdsRequest
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.server.HttpCode
-import ro.wethecitizens.firstcontact.temp_id_db.TempIdStorage
+import ro.wethecitizens.firstcontact.idmanager.persistence.TempIdStorage
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -92,7 +92,11 @@ class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
             "document",file.name,requestBody
         )
 
-        val tempIdStorage = context?.let { TempIdStorage(it) }
+        val tempIdStorage = context?.let {
+            TempIdStorage(
+                it
+            )
+        }
 
         lifecycleScope.launch {
 

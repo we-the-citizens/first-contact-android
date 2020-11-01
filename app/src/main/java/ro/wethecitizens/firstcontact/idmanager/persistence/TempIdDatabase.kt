@@ -1,15 +1,11 @@
 // Copyright (c) 2020 Noi, Cetatenii
 
-package ro.wethecitizens.firstcontact.temp_id_db
+package ro.wethecitizens.firstcontact.idmanager.persistence
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
-import ro.wethecitizens.firstcontact.status.persistence.StatusRecordDao
-import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
-import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordDao
 
 @Database(
     entities = arrayOf(TempId::class),
@@ -28,7 +24,8 @@ abstract class TempIdDatabase : RoomDatabase() {
         private var INSTANCE: TempIdDatabase? = null
 
         fun getDatabase(context: Context): TempIdDatabase {
-            val tempInstance = INSTANCE
+            val tempInstance =
+                INSTANCE
             if (tempInstance != null) {
                 return tempInstance
             }

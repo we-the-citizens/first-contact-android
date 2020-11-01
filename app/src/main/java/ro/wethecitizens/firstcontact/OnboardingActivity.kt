@@ -1,21 +1,20 @@
 // Copyright (c) 2020 BlueTrace.io
 // Copyright (c) 2020 Noi, Cetatenii
 
-package ro.wethecitizens.firstcontact.onboarding
+package ro.wethecitizens.firstcontact
 
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import androidx.fragment.app.FragmentActivity
-import kotlinx.android.synthetic.main.main_activity_onboarding.*
-import ro.wethecitizens.firstcontact.R
+import kotlinx.android.synthetic.main.activity_onboarding.*
 
-class PreOnboardingActivity : FragmentActivity() {
+class OnboardingActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity_onboarding)
+        setContentView(R.layout.activity_onboarding)
         btn_onboardingStart.setOnClickListener {
-            var intent = Intent(this, OnBoardingActivity::class.java)
+            var intent = Intent(this, PermissionsActivity::class.java)
             startActivity(intent)
         }
 

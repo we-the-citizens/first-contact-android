@@ -1,11 +1,11 @@
 // Copyright (c) 2020 Noi, Cetatenii
 
-package ro.wethecitizens.firstcontact.temp_id_db
+package ro.wethecitizens.firstcontact.idmanager.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
-import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
+import ro.wethecitizens.firstcontact.idmanager.persistence.TempId
 
 @Dao
 interface TempIdDao {

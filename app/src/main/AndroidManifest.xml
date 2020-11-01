@@ -53,23 +53,12 @@
         </activity>
 
         <activity
-            android:name="ro.wethecitizens.firstcontact.onboarding.OnBoardingActivity"
-            android:screenOrientation="portrait" />
-        <!-- this activity will be triggered on infection alert-->
-        <activity
-            android:name="ro.wethecitizens.firstcontact.AlertActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.AlertDialog"/>
-        <activity
-            android:name="ro.wethecitizens.firstcontact.onboarding.HowItWorksActivity"
+            android:name="ro.wethecitizens.firstcontact.PermissionsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="ro.wethecitizens.firstcontact.onboarding.PreOnboardingActivity"
+            android:name="ro.wethecitizens.firstcontact.OnboardingActivity"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name="ro.wethecitizens.firstcontact.onboarding.WebViewActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name="ro.wethecitizens.firstcontact.MainActivity"
             android:screenOrientation="portrait" >

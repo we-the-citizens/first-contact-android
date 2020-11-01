@@ -1,6 +1,6 @@
 // Copyright (c) 2020 Noi, Cetatenii
 
-package ro.wethecitizens.firstcontact.temp_id_db
+package ro.wethecitizens.firstcontact.idmanager.persistence
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

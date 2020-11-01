@@ -1,7 +1,7 @@
 // Copyright (c) 2020 BlueTrace.io
 // Copyright (c) 2020 Noi, Cetatenii
 
-package ro.wethecitizens.firstcontact.onboarding
+package ro.wethecitizens.firstcontact
 
 import android.Manifest
 import android.app.Activity
@@ -20,12 +20,10 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.text.method.ScrollingMovementMethod
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_onboarding.*
+import kotlinx.android.synthetic.main.activity_permissions.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
-import ro.wethecitizens.firstcontact.MainActivity
 import ro.wethecitizens.firstcontact.preference.Preference
-import ro.wethecitizens.firstcontact.R
 import ro.wethecitizens.firstcontact.utils.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
 
@@ -33,7 +31,7 @@ private const val REQUEST_ENABLE_BT = 123
 private const val PERMISSION_REQUEST_ACCESS_LOCATION = 456
 private const val BATTERY_OPTIMISER = 789
 
-class OnBoardingActivity : AppCompatActivity() {
+class PermissionsActivity : AppCompatActivity() {
 
     private var TAG: String = "OnBoardingActivity"
     private var bleSupported = false
@@ -43,7 +41,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_onboarding)
+        setContentView(R.layout.activity_permissions)
 
         tv_note_1.movementMethod = ScrollingMovementMethod()
 

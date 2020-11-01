@@ -37,7 +37,7 @@ import ro.wethecitizens.firstcontact.*
 import ro.wethecitizens.firstcontact.adapter.InfectionAlertAdapter
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordStorage
 import ro.wethecitizens.firstcontact.logging.CentralLog
-import ro.wethecitizens.firstcontact.onboarding.OnBoardingActivity
+import ro.wethecitizens.firstcontact.PermissionsActivity
 import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordDatabase
 import ro.wethecitizens.firstcontact.utils.Utils
@@ -157,7 +157,7 @@ class HomeFragment : Fragment() {
             }
         }
         btn_restart_app_setup.setOnClickListener {
-            var intent = Intent(context, OnBoardingActivity::class.java)
+            var intent = Intent(context, PermissionsActivity::class.java)
             intent.putExtra("page", 1)
             context?.startActivity(intent)
         }
