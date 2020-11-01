@@ -8,7 +8,7 @@
 
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivAlertIcon"
+        android:id="@+id/ivIcon"
         style="@style/OnboardingImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,93 +23,35 @@
 
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
         style="@style/OnboardingTitle"
-        android:id="@+id/tvAlertTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="@string/setup_app_permission"
-        android:visibility="visible"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivAlertIcon" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvAlertMessage"
-        style="@style/OnboardingDesc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="left"
+        android:gravity="start"
         android:text="@string/setup_app_permission_title"
         android:visibility="visible"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAlertTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/ivIcon" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        style="@style/OnboardingSubDesc"
-        android:id="@+id/tv_desc_sub_1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-
-        android:gravity="left"
-        android:text="@string/bluetooth"
-        android:visibility="visible"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAlertMessage" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        style="@style/OnboardingSubDesc"
-        android:id="@+id/tv_desc_sub_2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-
-        android:gravity="left"
-        android:text="@string/location_permissions"
-        android:visibility="visible"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_desc_sub_1" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_desc_sub_3"
-        style="@style/OnboardingSubDesc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-
-        android:gravity="left"
-        android:text="@string/battery_optimiser_opt"
-        android:visibility="visible"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_desc_sub_2" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_note_1"
-        style="@style/OnboardingSubDesc"
+        android:id="@+id/tvMessage"
+        style="@style/OnboardingDesc"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="left"
-        android:paddingTop="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:gravity="start"
         android:scrollbars="vertical"
-        android:text="@string/notes"
-        android:textColor="@color/grey_3"
+        android:text="@string/setup_app_permission_message"
         android:visibility="visible"
         app:autoSizeTextType="uniform"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@id/btnOnBoardingStart"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_desc_sub_3" />
-
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
 
     <Button

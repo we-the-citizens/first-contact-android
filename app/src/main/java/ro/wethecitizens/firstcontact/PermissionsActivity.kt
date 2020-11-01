@@ -43,7 +43,7 @@ class PermissionsActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_permissions)
 
-        tv_note_1.movementMethod = ScrollingMovementMethod()
+        tvMessage.movementMethod = ScrollingMovementMethod()
 
         btnOnBoardingStart.setOnClickListener{
             enableBluetooth()

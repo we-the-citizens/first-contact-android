@@ -117,9 +117,13 @@ class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
                         }
 
                         else -> {
+                            hideLoader()
                             val errorCode = response.code()
                             val errorType = HttpCode.getType(errorCode)
-                            Toast.makeText(context, "Eroare la upload:" + errorType.toString(), Toast.LENGTH_SHORT).show()
+                            if (errorCode == 403)
+                                Toast.makeText(context, R.string.error_document_already_uploaded, Toast.LENGTH_LONG).show()
+                            else
+                                Toast.makeText(context, "Eroare la upload:" + errorType.toString(), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

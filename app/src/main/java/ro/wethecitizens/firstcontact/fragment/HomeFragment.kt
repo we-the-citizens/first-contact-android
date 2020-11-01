@@ -109,13 +109,8 @@ class HomeFragment : Fragment() {
         })
 
         btnViewInstructions.setOnClickListener {
-
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Firebase.remoteConfig.getString("infection_instructions_url")))
             startActivity(browserIntent)
-
-            //webview implementation
-            //val i = Intent(context, InfectionInstructionsActivity::class.java)
-            //context?.startActivity(i)
         }
 
         showSetup()

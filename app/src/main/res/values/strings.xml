@@ -5,16 +5,11 @@
     <string name="permission_location_rationale">Te rugăm acordă Location Permissions. Sistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
 
     <string name="onboarding_title">Protejează-te pe tine și pe cei din jur</string>
-    <string name="onboarding_desc">First Contact te va avertiza dacă ai avut contact cu cineva autoraportat ca Pozitiv.</string>
-    <string name="onboarding_desc_sub">Cum poate face asta?\nFirst Contact scanează semnalele Bluetooth din proximitate și înregistrează în telefonul tău toate pseudonimele (anonime și temporare) ale telefoanelor celor cu care te întâlnești. Dacă (ulterior) unul dintre ei se autoraportează Pozitiv și aplicația determină că ați avut contact (sau contacte) apropiat(e) și prelungit(e) într-o zi, vei primi o Alertă de expunere cu data și durata cumulată a expunerii din acea zi.\nDoar tu vei vei primi această informație!</string>
+    <string name="onboarding_desc">First Contact te va avertiza dacă ai avut contact cu cineva autoraportat ca Pozitiv.\n\nCum poate face asta?\nFirst Contact scanează semnalele Bluetooth din proximitate și înregistrează în telefonul tău toate pseudonimele (anonime și temporare) ale telefoanelor celor cu care te întâlnești. Dacă (ulterior) unul dintre ei se autoraportează Pozitiv și aplicația determină că ați avut contact (sau contacte) apropiat(e) și prelungit(e) într-o zi, vei primi o Alertă de expunere cu data și durata cumulată a expunerii din acea zi.\nDoar tu vei vei primi această informație!</string>
     <string name="continue_button">Continuă</string>
 
-    <string name="setup_app_permission">\Acordă permisiuni aplicației</string>
-    <string name="setup_app_permission_title">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:</string>
-    <string name="bluetooth">1. Bluetooth</string>
-    <string name="location_permissions">2. Location Permissions</string>
-    <string name="battery_optimiser_opt">3. Battery Optimisation</string>
-    <string name="notes">De ce și Location Permissions? \nSistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. Însă First Contact nu va avea acces la localizarea ta fizică (nu folosește GPS, Wi-Fi sau celulele GSM) și nici nu permite urmărirea ta prin semnalul Bluetooth pe care-l emite (fiindcă pseudonimul tău se va schimba frecvent). Detalii pe site la secțiunea FAQ.</string>
+    <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
+    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Location Permissions\n 3. Battery Optimisation\n\nDe ce și Location Permissions? \nSistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. Însă First Contact nu va avea acces la localizarea ta fizică (nu folosește GPS, Wi-Fi sau celulele GSM) și nici nu permite urmărirea ta prin semnalul Bluetooth pe care-l emite (fiindcă pseudonimul tău se va schimba frecvent). Detalii pe site la secțiunea FAQ.</string>
     <string name="proceed">OK</string>
 
     <!-- home -->
@@ -89,5 +84,8 @@
 
     <string name="own_upload_approved_title">Contactele au fost notificate anonim!</string>
     <string name="own_upload_approved_body">Va multumim ca ati ajutat la oprirea raspandirii COVID19.</string>
+
+    <!-- errors -->
+    <string name="error_document_already_uploaded">Eroare: Acest document a mai fost deja trimis.</string>
 
 </resources>

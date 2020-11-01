@@ -313,8 +313,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
                 isMatchKeysRequiredToSchedule = true
 
-                if (tempIdStorage.checkIfPresent(key.tempId).size > 0)
-                    ownUploadApproved = true;
+                if (Preference.isUploadSent(appCtx))    //check only if upload was sent
+                    if (tempIdStorage.checkIfPresent(key.tempId).size > 0)
+                        ownUploadApproved = true;
             }
 
             if (isMatchKeysRequiredToSchedule) {
@@ -336,7 +337,6 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
                     appCtx,
                     OWN_UPLOAD_CHANNEL_ID
                 )
-                startMainActivity()
 
                 with(NotificationManagerCompat.from(appCtx)) {
                     notify(OWN_UPLOAD_NOTIFICATION_ID, n)

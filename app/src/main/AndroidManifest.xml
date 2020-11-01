@@ -119,25 +119,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="portrait"
-            tools:replace="screenOrientation" />
-
-        <activity
-            android:name=".InfectionInstructionsActivity"
-            android:screenOrientation="portrait"/>
-
-        <!-- for SMS retriever api -->
-        <receiver
-            android:name="ro.wethecitizens.firstcontact.fragment.alert.PinSmsBroadcastReceiver"
-            android:exported="true"
-            android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
-            </intent-filter>
-        </receiver>
-
     </application>
 
 </manifest>

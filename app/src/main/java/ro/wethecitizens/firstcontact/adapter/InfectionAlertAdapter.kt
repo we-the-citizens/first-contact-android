@@ -44,7 +44,7 @@ class InfectionAlertAdapter(private val myDataset: List<InfectionAlertRecord>) :
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): InfectionAlertAdapter.MyViewHolder {
         // create a new view
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_alert_infectare , parent , false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_infection_alert , parent , false)
         // set the view's size, margins, paddings and layout parameters
 
             return MyViewHolder(itemView)
