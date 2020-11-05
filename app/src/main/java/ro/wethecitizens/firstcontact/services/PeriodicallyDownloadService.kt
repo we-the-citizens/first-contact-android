@@ -37,9 +37,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
     /* Private members */
 
-    private var mNotificationManager: NotificationManager? = null
+    //private var mNotificationManager: NotificationManager? = null
     private var job: Job = Job()
-    private var notificationShown: NotificationState? = null
+    //private var notificationShown: NotificationState? = null
 
     private lateinit var positiveKeysStorage: PositiveKeyRecordStorage
     private lateinit var tempIdStorage: TempIdStorage
@@ -126,10 +126,10 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             )
         infectionAlertRecordStorage = InfectionAlertRecordStorage(this.applicationContext)
 
-        setupNotifications()
+        //setupNotifications()
     }
 
-    private fun setupNotifications() {
+    /*private fun setupNotifications() {
 
         mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -172,9 +172,9 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
 
             mNotificationManager!!.createNotificationChannel(ch3)
         }
-    }
+    }*/
 
-    private fun notifyRunning(override: Boolean = false) {
+    /*private fun notifyRunning(override: Boolean = false) {
 
         if (notificationShown != NotificationState.RUNNING || override) {
             val notif =
@@ -182,7 +182,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
             startForeground(NOTIFICATION_ID, notif)
             notificationShown = NotificationState.RUNNING
         }
-    }
+    }*/
 
     fun runService(cmd: Command?) {
 
@@ -193,7 +193,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         var doWork = true
 
         //show running foreground notification if its not showing that
-        notifyRunning()
+        //notifyRunning()
 
         when (cmd) {
 
@@ -458,7 +458,7 @@ class PeriodicallyDownloadService : Service(), CoroutineScope {
         d("performHealthCheck")
 
 
-        notifyRunning(true)
+        //notifyRunning(true)
 
 
         if (!infiniteScanning) {

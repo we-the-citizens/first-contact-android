@@ -198,9 +198,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.guava:guava:28.2-android'
 
-    //Lottie
-    implementation 'com.airbnb.android:lottie:3.4.0'
-
     // retrofit
     def retrofitVersion = "2.8.1"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -208,16 +205,4 @@ dependencies {
 
     // retrofit debugging
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
-
-    // qr code scanner
-    implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }
-    // For Android versions < 24, downgrade zxing:core to 3.3.0 or earlier for Android 14+ support: https://github.com/journeyapps/zxing-android-embedded#older-sdk-versions
-    implementation 'com.google.zxing:core:3.3.0'
-
-    // sms retrieve
-    implementation 'com.google.android.gms:play-services-auth:18.1.0'
-    implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.0'
-
-    // mockito testing
-    testImplementation 'org.mockito:mockito-core:3.3.3'
 }

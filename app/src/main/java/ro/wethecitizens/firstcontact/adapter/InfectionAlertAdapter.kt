@@ -16,6 +16,8 @@ import java.util.*
 class InfectionAlertAdapter(private val myDataset: List<InfectionAlertRecord>) :
     RecyclerView.Adapter<InfectionAlertAdapter.MyViewHolder>() {
 
+    var body: String = ""
+
     class objType {
         private var date: String? = null
         private var time: String? = null
@@ -45,19 +47,18 @@ class InfectionAlertAdapter(private val myDataset: List<InfectionAlertRecord>) :
                                     viewType: Int): InfectionAlertAdapter.MyViewHolder {
         // create a new view
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_infection_alert , parent , false)
-        // set the view's size, margins, paddings and layout parameters
 
-            return MyViewHolder(itemView)
+        body = parent.context.getString(R.string.exposure_body)
+
+        // set the view's size, margins, paddings and layout parameters
+        return MyViewHolder(itemView)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-//        val format1 = SimpleDateFormat("dd-MM-yyyy")
-//        val formatted = format1.format(myDataset.get(position).exposureDate)
+        var text = body.replace("#", "<b>" + formatCalendar(myDataset.get(position).exposureDate) + "</b>");
+        text = text.replace("$", "<br><b>" + myDataset.get(position).exposureInMinutes.toString() + " min</b>");
 
-        var text:String = "Pe <b>"+formatCalendar(myDataset.get(position).exposureDate)+"</b> ați avut un contact apropiat timp de <b>"+myDataset.get(position).exposureInMinutes.toString()+" min</b> cu cineva desemnat acum ca infec-tester"//R.string.exposure_body
         holder.txt_body?.setText(Html.fromHtml(text));
     }
 

@@ -30,7 +30,7 @@
     <string name="app_permission_fully_setup_desc">Te rugăm lasă toate aceste permisiuni active până la sfârșitul epidemiei.</string>
     
     <string name="share_this_app">Distribuie aplicația</string>
-    <string name="ask_friend">Ajută-ți colegii, prietenii, familia să-și instaleze First Contact</string>
+    <string name="ask_friend">Înainte de a te întâlni cu cineva (sau la începutul întâlnirii), roagă-l să-și instaleze First Contact - ca să vă protejați reciproc.</string>
     <string name="share_message">Hai să ne protejăm reciproc! Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
@@ -44,7 +44,7 @@
     <string name="keep_push_on">Keep push notifications on too, so we can alert you if the app is not scanning.</string>
 
     <string name="exposure_alert_title">Alertă de Expunere First Contact!</string>
-    <string name="exposure_body">Pe <b>####</b> ai stat la mică distanță, timp de <b>$$ min</b>, de cineva autoraportat acum ca Pozitiv</string>
+    <string name="exposure_body">Pe # ai stat la mică distanță, timp de $, de cineva autoraportat acum ca Pozitiv</string>
     <string name="view_infection_instructions_text">Recomandări</string>
 
     <string name="copyright">© 2020 Noi, Cetățenii</string>

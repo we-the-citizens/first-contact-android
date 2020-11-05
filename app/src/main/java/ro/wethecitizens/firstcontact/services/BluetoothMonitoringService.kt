@@ -28,6 +28,7 @@ import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.MainActivity
 import ro.wethecitizens.firstcontact.R
+import ro.wethecitizens.firstcontact.bluetooth.BLEAdvertiser
 import ro.wethecitizens.firstcontact.bluetooth.gatt.ACTION_RECEIVED_STATUS
 import ro.wethecitizens.firstcontact.bluetooth.gatt.ACTION_RECEIVED_STREETPASS
 import ro.wethecitizens.firstcontact.bluetooth.gatt.STATUS
@@ -61,7 +62,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
     private var streetPassServer: StreetPassServer? = null
     private var streetPassScanner: StreetPassScanner? = null
-    private var advertiser:ro.wethecitizens.firstcontact.bluetooth.BLEAdvertiser? = null
+    private var advertiser:BLEAdvertiser? = null
 
     var worker: StreetPassWorker? = null
 
@@ -203,6 +204,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     private fun notifyLackingThings(override: Boolean = false) {
+        CentralLog.i(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! notifyLackingThings")
         if (notificationShown != NOTIFICATION_STATE.LACKING_THINGS || override) {
             var notif =
                 NotificationTemplates.lackingThingsNotification(this.applicationContext, CHANNEL_ID)
@@ -212,6 +214,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     private fun notifyRunning(override: Boolean = false) {
+        CentralLog.i(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! notifyRunning")
         if (notificationShown != NOTIFICATION_STATE.RUNNING || override) {
             var notif =
                 NotificationTemplates.getRunningNotification(this.applicationContext, CHANNEL_ID)
@@ -475,9 +478,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     }
 
     private fun setupAdvertiser() {
-        advertiser = advertiser ?: ro.wethecitizens.firstcontact.bluetooth.BLEAdvertiser(
-            serviceUUID
-        )
+        advertiser = advertiser ?: BLEAdvertiser(serviceUUID)
     }
 
     private fun setupCycles() {

@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
         storage.getall().observe(viewLifecycleOwner, Observer {
             viewManager = LinearLayoutManager(this.context)
             viewAdapter = InfectionAlertAdapter(it)
-            recyclerView = view.findViewById<RecyclerView>(R.id.recycler_alert).apply {
+            recyclerView = view.findViewById<RecyclerView>(R.id.exposure_alerts_list).apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
                 setHasFixedSize(true)
