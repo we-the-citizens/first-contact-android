@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Utils.startBluetoothMonitoringService(this)
-        Utils.startPeriodicallyDownloadService(this)
 
         //Firebase Remote Config
         val remoteConfig = Firebase.remoteConfig

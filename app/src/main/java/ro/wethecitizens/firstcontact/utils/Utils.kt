@@ -25,7 +25,6 @@ import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Compani
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Companion.PENDING_PURGE_CODE
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Companion.PENDING_SCAN_REQ_CODE
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService.Companion.PENDING_START
-import ro.wethecitizens.firstcontact.services.PeriodicallyDownloadService
 import ro.wethecitizens.firstcontact.status.Status
 import ro.wethecitizens.firstcontact.streetpass.ACTION_DEVICE_SCANNED
 import ro.wethecitizens.firstcontact.streetpass.ConnectablePeripheral
@@ -149,20 +148,6 @@ object Utils {
             context,
             intent,
             timeInMillis
-        )
-
-
-        val intent2 = Intent(context, PeriodicallyDownloadService::class.java)
-        intent2.putExtra(
-            PeriodicallyDownloadService.COMMAND_KEY,
-            PeriodicallyDownloadService.Command.ACTION_START.index
-        )
-
-        Scheduler.scheduleServiceIntent(
-            PENDING_START,
-            context,
-            intent2,
-            10 * timeInMillis
         )
     }
 
@@ -393,20 +378,6 @@ object Utils {
                 bluetoothAdapter.isEnabled && bluetoothAdapter.state == BluetoothAdapter.STATE_ON
     }
 
-
-
-    fun startPeriodicallyDownloadService(context: Context) {
-
-        val intent = Intent(context, PeriodicallyDownloadService::class.java)
-        intent.putExtra(
-            PeriodicallyDownloadService.COMMAND_KEY,
-            PeriodicallyDownloadService.Command.ACTION_START.index
-        )
-
-        context.startService(intent)
-    }
-
-
     fun schedulePeriodicallyDownloadNextHealthCheck(context: Context, timeInMillis: Long) {
 
         //cancels any outstanding check schedules.
@@ -414,14 +385,14 @@ object Utils {
             context
         )
 
-        val nextIntent = Intent(context, PeriodicallyDownloadService::class.java)
+        val nextIntent = Intent(context, BluetoothMonitoringService::class.java)
         nextIntent.putExtra(
-            PeriodicallyDownloadService.COMMAND_KEY,
-            PeriodicallyDownloadService.Command.ACTION_SELF_CHECK.index
+            BluetoothMonitoringService.COMMAND_KEY,
+            BluetoothMonitoringService.Command.ACTION_SELF_CHECK.index
         )
         //runs every XXX milliseconds - every minute?
         Scheduler.scheduleServiceIntent(
-            PeriodicallyDownloadService.PENDING_HEALTH_CHECK_CODE,
+            BluetoothMonitoringService.PENDING_HEALTH_CHECK_CODE,
             context,
             nextIntent,
             timeInMillis
@@ -430,27 +401,27 @@ object Utils {
 
     private fun cancelPeriodicallyDownloadNextHealthCheck(context: Context) {
 
-        val nextIntent = Intent(context, PeriodicallyDownloadService::class.java)
+        val nextIntent = Intent(context, BluetoothMonitoringService::class.java)
         nextIntent.putExtra(
-            PeriodicallyDownloadService.COMMAND_KEY,
-            PeriodicallyDownloadService.Command.ACTION_SELF_CHECK.index
+            BluetoothMonitoringService.COMMAND_KEY,
+            BluetoothMonitoringService.Command.ACTION_SELF_CHECK.index
         )
         Scheduler.cancelServiceIntent(
-            PeriodicallyDownloadService.PENDING_HEALTH_CHECK_CODE,
+            BluetoothMonitoringService.PENDING_HEALTH_CHECK_CODE,
             context,
             nextIntent)
     }
 
     fun schedulePeriodicallyDownloadRepeatingPurge(context: Context, intervalMillis: Long) {
 
-        val nextIntent = Intent(context, PeriodicallyDownloadService::class.java)
+        val nextIntent = Intent(context, BluetoothMonitoringService::class.java)
         nextIntent.putExtra(
-            PeriodicallyDownloadService.COMMAND_KEY,
-            PeriodicallyDownloadService.Command.ACTION_PURGE.index
+            BluetoothMonitoringService.COMMAND_KEY,
+            BluetoothMonitoringService.Command.ACTION_PURGE.index
         )
 
         Scheduler.scheduleRepeatingServiceIntent(
-            PeriodicallyDownloadService.PENDING_PURGE_CODE,
+            BluetoothMonitoringService.PENDING_PURGE_CODE,
             context,
             nextIntent,
             intervalMillis
@@ -463,14 +434,14 @@ object Utils {
             context
         )
 
-        val intent = Intent(context, PeriodicallyDownloadService::class.java)
+        val intent = Intent(context, BluetoothMonitoringService::class.java)
         intent.putExtra(
-            PeriodicallyDownloadService.COMMAND_KEY,
-            PeriodicallyDownloadService.Command.ACTION_MATCH_KEYS.index
+            BluetoothMonitoringService.COMMAND_KEY,
+            BluetoothMonitoringService.Command.ACTION_MATCH_KEYS.index
         )
 
         Scheduler.scheduleServiceIntent(
-            PeriodicallyDownloadService.PENDING_MATCH_KEYS_CODE,
+            BluetoothMonitoringService.PENDING_MATCH_KEYS_CODE,
             context,
             intent,
             intervalMillis
@@ -479,14 +450,14 @@ object Utils {
 
     private fun cancelPeriodicallyDownloadMatchKeys(context: Context) {
 
-        val intent = Intent(context, PeriodicallyDownloadService::class.java)
+        val intent = Intent(context, BluetoothMonitoringService::class.java)
         intent.putExtra(
-            PeriodicallyDownloadService.COMMAND_KEY,
-            PeriodicallyDownloadService.Command.ACTION_MATCH_KEYS.index
+            BluetoothMonitoringService.COMMAND_KEY,
+            BluetoothMonitoringService.Command.ACTION_MATCH_KEYS.index
         )
 
         Scheduler.cancelServiceIntent(
-            PeriodicallyDownloadService.PENDING_MATCH_KEYS_CODE,
+            BluetoothMonitoringService.PENDING_MATCH_KEYS_CODE,
             context,
             intent
         )

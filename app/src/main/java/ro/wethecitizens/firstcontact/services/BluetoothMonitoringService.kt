@@ -20,10 +20,9 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import kotlinx.coroutines.*
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.BuildConfig
 import ro.wethecitizens.firstcontact.MainActivity
@@ -50,8 +49,14 @@ import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStorage
 import ro.wethecitizens.firstcontact.idmanager.persistence.TempId
 import ro.wethecitizens.firstcontact.idmanager.persistence.TempIdStorage
+import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecord
+import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordStorage
+import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecord
+import ro.wethecitizens.firstcontact.positivekey.persistence.PositiveKeyRecordStorage
+import ro.wethecitizens.firstcontact.server.BackendMethods
 import ro.wethecitizens.firstcontact.utils.Utils
 import java.lang.ref.WeakReference
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class BluetoothMonitoringService : Service(), CoroutineScope {
@@ -72,6 +77,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
     private lateinit var streetPassRecordStorage: StreetPassRecordStorage
     private lateinit var statusRecordStorage: StatusRecordStorage
+    private lateinit var positiveKeysStorage: PositiveKeyRecordStorage
+    private lateinit var infectionAlertRecordStorage: InfectionAlertRecordStorage
     private lateinit var tempIdStorage : TempIdStorage
 
     private var job: Job = Job()
@@ -80,57 +87,11 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         get() = Dispatchers.Main + job
 
     private lateinit var commandHandler: CommandHandler
-
     private lateinit var localBroadcastManager: LocalBroadcastManager
 
     private var notificationShown: NOTIFICATION_STATE? = null
 
-
-    fun alertaInfectare(){
-        var intent = Intent(this.applicationContext, MainActivity::class.java)
-
-        val activityPendingIntent = PendingIntent.getActivity(
-            this.applicationContext, PENDING_ACTIVITY,
-            intent, 0
-        )
-        var builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Alerta de infectare posibila COVID19")
-            .setSmallIcon(R.drawable.ic_notification_service)
-            .setStyle(
-                NotificationCompat.BigTextStyle()
-                    .bigText("Auto-izolativa, evitati contactul cu alte persoane, anuntati posibilitatea infectarii la medicul de familie si la DSU in vederea programarii pentru testare."))
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setVibrate(longArrayOf(0, 1000, 1000, 1000, 1000))
-            .setLights(Color.RED, 3000, 3000)
-            .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
-            .setContentIntent(activityPendingIntent)
-            .setColor(ContextCompat.getColor(this, R.color.colorAccent))
-        with(NotificationManagerCompat.from(this)) {
-            // notificationId is a unique int for each notification that you must define
-            notify(1, builder.build())
-        }
-    }
-
-    private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "nume"
-            val descriptionText = "descriere"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
-
     override fun onCreate() {
-//        createNotificationChannel()
-//        alertaInfectare()
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         setup()
     }
@@ -142,7 +103,6 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
             broadcastMessage = it
             CentralLog.i(TAG, "Setup TemporaryID to ${it.tempID}")
         }
-
 
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
 
@@ -160,10 +120,12 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         streetPassRecordStorage = StreetPassRecordStorage(this.applicationContext)
         statusRecordStorage = StatusRecordStorage(this.applicationContext)
+        positiveKeysStorage = PositiveKeyRecordStorage(this.applicationContext)
         tempIdStorage =
             TempIdStorage(
                 this.applicationContext
             )
+        infectionAlertRecordStorage = InfectionAlertRecordStorage(this.applicationContext)
 
         setupNotifications()
     }
@@ -200,6 +162,29 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
             // Set the Notification Channel for the Notification Manager.
             mNotificationManager!!.createNotificationChannel(mChannel)
+
+            val ch2 = NotificationChannel(
+                NEW_ALERTS_CHANNEL_ID,
+                NEW_ALERTS_CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            ch2.enableLights(false)
+            ch2.enableVibration(true)
+            ch2.setShowBadge(false)
+
+            mNotificationManager!!.createNotificationChannel(ch2)
+
+
+            val ch3 = NotificationChannel(
+                OWN_UPLOAD_CHANNEL_ID,
+                OWN_UPLOAD_CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            ch2.enableLights(false)
+            ch2.enableVibration(true)
+            ch2.setShowBadge(false)
+
+            mNotificationManager!!.createNotificationChannel(ch3)
         }
     }
 
@@ -336,6 +321,11 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
                 Utils.scheduleNextHealthCheck(this.applicationContext, healthCheckInterval)
                 Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
                 Utils.scheduleBMUpdateCheck(this.applicationContext, bmCheckInterval)
+
+                Utils.schedulePeriodicallyDownloadNextHealthCheck(this.applicationContext, healthCheckInterval)
+                Utils.schedulePeriodicallyDownloadRepeatingPurge(this.applicationContext, purgeInterval)
+                Utils.schedulePeriodicallyDownloadMatchKeys(this.applicationContext, matchKeysInterval)
+
                 actionStart()
             }
 
@@ -367,13 +357,29 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
             Command.ACTION_SELF_CHECK -> {
                 Utils.scheduleNextHealthCheck(this.applicationContext, healthCheckInterval)
+                Utils.schedulePeriodicallyDownloadNextHealthCheck(this.applicationContext, healthCheckInterval)
                 if (doWork) {
-                    actionHealthCheck()
+                    performHealthCheck()
+                    Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
+                    Utils.schedulePeriodicallyDownloadRepeatingPurge(this.applicationContext, purgeInterval)
                 }
             }
 
             Command.ACTION_PURGE -> {
                 actionPurge()
+            }
+
+            Command.ACTION_DOWNLOAD -> {
+                scheduleDownload()
+
+                if (doWork)
+                    performDownload()
+            }
+
+            Command.ACTION_MATCH_KEYS -> {
+                Utils.schedulePeriodicallyDownloadMatchKeys(this.applicationContext, matchKeysInterval)
+
+                performMatchKeys()
             }
 
             else -> CentralLog.i(TAG, "Invalid / ignored command: $cmd. Nothing to do")
@@ -386,23 +392,28 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         CentralLog.w(TAG, "Service Stopping")
     }
 
-    private fun actionHealthCheck() {
-        performHealthCheck()
-        Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
-    }
-
     private fun actionPurge() {
-        performPurge()
+        val context = this
+        launch {
+            val before = System.currentTimeMillis() - purgeTTL
+            CentralLog.i(TAG, "Coroutine - Purging of data before epoch time $before")
+
+            streetPassRecordStorage.purgeOldRecords(before)
+            statusRecordStorage.purgeOldRecords(before)
+            tempIdStorage.purgeOldRecords(before)
+            positiveKeysStorage.purgeOldRecords(before)
+
+            Preference.putLastPurgeTime(context, System.currentTimeMillis())
+        }
     }
 
     private fun actionStart() {
 
         CentralLog.d(TAG, "Action Start")
 
-        setupCycles()
-
-//        saveGUID()
-//        updateTempID()
+        commandHandler.scheduleNextScan(0)
+        commandHandler.scheduleNextAdvertise(0)
+        commandHandler.scheduleNextDownload(1000)
     }
 
     fun actionUpdateBm() {
@@ -481,19 +492,6 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         advertiser = advertiser ?: BLEAdvertiser(serviceUUID)
     }
 
-    private fun setupCycles() {
-        setupScanCycles()
-        setupAdvertisingCycles()
-    }
-
-    private fun setupScanCycles() {
-        commandHandler.scheduleNextScan(0)
-    }
-
-    private fun setupAdvertisingCycles() {
-        commandHandler.scheduleNextAdvertise(0)
-    }
-
     private fun performScan() {
         setupScanner()
         startScan()
@@ -532,6 +530,205 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         }
     }
 
+
+    private fun scheduleDownload() {
+
+        CentralLog.d(TAG,"scheduleDownload")
+
+        if (!infiniteScanning) {
+            commandHandler.scheduleNextDownload((Firebase.remoteConfig.getLong("download_duration_in_minutes") + Firebase.remoteConfig.getLong("download_interval_in_minutes")) * ONE_MIN)
+        }
+    }
+
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, t ->
+        t.printStackTrace()
+    }
+
+    private fun performDownload() {
+
+        CentralLog.d(TAG, "performDownload")
+
+
+        //val context = this
+        val appCtx = this.applicationContext
+
+        launch(Dispatchers.IO + coroutineExceptionHandler) {
+
+            var isMatchKeysRequiredToSchedule = false
+
+
+            val c = Calendar.getInstance()
+            c.timeInMillis = Preference.getInstallDateTS(appCtx)
+
+            //val formattedInstallDate = "2020-04-22T19:39:03.744Z"
+            val formattedInstallDate = Utils.formatCalendarToISO8601String(c)
+
+            CentralLog.d(TAG, "PositiveKey install date = $formattedInstallDate")
+
+            //TODO: comentat pentru ca dadea eroare retrofit
+
+            val id = positiveKeysStorage.getLastId()
+            val inst = BackendMethods.getInstance()
+
+            val keys = when (id) {
+                0 -> inst.getPositiveKeys(formattedInstallDate)
+                else -> inst.getPositiveKeys(formattedInstallDate, id)
+            }
+
+            CentralLog.d(TAG, "PositiveKey downloaded keys size = ${keys.size}")
+
+            var ownUploadApproved = false
+            for (key in keys) {
+
+                val keyDate = Calendar.getInstance()
+
+                positiveKeysStorage.saveRecord(PositiveKeyRecord(key.id, key.tempId, keyDate))
+
+                isMatchKeysRequiredToSchedule = true
+
+                if (Preference.isUploadSent(appCtx))    //check only if upload was sent
+                    if (tempIdStorage.checkIfPresent(key.tempId).size > 0)
+                        ownUploadApproved = true;
+            }
+
+            if (isMatchKeysRequiredToSchedule) {
+
+                CentralLog.d(TAG, "PositiveKey save done")
+                CentralLog.d(TAG, "PositiveKey all records")
+
+                for (pkr in positiveKeysStorage.getAllRecords()) {
+
+                    CentralLog.d(TAG, "PositiveKey  key = ${pkr.key} ")
+                }
+
+
+                Utils.schedulePeriodicallyDownloadMatchKeys(appCtx, 200)
+            }
+
+            if (ownUploadApproved) {
+                val n = NotificationTemplates.getOwnUploadApprovedNotification(
+                    appCtx,
+                    OWN_UPLOAD_CHANNEL_ID
+                )
+
+                with(NotificationManagerCompat.from(appCtx)) {
+                    notify(OWN_UPLOAD_NOTIFICATION_ID, n)
+                }
+
+                Preference.putIsUploadComplete(appCtx, true)  //lock further uploading
+            }
+        }
+    }
+
+    private fun performMatchKeys() {
+
+        CentralLog.d(TAG, "performMatchKeys")
+
+        //val context = this
+        val appCtx = this.applicationContext
+
+
+        launch {
+
+            //Uncomment next two lines only to fake data for test cases
+
+//            BuildFakeContacts().run(appCtx)
+//            infectionAlertRecordStorage.nukeDb()
+
+
+//            cycleNoToNukeDb--
+//
+//            if (cycleNoToNukeDb == 0)
+//                infectionAlertRecordStorage.nukeDb()
+
+
+
+            val contacts: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(
+                Firebase.remoteConfig.getLong("rssi_min_value").toInt())
+            val alerts: List<InfectionAlertRecord> = infectionAlertRecordStorage.getAllRecords()
+            val alg = ExposureAlgorithm(contacts, Firebase.remoteConfig.getLong("exposure_min_value_in_minutes").toInt(), true)
+
+
+            var hasNewAlerts = false
+
+            for (d in alg.getExposureDays()) {
+
+//                d("111 ----------------------------")
+//                d(Utils.formatCalendarToISO8601String(d.date))
+//                d("exposureInMinutes = ${d.exposureInMinutes}")
+//                d("")
+
+                val ed1 = d.date
+                var isDayFound = false
+
+
+                for (a in alerts) {
+
+//                    d("222 ----")
+//                    d(Utils.formatCalendarToISO8601String(a.exposureDate))
+//                    d("exposureInMinutes = ${a.exposureInMinutes}")
+//                    d("")
+
+                    val ed2 = a.exposureDate
+
+                    if (ed1.get(Calendar.YEAR) == ed2.get(Calendar.YEAR) &&
+                        ed1.get(Calendar.MONTH) == ed2.get(Calendar.MONTH) &&
+                        ed1.get(Calendar.DAY_OF_MONTH) == ed2.get(Calendar.DAY_OF_MONTH)) {
+
+                        if (d.exposureInMinutes != a.exposureInMinutes) {
+
+//                            d("updateExposureTime ${a.id} with exposureInMinutes = ${d.exposureInMinutes}")
+
+                            infectionAlertRecordStorage.updateExposureTime(
+                                a.id,
+                                d.exposureInMinutes
+                            )
+                        }
+
+                        isDayFound = true
+                    }
+                }
+
+
+                if (!isDayFound) {
+
+//                    d("saveRecord")
+
+                    infectionAlertRecordStorage.saveRecord(
+                        InfectionAlertRecord(
+                        exposureDate = ed1,
+                        exposureInMinutes = d.exposureInMinutes
+                    )
+                    )
+
+                    hasNewAlerts = true
+                }
+            }
+
+
+
+            if (hasNewAlerts) {
+
+                CentralLog.d(TAG, "create exposure new alert notification")
+
+                val n = NotificationTemplates.getExposureNewAlertsNotification(appCtx, NEW_ALERTS_CHANNEL_ID)
+                //startForeground(NEW_ALTERS_NOTIFICATION_ID, n)
+                startMainActivity()
+
+                with(NotificationManagerCompat.from(appCtx)) {
+                    notify(NEW_ALERTS_NOTIFICATION_ID, n)
+                }
+            }
+        }
+    }
+
+    private fun startMainActivity() {
+        //passing the notification here so in the future we can use information from it into the alert dialog
+        val dialogIntent = Intent(this, MainActivity::class.java)
+        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(dialogIntent)
+    }
+
     private fun performHealthCheck() {
 
         CentralLog.i(TAG, "Performing self diagnosis")
@@ -548,12 +745,21 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         setupService()
 
         if (!infiniteScanning) {
+
             if (!commandHandler.hasScanScheduled()) {
                 CentralLog.w(TAG, "Missing Scan Schedule - rectifying")
                 commandHandler.scheduleNextScan(100)
             } else {
                 CentralLog.w(TAG, "Scan Schedule present")
             }
+
+            if (!commandHandler.hasDownloadScheduled()) {
+                CentralLog.w(TAG, "Missing Download Schedule - rectifying")
+                commandHandler.scheduleNextDownload(100)
+            } else {
+                CentralLog.w(TAG, "Download Schedule present")
+            }
+
         } else {
             CentralLog.w(TAG, "Should be operating under infinite scan mode")
         }
@@ -561,7 +767,6 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         if (!infiniteAdvertising) {
             if (!commandHandler.hasAdvertiseScheduled()) {
                 CentralLog.w(TAG, "Missing Advertise Schedule - rectifying")
-//                setupAdvertisingCycles()
                 commandHandler.scheduleNextAdvertise(100)
             } else {
                 CentralLog.w(
@@ -575,20 +780,6 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         }
 
 
-    }
-
-    private fun performPurge() {
-        val context = this
-        launch {
-            val before = System.currentTimeMillis() - purgeTTL
-            CentralLog.i(TAG, "Coroutine - Purging of data before epoch time $before")
-
-            streetPassRecordStorage.purgeOldRecords(before)
-            statusRecordStorage.purgeOldRecords(before)
-            tempIdStorage.purgeOldRecords(before)
-
-            Preference.putLastPurgeTime(context, System.currentTimeMillis())
-        }
     }
 
     override fun onDestroy() {
@@ -787,7 +978,9 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         ACTION_ADVERTISE(3, "ADVERTISE"),
         ACTION_SELF_CHECK(4, "SELF_CHECK"),
         ACTION_UPDATE_BM(5, "UPDATE_BM"),
-        ACTION_PURGE(6, "PURGE");
+        ACTION_PURGE(6, "PURGE"),
+        ACTION_DOWNLOAD(7, "DOWNLOAD"),
+        ACTION_MATCH_KEYS(8, "MATCH_KEYS");
 
         companion object {
             private val types = values().associate { it.index to it }
@@ -806,9 +999,15 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         private val NOTIFICATION_ID = BuildConfig.SERVICE_FOREGROUND_NOTIFICATION_ID
         private val CHANNEL_ID = BuildConfig.SERVICE_FOREGROUND_CHANNEL_ID
-        val CHANNEL_SERVICE = BuildConfig.SERVICE_FOREGROUND_CHANNEL_NAME
+        private val CHANNEL_SERVICE = BuildConfig.SERVICE_FOREGROUND_CHANNEL_NAME
 
-        val PUSH_NOTIFICATION_ID = BuildConfig.PUSH_NOTIFICATION_ID
+        private const val NEW_ALERTS_NOTIFICATION_ID = 100002
+        private const val NEW_ALERTS_CHANNEL_ID = "Exposure New Alerts ID"
+        private const val NEW_ALERTS_CHANNEL_NAME = "Exposure New Alerts Name"
+
+        private const val OWN_UPLOAD_NOTIFICATION_ID = 100003
+        private const val OWN_UPLOAD_CHANNEL_ID = "Own Upload Approved ID"
+        private const val OWN_UPLOAD_CHANNEL_NAME = "Own Upload Approved Name"
 
         val COMMAND_KEY = "${BuildConfig.APPLICATION_ID}_CMD"
 
@@ -820,6 +1019,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         val PENDING_WIZARD_REQ_CODE = 10
         val PENDING_BM_UPDATE = 11
         val PENDING_PURGE_CODE = 12
+        val PENDING_MATCH_KEYS_CODE = 13
 
         var broadcastMessage: TemporaryID? = null
 
@@ -845,5 +1045,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         val infiniteAdvertising = false
 
         val useBlacklist = true
+
+        private const val ONE_MIN: Long = 60 * 1000             // In milliseconds
+        val matchKeysInterval: Long = 3 * ONE_MIN
     }
 }
