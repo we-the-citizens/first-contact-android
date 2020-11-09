@@ -64,7 +64,7 @@ class NotificationTemplates {
         }
 
         fun lackingThingsNotification(context: Context, channel: String): Notification {
-            var intent = Intent(context, PermissionsActivity::class.java)
+            var intent = Intent(context, MainActivity::class.java)
             intent.putExtra("page", 3)
 
             val activityPendingIntent = PendingIntent.getActivity(
@@ -88,21 +88,20 @@ class NotificationTemplates {
                 .setWhen(System.currentTimeMillis())
                 .setSound(null)
                 .setVibrate(null)
-                .setColor(ContextCompat.getColor(context, R.color.notification_tint))
+                .setColor(ContextCompat.getColor(context, R.color.colorAccent))
+                //.setColor(ContextCompat.getColor(context, R.color.notification_tint))
 
             return builder.build()
         }
 
         fun getExposureNewAlertsNotification(context: Context, channel: String): Notification {
 
-            val intent = Intent(context, MainActivity::class.java)
-            val pendingIntent = PendingIntent.getActivity(context, PENDING_ACTIVITY, intent, 0)
+            //val intent = Intent(context, MainActivity::class.java)
+            //val pendingIntent = PendingIntent.getActivity(context, PENDING_ACTIVITY, intent, 0)
 
-//            val intent = Intent(context, MainActivity::class.java).apply {
-//                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//            }
-//            val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
-
+            val fullScreenIntent = Intent(context, MainActivity::class.java)
+            val fullScreenPendingIntent = PendingIntent.getActivity(context, 0,
+                fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             val title = context.getText(R.string.exposure_new_alerts_title)
             val body = context.getText(R.string.exposure_new_alerts_body)
@@ -112,7 +111,8 @@ class NotificationTemplates {
                 .setContentText(body)
                 .setOngoing(true)
                 .setSmallIcon(R.drawable.ic_notification_warning)
-                .setContentIntent(pendingIntent)
+                //.setContentIntent(pendingIntent)
+                .setFullScreenIntent(fullScreenPendingIntent, true)
                 .setTicker(body)
                 //.setStyle(NotificationCompat.BigTextStyle().bigText(body))
                 .setWhen(System.currentTimeMillis())
@@ -121,7 +121,7 @@ class NotificationTemplates {
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                 .setColor(ContextCompat.getColor(context, R.color.colorAccent))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setCategory(NotificationCompat.CATEGORY_CALL)
                 .setAutoCancel(true)
 
             return b.build()

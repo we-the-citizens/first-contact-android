@@ -9,7 +9,7 @@
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
-    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Location Permissions\n 3. Battery Optimisation\n\nDe ce și Location Permissions? \nDeși nu se utilizează niciun fel de localizare, sistemul Android cere întotdeauna acest tip de permisiuni, în cazul scanării Bluetooth - fără să țină cont și de cazurile speciale (ca acesta) în care schimbarea frecventă a identificatorilor face imposibilă urmărirea traseelor utilizatorului.</string>
+    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Location Permissions\n 3. Battery Optimisation\n\nDe ce și Location Permissions? \nDeși aplicația nu folosește niciun fel de localizare, sistemul Android cere întotdeauna acest tip de permisiuni în cazul utilizării scanării Bluetooth - fără să țină cont și de cazurile speciale (ca acesta) în care schimbarea frecventă a identificatorilor anonimi face imposibilă urmărirea traseelor utilizatorului.</string>
     <string name="proceed">OK</string>
 
     <!-- home -->
@@ -30,7 +30,7 @@
     <string name="app_permission_fully_setup_desc">Te rugăm lasă toate aceste permisiuni active până la sfârșitul epidemiei.</string>
     
     <string name="share_this_app">Distribuie aplicația</string>
-    <string name="ask_friend">Înaintea (sau la începutul) întâlnirii cu cineva, roagă-l să-și instaleze și el First Contact - ca să vă protejați reciproc.</string>
+    <string name="ask_friend">Înaintea (sau măcar la începutul) întâlnirii cu cineva, roagă-l să-și instaleze și el First Contact - ca să vă protejați reciproc.</string>
     <string name="share_message">Hai să ne protejăm reciproc! Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
@@ -51,10 +51,10 @@
 
     <!-- upload -->
     <string name="preupload_title">Avertizare Contacți</string>
-    <string name="preupload_message">Apasă \'Avertizează contacții\' numai dacă ți-ai pregătit Rezultatul testului Pozitiv <u>anonimizat</u> conform instrucțiunilor.\nDacă nu, click pe instrucțiuni, urmează-le și apoi revii aici.</string>
+    <string name="preupload_message">Apasă \'Avertizează contacții\' numai dacă ți-ai pregătit Rezultatul testului Pozitiv <u>anonimizat</u> conform instrucțiunilor.\n\nDacă nu, click pe instrucțiuni document, urmează-le și apoi revii aici.</string>
     <string name="preupload_anonimization_instructions">Instrucțiuni document</string>
     <string name="preupload_go_button">Avertizează contacții</string>
-    <string name="preupload_message_disabled">Ți-ai avertizat deja contacții.\n\Mulțumim că ai contribuit și tu la oprirea epidemiei!</string>
+    <string name="preupload_message_disabled">Ți-ai avertizat deja contacții.\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și pentru contribuția ta la oprirea epidemiei!\nȘi sperăm să treci cât mai ușor prin această încercare.</string>
     <string name="preupload_go_button_disabled">contacții sunt avertizați</string>
 
     <string name="upload_title">Avertizare contacți</string>
@@ -83,7 +83,7 @@
     <string name="exposure_new_alerts_body">Click aici pentru detalii</string>
 
     <string name="own_upload_approved_title">Contacții tăi au fost avertizați</string>
-    <string name="own_upload_approved_body">Mulțumim pentru responsabilitate! Și îți dorim să treci cu bine peste această încercare.</string>
+    <string name="own_upload_approved_body">Mulțumim pentru atitudinea altruistă!</string>
 
     <!-- errors -->
     <string name="error_document_already_uploaded">Eroare: Acest document a mai fost deja trimis.</string>

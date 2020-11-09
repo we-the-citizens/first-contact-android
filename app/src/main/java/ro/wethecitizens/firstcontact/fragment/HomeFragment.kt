@@ -182,6 +182,7 @@ class HomeFragment : Fragment() {
     fun showSetup() {
         view_setup.isVisible = isShowRestartSetup()
         view_complete.isVisible = !isShowRestartSetup()
+        top_logo.isVisible = view_complete.isVisible;
     }
 
     override fun onResume() {
