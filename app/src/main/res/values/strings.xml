@@ -5,11 +5,11 @@
     <string name="permission_location_rationale">Te rugăm acordă Location Permissions. Sistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
 
     <string name="onboarding_title">Protejați-vă!\npe tine și pe cei din jur</string>
-    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat, <u>pe telefonul tău</u>, întâlnirile Bluetooth anonime cu alți utilizatori. Dacă ulterior unul dintre cei întâlniți în ultimele 14 zile se autoraportează \'Pozitiv\' și aplicația determină că a fost un contact apropiat și prelungit, vei primi o <b>Alertă de Expunere</b>.\n\nDoar tu vei afla despre posibila ta contaminare!</string>
+    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat, <u>pe telefonul tău</u>, întâlnirile Bluetooth anonime cu alți utilizatori. Dacă ulterior unul dintre cei întâlniți în ultimele 14 zile se autoraportează \'Pozitiv\' și aplicația determină că a fost vorba de un contact apropiat și prelungit, vei primi o <b>Alertă de Expunere</b>.\n\nDoar tu vei afla despre posibila ta contaminare!</string>
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
-    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Location Permissions\n 3. Battery Optimisation\n\nDe ce și Location Permissions? \nDeși aplicația nu folosește niciun fel de localizare, sistemul Android cere întotdeauna acest tip de permisiuni în cazul utilizării scanării Bluetooth - fără să țină cont și de cazurile speciale (ca acesta) în care schimbarea frecventă a identificatorilor anonimi face imposibilă urmărirea traseelor utilizatorului.</string>
+    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Location Permissions\n 3. Battery Optimisation\n\nDe ce și Location Permissions? \nDeși aplicația nu folosește niciun fel de localizare, sistemul Android cere întotdeauna acest tip de permisiuni în cazul utilizării scanării Bluetooth - fără să țină cont și de cazurile speciale (ca acesta) în care schimbarea frecventă a identificatorilor anonimi transmiși prin Bluetooth face imposibilă urmărirea traseelor utilizatorului.</string>
     <string name="proceed">OK</string>
 
     <!-- home -->
@@ -18,7 +18,7 @@
     <string name="title_help">Ajutor</string>
 
     <string name="how_to_help">Continuați să vă protejați</string>
-    <string name="help_action">Nu opri Bluetooth-ul și nu ține telefonul în buzunarul din spate!\n\nPoți vedea lista întâlnirilor tale Bluetooth prin dublu-click pe siglă.</string>
+    <string name="help_action">Nu opri Bluetooth-ul și nu ține telefonul în buzunarul din spate!\n\nPoți vedea lista întâlnirilor tale Bluetooth prin dublu-click pe siglă.\n </string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
     <string name="bluetooth_on">Bluetooth - pornit</string>
@@ -29,9 +29,9 @@
     <string name="app_permission_fully_setup">Toate permisiunile necesare au fost setate</string>
     <string name="app_permission_fully_setup_desc">Te rugăm lasă toate aceste permisiuni active până la sfârșitul epidemiei.</string>
     
-    <string name="share_this_app">Distribuie aplicația</string>
-    <string name="ask_friend">Înaintea (sau măcar la începutul) întâlnirii cu cineva, roagă-l să-și instaleze și el First Contact - ca să vă protejați reciproc.</string>
-    <string name="share_message">Hai să ne protejăm reciproc! Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
+    <string name="share_this_app">Distribuie ca să fii protejat</string>
+    <string name="ask_friend">Înaintea (sau măcar la începutul) întâlnirii cu cineva, roagă-l să-și instaleze și el First Contact - ca să vă protejați reciproc. Click aici.</string>
+    <string name="share_message">Hai să ne protejăm reciproc!\nInstalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
     <string name="help_us_identify">Reactivează protecția acordând aplicației permisiunile necesare</string>
@@ -54,22 +54,22 @@
     <string name="preupload_message">Apasă \'Avertizează contacții\' numai dacă ți-ai pregătit Rezultatul testului Pozitiv <u>anonimizat</u> conform instrucțiunilor.\n\nDacă nu, click pe instrucțiuni document, urmează-le și apoi revii aici.</string>
     <string name="preupload_anonimization_instructions">Instrucțiuni document</string>
     <string name="preupload_go_button">Avertizează contacții</string>
-    <string name="preupload_message_disabled">Ți-ai avertizat deja contacții.\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și pentru contribuția ta la oprirea epidemiei!\nȘi sperăm să treci cât mai ușor prin această încercare.</string>
+    <string name="preupload_message_disabled"><b>Ți-ai avertizat deja contacții.</b>\n\nMulțumim pentru altruismul de care ai dat dovadă și pentru contribuția ta la oprirea epidemiei!\n\nȘi îți dorim să treci cât mai ușor prin această încercare.</string>
     <string name="preupload_go_button_disabled">contacții sunt avertizați</string>
 
     <string name="upload_title">Avertizare contacți</string>
     <string name="upload_subtitle">dacă ai Rezultatul testului Pozitiv</string>
 
     <string name="upload_step_1_title">PASUL 1</string>
-    <string name="upload_step_1_message">Selectează (din Gallery) fișierul imagine cu Rezultatul testului (Pozitiv) pe care l-ai <u>anonimizat</u> în prealabil.</string>
+    <string name="upload_step_1_message">Selectează (din Gallery) fișierul cu Rezultatul testului <u>Pozitiv</u> pe care l-ai <u>anonimizat</u> în prealabil (conform instrucțiunilor).</string>
     <string name="upload_step_1_second_message"></string>
     <string name="upload_step_1_select_image_button">Selectare fișier</string>
 
     <string name="upload_step_2_title">PASUL 2</string>
-    <string name="upload_step_2_message">Ești de acord să încarci în Cloud pseudonimele tale temporare și anonime pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care te-ai întâlnit să fie avertizați automat că s-ar fi putut contamina și ei?\n\n<b>Cei avertizați nu vor afla cine ești.</b></string>
+    <string name="upload_step_2_message">Ești de acord să încarci în Cloud Rezultatul testului anonimizat și pseudonimele tale (temporare și anonime) pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care te-ai întâlnit în această perioadă să fie avertizați automat că au intrat în contact cu un \'Pozitiv\'?\n\n<b>Cei avertizați nu vor afla cine ești.</b></string>
     <string name="upload_step_2_upload_confirm_button">Sunt de acord</string>
 
-    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale și Rezultatul testului au fost încărcate în Cloud. După verificarea documentului, contacții tăi vor primi o alertă anonimă.\n\nDacă în 24 ore nu primești confirmarea avertizării contacților, înseamnă că documentul trimis de tine nu a corespuns cerințelor. Recitește instrucțiunile de anonimizare și repetă procedura - sau contactează-ne prin email la first.contact@cetatenii.org</string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale și Rezultatul testului au fost încărcate în Cloud. După verificarea documentului, contacții tăi vor primi o Alertă de Expunere anonimă.\n\nDacă în 24 de ore nu primești confirmarea avertizării contacților, înseamnă că documentul trimis de tine nu a corespuns cerințelor. Recitește instrucțiunile de anonimizare și repetă procedura - sau contactează-ne prin email la first.contact@cetatenii.org</string>
     <string name="upload_step_3_done_button">OK</string>
 
     <!-- notifications -->
