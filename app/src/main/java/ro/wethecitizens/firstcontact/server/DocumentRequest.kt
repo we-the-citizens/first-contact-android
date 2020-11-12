@@ -5,7 +5,8 @@ import ro.wethecitizens.firstcontact.server.PositiveIdsRequest
 import java.util.*
 
 data class DocumentRequest(
-    @SerializedName("data") val data: List<PositiveIdsRequest.PositiveId>
+    @SerializedName("data") val data: List<PositiveIdsRequest.PositiveId>,
+    @SerializedName("signature") val signature: String
 ) {
     data class PositiveId(
         @SerializedName("tempId") val tempId: String,

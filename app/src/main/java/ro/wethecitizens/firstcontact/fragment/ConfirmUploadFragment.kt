@@ -6,12 +6,18 @@ package ro.wethecitizens.firstcontact.fragment
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_upload_confirm.*
 import kotlinx.coroutines.launch
@@ -31,6 +37,8 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.lang.Exception
 import java.util.*
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
 
 class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
 
@@ -100,10 +108,12 @@ class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
 
         lifecycleScope.launch {
 
+            val positiveIdsList = getPositiveIdsList(tempIdStorage!!)
             try {
                 val docModel =
                     DocumentRequest(
-                        data = getPositiveIdsList(tempIdStorage!!)
+                        data = positiveIdsList,
+                        signature = getSignature(positiveIdsList)
                     )
                 if (docModel.data.isEmpty()) {
                     Toast.makeText(context, "Nu exista ID-uri anonime!", Toast.LENGTH_LONG).show()
@@ -154,6 +164,28 @@ class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
         return list.toList()
     }
 
+    private fun getSignature(list: List<PositiveIdsRequest.PositiveId>): String
+    {
+        var data:String = ""
+        for (l in list)
+            data += l.tempId + l.date
+
+        //Log.i(TAG, "DATA: " + data);
+
+        val algoType: String = "H" + "m" + "a" + "c" + "S" + "H" + "A" + "2" + "5" + "6"
+        val mac = Mac.getInstance(algoType)
+        val key = Firebase.remoteConfig.getString("signature_key")
+        val secretKey = SecretKeySpec(key.toByteArray(), algoType)
+        mac.init(secretKey)
+
+        //Log.i(TAG, "KEY: " + key);
+
+        var signature = Base64.encodeToString(mac.doFinal(data.toByteArray()), Base64.DEFAULT)
+        signature = signature.trimEnd()
+        //Log.i(TAG, "SIGNATURE: " + signature);
+        return signature
+    }
+
     fun getFileName(fileUri: Uri): String {
         var name = ""
         val returnCursor = context?.contentResolver?.query(fileUri, null, null, null, null)
@@ -165,7 +197,6 @@ class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
         }
         return name
     }
-
 
     private fun showLoader() {
 
@@ -179,6 +210,6 @@ class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
 
 
     companion object {
-        private const val TAG = "EnterPinFragment"
+        private const val TAG = "ConfirmUploadFragment"
     }
 }

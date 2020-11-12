@@ -46,5 +46,10 @@
         <value>https://first-contact.ro/recomandari/</value>
     </entry>
 
+    <entry>
+        <key>signature_key</key>
+        <value>xxxxxxxxxxxxxxxxxxxxx</value>
+    </entry>
+
 </defaultsMap>
 <!-- END xml_defaults -->
