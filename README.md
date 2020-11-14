@@ -11,6 +11,6 @@ Our project was split into 3 stages:
 
 <b>Because of the reluctance of the authorities to support this project, we modified the application in order to be able to fulfill its role (to warn users in case of an exposure to Coronavirus) even without the cooperation of the authorities.</b>
 
-Full client sources are released under GPL3 license (https://github.com/we-the-citizens/first-contact-android/blob/prototype/LICENSE.md), as the original OpenTrace (https://github.com/opentrace-community/opentrace-android) codebase. We invite everybody to review our code and make comments, suggestions or contributions. 
+Full client sources are released under GPL3 license (https://github.com/we-the-citizens/first-contact-android/blob/develop/LICENSE.md), as the original OpenTrace (https://github.com/opentrace-community/opentrace-android) codebase. We invite everybody to review our code and make comments, suggestions or contributions. 
 
 Visit https://first-contact.ro to learn more.
