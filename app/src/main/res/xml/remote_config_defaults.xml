@@ -14,8 +14,12 @@
         <value>-75</value>
     </entry>
     <entry>
-        <key>exposure_min_value_in_minutes</key>
-        <value>3</value>
+        <key>time_gap_max_value</key>
+        <value>20</value>
+    </entry>
+    <entry>
+        <key>min_daily_exposure_time_for_alert</key>
+        <value>5</value>
     </entry>
 
     <!-- Infected keys download time -->

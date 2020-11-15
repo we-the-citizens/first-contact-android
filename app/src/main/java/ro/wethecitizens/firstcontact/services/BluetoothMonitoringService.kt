@@ -646,7 +646,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
             val contacts: List<StreetPassRecord> = positiveKeysStorage.getMatchedKeysRecords(
                 Firebase.remoteConfig.getLong("rssi_min_value").toInt())
             val alerts: List<InfectionAlertRecord> = infectionAlertRecordStorage.getAllRecords()
-            val alg = ExposureAlgorithm(contacts, Firebase.remoteConfig.getLong("exposure_min_value_in_minutes").toInt(), true)
+            val alg = ExposureAlgorithm(contacts)
 
 
             var hasNewAlerts = false
