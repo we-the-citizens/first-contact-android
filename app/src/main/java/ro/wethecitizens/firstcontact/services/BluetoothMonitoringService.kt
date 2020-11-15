@@ -918,13 +918,16 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
                     "StreetPass received: $connRecord"
                 )
 
+                val idC = connRecord.central.address?.split(':')?.last()
+                val idP = connRecord.peripheral.address?.split(':')?.last()
+
                 if (connRecord.msg.isNotEmpty()) {
                     val record = StreetPassRecord(
                         v = connRecord.version,
                         msg = connRecord.msg,
                         org = connRecord.org,
-                        modelP = connRecord.peripheral.modelP,
-                        modelC = connRecord.central.modelC,
+                        modelP = connRecord.peripheral.modelP + " : " + idP,
+                        modelC = connRecord.central.modelC + " : " + idC,
                         rssi = connRecord.rssi,
                         txPower = connRecord.txPower
                     )
