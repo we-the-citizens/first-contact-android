@@ -4,6 +4,7 @@
 package ro.wethecitizens.firstcontact.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,8 @@ class RecordListAdapter internal constructor(context: Context) :
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var records = emptyList<StreetPassRecordViewModel>() // Cached copy of records
     private var sourceData = emptyList<StreetPassRecord>()
+
+    private val phoneAliases : MutableMap<String, String> = mutableMapOf()
 
     enum class MODE {
         ALL, COLLAPSE, MODEL_P, MODEL_C
@@ -124,19 +127,19 @@ class RecordListAdapter internal constructor(context: Context) :
                 val mostRecentRecord = countMap[record.modelC]?.maxBy { it.timestamp }
 
                 if (mostRecentRecord != null) {
-                    return@map StreetPassRecordViewModel(mostRecentRecord, count)
+                    return@map StreetPassRecordViewModel(mostRecentRecord, phoneAliases, count)
                 }
 
-                return@map StreetPassRecordViewModel(record, count)
+                return@map StreetPassRecordViewModel(record, phoneAliases, count)
             }
             //fallback - unintended
-            return@map StreetPassRecordViewModel(record)
+            return@map StreetPassRecordViewModel(record, phoneAliases, 1)
         }
     }
 
     private fun prepareViewData(words: List<StreetPassRecord>): List<StreetPassRecordViewModel> {
         return words.reversed().map {
-            return@map StreetPassRecordViewModel(it)
+            return@map StreetPassRecordViewModel(it, phoneAliases, 1)
         }
     }
 
@@ -158,7 +161,26 @@ class RecordListAdapter internal constructor(context: Context) :
 
     internal fun setSourceData(records: List<StreetPassRecord>) {
         this.sourceData = records
+        rebuildPhoneAliases(records)
+
         setMode(mode)
+    }
+
+    private fun rebuildPhoneAliases(records: List<StreetPassRecord>) {
+        phoneAliases.clear()
+        for (record in records) {
+            if (record.modelC.indexOf("SELF") != -1)
+                phoneAliases.put(record.modelC, "My Phone")
+            else if (!phoneAliases.contains(record.modelC))
+                phoneAliases.put(record.modelC, "Phone " + phoneAliases.keys.size)
+
+            if (record.modelP.indexOf("SELF") != -1)
+                phoneAliases.put(record.modelP, "My Phone")
+            else if (!phoneAliases.contains(record.modelP))
+                phoneAliases.put(record.modelP, "Phone " + phoneAliases.keys.size)
+        }
+
+        Log.d("RECORDS", "phoneAliases: " + phoneAliases.toString())
     }
 
     override fun getItemCount() = records.size

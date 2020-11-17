@@ -16,6 +16,7 @@ object Preference {
     private const val ANNOUNCEMENT = "ANNOUNCEMENT"
     private const val IS_UPLOAD_COMPLETE = "IS_UPLOAD_COMPLETE"
     private const val IS_UPLOAD_SENT = "IS_UPLOAD_SENT"
+    private const val PHONE_ALIAS_INDEX = "PHONE_ALIAS_INDEX"
 
     fun putIsOnBoarded(context: Context, value: Boolean) {
         context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
@@ -93,4 +94,14 @@ object Preference {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getBoolean(IS_UPLOAD_COMPLETE, false)
     }
+
+    /*fun putPhoneAliasIndex(context: Context, value: Int) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putInt(PHONE_ALIAS_INDEX, value).apply()
+    }
+
+    fun getPhoneAliasIndex(context: Context): Int {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getInt(PHONE_ALIAS_INDEX, 1)
+    }*/
 }
