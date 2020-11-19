@@ -4,7 +4,7 @@
     <string name="permission_write_rationale">First Contact needs save files for logs (Debug builds only)</string>
     <string name="permission_location_rationale">Te rugăm acordă Location Permissions. Sistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
 
-    <string name="onboarding_title">Te avertizează rapid ca să poți lua măsuri</string>
+    <string name="onboarding_title">Te avertizează rapid, ca să poți lua măsuri</string>
     <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând documentul de confirmare) și aplicația determină că ai stat prea aproape de el, vei primi o Alertă de Expunere, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără localizare sau date personale. Nimeni nu poate afla cine ești, ce întâlniri ai sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
     <string name="continue_button">Continuă</string>
 
@@ -31,7 +31,7 @@
     
     <string name="share_this_app"><b>Distribuie</b> ca să fii avertizat</string>
     <string name="ask_friend">Înaintea (sau măcar la începutul) întâlnirii cu cineva, roagă-l să-și instaleze și el aplicația - ca să vă puteți avertiza reciproc. Click aici.</string>
-    <string name="share_message">Instalează-ți și tu aplicația First Contact ca să ne putem avertiza reciproc.\n. Mergi pe: https://first-contact.ro</string>
+    <string name="share_message">Instalează-ți și tu aplicația First Contact - ca să ne putem avertiza reciproc în caz că unul dintre noi e depistat Pozitiv.\n Mergi pe: https://first-contact.ro</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
     <string name="help_us_identify">Activează scanarea acordând aplicației permisiunile necesare</string>
@@ -51,7 +51,7 @@
 
     <!-- upload -->
     <string name="preupload_title">Avertizare contacți</string>
-    <string name="preupload_message">Apasă \'Avertizează contacții\' numai dacă ți-ai pregătit documentul care atestă că ești Pozitiv, <u>anonimizat</u> conform instrucțiunilor.\n\nDacă nu, click pe \'Instrucțiuni document\', urmează-le și apoi revii aici.</string>
+    <string name="preupload_message">Apasă \'Avertizează contacții\' numai dacă ai salvat pe telefon documentul care atestă că ești Pozitiv <u>anonimizat</u> conform instrucțiunilor.\n\nDacă nu, click pe \'Instrucțiuni document\', urmează-le și apoi revii aici.</string>
     <string name="preupload_anonimization_instructions">Instrucțiuni document</string>
     <string name="preupload_go_button">Avertizează contacții</string>
     <string name="preupload_message_disabled"><b>Ți-ai avertizat deja contacții.</b>\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și îți dorim să treci cât mai ușor prin această încercare!</string>
@@ -66,10 +66,10 @@
     <string name="upload_step_1_select_image_button">Selectare document</string>
 
     <string name="upload_step_2_title">PASUL 2</string>
-    <string name="upload_step_2_message">Ești de acord să încarci în Cloud documentul anonimizat și pseudonimele tale (temporare și anonime) pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați anonim?\n\n<b>Cei avertizați nu vor afla cine ești.</b></string>
+    <string name="upload_step_2_message">Ești de acord să încarci în Cloud documentul anonimizat și cheile tale (temporare și anonime) pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați anonim?\n\n<b>Cei avertizați nu vor afla cine ești.</b></string>
     <string name="upload_step_2_upload_confirm_button">Sunt de acord</string>
 
-    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale și documentul au fost încărcate. După verificarea documentului, contacții tăi vor primi o Alertă anonimă.\n\nDacă în 24 de ore nu primești confirmarea avertizării contacților, înseamnă că documentul nu corespunde cerințelor. Recitește instrucțiunile și repetă procedura - sau contactează-ne prin email la first.contact@cetatenii.org</string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Cheile tale și documentul au fost încărcate în Cloud. După verificarea documentului, contacții tăi vor primi o Alertă de Expunere.\n\nDacă în 24 de ore nu primești confirmarea avertizării contacților, înseamnă că documentul nu corespunde cerințelor. Recitește instrucțiunile și repetă procedura - sau contactează-ne prin email la first.contact@cetatenii.org</string>
     <string name="upload_step_3_done_button">OK</string>
 
     <!-- notifications -->
