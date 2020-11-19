@@ -4,12 +4,12 @@
     <string name="permission_write_rationale">First Contact needs save files for logs (Debug builds only)</string>
     <string name="permission_location_rationale">Te rugăm acordă Location Permissions. Sistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
 
-    <string name="onboarding_title">Avertizat, vei putea lua măsuri</string>
-    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Dacă unul dintre ei se va autorapora \'Pozitiv\' (prezentând documentul care atestă asta) și aplicația determină că ai stat prea aproape de el, vei primi o Alertă de Expunere, cu data și durata contactului.\n\n<b>Nimeni nu va afla că ai fost expus</b>, fiindcă datele întâlnirilor tale (anonime) se stochează și se prelucrează <u>doar pe telefonul tău</u>.</string>
+    <string name="onboarding_title">Te avertizează rapid ca să poți lua măsuri</string>
+    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând documentul de confirmare) și aplicația determină că ai stat prea aproape de el, vei primi o Alertă de Expunere, cu data și durata contactului.\n<b>Totul este complet anonim</b> - fără localizare sau date personale. Nimeni nu poate afla cine ești, ce întâlniri ai sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
-    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Location Permissions\n 3. Battery Optimisation\n\nDe ce și Location Permissions? \nDeși aplicația nu folosește niciun fel de localizare, sistemul Android cere <u>întotdeauna</u> acest tip de permisiuni în cazul scanării Bluetooth - fără să țină cont și de cazurile speciale (ca acesta) în care schimbarea frecventă a identificatorilor anonimi transmiși prin Bluetooth face imposibilă urmărirea traseelor utilizatorului.</string>
+    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Location Permissions\n 3. Battery Optimisation\n\nDe ce și Location Permissions? \nDeși aplicația nu folosește niciun fel de localizare, sistemul Android cere <u>întotdeauna</u> acest tip de permisiuni în cazul scanării Bluetooth - fără să țină cont și de cazurile speciale (ca acesta) în care schimbarea frecventă a identificatorilor anonimi (transmiși prin Bluetooth) face imposibilă urmărirea traseelor utilizatorului.</string>
     <string name="proceed">OK</string>
 
     <!-- home -->
@@ -17,8 +17,8 @@
     <string name="title_upload">Avertizează</string>
     <string name="title_help">Ajutor</string>
 
-    <string name="how_to_help">Fii și tu responsabil!</string>
-    <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și <b>avertizează-ți și tu contacții dacă vei fi confirmat \'Pozitiv\'</b>.\nPoți vedea jurnalul întâlnirilor tale Bluetooth prin dublu-click pe siglă.\n </string>
+    <string name="how_to_help">Ai grijă de tine și de ceilalți</string>
+    <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, dacă se va întâmpla să fii confirmat \'Pozitiv\', <b>avertizează-ți și tu \'anonim\' contacții</b>.\n<i>Poți vedea jurnalul întâlnirilor tale Bluetooth prin dublu-click pe siglă.</i>\n </string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
     <string name="bluetooth_on">Bluetooth - pornit</string>
@@ -44,7 +44,7 @@
     <string name="keep_push_on">Keep push notifications on too, so we can alert you if the app is not scanning.</string>
 
     <string name="exposure_alert_title">Alertă de Expunere</string>
-    <string name="exposure_body">Pe # ai stat timp de cel puțin $ lângă cineva autoraportat acum ca \'Pozitiv\'</string>
+    <string name="exposure_body">Pe # ai stat cel puțin $ lângă cineva autoraportat acum ca \'Pozitiv\'</string>
     <string name="view_infection_instructions_text">Recomandări</string>
 
     <string name="copyright">© 2020 Noi, Cetățenii</string>
@@ -66,14 +66,14 @@
     <string name="upload_step_1_select_image_button">Selectare document</string>
 
     <string name="upload_step_2_title">PASUL 2</string>
-    <string name="upload_step_2_message">Ești de acord să încarci în Cloud documentul anonimizat și pseudonimele tale (temporare și anonime) pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care te-ai întâlnit în această perioadă să fie avertizați anonim?\n\n<b>Cei avertizați nu vor afla cine ești.</b></string>
+    <string name="upload_step_2_message">Ești de acord să încarci în Cloud documentul anonimizat și pseudonimele tale (temporare și anonime) pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați anonim?\n\n<b>Cei avertizați nu vor afla cine ești.</b></string>
     <string name="upload_step_2_upload_confirm_button">Sunt de acord</string>
 
-    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale și documentul anonimizat au fost încărcate în Cloud. După verificarea documentului, contacții tăi vor primi o Avertizare anonimă.\n\nDacă în 24 de ore nu primești confirmarea avertizării contacților, înseamnă că documentul nu a corespuns cerințelor. Recitește instrucțiunile de anonimizare și repetă procedura - sau contactează-ne prin email la first.contact@cetatenii.org</string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale și documentul au fost încărcate. După verificarea documentului, contacții tăi vor primi o Alertă anonimă.\n\nDacă în 24 de ore nu primești confirmarea avertizării contacților, înseamnă că documentul nu a corespuns cerințelor. Recitește instrucțiunile și repetă procedura - sau contactează-ne prin email la first.contact@cetatenii.org</string>
     <string name="upload_step_3_done_button">OK</string>
 
     <!-- notifications -->
-    <string name="service_ok_title">First Contact scanează și vă avertizează! :)</string>
+    <string name="service_ok_title">First Contact scanează și vă avertizează :)</string>
     <string name="service_ok_body">Repornește telefonul dacă această notificare dispare</string>
     <string name="service_not_ok_title">Oh nu! :(</string>
     <string name="service_not_ok_body">Scanarea First Contact nu funcționează. Verifică!</string>
