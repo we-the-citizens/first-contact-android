@@ -72,13 +72,13 @@ class ExposureAlgorithm(contacts: List<StreetPassRecord>)
         for (phoneRecords in recordsPerPhone.values)
             for (i in 0..phoneRecords.size - 2)
             {
-                val time = ((phoneRecords[i + 1].timestamp - phoneRecords[i].timestamp) / (60 * 1000)).toInt()
+                val time = ((phoneRecords[i + 1].timestamp - phoneRecords[i].timestamp) / 1000).toInt()
 
                 if (time < timeGapMaxValue)    //skip gaps longer then 20 mins
-                    day.exposureInMinutes += time;
+                    day.exposureInSeconds += time;
             }
 
-        CentralLog.d(TAG,"day.exposureInMinutes = ${day.exposureInMinutes}")
+        CentralLog.d(TAG,"day.exposureInSeconds = ${day.exposureInSeconds}")
     }
 
     private fun getOtherPhone(event: StreetPassRecord): String {
@@ -93,7 +93,7 @@ class ExposureAlgorithm(contacts: List<StreetPassRecord>)
 
         for (day in daysList) {
 
-            if (day.exposureInMinutes < minDailyExposureTimeForAlert)   //remove days with too little exposure time
+            if (day.exposureInSeconds / 60 < minDailyExposureTimeForAlert)   //remove days with too little exposure time
                 continue
 
             val c = Calendar.getInstance()
@@ -102,7 +102,7 @@ class ExposureAlgorithm(contacts: List<StreetPassRecord>)
             resultDaysList.add(
                 DayResult(
                     date = c,
-                    exposureInMinutes = day.exposureInMinutes
+                    exposureInMinutes = (day.exposureInSeconds / 60).toInt()
                 )
             )
         }
@@ -123,7 +123,7 @@ class ExposureAlgorithm(contacts: List<StreetPassRecord>)
         var year: Int, var month: Int, var dayOfMonth: Int
     ){
 
-        var exposureInMinutes: Int = 0
+        var exposureInSeconds: Int = 0
         var records: MutableList<StreetPassRecord> = mutableListOf()
     }
 

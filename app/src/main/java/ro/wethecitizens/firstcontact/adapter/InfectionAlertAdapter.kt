@@ -57,7 +57,7 @@ class InfectionAlertAdapter(private val myDataset: List<InfectionAlertRecord>) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var text = body.replace("#", "<b>" + formatCalendar(myDataset.get(position).exposureDate) + "</b>");
-        text = text.replace("$", "<b>" + myDataset.get(position).exposureInMinutes.toString() + " min</b>");
+        text = text.replace("$", "<b>" + myDataset.get(position).exposureInMinutes.toString() + " minute</b>");
 
         holder.txt_body?.setText(Html.fromHtml(text));
     }
