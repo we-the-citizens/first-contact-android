@@ -30,13 +30,14 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:text="@string/onboarding_title"
+        android:textSize="24dp"
         android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivIcon" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvMessage"
+        android:id="@+id/tvOnboardingMessage"
         style="@style/OnboardingSubDesc"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -45,8 +46,8 @@
         android:gravity="left"
         android:scrollbars="vertical"
         android:text="@string/onboarding_desc"
+        android:textSize="16sp"
         android:visibility="visible"
-        app:autoSizeTextType="uniform"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@id/btn_onboardingStart"
         app:layout_constraintHorizontal_bias="0.0"

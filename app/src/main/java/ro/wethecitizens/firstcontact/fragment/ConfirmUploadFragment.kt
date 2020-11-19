@@ -6,6 +6,7 @@ package ro.wethecitizens.firstcontact.fragment
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.text.method.ScrollingMovementMethod
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_onboarding.*
 import kotlinx.android.synthetic.main.fragment_upload_confirm.*
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -49,6 +51,7 @@ class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_upload_confirm, container, false)
     }
 
@@ -68,6 +71,8 @@ class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
         enterPinFragmentBackButton.setOnClickListener {
             (parentFragment as UploadPageFragment).popStack()
         }
+
+        tvStep2Message.movementMethod = ScrollingMovementMethod()
     }
 
     override fun onDestroy() {

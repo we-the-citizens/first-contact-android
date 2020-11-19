@@ -63,13 +63,14 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvStep2Message"
                     android:layout_width="match_parent"
                     android:layout_height="340dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:scrollbars="vertical"
                     android:text="@string/upload_step_2_message"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </LinearLayout>

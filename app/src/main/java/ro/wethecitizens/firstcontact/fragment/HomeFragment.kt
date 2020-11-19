@@ -102,7 +102,7 @@ class HomeFragment : Fragment() {
             else {
 
                 animation_view.layoutParams.height =
-                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250f, resources.displayMetrics).toInt()
+                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200f, resources.displayMetrics).toInt()
 
                 btnViewInstructions.visibility = View.GONE
             }

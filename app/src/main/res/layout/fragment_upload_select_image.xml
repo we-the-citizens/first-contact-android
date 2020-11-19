@@ -33,12 +33,14 @@
                 android:text="@string/upload_step_1_title" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:textSize="18sp"
-                android:layout_marginTop="10dp"
+                android:id="@+id/tvStep1Message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="@string/upload_step_1_message" />
+                android:layout_marginTop="10dp"
+                android:scrollbars="vertical"
+                android:text="@string/upload_step_1_message"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:textSize="15sp"

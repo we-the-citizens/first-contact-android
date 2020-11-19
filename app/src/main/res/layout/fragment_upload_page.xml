@@ -30,7 +30,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textFontWeight="600"
-                android:textSize="32sp" />
+                android:textSize="32dp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textFontWeight="600"
-                android:textSize="18sp" />
+                android:textSize="18dp" />
 
         </LinearLayout>
 

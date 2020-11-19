@@ -35,17 +35,16 @@
                 android:id="@+id/tv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="2dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="2dp"
                 android:layout_marginBottom="20dp"
                 android:scrollbars="vertical"
                 android:text="@string/upload_step_3_your_data_has_been_uploaded"
                 android:textAlignment="center"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:autoSizeMinTextSize="10dp"
-                app:autoSizeTextType="uniform" />
+                app:autoSizeMinTextSize="10dp" />
 
         </LinearLayout>
 

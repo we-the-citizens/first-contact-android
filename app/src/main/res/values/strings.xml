@@ -4,8 +4,8 @@
     <string name="permission_write_rationale">First Contact needs save files for logs (Debug builds only)</string>
     <string name="permission_location_rationale">Te rugăm acordă Location Permissions. Sistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
 
-    <string name="onboarding_title">Te avertizează rapid, ca să poți lua măsuri</string>
-    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând documentul de confirmare) și aplicația determină că ai stat prea aproape de el, vei primi o Alertă de Expunere, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără localizare sau date personale. Nimeni nu poate afla cine ești, ce întâlniri ai sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
+    <string name="onboarding_title">Te avertizează rapid, ca să poți lua măsuri în timp util</string>
+    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând documentul de confirmare) și aplicația determină că ai stat prea aproape de el, vei primi o Alertă de Expunere, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără localizare sau date personale. Nimeni nu poate afla cine ești, ce întâlniri ai avut sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
@@ -18,7 +18,7 @@
     <string name="title_help">Ajutor</string>
 
     <string name="how_to_help">Ai grijă de tine și de ceilalți</string>
-    <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, dacă se va întâmpla să fii confirmat \'Pozitiv\', <b>avertizează-ți și tu <u>anonim</u> contacții</b>.\n\n<i>Poți vedea jurnalul întâlnirilor tale Bluetooth prin dublu-click pe siglă.</i>\n </string>
+    <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, dacă se va întâmpla să fii confirmat \'Pozitiv\', <b>avertizează-ți și tu <u>anonim</u> contacții</b>.\n\n<i>Poți vedea jurnalul întâlnirilor tale Bluetooth, prin dublu-click pe siglă.</i>\n </string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
     <string name="bluetooth_on">Bluetooth - pornit</string>
@@ -34,7 +34,7 @@
     <string name="share_message">Instalează-ți și tu aplicația First Contact - ca să ne putem avertiza reciproc în caz că unul dintre noi e depistat Pozitiv.\n Mergi pe: https://first-contact.ro</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
-    <string name="help_us_identify">Activează scanarea acordând aplicației permisiunile necesare</string>
+    <string name="help_us_identify">Activează scanarea, acordând aplicației permisiunile necesare</string>
     <string name="restart_app_setup"> Remediază </string>
     
     <string name="open_location_setting">Application needs location permission in order to work. Do you want to enable location permission?</string>
@@ -45,13 +45,13 @@
 
     <string name="exposure_alert_title">Alertă de Expunere</string>
     <string name="exposure_body">Pe # ai stat cel puțin $ lângă cineva autoraportat acum ca \'Pozitiv\'</string>
-    <string name="view_infection_instructions_text">Recomandări</string>
+    <string name="view_infection_instructions_text">Vezi recomandările</string>
 
     <string name="copyright">© 2020 Noi, Cetățenii</string>
 
     <!-- upload -->
     <string name="preupload_title">Avertizare contacți</string>
-    <string name="preupload_message">Apasă \'Avertizează contacții\' numai dacă ai salvat pe telefon documentul care atestă că ești Pozitiv <u>anonimizat</u> conform instrucțiunilor.\n\nDacă nu, click pe \'Instrucțiuni document\', urmează-le și apoi revii aici.</string>
+    <string name="preupload_message">Apasă \'Avertizează contacții\' numai dacă ai salvat pe telefon documentul care atestă că ești \'Pozitiv\', <u>anonimizat</u> conform instrucțiunilor.\n\nDacă nu, click pe \'Instrucțiuni document\', urmează-le și apoi revii aici.</string>
     <string name="preupload_anonimization_instructions">Instrucțiuni document</string>
     <string name="preupload_go_button">Avertizează contacții</string>
     <string name="preupload_message_disabled"><b>Ți-ai avertizat deja contacții.</b>\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și îți dorim să treci cât mai ușor prin această încercare!</string>
@@ -61,7 +61,7 @@
     <string name="upload_subtitle">dacă ai fost confirmat Pozitiv</string>
 
     <string name="upload_step_1_title">PASUL 1</string>
-    <string name="upload_step_1_message">Selectează (din Gallery) documentul care atestă că ești \'Pozitiv\', <u>anonimizat</u> în prealabil conform instrucțiunilor.</string>
+    <string name="upload_step_1_message">Selectează (din Gallery) documentul <u>anonimizat</u> (conform instrucțiunilor) care atestă că ești \'Pozitiv\'.</string>
     <string name="upload_step_1_second_message"></string>
     <string name="upload_step_1_select_image_button">Selectare document</string>
 

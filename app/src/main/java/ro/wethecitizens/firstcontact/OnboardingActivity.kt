@@ -18,6 +18,6 @@ class OnboardingActivity : FragmentActivity() {
             startActivity(intent)
         }
 
-        tvMessage.movementMethod = ScrollingMovementMethod()
+        tvOnboardingMessage.movementMethod = ScrollingMovementMethod()
     }
 }
