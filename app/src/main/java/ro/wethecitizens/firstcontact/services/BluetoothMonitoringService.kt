@@ -467,7 +467,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     private fun actionAdvertise() {
         setupAdvertiser()
         if (isBluetoothEnabled()) {
-            advertiser?.startAdvertising(advertisingDuration)
+            advertiser?.startAdvertising(Firebase.remoteConfig.getLong("advertising_duration"))
         } else {
             CentralLog.w(TAG, "Unable to start advertising, bluetooth is off")
         }
@@ -484,7 +484,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         streetPassScanner = streetPassScanner ?: StreetPassScanner(
             this,
             serviceUUID,
-            scanDuration
+            Firebase.remoteConfig.getLong("scan_duration")
         )
     }
 
@@ -500,9 +500,9 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     private fun scheduleScan() {
         if (!infiniteScanning) {
             commandHandler.scheduleNextScan(
-                scanDuration + calcPhaseShift(
-                    minScanInterval,
-                    maxScanInterval
+                Firebase.remoteConfig.getLong("scan_duration") + calcPhaseShift(
+                    Firebase.remoteConfig.getLong("min_scan_interval"),
+                    Firebase.remoteConfig.getLong("max_scan_interval")
                 )
             )
         }
@@ -510,7 +510,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
     private fun scheduleAdvertisement() {
         if (!infiniteAdvertising) {
-            commandHandler.scheduleNextAdvertise(advertisingDuration + advertisingGap)
+            commandHandler.scheduleNextAdvertise(Firebase.remoteConfig.getLong("advertising_duration") + Firebase.remoteConfig.getLong("advertising_interval"))
         }
     }
 
@@ -1030,14 +1030,6 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         val PENDING_MATCH_KEYS_CODE = 13
 
         var broadcastMessage: TemporaryID? = null
-
-        //should be more than advertising gap?
-        val scanDuration: Long = BuildConfig.SCAN_DURATION
-        val minScanInterval: Long = BuildConfig.MIN_SCAN_INTERVAL
-        val maxScanInterval: Long = BuildConfig.MAX_SCAN_INTERVAL
-
-        val advertisingDuration: Long = BuildConfig.ADVERTISING_DURATION
-        val advertisingGap: Long = BuildConfig.ADVERTISING_INTERVAL
 
         val maxQueueTime: Long = BuildConfig.MAX_QUEUE_TIME
         val bmCheckInterval: Long = BuildConfig.BM_CHECK_INTERVAL

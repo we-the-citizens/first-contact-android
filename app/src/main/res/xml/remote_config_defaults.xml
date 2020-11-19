@@ -2,10 +2,26 @@
 <!-- START xml_defaults -->
 <defaultsMap>
 
-    <!-- PIN source number -->
+    <!-- BLE scanning parameters -->
     <entry>
-        <key>sms_gateway_number</key>
-        <value>+40722710063</value>
+        <key>scan_duration</key>
+        <value>8</value>
+    </entry>
+    <entry>
+        <key>min_scan_interval</key>
+        <value>36</value>
+    </entry>
+    <entry>
+        <key>max_scan_interval</key>
+        <value>43</value>
+    </entry>
+    <entry>
+        <key>advertising_duration</key>
+        <value>180</value>
+    </entry>
+    <entry>
+        <key>advertising_interval</key>
+        <value>5</value>
     </entry>
 
     <!-- Exposure algorithm parameters -->
