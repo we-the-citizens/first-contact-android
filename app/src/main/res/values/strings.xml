@@ -5,7 +5,7 @@
     <string name="permission_location_rationale">Te rugăm acordă Location Permissions. Sistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
 
     <string name="onboarding_title">Te avertizează rapid ca să poți lua măsuri</string>
-    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând documentul de confirmare) și aplicația determină că ai stat prea aproape de el, vei primi o Alertă de Expunere, cu data și durata contactului.\n<b>Totul este complet anonim</b> - fără localizare sau date personale. Nimeni nu poate afla cine ești, ce întâlniri ai sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
+    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând documentul de confirmare) și aplicația determină că ai stat prea aproape de el, vei primi o Alertă de Expunere, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără localizare sau date personale. Nimeni nu poate afla cine ești, ce întâlniri ai sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
@@ -18,7 +18,7 @@
     <string name="title_help">Ajutor</string>
 
     <string name="how_to_help">Ai grijă de tine și de ceilalți</string>
-    <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, dacă se va întâmpla să fii confirmat \'Pozitiv\', <b>avertizează-ți și tu \'anonim\' contacții</b>.\n<i>Poți vedea jurnalul întâlnirilor tale Bluetooth prin dublu-click pe siglă.</i>\n </string>
+    <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, dacă se va întâmpla să fii confirmat \'Pozitiv\', <b>avertizează-ți și tu <u>anonim</u> contacții</b>.\n\n<i>Poți vedea jurnalul întâlnirilor tale Bluetooth prin dublu-click pe siglă.</i>\n </string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
     <string name="bluetooth_on">Bluetooth - pornit</string>
@@ -61,7 +61,7 @@
     <string name="upload_subtitle">dacă ai fost confirmat Pozitiv</string>
 
     <string name="upload_step_1_title">PASUL 1</string>
-    <string name="upload_step_1_message">Selectează (din Gallery) documentul care atestă că ești <u>Pozitiv</u>, <u>anonimizat</u> în prealabil conform instrucțiunilor.</string>
+    <string name="upload_step_1_message">Selectează (din Gallery) documentul care atestă că ești \'Pozitiv\', <u>anonimizat</u> în prealabil conform instrucțiunilor.</string>
     <string name="upload_step_1_second_message"></string>
     <string name="upload_step_1_select_image_button">Selectare document</string>
 
@@ -69,7 +69,7 @@
     <string name="upload_step_2_message">Ești de acord să încarci în Cloud documentul anonimizat și pseudonimele tale (temporare și anonime) pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați anonim?\n\n<b>Cei avertizați nu vor afla cine ești.</b></string>
     <string name="upload_step_2_upload_confirm_button">Sunt de acord</string>
 
-    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale și documentul au fost încărcate. După verificarea documentului, contacții tăi vor primi o Alertă anonimă.\n\nDacă în 24 de ore nu primești confirmarea avertizării contacților, înseamnă că documentul nu a corespuns cerințelor. Recitește instrucțiunile și repetă procedura - sau contactează-ne prin email la first.contact@cetatenii.org</string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale și documentul au fost încărcate. După verificarea documentului, contacții tăi vor primi o Alertă anonimă.\n\nDacă în 24 de ore nu primești confirmarea avertizării contacților, înseamnă că documentul nu corespunde cerințelor. Recitește instrucțiunile și repetă procedura - sau contactează-ne prin email la first.contact@cetatenii.org</string>
     <string name="upload_step_3_done_button">OK</string>
 
     <!-- notifications -->

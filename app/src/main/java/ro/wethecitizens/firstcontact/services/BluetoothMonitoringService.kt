@@ -467,7 +467,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     private fun actionAdvertise() {
         setupAdvertiser()
         if (isBluetoothEnabled()) {
-            advertiser?.startAdvertising(Firebase.remoteConfig.getLong("advertising_duration"))
+            advertiser?.startAdvertising(Firebase.remoteConfig.getLong("advertising_duration")*1000)
         } else {
             CentralLog.w(TAG, "Unable to start advertising, bluetooth is off")
         }
@@ -484,7 +484,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         streetPassScanner = streetPassScanner ?: StreetPassScanner(
             this,
             serviceUUID,
-            Firebase.remoteConfig.getLong("scan_duration")
+            Firebase.remoteConfig.getLong("scan_duration")*1000
         )
     }
 
@@ -500,9 +500,9 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     private fun scheduleScan() {
         if (!infiniteScanning) {
             commandHandler.scheduleNextScan(
-                Firebase.remoteConfig.getLong("scan_duration") + calcPhaseShift(
-                    Firebase.remoteConfig.getLong("min_scan_interval"),
-                    Firebase.remoteConfig.getLong("max_scan_interval")
+                Firebase.remoteConfig.getLong("scan_duration")*1000 + calcPhaseShift(
+                    Firebase.remoteConfig.getLong("min_scan_interval")*1000,
+                    Firebase.remoteConfig.getLong("max_scan_interval")*1000
                 )
             )
         }
@@ -510,7 +510,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
     private fun scheduleAdvertisement() {
         if (!infiniteAdvertising) {
-            commandHandler.scheduleNextAdvertise(Firebase.remoteConfig.getLong("advertising_duration") + Firebase.remoteConfig.getLong("advertising_interval"))
+            commandHandler.scheduleNextAdvertise(Firebase.remoteConfig.getLong("advertising_duration")*1000 + Firebase.remoteConfig.getLong("advertising_interval")*1000)
         }
     }
 
