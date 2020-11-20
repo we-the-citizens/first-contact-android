@@ -74,7 +74,7 @@ class ExposureAlgorithm(contacts: List<StreetPassRecord>)
             {
                 val time = ((phoneRecords[i + 1].timestamp - phoneRecords[i].timestamp) / 1000).toInt()
 
-                if (time < timeGapMaxValue)    //skip gaps longer then 20 mins
+                if (time / 60 < timeGapMaxValue)    //skip gaps longer then 20 mins
                     day.exposureInSeconds += time;
             }
 
