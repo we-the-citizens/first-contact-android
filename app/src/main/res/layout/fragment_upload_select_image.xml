@@ -19,18 +19,18 @@
             android:layout_height="60dp"></LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="3"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/upload_step_1_title" />
+                android:text="@string/upload_step_1_title"
+                android:textSize="15sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvStep1Message"
@@ -39,15 +39,14 @@
                 android:layout_marginTop="10dp"
                 android:scrollbars="vertical"
                 android:text="@string/upload_step_1_message"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="18sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:textSize="15sp"
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/upload_step_1_second_message" />
+                android:layout_marginTop="10dp"
+                android:text="@string/upload_step_1_second_message"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -92,18 +91,18 @@
 
         <Button
             android:id="@+id/verifyCallerFragmentActionButton"
-            android:background="@drawable/gradient"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textColor="@color/white"
-            android:text="@string/upload_step_1_select_image_button"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/gradient"
             android:fontFamily="@font/font"
+            android:text="@string/upload_step_1_select_image_button"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textFontWeight="600"
             android:textSize="18sp"
-            android:textStyle="normal"
-            android:textAllCaps="false" />
+            android:textStyle="normal" />
     </LinearLayout>
 
 </LinearLayout>

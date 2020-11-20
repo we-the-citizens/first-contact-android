@@ -28,7 +28,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:paddingBottom="20dp"
+                android:paddingBottom="5dp"
                 android:visibility="visible">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -47,7 +47,7 @@
                     android:autoLink="web"
                     android:text="@string/copyright"
                     android:textColor="@color/blue_update"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -140,11 +140,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity="left"
-                            android:layout_marginLeft="25dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_weight="1"
                             android:gravity="left|center_vertical"
-                            android:paddingLeft="12dp"
-                            android:paddingRight="16dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="10dp"
                             android:text="@string/ask_friend"
                             android:textColor="@color/grey_2"
                             android:textSize="16sp"

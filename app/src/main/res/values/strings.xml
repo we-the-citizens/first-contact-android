@@ -5,7 +5,7 @@
     <string name="permission_location_rationale">Te rugăm acordă Location Permissions. Sistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
 
     <string name="onboarding_title">Te avertizează rapid, ca să poți lua măsuri în timp util</string>
-    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând documentul de confirmare) și aplicația determină că ai stat prea aproape de el, vei primi o Alertă de Expunere, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără localizare sau date personale. Nimeni nu poate afla cine ești, ce întâlniri ai avut sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
+    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv\' (cu document de confirmare) și aplicația determină că ai stat prea aproape de el, vei primi o Alertă de Expunere, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără localizare sau date personale. Nimeni nu poate afla cine ești, ce întâlniri ai avut sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
@@ -30,8 +30,8 @@
     <string name="app_permission_fully_setup_desc">Lasă toate aceste permisiuni active ca să poți monitoriza permanent.</string>
     
     <string name="share_this_app"><b>Distribuie</b> ca să fii avertizat</string>
-    <string name="ask_friend">Înaintea (sau măcar la începutul) întâlnirii cu cineva, roagă-l să-și instaleze și el aplicația - ca să vă puteți avertiza reciproc. Click aici.</string>
-    <string name="share_message">Instalează-ți și tu aplicația First Contact - ca să ne putem avertiza reciproc în caz că unul dintre noi e depistat Pozitiv.\n Mergi pe: https://first-contact.ro</string>
+    <string name="ask_friend">Înaintea (sau la începutul) întâlnirii cu cineva, roagă-l să-și instaleze și el aplicația - să vă puteți avertiza reciproc.</string>
+    <string name="share_message">Instalează-ți și tu aplicația First Contact - ca să ne putem avertiza reciproc în caz că unul dintre noi e depistat Pozitiv.\nMergi pe: https://first-contact.ro</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
     <string name="help_us_identify">Activează scanarea, acordând aplicației permisiunile necesare</string>
@@ -69,7 +69,7 @@
     <string name="upload_step_2_message">Ești de acord să încarci în Cloud documentul anonimizat și cheile tale (temporare și anonime) pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați anonim?\n\n<b>Cei avertizați nu vor afla cine ești.</b></string>
     <string name="upload_step_2_upload_confirm_button">Sunt de acord</string>
 
-    <string name="upload_step_3_your_data_has_been_uploaded">Cheile tale și documentul au fost încărcate în Cloud. După verificarea documentului, contacții tăi vor primi o Alertă de Expunere.\n\nDacă în 24 de ore nu primești confirmarea avertizării contacților, înseamnă că documentul nu corespunde cerințelor. Recitește instrucțiunile și repetă procedura - sau contactează-ne prin email la first.contact@cetatenii.org</string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Cheile tale și documentul au fost încărcate în Cloud. După verificarea documentului, contacții tăi vor primi o Alertă de Expunere.\n\nDacă în 24 ore nu primești confirmarea avertizării, înseamnă că documentul nu corespunde cerințelor. Recitește instrucțiunile și repetă procedura sau contactează-ne la first.contact@cetatenii.org</string>
     <string name="upload_step_3_done_button">OK</string>
 
     <!-- notifications -->

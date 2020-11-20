@@ -19,14 +19,14 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="center_horizontal|top"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:contentDescription="ok"
                 android:src="@drawable/done_icon"></ImageView>
@@ -41,9 +41,8 @@
                 android:layout_marginBottom="20dp"
                 android:scrollbars="vertical"
                 android:text="@string/upload_step_3_your_data_has_been_uploaded"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textSize="16sp"
-                android:textStyle="bold"
                 app:autoSizeMinTextSize="10dp" />
 
         </LinearLayout>
@@ -61,8 +60,8 @@
             android:id="@+id/uploadCompleteFragmentActionButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/gradient"
             android:fontFamily="@font/font"
             android:text="@string/upload_step_3_done_button"

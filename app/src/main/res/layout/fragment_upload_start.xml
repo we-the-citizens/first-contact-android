@@ -34,8 +34,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:text="@string/preupload_message"
-                    android:textAlignment="center"
-                    android:textSize="20dp"
+                    android:textAlignment="textStart"
+                    android:textColor="#505050"
+                    android:textSize="18sp"
                     android:textStyle="normal" />
 
             </LinearLayout>
@@ -49,12 +50,12 @@
                     android:id="@+id/tv_anonimization"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:text="@string/preupload_anonimization_instructions"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:textColor="@color/blue_update"
                     android:textSize="20sp"
                     android:textStyle="normal" />
@@ -73,18 +74,18 @@
 
         <Button
             android:id="@+id/forUseFragmentActionButton"
-            android:background="@drawable/gradient"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:fontFamily="@font/font"
-            android:textFontWeight="600"
-            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/gradient"
+            android:fontFamily="@font/font"
             android:text="@string/preupload_go_button"
-            android:textStyle="normal"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textFontWeight="600"
+            android:textSize="18sp"
+            android:textStyle="normal" />
     </LinearLayout>
 
 </LinearLayout>

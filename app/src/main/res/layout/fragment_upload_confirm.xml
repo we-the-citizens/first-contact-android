@@ -48,30 +48,25 @@
             android:text="@string/upload_step_2_title" />
 
         <LinearLayout
+            android:id="@+id/tvSteo2Layout"
             android:layout_width="match_parent"
             android:layout_height="434dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="0dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="3"
             android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvStep2Message"
                 android:layout_width="match_parent"
-                android:layout_height="297dp"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvStep2Message"
-                    android:layout_width="match_parent"
-                    android:layout_height="340dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:scrollbars="vertical"
-                    android:text="@string/upload_step_2_message"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:scrollbars="vertical"
+                android:text="@string/upload_step_2_message"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -86,17 +81,17 @@
 
         <Button
             android:id="@+id/enterPinActionButton"
-            android:fontFamily="@font/font"
-            android:textFontWeight="600"
-            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/gradient"
+            android:fontFamily="@font/font"
             android:text="@string/upload_step_2_upload_confirm_button"
             android:textAllCaps="false"
             android:textColor="@color/white"
+            android:textFontWeight="600"
+            android:textSize="18sp"
             android:textStyle="normal" />
     </LinearLayout>
 
