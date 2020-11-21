@@ -2,14 +2,14 @@
 
     <!-- onboarding -->
     <string name="permission_write_rationale">First Contact needs save files for logs (Debug builds only)</string>
-    <string name="permission_location_rationale">Te rugăm acordă Location Permissions. Sistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
+    <string name="permission_location_rationale">Te rugăm acordă Permisiuni de localizare. Sistemul Android nu permite utilizarea Bluetooth BLE dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
 
     <string name="onboarding_title">Te avertizează rapid, ca să poți lua măsuri în timp util</string>
-    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând documentul de confirmare) și aplicația determină că ai stat prea aproape de el, <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără date personale, localizare sau urmărire. Nimeni nu poate afla cine ești, ce întâlniri ai avut sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
+    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Dacă unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând documentul de confirmare) și aplicația determină că în ultimele 14 zile ai stat lângă el, <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără date personale, localizare sau urmărire. Nimeni nu poate afla cine ești, ce întâlniri ai avut sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
-    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Location Permissions\n 3. Battery Optimisation\n\n<b>De ce și Location Permissions?</b>\nDeși aplicația nu folosește niciun fel de localizare, sistemul Android cere <u>întotdeauna</u> acest tip de permisiuni în cazul scanării Bluetooth - fără să țină cont și de cazurile particulare (ca acesta) în care schimbarea frecventă a identificatorilor anonimi (care se transmit prin Bluetooth) face imposibilă urmărirea traseelor utilizatorului.</string>
+    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Permisiuni de localizare\n 3. Oprire optimizare baterie\n\n<b>De ce și Permisiuni de localizare?</b>\nDeși aplicația <u>nu folosește deloc localizarea</u>, sistemul Android cere <u>întotdeauna</u> acest tip de permisiuni în cazul utilizării Bluetooth Low Energy (BLE) - care <u>ar putea</u> permite urmărirea - fără a distinge de cazuri particulare (ca acesta) în care schimbarea frecventă a identificatorilor anonimi (ce se transmit prin BLE) face imposibilă urmărirea traseelor utilizatorului.</string>
     <string name="proceed">OK</string>
 
     <!-- home -->
@@ -21,16 +21,16 @@
     <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, dacă se va întâmpla să fii confirmat \'Pozitiv\', <b>avertizează-ți și tu <u>anonim</u> contacții</b>.\n\n<i>Poți vedea jurnalul întâlnirilor tale Bluetooth, prin dublu-click pe siglă.</i>\n </string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
-    <string name="bluetooth_on">Bluetooth - pornit</string>
-    <string name="location_on">Location Permissions - pornit</string>
-    <string name="battery_optimiser">Battery Optimisation - oprit</string>
-    <string name="push_notifications">Push Notification - pornit</string>
+    <string name="bluetooth_on">Bluetooth</string>
+    <string name="location_on">Permisiuni de localizare</string>
+    <string name="battery_optimiser">Oprire optimizare baterie</string>
+    <string name="push_notifications">Push Notification</string>
 
     <string name="app_permission_fully_setup">Toate permisiunile necesare au fost setate</string>
     <string name="app_permission_fully_setup_desc">Lasă toate aceste permisiuni active ca să poți monitoriza permanent.</string>
     
     <string name="share_this_app">DISTRIBUIE ca să fii avertizat</string>
-    <string name="ask_friend">Înainte de a te întâlni cu un cunoscut, roagă-l să-și instaleze și el aplicația - ca să vă puteți avertiza reciproc dacă va fi cazul.</string>
+    <string name="ask_friend">Înainte de a te întâlni cu cineva cunoscut, roagă-l să-și instaleze și el aplicația - ca să vă puteți avertiza reciproc dacă va fi cazul.</string>
     <string name="share_message">Instalează-ți și tu aplicația First Contact - ca să ne putem avertiza reciproc, în caz că unul dintre noi va fi depistat Pozitiv. Mergi pe https://first-contact.ro</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
