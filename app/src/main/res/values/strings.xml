@@ -9,7 +9,7 @@
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
-    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Permisiuni de localizare\n 3. Oprire optimizare baterie\n\n<b>De ce și Permisiuni de localizare?</b>\nDeși aplicația <u>nu folosește localizarea</u> în niciun fel, sistemul Android cere <u>întotdeauna</u> acest tip de permisiuni în cazul utilizării Bluetooth Low Energy (BLE) - care <u>ar putea</u> permite urmărirea - fără a distinge de cazuri particulare (cum este și acesta) în care schimbarea frecventă a identificatorilor anonimi (ce se transmit prin BLE) face imposibilă urmărirea traseelor utilizatorului.</string>
+    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Permisiuni de localizare\n 3. Oprire optimizare baterie\n\n<b>De ce și Permisiuni de localizare?</b>\nDeși aplicația <u>nu folosește localizarea</u> în niciun fel, sistemul Android cere <u>întotdeauna</u> acest tip de permisiuni în cazul utilizării Bluetooth Low Energy (BLE) - care <u>ar putea</u> permite urmărirea - fără a distinge cazuri particulare (ca acesta) în care schimbarea frecventă a identificatorilor anonimi (ce se transmit prin BLE) face imposibilă urmărirea traseelor utilizatorului.</string>
     <string name="proceed">OK</string>
 
     <!-- home -->
