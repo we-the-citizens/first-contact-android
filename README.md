@@ -2,15 +2,16 @@
 
 ![alt text](./FirstContact.png "First Contact Logo")
 
-First Contact was built (initially) to become the Romanian component of the cross-border network of Automatic, Anonymous Contact Tracing applications designed to stop Coronavirus spreading - a network of several compatible national applications, built on top of the Bluetooth Exposure Notification protocol, developed in collaboration by Google and Apple (https://www.google.com/covid19/exposurenotifications/). First Contact satisfies the EU regulations contained in the EU toolbox for the use of mobile applications for contact tracing and / or warning (https://ec.europa.eu/health/sites/health/files/ehealth/docs/covid-19_apps_en.pdf).
+First Contact was build to become Romania's anonymous Contact Tracing application, designed to limit the spread of the Coronavirus. This application fully satisfies (and even exceeds) the privacy regulations for the mobile applications to support contact tracing established in the <a href="https://ec.europa.eu/health/sites/health/files/ehealth/docs/covid-19_apps_en.pdf">Common EU Toolbox for Member States</a>.
 
-Our project was split into 3 stages:
-- Stage 1: the implementation of a prototype app, based on a heavily modified version of the Bluetrace protocol (https://bluetrace.io/), that has been changed to follow a fully descentralized, privacy-centric model, identical with the Exposure Notifications architecture. 
-- Stage 2: public release of the prototype in order to demostrate the viability of the concept and persuade authorities and the general public that Romania should adop a contact tracing solution based on Exposure Notifications API and that First Contact could easily become the official Contact Tracing application of Romania.
-- Stage 3: after receiving approval from the authorities, we replace the core engine of the app, from the current Bluetrace BLE detection to the Exposure Notification API and finalize the final, official COVID-19 Contact Tracing application of Romania.
+Our development strategy splitted the project in 3 stages:
+- Stage 1: The development of a prototype app, based on a heavily modified version of the <a href="https://bluetrace.io/Bluetrace">BlueTrace protocol</a>, that has been changed to follow a fully descentralized, privacy-centric model, similar to the <a href="https://developers.google.com/android/exposure-notifications/exposure-notifications-api">Google&Apple's Exposure Notifications architecture</a>. 
+- Stage 2: Public release of a prototype version, in order to demostrate the viability of the concept and to persuade authorities and the general public that Romania should adopt a privacy-centric, decentralised, Bluetooth based contact tracing solution.
+- <del>Stage 3 - Plan A: In case of approval by the authorities, we intended to replace the core engine of the app, from the current BlueTrace BLE detection to the Google&Apple's Exposure Notification API.</del>
+- Stage 3 - Plan B: Adjusting the application's architecture, so it can fulfill its intended role (to warn users in case of an exposure to Coronavirus), independent of the romanian authorities involvement.
 
-<b>Because of the reluctance of the authorities to support this project, we modified the application in order to be able to fulfill its role (to warn users in case of an exposure to Coronavirus) even without the cooperation of the authorities.</b>
+<b>The reluctance of authorities in supporting this project left us with no other choice but to go ahead with the Plan B, in the final stage of this project.</b>
 
-Full client sources are released under GPL3 license (https://github.com/we-the-citizens/first-contact-android/blob/final/LICENSE.md), as the original OpenTrace (https://github.com/opentrace-community/opentrace-android) codebase. We invite everybody to review our code and make comments, suggestions or contributions. 
+The client sources are released under <a href="https://github.com/we-the-citizens/first-contact-android/blob/final/LICENSE.md">GPL3 license</a>, as the original <a href="https://github.com/opentrace-community/opentrace-android">OpenTrace codebase</a>. We invite all those interested to review our code and make comments, suggestions or contributions. 
 
 Visit https://first-contact.ro to learn more.
