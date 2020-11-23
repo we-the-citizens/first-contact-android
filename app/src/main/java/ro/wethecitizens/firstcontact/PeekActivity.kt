@@ -17,8 +17,10 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.database_peek.*
+import ro.wethecitizens.firstcontact.adapter.RecordListAdapter
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordStorage
 import ro.wethecitizens.firstcontact.streetpass.view.RecordViewModel
+import ro.wethecitizens.firstcontact.utils.Utils
 
 
 class PeekActivity : AppCompatActivity() {
@@ -32,7 +34,8 @@ class PeekActivity : AppCompatActivity() {
 
     private fun newPeek() {
         setContentView(R.layout.database_peek)
-        val adapter = RecordListAdapter(this)
+        val adapter =
+            RecordListAdapter(this)
         recyclerview.adapter = adapter
         val layoutManager = LinearLayoutManager(this)
         recyclerview.layoutManager = layoutManager

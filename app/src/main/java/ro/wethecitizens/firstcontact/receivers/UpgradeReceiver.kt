@@ -5,7 +5,7 @@ package ro.wethecitizens.firstcontact.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import ro.wethecitizens.firstcontact.Utils
+import ro.wethecitizens.firstcontact.utils.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
 
 class UpgradeReceiver : BroadcastReceiver() {

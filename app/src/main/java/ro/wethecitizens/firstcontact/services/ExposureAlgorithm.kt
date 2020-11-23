@@ -2,19 +2,15 @@
 
 package ro.wethecitizens.firstcontact.services
 
-import ro.wethecitizens.firstcontact.Utils
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import ro.wethecitizens.firstcontact.utils.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecord
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ExposureAlgorithm(
-
-    contacts: List<StreetPassRecord>,
-    minimumExposureTimeInMinutes: Int,
-    enableTrace: Boolean
-
-)
+class ExposureAlgorithm(contacts: List<StreetPassRecord>)
 {
 
     fun getExposureDays(): List<DayResult> {
@@ -25,17 +21,6 @@ class ExposureAlgorithm(
 
         return resultDaysList.toList()
     }
-
-
-
-    /* Private fun */
-
-    fun d(s: String) {
-
-        if (isTraceActive)
-            CentralLog.d("ExposureAlgorithm", s)
-    }
-
 
     private fun buildDaysList() {
 
@@ -65,61 +50,50 @@ class ExposureAlgorithm(
 
     private fun calculateAllDaysExposureTime() {
 
-        d("-----------------------")
-        d("calculateAllDaysExposureTime")
-        d("")
-
-
         for (day in daysList)
             calculateOneDayExposureTime(day)
     }
 
     private fun calculateOneDayExposureTime(day: Day) {
 
-        d("-----------------------")
-        d("calculateOneDayExposureTime")
-        d("")
-
         val records: MutableList<StreetPassRecord> = ArrayList(day.records)    //clone day records, so we can remove elements
 
-        var i = 0;
-        while (i < records.size - 1) {
+        val recordsPerPhone = mutableMapOf<String, MutableList<StreetPassRecord>>()
 
-            var rec = records[i]
-            val c = Calendar.getInstance()
-            c.timeInMillis = rec.timestamp
-            d("${rec.id} ${rec.msg} ${Utils.formatCalendarToISO8601String(c)}")
+        for (record in records)
+        {
+            val phone = getOtherPhone(record)
+            if (!recordsPerPhone.containsKey(phone))
+                recordsPerPhone.put(phone, mutableListOf<StreetPassRecord>())
 
-            var lastRec: StreetPassRecord = rec
-            var j = i + 1;
-            while (j < Math.min(i + 50, records.size)) {   //50 records later and we're sure to cover the 15 min lifespan of the current id
-                if (rec.msg == records[j].msg) {
-                    lastRec = records[j]    //remember the lat occurance of the tempID
-                    records.removeAt(j)     //remove that record
-                    j--;
-                }
-                j++;
-            }
-
-            if(rec != lastRec) {
-                val diff: Int = ((lastRec.timestamp - rec.timestamp) / (60 * 1000)).toInt()
-                if (diff >= deltaMinutes)
-                    day.exposureInMinutes += diff;
-            }
-
-            i++;
+            recordsPerPhone.get(phone)?.add(record)
         }
 
-        d("day.exposureInMinutes = ${day.exposureInMinutes}")
-        d("")
-        d("")
+        for (phoneRecords in recordsPerPhone.values)
+            for (i in 0..phoneRecords.size - 2)
+            {
+                val time = ((phoneRecords[i + 1].timestamp - phoneRecords[i].timestamp) / 1000).toInt()
+
+                if (time / 60 < timeGapMaxValue)    //skip gaps longer then 20 mins
+                    day.exposureInSeconds += time;
+            }
+
+        CentralLog.d(TAG,"day.exposureInSeconds = ${day.exposureInSeconds}")
+    }
+
+    private fun getOtherPhone(event: StreetPassRecord): String {
+
+        if (event.modelC.indexOf("SELF") != -1)
+            return event.modelP
+        else
+            return event.modelC
     }
 
     private fun composeResult() {
 
         for (day in daysList) {
 
-            if (day.exposureInMinutes < deltaMinutes * 2)   //remove
+            if (day.exposureInSeconds / 60 < minDailyExposureTimeForAlert)   //remove days with too little exposure time
                 continue
 
             val c = Calendar.getInstance()
@@ -128,7 +102,7 @@ class ExposureAlgorithm(
             resultDaysList.add(
                 DayResult(
                     date = c,
-                    exposureInMinutes = day.exposureInMinutes
+                    exposureInMinutes = (day.exposureInSeconds / 60).toInt()
                 )
             )
         }
@@ -136,11 +110,9 @@ class ExposureAlgorithm(
 
 
     /* Private members */
-
-    private val isTraceActive = enableTrace
-
     private val records: List<StreetPassRecord> = contacts
-    private val deltaMinutes: Int = minimumExposureTimeInMinutes
+    private val timeGapMaxValue: Int = Firebase.remoteConfig.getLong("time_gap_max_value").toInt()
+    private val minDailyExposureTimeForAlert: Int = Firebase.remoteConfig.getLong("min_daily_exposure_time_for_alert").toInt()
     private val daysList: MutableList<Day> = mutableListOf()
     private val resultDaysList: MutableList<DayResult> = mutableListOf()
 
@@ -151,14 +123,17 @@ class ExposureAlgorithm(
         var year: Int, var month: Int, var dayOfMonth: Int
     ){
 
-        var exposureInMinutes: Int = 0
+        var exposureInSeconds: Int = 0
         var records: MutableList<StreetPassRecord> = mutableListOf()
     }
 
 
     class DayResult(
         var date: Calendar, var exposureInMinutes: Int
-    ){
+    ){ }
 
+    companion object {
+
+        private val TAG = "BTMService"
     }
 }

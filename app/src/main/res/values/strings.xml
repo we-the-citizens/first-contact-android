@@ -1,45 +1,40 @@
 <resources>
 
+    <!-- onboarding -->
     <string name="permission_write_rationale">First Contact needs save files for logs (Debug builds only)</string>
+    <string name="permission_location_rationale">Te rugăm acordă Permisiuni de localizare. Sistemul Android nu permite utilizarea Bluetooth BLE dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
 
-    <string name="stop">Stop</string>
+    <string name="onboarding_title">Te avertizează rapid, ca să poți lua măsuri în timp util</string>
+    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Dacă unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând documentul de confirmare) și aplicația determină că în ultimele 14 zile ai stat lângă el, <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără date personale, localizare sau urmărire. Nimeni nu poate afla cine ești, ce întâlniri ai avut sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
+    <string name="continue_button">Continuă</string>
 
-    <string name="permission_location_rationale">Te rugăm acordă Location Permissions. Sistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
+    <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
+    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Permisiuni de localizare\n 3. Oprire optimizare baterie\n\n<b>De ce și Permisiuni de localizare?</b>\nDeși aplicația <u>nu folosește localizarea</u> în niciun fel, sistemul Android cere <u>întotdeauna</u> acest tip de permisiuni în cazul utilizării Bluetooth Low Energy (BLE) - care <u>ar putea</u> permite urmărirea - fără a distinge cazuri particulare (ca acesta) în care schimbarea frecventă a identificatorilor anonimi (ce se transmit prin BLE) face imposibilă urmărirea traseelor utilizatorului.</string>
+    <string name="proceed">OK</string>
 
-    <string name="ble_not_supported">Acest dispozitiv nu suportă tehnologia Bluetooth Low Energy</string>
-
-    <string name="tv_onboarding_title">Testează cum te poți proteja\npe tine și pe cei din jur</string>
-    <string name="tv_onboarding_desc">First Contact te va avertiza dacă ai avut un contact apropiat cu un infec-tester (tester cu rol de infectat).</string>
-    <string name="tv_onboarding_desc_sub">Cum se poate face asta? \nFirst Contact va scana semnalele Bluetooth din proximitate și va înregistra în telefonul tău pseudonimele temporare ale altor utilizatori cu care ai avut contact. Dacă ulterior unul dintre ei e desemnat ca infec-tester și First Contact determină că acel contact a fost apropiat, vei primi o Alertă. \nDoar tu vei putea afla dacă ai fost expus unui astfel de contact. First Contact îți va face recomandări, însă tu vei decide cum vei acționa în acel caz.</string>
-    <string name="i_want_to_help">Continuă</string>
-
-    <string name="setup_app_permission">\Acordă permisiuni aplicației</string>
-    <string name="setup_app_permission_title">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:</string>
-    <string name="bluetooth">1. Bluetooth</string>
-    <string name="location_permissions">2. Location Permissions</string>
-    <string name="battery_optimiser_opt">3. Battery Optimisation</string>
-    <string name="notes">De ce Location Permissions? \nSistemul Android nu permite scanarea Bluetooth (BLE) dacă nu se acordă acest tip de permisiuni. Însă First Contact nu va avea acces la localizarea ta fizică - nu folosește GPS, Wi-Fi sau celulele GSM - și nici nu permite urmărirea ta prin semnalul Bluetooth pe care-l emite.\nÎn versiunea finală, această permisiune nici nu va mai fi necesară.</string>
-    <string name="proceed">Începe</string>
-    <string name="continue_">Continuă</string>
-  
+    <!-- home -->
     <string name="title_home">Acasă</string>
     <string name="title_upload">Avertizează</string>
     <string name="title_help">Ajutor</string>
 
-    <string name="how_to_help">Continuă să testezi pentru tine și ceilalți participanți</string>
-    <string name="help_action">Ține Bluetooth pornit și lasă aplicația să ruleze în background, până la sfârșitul Programului de testare.</string>
+    <string name="how_to_help">Ai grijă de tine și de ceilalți</string>
+    <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, dacă se va întâmpla să fii confirmat \'Pozitiv\', <b>avertizează-ți și tu <u>anonim</u> contacții</b>.\n\n<i>Poți vedea jurnalul întâlnirilor tale Bluetooth, prin dublu-click pe siglă.</i>\n </string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
-    <string name="bluetooth_on">Bluetooth - pornit</string>
-    <string name="location_on">Location Permission - pornit</string>
-    <string name="battery_optimiser">Battery Optimisation - oprit</string>
-    <string name="push_noti">Push Notification - pornit</string>
+    <string name="bluetooth_on">Bluetooth</string>
+    <string name="location_on">Permisiuni de localizare</string>
+    <string name="battery_optimiser">Oprire optimizare baterie</string>
+    <string name="push_notifications">Push Notification</string>
+
+    <string name="app_permission_fully_setup">Toate permisiunile necesare au fost setate</string>
+    <string name="app_permission_fully_setup_desc">Lasă toate aceste permisiuni active ca să poți monitoriza permanent.</string>
     
-    <string name="share_this_app">Distribuie aplicația</string>
-    <string name="ask_friend">Ajută-ți prietenii și familia să-și instaleze și ei First Contact</string>
+    <string name="share_this_app">DISTRIBUIE ca să fii avertizat</string>
+    <string name="ask_friend">Înainte de a te întâlni cu cineva cunoscut, roagă-l să-și instaleze și el aplicația - ca să vă puteți avertiza reciproc dacă va fi cazul.</string>
+    <string name="share_message">Instalează-ți și tu aplicația First Contact - ca să ne putem avertiza reciproc, în caz că unul dintre noi va fi depistat Pozitiv. Mergi pe https://first-contact.ro</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
-    <string name="help_us_identify">Testează aplicația acordându-i permisiunile necesare</string>
+    <string name="help_us_identify">Activează scanarea, acordând aplicației permisiunile necesare</string>
     <string name="restart_app_setup"> Remediază </string>
     
     <string name="open_location_setting">Application needs location permission in order to work. Do you want to enable location permission?</string>
@@ -47,121 +42,50 @@
     <string name="cancel">Cancel</string>
     
     <string name="keep_push_on">Keep push notifications on too, so we can alert you if the app is not scanning.</string>
-    <string name="too_many_requests">Too many requests. Please try again later.</string>
 
-    <string name="service_ok_title">First Contact scanează ca să poți testa! :)</string>
+    <string name="exposure_alert_title">Alertă de Expunere</string>
+    <string name="exposure_body">Pe # ai stat cel puțin $ lângă cineva autoraportat acum ca \'Pozitiv\'</string>
+    <string name="view_infection_instructions_text">Vezi recomandările</string>
+
+    <string name="copyright">© 2020 Noi, Cetățenii</string>
+
+    <!-- upload -->
+    <string name="preupload_title">Avertizare contacți</string>
+    <string name="preupload_message">Apasă \'Avertizează contacții\' numai dacă ai salvat pe telefon documentul care atestă că ești \'Pozitiv\' și l-ai <u>anonimizat</u> conform instrucțiunilor.\n\nDacă nu ai făcut încă asta, click pe \'Instrucțiuni document\', urmează-le și apoi revii aici.</string>
+    <string name="preupload_anonimization_instructions">Instrucțiuni document</string>
+    <string name="preupload_go_button">Avertizează contacții</string>
+    <string name="preupload_message_disabled"><b>Ți-ai avertizat deja contacții.</b>\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și îți dorim să treci cât mai ușor prin această încercare!</string>
+    <string name="preupload_go_button_disabled">contacții sunt avertizați</string>
+
+    <string name="upload_title">Avertizare contacți</string>
+    <string name="upload_subtitle">dacă ai fost confirmat Pozitiv</string>
+
+    <string name="upload_step_1_title">PASUL 1</string>
+    <string name="upload_step_1_message">Selectează (din Gallery) documentul <u>anonimizat</u> (conform instrucțiunilor) care atestă că ai fost confirmat \'Pozitiv\'.</string>
+    <string name="upload_step_1_second_message"></string>
+    <string name="upload_step_1_select_image_button">Selectare document</string>
+
+    <string name="upload_step_2_title">PASUL 2</string>
+    <string name="upload_step_2_message">Ești de acord să încarci în Cloud documentul anonimizat și cheile tale (temporare și anonime) pe care le-ai folosit în ultimele 14 zile - pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați anonim?\n\n<b>Nimeni nu va afla cine ești!</b></string>
+    <string name="upload_step_2_upload_confirm_button">Sunt de acord</string>
+
+    <string name="upload_step_3_your_data_has_been_uploaded">Cheile tale și documentul au fost încărcate în Cloud. După verificarea documentului, contacții tăi vor primi o Alertă de Expunere.\n\n<b>Dacă în 24 de ore</b> nu ai primit confirmarea avertizării contacților, înseamnă că documentul nu corespunde cerințelor. Recitește instrucțiunile și repetă procedura - sau contactează-ne prin email la first.contact@cetatenii.org</string>
+    <string name="upload_step_3_done_button">OK</string>
+
+    <!-- notifications -->
+    <string name="service_ok_title">First Contact scanează și vă avertizează :)</string>
     <string name="service_ok_body">Repornește telefonul dacă această notificare dispare</string>
-
     <string name="service_not_ok_title">Oh nu! :(</string>
     <string name="service_not_ok_body">Scanarea First Contact nu funcționează. Verifică!</string>
     <string name="service_not_ok_action">Verifică aplicația acum!</string>
 
-    <string name="exposure_new_alerts_title">Alertă de expunere FIRST CONTACT !!!</string>
+    <string name="exposure_new_alerts_title">Alertă de Expunere FIRST CONTACT !!!</string>
     <string name="exposure_new_alerts_body">Click aici pentru detalii</string>
 
+    <string name="own_upload_approved_title">Contacții tăi au fost avertizați</string>
+    <string name="own_upload_approved_body">Mulțumim pentru atitudinea altruistă!</string>
 
-    <!-- custom strings -->
-    <string name="title_alert">Avertizează</string>
-    <string name="alert_button">Avertizare contacți</string>
-    <string name="permission_camera_rationale">Permite accesul la cameră pentru a putea scana codul QR.</string>
-    <string name="camera_permission_denied">Accesul la cameră a fost respins.</string>
-    <string name="no_internet_connection">Ai nevoie de o conexiune la internet înainte de a începe.</string>
-    <string name="upload_success">Încărcarea pseudonimelor tale s-a făcut cu succes.</string>
-    <string name="upload_failed">UPLOAD FAILED: %s, %s</string>
-
-    <string name="share_app_subject">First Contact</string>
-    <string name="share_app_text">Distribuie aplicația</string>
-    <string name="share_message">Hai să testăm împreună! Instalează-ți și tu aplicația First Contact. Mergi pe: https://first-contact.ro</string>
-    
-    <string name="for_use_by_otc_title">Avertizare Contacți</string>
-    <string name="upload_steps_background_title">Avertizare contacți</string>
-    <string name="upload_steps_background_data">doar dacă ai primit o Autorizație</string>
-    <string name="upload_for_use_tap_next_text">Apasă \'Avertizează contacții\' numai dacă ai primit o Autorizație de avertizare.\n\n<b>Avertizarea va fi anonimă!</b></string>
-    <string name="upload_step_1_title">PASUL 1</string>
-    <string name="upload_step_1_verify_that_the_contact">Scanează codul QR din Autorizația de avertizare</string>
-    <string name="upload_step_1_make_sure_they_give">Pentru a putea scana codul QR, trebuie să permiți utilizarea camerei</string>
-    <string name="upload_step_1_next_btn">Scanare QR</string>
-    <string name="upload_step_2_title">PASUL 2</string>
-    <string name="upload_step_2_upload_data">Sunt de acord</string>
-    <string name="upload_step_3_your_data_has_been_uploaded">Pseudonimele tale au fost încărcate pe server. Contacții tăi vor primi o alertă anonimă.\n\nMulțumim că ai ajutat și tu la testarea First Contact Prototip!</string>
-    <string name="upload_agreement">Ești de acord să încarci pe serverul central pseudonimele tale temporare, pe care le-ai folosit în ultimele 14 zile, pentru ca cei cu care ai avut contact apropiat să fie avertizați că au avut contact cu un infec-tester?\n\n<b>Nu se vor încărca pe server niciun fel de date de localizare sau date care ar permite identificarea ta. Cei avertizați nu vor afla cine ești.</b></string>
-    <string name="upload_for_use_tap_next_text_2">Ți-ai avertizat deja contacții.\n\nMulțumim că ai contribuit și în acest fel la testarea First Contact Prototip!</string>
-    <string name="upload_for_use_next_btn">Avertizează contacții</string>
-    <string name="upload_for_use_next_btn_2">contacții sunt avertizați</string>
-    <string name="upload_step_3_done_btn">OK</string>
-
-    <string name="exposure_alert_title">Alertă de expunere First Contact!</string>
-    <string name="exposure_body">Pe <b>####</b> ați avut un contact apropiat timp de <b>$$ min</b> cu cineva desemnat acum ca infec-tester.</string>
-    <string name="view_infection_instructions_text">Recomandări</string>
-
-    <string name="for_use_by_otc_use_only">doar dacă ai o Autorizație</string>
-
-    <string name="copyright">© 2020 Noi, Cetățenii</string>
-
-
-    
-    
-    <!-- de eliminat -->
-    
-    <string name="upload_step_2_enter_pin_to_upload">Enter PIN to upload</string>
-    <string name="upload_step_2_invalid_pin">Invalid PIN</string>
-    
-    <string name="add_pin_before_upload">Introdu PIN-ul primit prin SMS pentru a continua.</string>
-    <string name="pin_from_sms">Introdu PIN-ul primit prin SMS.</string>
-    <string name="sms_pin_information_text">Asteaptă să primești SMS cu PIN-ul necesar validarii cererii de upload.</string>
-    <string name="invalid_sms">Invalid SMS</string>
-    <string name="listening_for_sms">PIN-ul va fi introdus automat la primirea SMS-ului</string>
-
-    <string name="privacy_safeguards"><u>privacy safeguards</u></string>
-
-    <string name="camera_scan_message">Scanati codul QR de pe Autorizația primită.</string>
-    <string name="camera_permission">Permisiune cameră acordată</string>
-    <string name="internet_connection">Dispozitiv conectat la internet</string>
-
-    <string name="upload_data">Upload Data</string>
-    <string name="for_official_use">For use by contact tracers</string>
-    <string name="data_uploaded">Data has been uploaded to contact tracers</string>
-    <string name="enter_code">Enter Code</string>
-    <string name="submit">Submit</string>
-    
-    <string name="see_connections">See connections</string>
-    
-    <string name="alert_information">Dacă ai fost testat pozitiv cu COVID-19 și ai primit o Autorizație de upload, poți să-ți avertizezi anonim contacții care utilizează aplicația, adăugând în lista publică și pseudonimele utilizate de tine în ultima perioadă. Astfel, aceștia vor putea lua din timp masurile necesare pentru a se proteja pe ei și pe cei din jur.\n\nAlerta este voluntară, anonimă și respectă dreptul la viață privată. Celor avertizați aplicația le va spune doar că au fost expuși contaminării într-o anumită zi, fără a li se putea spune cine era cel infectat. Și nimeni nu poate afla dacă au fost expuși, fiindcă doar în telefonul lor există lista întâlnirilor Bluetooth - iar lista e criptată și nu părăsește niciodată telefonul.\n\nPentru a putea lansa avertizarea, ai nevoie de Autorizația de upload cu codul QR, primită de la personalul medical, să permiți aplicației utilizarea camerei pentru a scana acest cod și o conexiune la internet. Prin apasarea butonului Avertizare contacți îți exprimi acordul să încarci pseudonimele tale pe serverul central, pentru ca toți utilizatori să le poată descărca și compara cu propria listă de întâlniri Bluetooth. Nu se trimit niciun fel de date de localizare sau care ar permite identificarea ta. Cei</string>
-    <string name="tv_howitworks_title">Protejează-te pe tine și pe cei din jur!</string>
-    <string name="tv_howitworks_explanation_1">First Contact folosește semnalele Bluetooth ca să determine dacă ai avut un contact apropiat cu un alt utilizator al aplicației.</string>
-    <string name="tv_howitworks_explanation_2">Datele anonime despre contactele tale Bluetooth sunt criptate și stocate doar pe telefonul tău - și nu vor fi niciodată transferate în altă parte.</string>
-    <string name="tv_howitworks_explanation_3">Când cineva este depistat ca fiind infectat, acesta, în mod voluntar, va pune la dispoziția tuturor, pseudonimele pe care le-a folosit în întâlnirile sale Bluetooth. Aplicația de pe telefonul tău va descărca periodic lista generală cu toate pseudonimele infectate și le va căuta în lista ta cu contacte Bluetooth din ultima perioadă. Dacă determină că ai avut un contact apropiat și suficient de lung cu un astfel de pseudonim, te va avertiza că ai fost expus infectării.</string>
-    <string name="mobile_number">Mobile number</string>
-    <string name="register_number">Register your mobile number</string>
-    <string name="register_number_details">We\'ll contact you if you had close contact with a COVID-19 case.</string>
-    <string name="register_number_family">Setting up for your family? \nUse their number instead of yours.</string>
-    <string name="invalid_length">Needs to be 8-digits</string>
-    <string name="invalid_number">Invalid Mobile Number</string>
-
-    <string name="enter_otp">Enter your OTP</string>
-    <string name="otp_sent">A 6-digit code has been sent to %s.</string>
-    <string name="resend_code"><u>Resend Code</u></string>
-
-    <string name="get_otp">Get OTP</string>
-    <string name="wrong_number"><u>Wrong Number?</u></string>
-    
-    <string name="send_otp">We\'ll text you a One-Time Pin (OTP)</string>
-
-    <string name="app_permission_fully_setup">Toate permisiunile necesare au fost setate</string>
-    <string name="app_permission_fully_setup_desc">Te rugăm lasă toate aceste permisiuni active până la sfârșitul epidemiei.</string>
-
-    <string name="ack_title">Your consent is needed for the following:</string>
-    <string name="ack_mobile">To store your mobile number in a secured First Contact registry</string>
-    <string name="ack_data">To allow First Contact users to send OTC information of encounters with you, if they are confirmed or suspected to have COVID-19</string>
-    <string name="otp">Please enter the OTP sent to your mobile phone via sms</string>
-
-    <string name="verification_failed">Verification failed. Please try again</string>
-    <string name="invalid_otp">Wrong OTP entered</string>
-    <string name="unknown_error">An error has occurred. Please try again</string>
-    <string name="must_be_six_digit">Must be a 6-digit number</string>
-    <string name="invalid_user">Your account has been disabled. Please contact support.</string>
-
-    <string name="infection_alert_title">Alerta infectare</string>
-    <string name="infection_alert_message">Mesaj explicativ cu ce trebuie facut</string>
+    <!-- errors -->
+    <string name="error_document_already_uploaded">Eroare: Acest document a mai fost deja trimis.</string>
 
 </resources>

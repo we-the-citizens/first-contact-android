@@ -28,6 +28,15 @@ class CommandHandler(val service: WeakReference<BluetoothMonitoringService>) : H
         sendMessage(msg)
     }
 
+    fun scheduleNextDownload(timeInMillis: Long) {
+        removeMessages(BluetoothMonitoringService.Command.ACTION_DOWNLOAD.index)
+        sendCommandMsg(BluetoothMonitoringService.Command.ACTION_DOWNLOAD, timeInMillis)
+    }
+
+    fun hasDownloadScheduled(): Boolean {
+        return hasMessages(BluetoothMonitoringService.Command.ACTION_DOWNLOAD.index)
+    }
+
     fun startBluetoothMonitoringService() {
         sendCommandMsg(BluetoothMonitoringService.Command.ACTION_START)
     }

@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -53,26 +54,23 @@
         </activity>
 
         <activity
-            android:name="ro.wethecitizens.firstcontact.onboarding.OnBoardingActivity"
-            android:screenOrientation="portrait" />
-        <!-- this activity will be triggered on infection alert-->
-        <activity
-            android:name="ro.wethecitizens.firstcontact.AlertActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.AlertDialog"/>
-        <activity
-            android:name="ro.wethecitizens.firstcontact.onboarding.HowItWorksActivity"
+            android:name="ro.wethecitizens.firstcontact.PermissionsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="ro.wethecitizens.firstcontact.onboarding.PreOnboardingActivity"
+            android:name="ro.wethecitizens.firstcontact.OnboardingActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="ro.wethecitizens.firstcontact.onboarding.WebViewActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="ro.wethecitizens.firstcontact.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <data android:mimeType="image/*" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+            </intent-filter>
+        </activity>
 
         <receiver android:name="ro.wethecitizens.firstcontact.boot.StartOnBootReceiver">
             <intent-filter>
@@ -119,25 +117,6 @@
         <receiver android:name="ro.wethecitizens.firstcontact.receivers.UpgradeReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-            </intent-filter>
-        </receiver>
-
-        <activity
-            android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="portrait"
-            tools:replace="screenOrientation" />
-
-        <activity
-            android:name=".InfectionInstructionsActivity"
-            android:screenOrientation="portrait"/>
-
-        <!-- for SMS retriever api -->
-        <receiver
-            android:name="ro.wethecitizens.firstcontact.fragment.alert.PinSmsBroadcastReceiver"
-            android:exported="true"
-            android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
             </intent-filter>
         </receiver>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -9,56 +10,40 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="0dp"
         android:layout_weight="5"
+        android:orientation="vertical"
         tools:ignore="Suspicious0dp">
 
         <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="60dp"></LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="center_horizontal|top"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:contentDescription="ok"
                 android:src="@drawable/done_icon"></ImageView>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_message"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="20dp"
+                android:scrollbars="vertical"
                 android:text="@string/upload_step_3_your_data_has_been_uploaded"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="60dp"
-            android:orientation="vertical"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </LinearLayout>
-
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                app:autoSizeMinTextSize="10dp" />
 
         </LinearLayout>
 
@@ -66,25 +51,25 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:orientation="vertical"
         tools:ignore="Suspicious0dp">
 
         <Button
             android:id="@+id/uploadCompleteFragmentActionButton"
-            android:background="@drawable/gradient"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:fontFamily="@font/font"
-            android:textFontWeight="600"
-            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/gradient"
+            android:fontFamily="@font/font"
+            android:text="@string/upload_step_3_done_button"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:text="@string/upload_step_3_done_btn"
-            android:textStyle="normal"
-            android:textAllCaps="false" />
+            android:textFontWeight="600"
+            android:textSize="18sp"
+            android:textStyle="normal" />
     </LinearLayout>
 
 </LinearLayout>

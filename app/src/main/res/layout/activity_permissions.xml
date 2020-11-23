@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,8 +28,8 @@
         style="@style/OnboardingTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="@string/onboarding_title"
+        android:gravity="start"
+        android:text="@string/setup_app_permission_title"
         android:textSize="22dp"
         android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -38,27 +37,27 @@
         app:layout_constraintTop_toBottomOf="@+id/ivIcon" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvOnboardingMessage"
-        style="@style/OnboardingSubDesc"
+        android:id="@+id/tvPermissionsMessage"
+        style="@style/OnboardingDesc"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="left"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:gravity="start"
         android:scrollbars="vertical"
-        android:text="@string/onboarding_desc"
+        android:text="@string/setup_app_permission_message"
         android:textSize="16sp"
         android:visibility="visible"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@id/btn_onboardingStart"
+        app:layout_constraintBottom_toTopOf="@id/btnPermissionsStart"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintVertical_bias="0.521" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
 
     <Button
-        android:id="@+id/btn_onboardingStart"
+        android:id="@+id/btnPermissionsStart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal|bottom"
@@ -70,11 +69,10 @@
         android:textFontWeight="600"
         android:fontFamily="@font/font"
         android:textSize="18sp"
-        android:text="@string/continue_button"
+        android:text="@string/proceed"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

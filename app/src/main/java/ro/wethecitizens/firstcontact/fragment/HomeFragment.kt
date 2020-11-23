@@ -25,7 +25,6 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,12 +34,13 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import ro.wethecitizens.firstcontact.*
-import ro.wethecitizens.firstcontact.adapter.MyAdapter
+import ro.wethecitizens.firstcontact.adapter.InfectionAlertAdapter
 import ro.wethecitizens.firstcontact.infectionalert.persistence.InfectionAlertRecordStorage
 import ro.wethecitizens.firstcontact.logging.CentralLog
-import ro.wethecitizens.firstcontact.onboarding.OnBoardingActivity
-import ro.wethecitizens.firstcontact.status.persistence.StatusRecord
+import ro.wethecitizens.firstcontact.PermissionsActivity
+import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.streetpass.persistence.StreetPassRecordDatabase
+import ro.wethecitizens.firstcontact.utils.Utils
 
 private const val REQUEST_ENABLE_BT = 123
 private const val PERMISSION_REQUEST_ACCESS_LOCATION = 456
@@ -79,8 +79,8 @@ class HomeFragment : Fragment() {
 
         storage.getall().observe(viewLifecycleOwner, Observer {
             viewManager = LinearLayoutManager(this.context)
-            viewAdapter = MyAdapter(it)
-            recyclerView = view.findViewById<RecyclerView>(R.id.recycler_alert).apply {
+            viewAdapter = InfectionAlertAdapter(it)
+            recyclerView = view.findViewById<RecyclerView>(R.id.exposure_alerts_list).apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
                 setHasFixedSize(true)
@@ -102,20 +102,15 @@ class HomeFragment : Fragment() {
             else {
 
                 animation_view.layoutParams.height =
-                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250f, resources.displayMetrics).toInt()
+                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200f, resources.displayMetrics).toInt()
 
                 btnViewInstructions.visibility = View.GONE
             }
         })
 
         btnViewInstructions.setOnClickListener {
-
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Firebase.remoteConfig.getString("infection_instructions_url")))
             startActivity(browserIntent)
-
-            //webview implementation
-            //val i = Intent(context, InfectionInstructionsActivity::class.java)
-            //context?.startActivity(i)
         }
 
         showSetup()
@@ -157,7 +152,7 @@ class HomeFragment : Fragment() {
             }
         }
         btn_restart_app_setup.setOnClickListener {
-            var intent = Intent(context, OnBoardingActivity::class.java)
+            var intent = Intent(context, PermissionsActivity::class.java)
             intent.putExtra("page", 1)
             context?.startActivity(intent)
         }
@@ -187,6 +182,7 @@ class HomeFragment : Fragment() {
     fun showSetup() {
         view_setup.isVisible = isShowRestartSetup()
         view_complete.isVisible = !isShowRestartSetup()
+        top_logo.isVisible = view_complete.isVisible;
     }
 
     override fun onResume() {

@@ -8,6 +8,7 @@ import android.content.Context
 import android.os.Build
 import ro.wethecitizens.firstcontact.idmanager.TempIDManager
 import ro.wethecitizens.firstcontact.logging.CentralLog
+import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.services.BluetoothMonitoringService
 import ro.wethecitizens.firstcontact.streetpass.CentralDevice
 import ro.wethecitizens.firstcontact.streetpass.PeripheralDevice

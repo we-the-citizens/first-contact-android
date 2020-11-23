@@ -7,7 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -15,9 +14,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import kotlinx.android.synthetic.main.activity_main_new.*
-import ro.wethecitizens.firstcontact.fragment.ForUseByOTCFragment
+import kotlinx.android.synthetic.main.activity_main.*
+import ro.wethecitizens.firstcontact.fragment.UploadWrapperFragment
 import ro.wethecitizens.firstcontact.fragment.HomeFragment
+import ro.wethecitizens.firstcontact.utils.Utils
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,10 +29,9 @@ class MainActivity : AppCompatActivity() {
     private var selected = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_new)
+        setContentView(R.layout.activity_main)
 
         Utils.startBluetoothMonitoringService(this)
-        Utils.startPeriodicallyDownloadService(this)
 
         //Firebase Remote Config
         val remoteConfig = Firebase.remoteConfig
@@ -70,8 +69,8 @@ class MainActivity : AppCompatActivity() {
                     R.id.navigation_upload -> {
                         if (selected != R.id.navigation_upload) {
                             openFragment(
-                                LAYOUT_MAIN_ID, ForUseByOTCFragment(),
-                                ForUseByOTCFragment::class.java.name, 0
+                                LAYOUT_MAIN_ID, UploadWrapperFragment(),
+                                UploadWrapperFragment::class.java.name, 0
                             )
                         }
 
