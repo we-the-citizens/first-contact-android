@@ -51,7 +51,10 @@ class UploadPageFragment : Fragment() {
     fun navigateToConfirmUpload(selectedImage:Uri?) {
         val childFragMan: FragmentManager = childFragmentManager
         val childFragTrans: FragmentTransaction = childFragMan.beginTransaction()
-        val fragB = ConfirmUploadFragment(selectedImage)
+        val fragB = ConfirmUploadFragment()
+        val args = Bundle()
+        args.putString("selectedImage", selectedImage.toString())
+        fragB.setArguments(args)
         childFragTrans.add(R.id.fragment_placeholder, fragB)
         childFragTrans.addToBackStack("C")
         childFragTrans.commit()

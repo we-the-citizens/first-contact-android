@@ -42,7 +42,7 @@ import java.util.*
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
-class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
+class ConfirmUploadFragment() : Fragment() {
 
     private var disposeObj: Disposable? = null
 
@@ -57,6 +57,8 @@ class ConfirmUploadFragment(private val selectedImage: Uri?) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val selectedImage: Uri? = Uri.parse(this.arguments?.getString("selectedImage"))
 
         enterPinActionButton.setOnClickListener {
             showLoader()
