@@ -2,7 +2,7 @@
 
 ![alt text](./FirstContact.png "First Contact Logo")
 
-First Contact was build to become Romania's privacy-centric Contact Tracing application, designed to limit the spread of the Coronavirus. This application satisfies (and sometimes exceeds) the privacy recommendations for the mobile applications to support contact tracing, established in the <a href="https://ec.europa.eu/health/sites/health/files/ehealth/docs/covid-19_apps_en.pdf">Common EU Toolbox for Member States</a>.
+First Contact was build to become Romania's privacy-centric Contact Warning application, designed to limit the spread of the Coronavirus. This application satisfies (and even exceeds) the privacy recommendations for the mobile applications to support contact tracing and warning, established in the <a href="https://ec.europa.eu/health/sites/health/files/ehealth/docs/covid-19_apps_en.pdf">Common EU Toolbox for Member States</a>.
 
 In our development strategy, we splitted the project in 3 stages:
 - <b>Stage 1:</b> The development of a prototype app, based on a heavily modified version of the <a href="https://bluetrace.io/Bluetrace">BlueTrace protocol</a>, that has been changed to follow a fully descentralized, privacy-centric model, similar to the <a href="https://developers.google.com/android/exposure-notifications/exposure-notifications-api">Google&Apple's Exposure Notifications architecture</a>. 
