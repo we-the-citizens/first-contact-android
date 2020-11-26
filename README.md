@@ -6,7 +6,7 @@ First Contact was build to become Romania's privacy-centric Contact Warning appl
 
 In our development strategy, we splitted the project in 3 stages:
 - <b>Stage 1:</b> The development of a prototype app, based on a heavily modified version of the <a href="https://bluetrace.io/Bluetrace">BlueTrace protocol</a>, that has been changed to follow a fully descentralized, privacy-centric model, similar to the <a href="https://developers.google.com/android/exposure-notifications/exposure-notifications-api">Google&Apple's Exposure Notifications architecture</a>. 
-- <b>Stage 2:</b> Public release of a prototype version, in order to demostrate the viability of the concept and to persuade authorities and the general public that Romania should adopt a privacy-centric, decentralised, Bluetooth based contact tracing solution.
+- <b>Stage 2:</b> Public release of a prototype version, in order to demostrate the viability of the concept and to persuade authorities and the general public that Romania should adopt a privacy-centric, decentralised, Bluetooth based contact warning solution.
 - <del>Stage 3 - Plan A: In case of approval by the authorities, we intended to replace the core engine of the app, from the current BlueTrace BLE detection to the Google&Apple's Exposure Notification API.</del>
 - <b>Stage 3 - Plan B:</b> Adjusting the application's architecture, so it can fulfill its intended role (to warn users in case of an exposure to Coronavirus), independent of the romanian authorities involvement.
 
