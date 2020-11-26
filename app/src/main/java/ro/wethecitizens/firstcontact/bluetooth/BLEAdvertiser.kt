@@ -53,7 +53,9 @@ class BLEAdvertiser constructor(val serviceUUID: String) {
                 ADVERTISE_FAILED_DATA_TOO_LARGE -> {
                     reason = "ADVERTISE_FAILED_DATA_TOO_LARGE"
                     isAdvertising = false
-                    charLength--
+                    CentralLog.d(TAG, "ADVERTISE_FAILED_DATA_TOO_LARGE")
+                    if(charLength > 0)
+                        charLength--
                 }
 
                 else -> {
@@ -89,19 +91,30 @@ class BLEAdvertiser constructor(val serviceUUID: String) {
     //https://code.tutsplus.com/tutorials/how-to-advertise-android-as-a-bluetooth-le-peripheral--cms-25426
     fun startAdvertisingLegacy(timeoutInMillis: Long) {
 
-        val randomUUID = UUID.randomUUID().toString()
-        val finalString = randomUUID.substring(randomUUID.length - charLength, randomUUID.length)
-        CentralLog.d(TAG, "Unique string: $finalString")
-        val serviceDataByteArray = finalString.toByteArray()
-
-        data = AdvertiseData.Builder()
-            .setIncludeDeviceName(false)
-            .setIncludeTxPowerLevel(true)
-            .addServiceUuid(pUuid)
-            .addManufacturerData(1023, serviceDataByteArray)
-            .build()
-
         try {
+
+            if (charLength > 0) {
+                val randomUUID = UUID.randomUUID().toString()
+                val finalString =
+                    randomUUID.substring(randomUUID.length - charLength, randomUUID.length)
+                CentralLog.d(TAG, "Unique string: $finalString")
+                val serviceDataByteArray = finalString.toByteArray()
+
+                data = AdvertiseData.Builder()
+                    .setIncludeDeviceName(false)
+                    .setIncludeTxPowerLevel(true)
+                    .addServiceUuid(pUuid)
+                    .addManufacturerData(1023, serviceDataByteArray)
+                    .build()
+            }
+            else {
+                data = AdvertiseData.Builder()
+                    .setIncludeDeviceName(false)
+                    .setIncludeTxPowerLevel(true)
+                    .addServiceUuid(pUuid)
+                    .build()
+            }
+
             //CentralLog.d(TAG, "Start advertising ${data.toString()}")
             CentralLog.d(TAG, "Start advertising")
 
