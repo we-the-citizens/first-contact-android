@@ -79,6 +79,13 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name="ro.wethecitizens.firstcontact.receivers.UpgradeReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="ro.wethecitizens.firstcontact.receivers.DailyAlarmReceiver" android:exported="true" />
 
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more. -->
@@ -109,12 +116,6 @@
             android:name="ro.wethecitizens.firstcontact.PlotActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.DebugNoActionBar" />
-
-        <receiver android:name="ro.wethecitizens.firstcontact.receivers.UpgradeReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-            </intent-filter>
-        </receiver>
 
     </application>
 

@@ -41,7 +41,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     
-    <string name="no_records">Nu te-ai întâlnit încă cu nici un alt utilizator First Contact. Recomandă aplicația prietenilor, colegilor sau familiei, pentru a începe să înregistrezi întâlniri, care vor fi listate aici.</string>
+    <string name="no_records">Jurnalul tău de întâlniri este gol, deocamdată - fiindcă cei cu care te-ai întâlnit nu și-au instalat încă First Contact.\n\n Distribuie aplicația celor cu care obișnuiești să te întâlnești (prieteni, colegi, familie), pentru a începe să înregistrezi întâlniri în acest jurnal.</string>
 
     <string name="exposure_alert_title">Alertă de Expunere</string>
     <string name="exposure_body">Pe # ai stat cel puțin $ lângă cineva autoraportat acum ca \'Pozitiv\'</string>
@@ -52,16 +52,16 @@
     <!-- upload -->
     <string name="preupload_title">Avertizare contacți</string>
 
-    <string name="preupload_radio_no_document">NU am primit vreun diagnostic \'Pozitiv\' în ultimele 14 zile.</string>
-    <string name="preupload_radio_document">Am un document cu diagnostic \'Pozitiv\', dar se văd datele mele personale.</string>
-    <string name="preupload_radio_document_anonimized">Am un document cu diagnostic \'Pozitiv\', si am pregatit in telefon o poza anonimizata a acelui document, fara datele mele personale.</string>
-    <string name="preupload_radio_sms">Am primit doar un SMS cu diagnosticul \'Pozitiv\'.</string>
+    <string name="preupload_radio_no_document">         NU am fost diagnosticat \'Pozitiv\' în ultimele 14 zile sau n-am primit nicio dovadă în acest sens.</string>
+    <string name="preupload_radio_document">            Am un document de diagnostic \'Pozitiv\', dar n-am urmat instrucțiunile de ștergere a datelor mele personale.</string>
+    <string name="preupload_radio_document_anonimized"> Am respectat instrucțiunile de ștergere (doar) a datelor mele personale în documentul de diagnostic \'Pozitiv\'.</string>
+    <string name="preupload_radio_sms">                 Am primit doar un SMS cu diagnosticul \'Pozitiv\' și am făcut captură la tot ecranul cu acel SMS.</string>
 
-    <string name="preupload_message_no_selection">Selectează mai sus situația în care te găsești.</string>
-    <string name="preupload_message_no_document">Revii aici doar când vei avea un document care confirmă că ai fost diagnosticat \'Pozitiv\'.</string>
-    <string name="preupload_message_document">Mai întâi trebuie să-ți acoperi (doar) datele tale personale - conform instrucțiunilor.</string>
-    <string name="preupload_message_document_anonimized"><b>Atenție!</b> Restul datelor să fie vizibile. În caz de SMS e nevoie de captură cu <u>tot ecranul</u>.</string>
-    <string name="preupload_message_sms">Faceti o captura cu <u>tot ecranul</u>, incluzand SMS-ul doveditor.</string>
+    <string name="preupload_message_no_selection">      Selectează mai sus situația în care te găsești.</string>
+    <string name="preupload_message_no_document">       Revii aici doar când vei avea o dovadă scrisă că ai fost diagnosticat \'Pozitiv\'.</string>
+    <string name="preupload_message_document">          Urmează întocmai instrucțiunile de ștergere (doar) a datelor tale personale.</string>
+    <string name="preupload_message_document_anonimized"><b>Atenție!</b> Toate celelalte date din document trebuie să rămână vizibile.</string>
+    <string name="preupload_message_sms">               Dacă n-ai făcut o captură cu <b>tot ecranul</b>, fă asta mai întâi și apoi revii aici.</string>
 
     <string name="preupload_button_ok">OK</string>
     <string name="preupload_button_instructions">Instrucțiuni</string>
@@ -69,6 +69,8 @@
 
     <string name="postupload_message_completed"><b>Ți-ai avertizat deja contacții.</b>\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și îți dorim să treci cât mai ușor prin această încercare!</string>
     <string name="postupload_message_processing">Te-ai auto-raportat ca fiind pozitiv si ai trimis deja documentul doveditor. Cererea ta este in curs de procesare. In 24 de ore de la trimitere, aplicatia iti va confirma daca contactii tai au fost avertizati. Daca documentul trimis nu este conform, poti repeta procedura recitind instructiunile de anonimizare, sau ne poti contacta prin email la first.contact@cetatenii.org.</string>
+    <string name="postupload_button_completed">Contacți avertizați</string>
+    <string name="postupload_button_processing">In procesare</string>
 
     <string name="upload_title">Avertizare contacți</string>
     <string name="upload_subtitle">dacă ai fost confirmat Pozitiv</string>

@@ -73,7 +73,25 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="12"
-            android:orientation="vertical"/>
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/stateButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:alpha="0.7"
+                android:background="@drawable/gradient"
+                android:enabled="false"
+                android:fontFamily="@font/font"
+                android:text="@string/preupload_button_warn_contacts"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textFontWeight="600"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+        </LinearLayout>
 
     </LinearLayout>
 

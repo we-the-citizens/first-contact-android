@@ -43,10 +43,12 @@ class PostuploadFragment : Fragment() {
         if (isComplete) {
             icon.setImageResource(R.drawable.done)
             tvMessage.setText(R.string.postupload_message_completed)
+            stateButton.setText(R.string.postupload_button_completed)
         }
         else if (isSent) {
             icon.setImageResource(R.drawable.time)
             tvMessage.setText(R.string.postupload_message_processing)
+            stateButton.setText(R.string.postupload_button_processing)
         }
     }
 }

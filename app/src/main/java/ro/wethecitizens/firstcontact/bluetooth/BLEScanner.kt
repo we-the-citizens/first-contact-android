@@ -11,6 +11,7 @@ import android.content.Context
 import android.os.ParcelUuid
 import ro.wethecitizens.firstcontact.utils.Utils
 import ro.wethecitizens.firstcontact.logging.CentralLog
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
@@ -49,7 +50,13 @@ class BLEScanner constructor(context: Context, uuid: String, reportDelay: Long) 
         this.scanCallback = scanCallback
         //try to get a scanner if there isn't anything
         scanner = scanner ?: BluetoothAdapter.getDefaultAdapter().bluetoothLeScanner
-        scanner?.startScan(filters, settings, scanCallback)
+
+        try {
+            scanner?.startScan(filters, settings, scanCallback)
+        }
+        catch (e: Exception) {
+            CentralLog.e(TAG, "failed to start scanner")
+        }
     }
 
     fun flush() {

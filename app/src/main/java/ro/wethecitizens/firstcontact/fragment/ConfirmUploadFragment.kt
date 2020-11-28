@@ -95,60 +95,68 @@ class ConfirmUploadFragment() : Fragment() {
             return
         }
 
-        val parcelFileDescriptor = contentResolver.openFileDescriptor(selectedImage!!, "r", null) ?: return
+        try {
 
-        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
-        val file = File(context?.cacheDir,  getFileName(selectedImage!!))
-        val outputStream = FileOutputStream(file)
-        inputStream.copyTo(outputStream)
+            val parcelFileDescriptor =
+                contentResolver.openFileDescriptor(selectedImage!!, "r", null) ?: return
 
-        val requestBody = file.asRequestBody(file.extension.toMediaTypeOrNull())
-        val filePart = MultipartBody.Part.createFormData(
-            "document",file.name,requestBody
-        )
+            val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+            val file = File(context?.cacheDir, getFileName(selectedImage!!))
+            val outputStream = FileOutputStream(file)
+            inputStream.copyTo(outputStream)
 
-        val tempIdStorage = context?.let {
-            TempIdStorage(
-                it
+            val requestBody = file.asRequestBody(file.extension.toMediaTypeOrNull())
+            val filePart = MultipartBody.Part.createFormData(
+                "document", file.name, requestBody
             )
-        }
 
-        lifecycleScope.launch {
-
-            val positiveIdsList = getPositiveIdsList(tempIdStorage!!)
-            try {
-                val docModel =
-                    DocumentRequest(
-                        data = positiveIdsList,
-                        signature = getSignature(positiveIdsList)
-                    )
-                if (docModel.data.isEmpty()) {
-                    Toast.makeText(context, "Nu exista ID-uri anonime!", Toast.LENGTH_LONG).show()
-                } else {
-                    val response = BackendMethods.getInstance().uploadDocument(filePart, docModel)
-
-                    when (response.isSuccessful) {
-                        true -> {
-                            hideLoader()
-                            (parentFragment as UploadPageFragment).navigateToUploadComplete()
-                        }
-
-                        else -> {
-                            hideLoader()
-                            val errorCode = response.code()
-                            val errorType = HttpCode.getType(errorCode)
-                            if (errorCode == 403)
-                                Toast.makeText(context, R.string.error_document_already_uploaded, Toast.LENGTH_LONG).show()
-                            else
-                                Toast.makeText(context, "Eroare la upload:" + errorType.toString(), Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                Toast.makeText(context, "Eroare interna", Toast.LENGTH_LONG).show()
-                e.printStackTrace()
+            val tempIdStorage = context?.let {
+                TempIdStorage(
+                    it
+                )
             }
 
+            lifecycleScope.launch {
+
+                val positiveIdsList = getPositiveIdsList(tempIdStorage!!)
+                try {
+                    val docModel =
+                        DocumentRequest(
+                            data = positiveIdsList,
+                            signature = getSignature(positiveIdsList)
+                        )
+                    if (docModel.data.isEmpty()) {
+                        Toast.makeText(context, "Nu exista ID-uri anonime!", Toast.LENGTH_LONG).show()
+                    } else {
+                        val response = BackendMethods.getInstance().uploadDocument(filePart, docModel)
+
+                        when (response.isSuccessful) {
+                            true -> {
+                                hideLoader()
+                                (parentFragment as UploadPageFragment).navigateToUploadComplete()
+                            }
+
+                            else -> {
+                                hideLoader()
+                                val errorCode = response.code()
+                                val errorType = HttpCode.getType(errorCode)
+                                if (errorCode == 403)
+                                    Toast.makeText(context, R.string.error_document_already_uploaded, Toast.LENGTH_LONG).show()
+                                else
+                                    Toast.makeText(context, "Eroare la upload:" + errorType.toString(), Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(context, "Eroare interna", Toast.LENGTH_LONG).show()
+                    e.printStackTrace()
+                }
+
+            }
+        }
+        catch (e: Exception) {
+            Toast.makeText(context, "Eroare deschidere fisier", Toast.LENGTH_LONG).show()
+            e.printStackTrace()
         }
     }
 
