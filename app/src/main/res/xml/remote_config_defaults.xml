@@ -71,5 +71,11 @@
         <value>xxxxxxxxxxxxxxxxxxxxx</value>
     </entry>
 
+    <!-- Others -->
+    <entry>
+        <key>document_review_time_in_minutes</key>
+        <value>10</value>
+    </entry>
+
 </defaultsMap>
 <!-- END xml_defaults -->

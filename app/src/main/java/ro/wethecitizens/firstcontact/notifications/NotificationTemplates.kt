@@ -154,5 +154,33 @@ class NotificationTemplates {
 
             return b.build()
         }
+
+        fun getOwnUploadRejectedNotification(context: Context, channel: String): Notification {
+
+            val intent = Intent(context, MainActivity::class.java)
+            val pendingIntent = PendingIntent.getActivity(context, PENDING_ACTIVITY, intent, 0)
+
+            val title = context.getText(R.string.own_upload_rejected_title)
+            val body = context.getText(R.string.own_upload_rejected_body)
+
+            val b = NotificationCompat.Builder(context, channel)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setOngoing(true)
+                .setSmallIcon(R.drawable.ic_notification_warning)
+                .setContentIntent(pendingIntent)
+                .setTicker(body)
+                //.setStyle(NotificationCompat.BigTextStyle().bigText(body))
+                .setWhen(System.currentTimeMillis())
+                .setVibrate(longArrayOf(0, 1000, 1000, 1000, 1000))
+                .setLights(Color.BLUE, 3000, 3000)
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                .setColor(ContextCompat.getColor(context, R.color.notification_tint))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setAutoCancel(true)
+
+            return b.build()
+        }
     }
 }

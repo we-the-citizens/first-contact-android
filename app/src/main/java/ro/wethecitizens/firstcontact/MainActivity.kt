@@ -15,8 +15,10 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import kotlinx.android.synthetic.main.activity_main.*
-import ro.wethecitizens.firstcontact.fragment.UploadWrapperFragment
+import ro.wethecitizens.firstcontact.fragment.PreuploadFragment
 import ro.wethecitizens.firstcontact.fragment.HomeFragment
+import ro.wethecitizens.firstcontact.fragment.PostuploadFragment
+import ro.wethecitizens.firstcontact.preference.Preference
 import ro.wethecitizens.firstcontact.utils.Utils
 
 class MainActivity : AppCompatActivity() {
@@ -68,10 +70,17 @@ class MainActivity : AppCompatActivity() {
                     }
                     R.id.navigation_upload -> {
                         if (selected != R.id.navigation_upload) {
-                            openFragment(
-                                LAYOUT_MAIN_ID, UploadWrapperFragment(),
-                                UploadWrapperFragment::class.java.name, 0
-                            )
+
+                            if (Preference.isUploadSent(this) || Preference.isUploadComplete(this))
+                                openFragment(
+                                    LAYOUT_MAIN_ID, PostuploadFragment(),
+                                    PostuploadFragment::class.java.name, 0
+                                )
+                            else
+                                openFragment(
+                                    LAYOUT_MAIN_ID, PreuploadFragment(),
+                                    PreuploadFragment::class.java.name, 0
+                                )
                         }
 
                         selected = R.id.navigation_upload
