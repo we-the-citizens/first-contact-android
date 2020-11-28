@@ -49,37 +49,6 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_marginTop="60dp"
-            android:orientation="vertical"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:textSize="17sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Verification code: " />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/verifyCallerFragmentVerificationCode"
-                    android:textStyle="bold"
-                    android:textSize="17sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="JDEPLC" />
-            </LinearLayout>
-        </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -90,7 +59,7 @@
         tools:ignore="Suspicious0dp">
 
         <Button
-            android:id="@+id/verifyCallerFragmentActionButton"
+            android:id="@+id/selectDocumentButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"

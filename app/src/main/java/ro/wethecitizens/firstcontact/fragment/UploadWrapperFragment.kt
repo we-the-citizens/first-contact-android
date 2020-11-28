@@ -28,7 +28,7 @@ class UploadWrapperFragment : Fragment() {
         val childFragTrans: FragmentTransaction = childFragMan.beginTransaction()
         val fragB = UploadStartFragment()
         childFragTrans.add(R.id.fragment_placeholder, fragB)
-        childFragTrans.addToBackStack("VerifyCaller")
+        childFragTrans.addToBackStack("UploadStart")
         childFragTrans.commit()
     }
 

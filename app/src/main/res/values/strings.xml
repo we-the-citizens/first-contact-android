@@ -41,7 +41,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     
-    <string name="keep_push_on">Keep push notifications on too, so we can alert you if the app is not scanning.</string>
+    <string name="no_records">Nu te-ai întâlnit încă cu nici un alt utilizator First Contact. Recomandă aplicația prietenilor, colegilor sau familiei, pentru a începe să înregistrezi întâlniri, care vor fi listate aici.</string>
 
     <string name="exposure_alert_title">Alertă de Expunere</string>
     <string name="exposure_body">Pe # ai stat cel puțin $ lângă cineva autoraportat acum ca \'Pozitiv\'</string>
@@ -64,6 +64,9 @@
     <string name="upload_step_1_message">Selectează (din Gallery) documentul <u>anonimizat</u> (conform instrucțiunilor) care atestă că ai fost confirmat \'Pozitiv\'.</string>
     <string name="upload_step_1_second_message"></string>
     <string name="upload_step_1_select_image_button">Selectare document</string>
+
+    <string name="upload_step_1_image_confirm_button">Confirm documentul</string>
+    <string name="upload_step_1_back_button">Înapoi</string>
 
     <string name="upload_step_2_title">PASUL 2</string>
     <string name="upload_step_2_message">Ești de acord să încarci în Cloud documentul anonimizat și cheile tale (temporare și anonime) pe care le-ai folosit în ultimele 14 zile - pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați anonim?\n\n<b>Nimeni nu va afla cine ești!</b></string>

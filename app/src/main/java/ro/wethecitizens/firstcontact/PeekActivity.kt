@@ -26,6 +26,7 @@ import ro.wethecitizens.firstcontact.utils.Utils
 class PeekActivity : AppCompatActivity() {
 
     private lateinit var viewModel: RecordViewModel
+    private var recordsFound: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +50,10 @@ class PeekActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(RecordViewModel::class.java)
         viewModel.allRecords.observe(this, Observer { records ->
             adapter.setSourceData(records)
+            if(records.size == 0)
+                tv_noRecords.visibility = View.VISIBLE;
+            else
+                tv_noRecords.visibility = View.INVISIBLE;
         })
 
         expand.setOnClickListener {

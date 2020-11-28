@@ -31,13 +31,7 @@ class UploadPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        val childFragMan: FragmentManager = childFragmentManager
-        val childFragTrans: FragmentTransaction = childFragMan.beginTransaction()
-        val fragB = SelectImageFragment()
-        childFragTrans.add(R.id.fragment_placeholder, fragB)
-        childFragTrans.addToBackStack("VerifyCaller")
-        childFragTrans.commit()
+        navigateToSelectImage()
     }
 
     fun turnOnLoadingProgress() {
@@ -48,6 +42,27 @@ class UploadPageFragment : Fragment() {
         uploadPageFragmentLoadingProgressBarFrame.visibility = View.INVISIBLE
     }
 
+    fun navigateToSelectImage() {
+        val childFragMan: FragmentManager = childFragmentManager
+        val childFragTrans: FragmentTransaction = childFragMan.beginTransaction()
+        val fragB = SelectImageFragment()
+        childFragTrans.add(R.id.fragment_placeholder, fragB)
+        childFragTrans.addToBackStack("SelectImage")
+        childFragTrans.commit()
+    }
+
+    fun navigateToConfirmImage(selectedImage:Uri?) {
+        val childFragMan: FragmentManager = childFragmentManager
+        val childFragTrans: FragmentTransaction = childFragMan.beginTransaction()
+        val fragB = ConfirmImageFragment()
+        val args = Bundle()
+        args.putString("selectedImage", selectedImage.toString())
+        fragB.setArguments(args)
+        childFragTrans.add(R.id.fragment_placeholder, fragB)
+        childFragTrans.addToBackStack("ConfirmImage")
+        childFragTrans.commit()
+    }
+
     fun navigateToConfirmUpload(selectedImage:Uri?) {
         val childFragMan: FragmentManager = childFragmentManager
         val childFragTrans: FragmentTransaction = childFragMan.beginTransaction()
@@ -56,13 +71,8 @@ class UploadPageFragment : Fragment() {
         args.putString("selectedImage", selectedImage.toString())
         fragB.setArguments(args)
         childFragTrans.add(R.id.fragment_placeholder, fragB)
-        childFragTrans.addToBackStack("C")
+        childFragTrans.addToBackStack("ConfirmUpload")
         childFragTrans.commit()
-    }
-
-    fun goBackToHome() {
-        var parentActivity = activity as MainActivity
-        parentActivity.goToHome()
     }
 
     fun navigateToUploadComplete() {
@@ -72,6 +82,11 @@ class UploadPageFragment : Fragment() {
         childFragTrans.add(R.id.fragment_placeholder, fragB)
         childFragTrans.addToBackStack("UploadComplete")
         childFragTrans.commit()
+    }
+
+    fun goBackToHome() {
+        var parentActivity = activity as MainActivity
+        parentActivity.goToHome()
     }
 
     fun popStack() {

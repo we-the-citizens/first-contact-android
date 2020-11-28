@@ -28,7 +28,7 @@ class SelectImageFragment : Fragment()/*, EasyPermissions.PermissionCallbacks*/ 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        verifyCallerFragmentActionButton.setOnClickListener {
+        selectDocumentButton.setOnClickListener {
             pickImage();
         }
 
@@ -50,13 +50,13 @@ class SelectImageFragment : Fragment()/*, EasyPermissions.PermissionCallbacks*/ 
 
         if (requestCode == REQUEST_IMAGE_GET && resultCode == Activity.RESULT_OK) {
             val selectedImage = data?.data
-            (parentFragment as UploadPageFragment).navigateToConfirmUpload(selectedImage)
+            (parentFragment as UploadPageFragment).navigateToConfirmImage(selectedImage)
         }
     }
 
     companion object {
         //private const val PERMISSION_REQUEST_CAMERA = 222
         private const val REQUEST_IMAGE_GET = 1
-        private const val TAG = "VerifyCallerFragment"
+        private const val TAG = "SelectImageFragment"
     }
 }

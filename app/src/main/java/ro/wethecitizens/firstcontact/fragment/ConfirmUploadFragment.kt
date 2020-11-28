@@ -140,12 +140,12 @@ class ConfirmUploadFragment() : Fragment() {
                             if (errorCode == 403)
                                 Toast.makeText(context, R.string.error_document_already_uploaded, Toast.LENGTH_LONG).show()
                             else
-                                Toast.makeText(context, "Eroare la upload:" + errorType.toString(), Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Eroare la upload:" + errorType.toString(), Toast.LENGTH_LONG).show()
                         }
                     }
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Eroare interna", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Eroare interna", Toast.LENGTH_LONG).show()
                 e.printStackTrace()
             }
 
