@@ -37,16 +37,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:fadeScrollbars="false"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarFadeDuration="0"
                 android:scrollbars="vertical"
                 android:text="@string/upload_step_1_message"
                 android:textSize="18sp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/upload_step_1_second_message"
-                android:textSize="15sp" />
         </LinearLayout>
 
     </LinearLayout>

@@ -64,6 +64,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:fadeScrollbars="false"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarFadeDuration="0"
                 android:scrollbars="vertical"
                 android:text="@string/upload_step_2_message"
                 android:textSize="18sp" />

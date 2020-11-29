@@ -2,14 +2,17 @@
 
     <!-- onboarding -->
     <string name="permission_write_rationale">First Contact needs save files for logs (Debug builds only)</string>
-    <string name="permission_location_rationale">Te rugăm acordă Permisiuni de localizare. Sistemul Android nu permite utilizarea Bluetooth BLE dacă nu se acordă acest tip de permisiuni. First Contact nu va avea acces la localizarea ta fizică.</string>
+    <string name="permission_location_rationale">Acordă Permisiuni de localizare. Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Însă poți fi sigur 100% că First Contact nu va folosi deloc localizarea - aplicația e Open Source, deci se poate verifica în codul sursă.</string>
+    <string name="open_location_setting">Application needs location permission in order to work. Do you want to enable location permission?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <string name="onboarding_title">Te avertizează rapid, ca să poți lua măsuri în timp util</string>
-    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Dacă unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând documentul de confirmare) și aplicația determină că în ultimele 14 zile ai stat lângă el, <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără date personale, localizare sau urmărire. Nimeni nu poate afla cine ești, ce întâlniri ai avut sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
+    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Dacă unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând o dovadă scrisă) și aplicația determină că în ultimele 14 zile ai stat lângă el, <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără date personale, localizare sau urmărire. Nimeni nu poate afla cine ești, ce întâlniri ai avut sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
-    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Permisiuni de localizare\n 3. Oprire optimizare baterie\n\n<b>De ce și Permisiuni de localizare?</b>\nDeși aplicația <u>nu folosește localizarea</u> în niciun fel, sistemul Android cere <u>întotdeauna</u> acest tip de permisiuni în cazul utilizării Bluetooth Low Energy (BLE) - care <u>ar putea</u> permite urmărirea - fără a distinge cazuri particulare (ca acesta) în care schimbarea frecventă a identificatorilor anonimi (ce se transmit prin BLE) face imposibilă urmărirea traseelor utilizatorului.</string>
+    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Permisiuni de localizare\n 3. Oprire optimizare baterie\n\n<b>De ce și Permisiuni de localizare?</b>\nDeși aplicația <u>nu folosește deloc localizarea</u>, sistemul Android cere <u>întotdeauna</u> acest tip de permisiuni în cazul utilizării Bluetooth Low Energy - fără să țină cont că în unele cazuri, precum First Contact, localizarea sau urmărirea utilizatorului după semnalul Bluetooth este imposibilă, fiindcă cheia lui de identificare anonimă se schimbă la fiecare 10-20 minute.</string>
     <string name="proceed">OK</string>
 
     <!-- home -->
@@ -36,11 +39,7 @@
     <string name="setup_incomplete">Configurarea este incompletă!</string>
     <string name="help_us_identify">Activează scanarea, acordând aplicației permisiunile necesare</string>
     <string name="restart_app_setup"> Remediază </string>
-    
-    <string name="open_location_setting">Application needs location permission in order to work. Do you want to enable location permission?</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    
+
     <string name="no_records">Jurnalul tău de întâlniri este gol, deocamdată - fiindcă cei cu care te-ai întâlnit nu și-au instalat încă First Contact.\n\n Distribuie aplicația celor cu care obișnuiești să te întâlnești (prieteni, colegi, familie), pentru a începe să înregistrezi întâlniri în acest jurnal.</string>
 
     <string name="exposure_alert_title">Alertă de Expunere</string>
@@ -53,41 +52,41 @@
     <string name="preupload_title">Avertizare contacți</string>
 
     <string name="preupload_radio_no_document">         NU am fost diagnosticat \'Pozitiv\' în ultimele 14 zile sau n-am primit nicio dovadă în acest sens.</string>
-    <string name="preupload_radio_document">            Am un document de diagnostic \'Pozitiv\', dar n-am urmat instrucțiunile de ștergere a datelor mele personale.</string>
+    <string name="preupload_radio_document">            Am un document de diagnostic \'Pozitiv\', dar NU am urmat instrucțiunile de ștergere a datelor mele personale.</string>
     <string name="preupload_radio_document_anonimized"> Am respectat instrucțiunile de ștergere (doar) a datelor mele personale în documentul de diagnostic \'Pozitiv\'.</string>
-    <string name="preupload_radio_sms">                 Am primit doar un SMS cu diagnosticul \'Pozitiv\' și am făcut captură la tot ecranul cu acel SMS.</string>
+    <string name="preupload_radio_sms">                 Am primit numai un SMS cu diagnosticul \'Pozitiv\' și am făcut o captură de ecran cu acel SMS.</string>
 
     <string name="preupload_message_no_selection">      Selectează mai sus situația în care te găsești.</string>
     <string name="preupload_message_no_document">       Revii aici doar când vei avea o dovadă scrisă că ai fost diagnosticat \'Pozitiv\'.</string>
     <string name="preupload_message_document">          Urmează întocmai instrucțiunile de ștergere (doar) a datelor tale personale.</string>
     <string name="preupload_message_document_anonimized"><b>Atenție!</b> Toate celelalte date din document trebuie să rămână vizibile.</string>
-    <string name="preupload_message_sms">               Dacă n-ai făcut o captură cu <b>tot ecranul</b>, fă asta mai întâi și apoi revii aici.</string>
+    <string name="preupload_message_sms">               Dacă n-ai făcut o captură cu <u><b>tot ecranul</b></u>, fă asta mai întâi și apoi revii aici.</string>
 
     <string name="preupload_button_ok">OK</string>
     <string name="preupload_button_instructions">Instrucțiuni</string>
     <string name="preupload_button_warn_contacts">Avertizează Contacții</string>
 
-    <string name="postupload_message_completed"><b>Ți-ai avertizat deja contacții.</b>\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și îți dorim să treci cât mai ușor prin această încercare!</string>
-    <string name="postupload_message_processing">Te-ai auto-raportat ca fiind pozitiv si ai trimis deja documentul doveditor. Cererea ta este in curs de procesare. In 24 de ore de la trimitere, aplicatia iti va confirma daca contactii tai au fost avertizati. Daca documentul trimis nu este conform, poti repeta procedura recitind instructiunile de anonimizare, sau ne poti contacta prin email la first.contact@cetatenii.org.</string>
+    <string name="postupload_message_completed"><b>Ți-ai avertizat deja contacții</b> (care utilizează first Contact).\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și îți dorim să treci cât mai ușor prin această încercare.</string>
+    <string name="postupload_message_processing"><b>Te-ai autoraportat deja ca diagnosticat \'Pozitiv\' - cererea ta este în curs de procesare.</b>\n\nÎn cel mult 24 de ore de la raportare, aplicatia îți va confirma dacă contacții tăi au fost avertizați sau nu. Dacă NU, înseamnă că dovada scrisă trimisă nu corespunde cerințelor, caz în care poți repeta procedura (recitind instrucțiunile) sau ne poti contacta prin email la first.contact@cetatenii.org</string>
     <string name="postupload_button_completed">Contacți avertizați</string>
-    <string name="postupload_button_processing">In procesare</string>
+    <string name="postupload_button_processing">În procesare</string>
 
     <string name="upload_title">Avertizare contacți</string>
     <string name="upload_subtitle">dacă ai fost confirmat Pozitiv</string>
 
     <string name="upload_step_1_title">PASUL 1</string>
-    <string name="upload_step_1_message">Selectează (din Gallery) documentul <u>anonimizat</u> (conform instrucțiunilor) care atestă că ai fost confirmat \'Pozitiv\'.</string>
+    <string name="upload_step_1_message">Selectează (din Gallery) fișierul imagine cu documentul <u>anonimizat</u> (conform instrucțiunilor) sau cu captura de ecran a SMS-ului, care atestă că ai fost confirmat \'Pozitiv\'.</string>
     <string name="upload_step_1_second_message"></string>
-    <string name="upload_step_1_select_image_button">Selectare document</string>
+    <string name="upload_step_1_select_image_button">Selectare fișier</string>
 
-    <string name="upload_step_1_image_confirm_button">Confirm documentul</string>
+    <string name="upload_step_1_image_confirm_button">Confirm</string>
     <string name="upload_step_1_back_button">Înapoi</string>
 
     <string name="upload_step_2_title">PASUL 2</string>
-    <string name="upload_step_2_message">Ești de acord să încarci în Cloud documentul anonimizat și cheile tale (temporare și anonime) pe care le-ai folosit în ultimele 14 zile - pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați anonim?\n\n<b>Nimeni nu va afla cine ești!</b></string>
+    <string name="upload_step_2_message">Ești de acord să încarci în Cloud fișierul selectat și cheile tale anonime pe care le-ai folosit în ultimele 14 zile - pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați?\n\n<b>Nimeni nu va afla cine ești!</b></string>
     <string name="upload_step_2_upload_confirm_button">Sunt de acord</string>
 
-    <string name="upload_step_3_your_data_has_been_uploaded">Cheile tale și documentul au fost încărcate în Cloud. După verificarea documentului, contacții tăi vor primi o Alertă de Expunere.\n\n<b>Dacă în 24 de ore</b> nu ai primit confirmarea avertizării contacților, înseamnă că documentul nu corespunde cerințelor. Recitește instrucțiunile și repetă procedura - sau contactează-ne prin email la first.contact@cetatenii.org</string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Cheile tale și fișierul au fost încărcate în Cloud. Dacă dovada scrisă pe care ai trimis-o corespunde cerințelor, contacții tăi vor primi o Alertă de Expunere.\n\nÎn cel mult 24 de ore, aplicatia îți va confirma dacă contacții tai au fost avertizați sau nu.</string>
     <string name="upload_step_3_done_button">OK</string>
 
     <!-- notifications -->

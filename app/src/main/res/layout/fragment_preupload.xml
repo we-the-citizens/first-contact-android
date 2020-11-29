@@ -21,6 +21,10 @@
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="88"
+            android:background="#FFF4F4"
+            android:fadeScrollbars="false"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarFadeDuration="0"
             android:scrollbars="vertical">
 
             <LinearLayout
@@ -28,88 +32,63 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/topLayout"
+                <RadioGroup
+                    android:id="@+id/userSituation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <RadioButton
+                        android:id="@+id/radio_no_document"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/preupload_title"
-                        android:textAlignment="center"
-                        android:textColor="#383838"
-                        android:textFontWeight="600"
-                        android:textSize="32dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/middleLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <RadioGroup
-                        android:id="@+id/userSituation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp">
-
-                        <RadioButton
-                            android:id="@+id/radio_no_document"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:text="@string/preupload_radio_no_document"
-                            android:textSize="16sp" />
-
-                        <RadioButton
-                            android:id="@+id/radio_document"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:text="@string/preupload_radio_document"
-                            android:textSize="16sp" />
-
-                        <RadioButton
-                            android:id="@+id/radio_document_anonimized"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:text="@string/preupload_radio_document_anonimized"
-                            android:textSize="16sp" />
-
-                        <RadioButton
-                            android:id="@+id/radio_sms"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:text="@string/preupload_radio_sms"
-                            android:textSize="16sp" />
-                    </RadioGroup>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvMessage"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
                         android:layout_marginBottom="10dp"
-                        android:scrollbars="vertical"
-                        android:text="@string/preupload_message_no_selection"
-                        android:textAlignment="textStart"
-                        android:textColor="#505050"
-                        android:textSize="16sp"
-                        android:textStyle="normal" />
+                        android:text="@string/preupload_radio_no_document"
+                        android:textSize="16sp" />
 
-                </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/radio_document"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/preupload_radio_document"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_document_anonimized"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/preupload_radio_document_anonimized"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_sms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/preupload_radio_sms"
+                        android:textSize="16sp" />
+                </RadioGroup>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:scrollbars="vertical"
+                    android:text="@string/preupload_message_no_selection"
+                    android:textAlignment="textStart"
+                    android:textColor="#505050"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
             </LinearLayout>
         </ScrollView>
 

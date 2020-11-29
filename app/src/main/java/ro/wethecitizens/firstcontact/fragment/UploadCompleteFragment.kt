@@ -53,7 +53,7 @@ class UploadCompleteFragment : Fragment() {
             PendingIntent.getBroadcast(context, REJECT_CHECK_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
-        alarmManager?.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + /*minutesInterval **/ MIN.toLong(), alarmIntent)
+        alarmManager?.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + minutesInterval * MIN.toLong(), alarmIntent)
     }
 
     private val REJECT_CHECK_REQUEST_CODE = 111221
