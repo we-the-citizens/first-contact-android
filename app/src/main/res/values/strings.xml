@@ -2,17 +2,17 @@
 
     <!-- onboarding -->
     <string name="permission_write_rationale">First Contact needs save files for logs (Debug builds only)</string>
-    <string name="permission_location_rationale">Acordă Permisiuni de localizare. Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Însă poți fi sigur 100% că First Contact nu va folosi deloc localizarea - aplicația e Open Source, deci se poate verifica în codul sursă.</string>
-    <string name="open_location_setting">Application needs location permission in order to work. Do you want to enable location permission?</string>
+    <string name="permission_location_rationale">Acordă Permisiuni de localizare. Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Însă poți fi sigur 100% că First Contact nu va folosi deloc localizarea - se poate verifica și în codul sursă, că aplicația e Open Source.</string>
+    <string name="permission_location_denied">Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Însă poți fi sigur 100% că First Contact nu va folosi deloc localizarea - se poate verifica și în codul sursă, că aplicația e Open Source.</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
     <string name="onboarding_title">Te avertizează rapid, ca să poți lua măsuri în timp util</string>
-    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Dacă unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând o dovadă scrisă) și aplicația determină că în ultimele 14 zile ai stat lângă el, <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără date personale, localizare sau urmărire. Nimeni nu poate afla cine ești, ce întâlniri ai avut sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
+    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Dacă unul dintre aceștia se autoraportează \'Pozitiv\' (prezentând o dovadă scrisă anonimizată) și aplicația determină că în ultimele 14 zile ai stat lângă el, <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n\n<b>Totul este complet anonim</b> - fără date personale, localizare sau urmărire. Nimeni nu poate afla cine ești, ce întâlniri ai avut sau dacă ai fost expus - datele întâlnirilor tale (anonime) fiind stocate și prelucrate <u>numai pe telefonul tău</u>.</string>
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
-    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Permisiuni de localizare\n 3. Oprire optimizare baterie\n\n<b>De ce și Permisiuni de localizare?</b>\nDeși aplicația <u>nu folosește deloc localizarea</u>, sistemul Android cere <u>întotdeauna</u> acest tip de permisiuni în cazul utilizării Bluetooth Low Energy - fără să țină cont că în unele cazuri, precum First Contact, localizarea sau urmărirea utilizatorului după semnalul Bluetooth este imposibilă, fiindcă cheia lui de identificare anonimă se schimbă la fiecare 10-20 minute.</string>
+    <string name="setup_app_permission_message">Pentru a putea funcționa, First Contact are nevoie de câteva permisiuni:\n 1. Bluetooth\n 2. Permisiuni de localizare\n 3. Oprire optimizare baterie\n\n<b>De ce și Permisiuni de localizare?</b>\nDeși aplicația nu folosește niciun fel de localizare, sistemul Android cere <u>întotdeauna</u> acest tip de permisiuni în cazul utilizării Bluetooth Low Energy - fără să țină cont că în unele cazuri, cum este și First Contact, localizarea sau urmărirea utilizatorului pe baza semnalului Bluetooth este imposibilă - fiindcă cheile anonime de identificare se schimbă la fiecare 10-20 minute.</string>
     <string name="proceed">OK</string>
 
     <!-- home -->
@@ -51,16 +51,16 @@
     <!-- upload -->
     <string name="preupload_title">Avertizare contacți</string>
 
-    <string name="preupload_radio_no_document">         NU am fost diagnosticat \'Pozitiv\' în ultimele 14 zile sau n-am primit nicio dovadă în acest sens.</string>
-    <string name="preupload_radio_document">            Am un document de diagnostic \'Pozitiv\', dar NU am urmat instrucțiunile de ștergere a datelor mele personale.</string>
-    <string name="preupload_radio_document_anonimized"> Am respectat instrucțiunile de ștergere (doar) a datelor mele personale în documentul de diagnostic \'Pozitiv\'.</string>
-    <string name="preupload_radio_sms">                 Am primit numai un SMS cu diagnosticul \'Pozitiv\' și am făcut o captură de ecran cu acel SMS.</string>
+    <string name="preupload_radio_no_document">NU am fost diagnosticat \'Pozitiv\' în ultimele 14 zile sau n-am primit nicio dovadă scrisă în acest sens.</string>
+    <string name="preupload_radio_document">Am un document de diagnostic \'Pozitiv\', dar NU am urmat instrucțiunile de ștergere a datelor mele personale.</string>
+    <string name="preupload_radio_document_anonimized">Am respectat instrucțiunile de ștergere (doar) a datelor mele personale în documentul de diagnostic \'Pozitiv\'.</string>
+    <string name="preupload_radio_sms">Am primit doar un SMS cu diagnosticul \'Pozitiv\' și am făcut o captură de ecran cu acest SMS.</string>
 
-    <string name="preupload_message_no_selection">      Selectează mai sus situația în care te găsești.</string>
-    <string name="preupload_message_no_document">       Revii aici doar când vei avea o dovadă scrisă că ai fost diagnosticat \'Pozitiv\'.</string>
-    <string name="preupload_message_document">          Urmează întocmai instrucțiunile de ștergere (doar) a datelor tale personale.</string>
+    <string name="preupload_message_no_selection">Selectează mai sus situația în care te găsești.</string>
+    <string name="preupload_message_no_document">Revii aici doar când vei avea o dovadă scrisă că ai fost diagnosticat \'Pozitiv\'.</string>
+    <string name="preupload_message_document">Citește cu atenție instrucțiunile de ștergere (doar) a datelor tale personale.</string>
     <string name="preupload_message_document_anonimized"><b>Atenție!</b> Toate celelalte date din document trebuie să rămână vizibile.</string>
-    <string name="preupload_message_sms">               Dacă n-ai făcut o captură cu <u><b>tot ecranul</b></u>, fă asta mai întâi și apoi revii aici.</string>
+    <string name="preupload_message_sms">Captura trebuie să includă <u><b>TOT ECRANUL</b></u> - dacă n-ai făcut așa, remediază și revii aici.</string>
 
     <string name="preupload_button_ok">OK</string>
     <string name="preupload_button_instructions">Instrucțiuni</string>
@@ -75,15 +75,15 @@
     <string name="upload_subtitle">dacă ai fost confirmat Pozitiv</string>
 
     <string name="upload_step_1_title">PASUL 1</string>
-    <string name="upload_step_1_message">Selectează (din Gallery) fișierul imagine cu documentul <u>anonimizat</u> (conform instrucțiunilor) sau cu captura de ecran a SMS-ului, care atestă că ai fost confirmat \'Pozitiv\'.</string>
+    <string name="upload_step_1_message">Selectează (din Gallery) fișierul imagine cu documentul <u>anonimizat</u> (conform instrucțiunilor) sau cu captura de ecran a SMS-ului care atestă că ai fost confirmat \'Pozitiv\'.</string>
     <string name="upload_step_1_second_message"></string>
     <string name="upload_step_1_select_image_button">Selectare fișier</string>
 
-    <string name="upload_step_1_image_confirm_button">Confirm</string>
-    <string name="upload_step_1_back_button">Înapoi</string>
+    <string name="upload_step_1_image_confirm_button">OK</string>
+    <string name="upload_step_1_back_button">anulare</string>
 
     <string name="upload_step_2_title">PASUL 2</string>
-    <string name="upload_step_2_message">Ești de acord să încarci în Cloud fișierul selectat și cheile tale anonime pe care le-ai folosit în ultimele 14 zile - pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați?\n\n<b>Nimeni nu va afla cine ești!</b></string>
+    <string name="upload_step_2_message">Ești de acord să încarci în Cloud fișierul selectat și cheile tale anonime pe care le-ai folosit în ultimele 14 zile - pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați?\n<b>Nimeni nu poate afla cine ești!</b></string>
     <string name="upload_step_2_upload_confirm_button">Sunt de acord</string>
 
     <string name="upload_step_3_your_data_has_been_uploaded">Cheile tale și fișierul au fost încărcate în Cloud. Dacă dovada scrisă pe care ai trimis-o corespunde cerințelor, contacții tăi vor primi o Alertă de Expunere.\n\nÎn cel mult 24 de ore, aplicatia îți va confirma dacă contacții tai au fost avertizați sau nu.</string>
@@ -96,14 +96,14 @@
     <string name="service_not_ok_body">Scanarea First Contact nu funcționează. Verifică!</string>
     <string name="service_not_ok_action">Verifică aplicația acum!</string>
 
-    <string name="exposure_new_alerts_title">Alertă de Expunere FIRST CONTACT !!!</string>
+    <string name="exposure_new_alerts_title">Alertă de Expunere FIRST CONTACT</string>
     <string name="exposure_new_alerts_body">Click aici pentru detalii</string>
 
     <string name="own_upload_approved_title">Contacții tăi au fost avertizați</string>
     <string name="own_upload_approved_body">Mulțumim pentru atitudinea altruistă!</string>
 
-    <string name="own_upload_rejected_title">Documentul trimis nu a fost aprobat!</string>
-    <string name="own_upload_rejected_body">Repeta procedura cu atentie la instructiuni si/sau contacteaza-ne pe mail.</string>
+    <string name="own_upload_rejected_title">NU s-a aprobat Avertizarea contacților!</string>
+    <string name="own_upload_rejected_body">Dovada trimisă nu corespunde cerințelor. Recitește instrucțiunile!</string>
 
     <!-- errors -->
     <string name="error_document_already_uploaded">Eroare: Acest document a mai fost deja trimis.</string>

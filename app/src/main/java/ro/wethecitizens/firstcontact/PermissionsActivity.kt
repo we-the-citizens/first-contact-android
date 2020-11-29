@@ -188,35 +188,22 @@ class PermissionsActivity : AppCompatActivity() {
                     var permission = permissions[x]
                     if (grantResults[x] == PackageManager.PERMISSION_DENIED) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            var showRationale = shouldShowRequestPermissionRationale(permission)
-                            if (!showRationale) {
+                            //var showRationale = shouldShowRequestPermissionRationale(permission)
+                            //if (!showRationale) {
 
+                                CentralLog.d(TAG, "SHOW RATIONALE")
                                 // build alert dialog
                                 val dialogBuilder = AlertDialog.Builder(this)
                                 // set message of alert dialog
-                                dialogBuilder.setMessage(getString(R.string.open_location_setting))
+                                dialogBuilder.setMessage(getString(R.string.permission_location_denied))
                                     // if the dialog is cancelable
                                     .setCancelable(false)
                                     // positive button text and action
                                     .setPositiveButton(
                                         getString(R.string.ok),
                                         DialogInterface.OnClickListener { dialog, id ->
-                                            CentralLog.d(TAG, "user also CHECKED never ask again")
-                                            mIsOpenSetting = true
-                                            var intent =
-                                                Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                            var uri: Uri =
-                                                Uri.fromParts("package", packageName, null)
-                                            intent.data = uri
-                                            startActivity(intent)
-
-                                        })
-                                    // negative button text and action
-                                    .setNegativeButton(
-                                        getString(R.string.cancel),
-                                        DialogInterface.OnClickListener { dialog, id ->
                                             dialog.cancel()
+                                            excludeFromBatteryOptimization()
                                         })
 
                                 // create dialog box
@@ -225,11 +212,11 @@ class PermissionsActivity : AppCompatActivity() {
                                 // show alert dialog
                                 alert.show()
 
-                            } else if (Manifest.permission.WRITE_CONTACTS.equals(permission)) {
+                            /*} else if (Manifest.permission.WRITE_CONTACTS.equals(permission)) {
                                 CentralLog.d(TAG, "user did not CHECKED never ask again")
                             } else {
                                 excludeFromBatteryOptimization()
-                            }
+                            }*/
                         }
                     } else if (grantResults[x] == PackageManager.PERMISSION_GRANTED) {
                         excludeFromBatteryOptimization()

@@ -21,7 +21,6 @@
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="88"
-            android:background="#FFF4F4"
             android:fadeScrollbars="false"
             android:scrollbarAlwaysDrawVerticalTrack="true"
             android:scrollbarFadeDuration="0"
@@ -113,7 +112,7 @@
                 android:textFontWeight="600"
                 android:textSize="18sp"
                 android:textStyle="normal"
-                tools:visibility="invisible" />
+                tools:visibility="visible" />
         </LinearLayout>
 
     </LinearLayout>

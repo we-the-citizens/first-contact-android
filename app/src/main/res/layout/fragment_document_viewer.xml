@@ -11,47 +11,66 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="130dp"
+        android:layout_marginBottom="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/confirmSelectionButton"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="70dp"
-        android:background="@drawable/gradient"
-        android:fontFamily="@font/font"
-        android:text="@string/upload_step_1_image_confirm_button"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textFontWeight="600"
-        android:textSize="18sp"
-        android:textStyle="normal"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:weightSum="100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/background_white_radius"
-        android:fontFamily="@font/font"
-        android:text="@string/upload_step_1_back_button"
-        android:textAllCaps="false"
-        android:textColor="@color/grey_5"
-        android:textFontWeight="600"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/background_white_radius"
+                android:fontFamily="@font/font"
+                android:text="@string/upload_step_1_back_button"
+                android:textAllCaps="false"
+                android:textColor="@color/grey_5"
+                android:textFontWeight="600"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="50"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/confirmSelectionButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/gradient"
+                android:fontFamily="@font/font"
+                android:text="@string/upload_step_1_image_confirm_button"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textFontWeight="600"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

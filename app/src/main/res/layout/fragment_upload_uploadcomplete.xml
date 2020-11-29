@@ -42,7 +42,7 @@
                 android:scrollbars="vertical"
                 android:text="@string/upload_step_3_your_data_has_been_uploaded"
                 android:textAlignment="textStart"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 app:autoSizeMinTextSize="10dp" />
 
         </LinearLayout>
