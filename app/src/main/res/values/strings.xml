@@ -2,8 +2,8 @@
 
     <!-- onboarding -->
     <string name="permission_write_rationale">First Contact needs save files for logs (Debug builds only)</string>
-    <string name="permission_location_rationale">Acordă Permisiuni de localizare. Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Însă poți fi sigur 100% că First Contact nu va folosi deloc localizarea - se poate verifica și în codul sursă, că aplicația e Open Source.</string>
-    <string name="permission_location_denied">Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Însă poți fi sigur 100% că First Contact nu va folosi deloc localizarea - se poate verifica și în codul sursă, că aplicația e Open Source.</string>
+    <string name="permission_location_rationale">Acordă Permisiuni de localizare. Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Îți garantăm că aplicația nu folosește localizarea și nici nu permite urmărirea prin Bluetooth, fiindcă identificatorii se schimbă frecvent.</string>
+    <string name="permission_location_denied">Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Dar poți fi sigur 100% că First Contact nu folosește localizarea - se poate verifica și în codul sursă (că e Open Source).</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
@@ -21,7 +21,7 @@
     <string name="title_help">Ajutor</string>
 
     <string name="how_to_help">Ai grijă de tine și de ceilalți</string>
-    <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, dacă se va întâmpla să fii confirmat \'Pozitiv\', <b>avertizează-ți și tu <u>anonim</u> contacții</b>.\n\n<i>Poți vedea jurnalul întâlnirilor tale Bluetooth, prin dublu-click pe siglă.</i>\n </string>
+    <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, <b><u>dacă vei fi confirmat \'Pozitiv\'</u>, nu uita să-ți avertizezi și tu anonim contacții</b>.\n\n<i>Poți vedea jurnalul întâlnirilor tale Bluetooth, prin dublu-click pe siglă.</i>\n </string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
     <string name="bluetooth_on">Bluetooth</string>
@@ -33,7 +33,7 @@
     <string name="app_permission_fully_setup_desc">Lasă toate aceste permisiuni active ca să poți monitoriza permanent.</string>
     
     <string name="share_this_app">DISTRIBUIE ca să fii avertizat</string>
-    <string name="ask_friend">Înainte de a te întâlni cu cineva cunoscut, roagă-l să-și instaleze și el aplicația - ca să vă puteți avertiza reciproc dacă va fi cazul.</string>
+    <string name="ask_friend">Înainte de a te întâlni cu un cunoscut, roagă-l să-și pună aplicația - ca să vă puteți avertiza reciproc dacă unul din voi devine \'Pozitiv\'.</string>
     <string name="share_message">Instalează-ți și tu aplicația First Contact - ca să ne putem avertiza reciproc, în caz că unul dintre noi va fi depistat Pozitiv. Mergi pe https://first-contact.ro</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
@@ -51,22 +51,22 @@
     <!-- upload -->
     <string name="preupload_title">Avertizare contacți</string>
 
-    <string name="preupload_radio_no_document">NU am fost diagnosticat \'Pozitiv\' în ultimele 14 zile sau n-am primit nicio dovadă scrisă în acest sens.</string>
-    <string name="preupload_radio_document">Am un document de diagnostic \'Pozitiv\', dar NU am urmat instrucțiunile de ștergere a datelor mele personale.</string>
-    <string name="preupload_radio_document_anonimized">Am respectat instrucțiunile de ștergere (doar) a datelor mele personale în documentul de diagnostic \'Pozitiv\'.</string>
-    <string name="preupload_radio_sms">Am primit doar un SMS cu diagnosticul \'Pozitiv\' și am făcut o captură de ecran cu acest SMS.</string>
+    <string name="preupload_radio_no_document">NU am primit un diagnostic \'Pozitiv\' în ultimele 14 zile.</string>
+    <string name="preupload_radio_document">Am document de diagnostic \'Pozitiv\', dar NU mi-am șters datele personale.</string>
+    <string name="preupload_radio_document_anonimized"> Am șters deja datele mele personale în documentul de diagnostic \'Pozitiv\'.</string>
+    <string name="preupload_radio_sms">Am doar un SMS de diagnostic \'Pozitiv\' și i-am făcut captură cu tot ecranul.</string>
 
-    <string name="preupload_message_no_selection">Selectează mai sus situația în care te găsești.</string>
+    <string name="preupload_message_no_selection">Selectează din variantele de mai sus situația în care te găsești.</string>
     <string name="preupload_message_no_document">Revii aici doar când vei avea o dovadă scrisă că ai fost diagnosticat \'Pozitiv\'.</string>
-    <string name="preupload_message_document">Citește cu atenție instrucțiunile de ștergere (doar) a datelor tale personale.</string>
+    <string name="preupload_message_document">Citește cu atenție instrucțiunile de ștergere DOAR a datelor tale personale.</string>
     <string name="preupload_message_document_anonimized"><b>Atenție!</b> Toate celelalte date din document trebuie să rămână vizibile.</string>
-    <string name="preupload_message_sms">Captura trebuie să includă <u><b>TOT ECRANUL</b></u> - dacă n-ai făcut așa, remediază și revii aici.</string>
+    <string name="preupload_message_sms">Captura trebuie să includă <u>TOT ECRANUL</u> cu SMS-ul. Dacă n-ai făcut așa, refă captura și revii aici.</string>
 
     <string name="preupload_button_ok">OK</string>
     <string name="preupload_button_instructions">Instrucțiuni</string>
     <string name="preupload_button_warn_contacts">Avertizează Contacții</string>
 
-    <string name="postupload_message_completed"><b>Ți-ai avertizat deja contacții</b> (care utilizează first Contact).\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și îți dorim să treci cât mai ușor prin această încercare.</string>
+    <string name="postupload_message_completed"><b>Ți-ai avertizat deja contacții</b> (care utilizează First Contact).\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și îți dorim să treci cât mai ușor prin această încercare.</string>
     <string name="postupload_message_processing"><b>Te-ai autoraportat deja ca diagnosticat \'Pozitiv\' - cererea ta este în curs de procesare.</b>\n\nÎn cel mult 24 de ore de la raportare, aplicatia îți va confirma dacă contacții tăi au fost avertizați sau nu. Dacă NU, înseamnă că dovada scrisă trimisă nu corespunde cerințelor, caz în care poți repeta procedura (recitind instrucțiunile) sau ne poti contacta prin email la first.contact@cetatenii.org</string>
     <string name="postupload_button_completed">Contacți avertizați</string>
     <string name="postupload_button_processing">În procesare</string>
@@ -90,8 +90,8 @@
     <string name="upload_step_3_done_button">OK</string>
 
     <!-- notifications -->
-    <string name="service_ok_title">First Contact scanează și vă avertizează :)</string>
-    <string name="service_ok_body">Repornește telefonul dacă această notificare dispare</string>
+    <string name="service_ok_title">First Contact scanează și avertizează :)</string>
+    <string name="service_ok_body">Dacă dispare notificarea, repornește telefonul</string>
     <string name="service_not_ok_title">Oh nu! :(</string>
     <string name="service_not_ok_body">Scanarea First Contact nu funcționează. Verifică!</string>
     <string name="service_not_ok_action">Verifică aplicația acum!</string>
@@ -103,7 +103,7 @@
     <string name="own_upload_approved_body">Mulțumim pentru atitudinea altruistă!</string>
 
     <string name="own_upload_rejected_title">NU s-a aprobat Avertizarea contacților!</string>
-    <string name="own_upload_rejected_body">Dovada trimisă nu corespunde cerințelor. Recitește instrucțiunile!</string>
+    <string name="own_upload_rejected_body">Dovada trimisă nu corespunde cerințelor. Recitește instrucțiunile.</string>
 
     <!-- errors -->
     <string name="error_document_already_uploaded">Eroare: Acest document a mai fost deja trimis.</string>
