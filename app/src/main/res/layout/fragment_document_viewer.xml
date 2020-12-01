@@ -38,6 +38,7 @@
                 android:id="@+id/backButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:alpha="0.7"
                 android:background="@drawable/gradient"
                 android:fontFamily="@font/font"
                 android:text="@string/upload_step_1_back_button"

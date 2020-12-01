@@ -44,7 +44,7 @@
             <ImageView
                 android:id="@+id/icon"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="80dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
@@ -66,7 +66,7 @@
                 android:text="@string/postupload_message_processing"
                 android:textAlignment="textStart"
                 android:textColor="#505050"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="normal" />
 
         </LinearLayout>

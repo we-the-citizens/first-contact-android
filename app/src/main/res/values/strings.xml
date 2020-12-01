@@ -2,14 +2,14 @@
 
     <!-- onboarding -->
     <string name="permission_write_rationale">First Contact needs save files for logs (Debug builds only)</string>
-    <string name="permission_location_rationale">Acordă Permisiuni de localizare. Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Îți garantăm că aplicația nu folosește localizarea și nici nu permite urmărirea prin Bluetooth, fiindcă identificatorii se schimbă frecvent.</string>
-    <string name="permission_location_denied">Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Dar poți fi sigur 100% că First Contact nu folosește localizarea - se poate verifica și în codul sursă (că e Open Source).</string>
+    <string name="permission_location_rationale">Aplicația nu poate funcționa fără Permisiuni de localizare. Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Îți garantăm că aplicația nu folosește localizarea și nici nu permite urmărirea prin Bluetooth, fiindcă identificatorii se schimbă frecvent.</string>
+    <string name="permission_location_denied">Sistemul Android nu permite utilizarea Bluetooth Low Energy fără permisiuni de localizare. Dar poți fi sigur 100% că First Contact nu folosește deloc localizarea - se poate verifica și în codul sursă (că e Open Source).</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
-    <string name="onboarding_title">Te avertizează rapid, ca să poți lua măsuri în timp util</string>
-    <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv\' <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n\n<b>Totul este complet anonim</b>.</string>
-    <string name="how_is_works">Află mai multe despre cum funcționează</string>
+    <string name="onboarding_title">Te avertizează rapid, dacă te-ai întâlnit cu un infectat</string>
+    <string name="onboarding_desc">Aplicația scanează semnalele Bluetooth din jur și înregistrează automat și anonim întâlnirile tale cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv Covid\' <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n\n<b>Totul este complet anonim!</b>.</string>
+    <string name="how_is_works">Click ca să vezi cum funcționează</string>    
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
@@ -21,8 +21,8 @@
     <string name="title_upload">Avertizează</string>
     <string name="title_help">Ajutor</string>
 
-    <string name="how_to_help">Ai grijă de tine și de ceilalți</string>
-    <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, <b><u>dacă vei fi confirmat \'Pozitiv\'</u>, nu uita să-ți avertizezi și tu anonim contacții</b>.\n\n<i>Poți vedea jurnalul întâlnirilor tale Bluetooth, prin dublu-click pe siglă.</i>\n </string>
+    <string name="how_to_help">Protejați-vă cercul de apropiați!</string>
+    <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, <b><u>dacă vei fi confirmat \'Pozitiv Covid\'</u>, nu uita să-ți avertizezi și tu anonim contacții</b>.\n\n<i>Poți vedea întâlnirile tale cu alți utilizatori, prin dublu-click pe siglă.</i>\n </string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
     <string name="bluetooth_on">Bluetooth</string>
@@ -34,17 +34,17 @@
     <string name="app_permission_fully_setup_desc">Lasă toate aceste permisiuni active ca să poți monitoriza permanent.</string>
     
     <string name="share_this_app">DISTRIBUIE ca să fii avertizat</string>
-    <string name="ask_friend">Înainte de a te întâlni cu un cunoscut, trimite-i aplicația - ca să vă puteți avertiza reciproc dacă unul din voi devine \'Pozitiv\'.</string>
-    <string name="share_message">Instalează-ți și tu aplicația First Contact - ca să ne putem avertiza reciproc, în caz că unul dintre noi va fi depistat Pozitiv. Mergi pe https://first-contact.ro</string>
+    <string name="ask_friend">Înainte de a te întâlni cu un cunoscut, trimite-i aplicația - ca să vă avertizați reciproc dacă unul din voi e depistat \'Pozitiv Covid\'.</string>
+    <string name="share_message">Instalează-ți și tu aplicația First Contact - ca să ne putem avertiza reciproc, în caz că unul dintre noi va fi depistat Pozitiv Covid. Mergi pe https://first-contact.ro</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
-    <string name="help_us_identify">Activează scanarea, acordând aplicației permisiunile necesare</string>
+    <string name="help_us_identify">Activează protecția, acordând aplicației permisiunile necesare</string>
     <string name="restart_app_setup"> Remediază </string>
 
-    <string name="no_records">Jurnalul tău de întâlniri este gol, deocamdată - fiindcă cei cu care te-ai întâlnit nu și-au instalat încă First Contact.\n\n Distribuie aplicația celor cu care obișnuiești să te întâlnești (prieteni, colegi, familie), pentru a începe să înregistrezi întâlniri în acest jurnal.</string>
+    <string name="no_records">Jurnalul tău de întâlniri este gol, deocamdată - fiindcă cei cu care te-ai întâlnit nu și-au instalat încă First Contact.\n\n Distribuie aplicația tuturor celor cu care obișnuiești să te întâlnești (prieteni, colegi, familie), ca să poți înregistra în jurnal întâlnirile cu ei și cercul vostru să fie protejat.</string>
 
-    <string name="exposure_alert_title">Alertă de Expunere</string>
-    <string name="exposure_body">Pe # ai stat cel puțin $ lângă cineva autoraportat acum ca \'Pozitiv\'</string>
+    <string name="exposure_alert_title">Alertă Expunere la Coronavirus</string>
+    <string name="exposure_body">Pe # ai stat cel puțin $ lângă cineva depistat acum \'Pozitiv Covid\'</string>
     <string name="view_infection_instructions_text">Vezi recomandările</string>
 
     <string name="copyright">© 2020 Noi, Cetățenii</string>
@@ -52,13 +52,13 @@
     <!-- upload -->
     <string name="preupload_title">Avertizare contacți</string>
 
-    <string name="preupload_radio_no_document">NU am primit un diagnostic \'Pozitiv\' în ultimele 14 zile.</string>
-    <string name="preupload_radio_document">Am document de diagnostic \'Pozitiv\', dar NU mi-am șters datele personale.</string>
-    <string name="preupload_radio_document_anonimized"> Am șters deja datele mele personale în documentul de diagnostic \'Pozitiv\'.</string>
-    <string name="preupload_radio_sms">Am doar un SMS de diagnostic \'Pozitiv\' și i-am făcut captură cu tot ecranul.</string>
+    <string name="preupload_radio_no_document">NU am primit un diagnostic \'Pozitiv Covid\' în ultimele 14 zile.</string>
+    <string name="preupload_radio_document">Am document de diagnostic \'Pozitiv Covid\', dar NU mi-am șters datele personale.</string>
+    <string name="preupload_radio_document_anonimized"> Am șters deja datele mele personale în documentul de diagnostic \'Pozitiv Covid\'.</string>
+    <string name="preupload_radio_sms">Am doar un SMS de diagnostic \'Pozitiv Covid\' și am făcut captură cu tot ecranul.</string>
 
     <string name="preupload_message_no_selection">Selectează din variantele de mai sus situația în care te găsești.</string>
-    <string name="preupload_message_no_document">Revii aici doar când vei avea o dovadă scrisă că ai fost diagnosticat \'Pozitiv\'.</string>
+    <string name="preupload_message_no_document">Revii aici doar când vei avea o dovadă scrisă că ai fost diagnosticat \'Pozitiv Covid\'.</string>
     <string name="preupload_message_document">Citește cu atenție instrucțiunile de ștergere DOAR a datelor tale personale.</string>
     <string name="preupload_message_document_anonimized"><b>Atenție!</b> Toate celelalte date din document trebuie să rămână vizibile.</string>
     <string name="preupload_message_sms">Captura trebuie să includă <u>TOT ECRANUL</u> cu SMS-ul. Dacă n-ai făcut așa, refă captura și revii aici.</string>
@@ -68,15 +68,15 @@
     <string name="preupload_button_warn_contacts">Avertizează Contacții</string>
 
     <string name="postupload_message_completed"><b>Ți-ai avertizat deja contacții</b> (care utilizează First Contact).\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și îți dorim să treci cât mai ușor prin această încercare.</string>
-    <string name="postupload_message_processing"><b>Te-ai autoraportat deja ca diagnosticat \'Pozitiv\' - cererea ta este în curs de procesare.</b>\n\nÎn cel mult 24 de ore de la raportare, aplicatia îți va confirma dacă contacții tăi au fost avertizați sau nu. Dacă NU, înseamnă că dovada scrisă trimisă nu corespunde cerințelor, caz în care poți repeta procedura (recitind instrucțiunile) sau ne poti contacta prin email la first.contact@cetatenii.org</string>
+    <string name="postupload_message_processing"><b>Te-ai autoraportat deja ca \'Pozitiv Covid\' - cererea ta este în curs de procesare.</b>\n\nÎn cel mult 24 de ore de la raportare, aplicatia îți va confirma dacă contacții tăi au fost avertizați sau nu. Dacă NU, înseamnă că dovada scrisă trimisă nu corespunde cerințelor, caz în care poți repeta procedura (recitind instrucțiunile) sau ne poti contacta prin email la first.contact@cetatenii.org</string>
     <string name="postupload_button_completed">Contacți avertizați</string>
     <string name="postupload_button_processing">În procesare</string>
 
     <string name="upload_title">Avertizare contacți</string>
-    <string name="upload_subtitle">dacă ai fost confirmat Pozitiv</string>
+    <string name="upload_subtitle">dacă ai diagnostic Pozitiv Covid</string>
 
     <string name="upload_step_1_title">PASUL 1</string>
-    <string name="upload_step_1_message">Selectează (din Gallery) fișierul imagine cu documentul <u>anonimizat</u> (conform instrucțiunilor) sau cu captura de ecran a SMS-ului care atestă că ai fost confirmat \'Pozitiv\'.</string>
+    <string name="upload_step_1_message">Selectează (din Gallery) fișierul cu documentul de diagnostic <u>anonimizat</u> (conform instrucțiunilor) sau cu captura de ecran a SMS-ului care atestă că ești \'Pozitiv Covid\'.</string>
     <string name="upload_step_1_second_message"></string>
     <string name="upload_step_1_select_image_button">Selectare fișier</string>
 

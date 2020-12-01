@@ -69,7 +69,7 @@
                 android:scrollbarFadeDuration="0"
                 android:scrollbars="vertical"
                 android:text="@string/upload_step_2_message"
-                android:textSize="18sp" />
+                android:textSize="17sp" />
 
         </LinearLayout>
 
