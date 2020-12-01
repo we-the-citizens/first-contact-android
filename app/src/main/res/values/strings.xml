@@ -2,14 +2,14 @@
 
     <!-- onboarding -->
     <string name="permission_write_rationale">First Contact needs save files for logs (Debug builds only)</string>
-    <string name="permission_location_rationale">Aplicația nu poate funcționa fără Permisiuni de localizare. Sistemul Android nu permite utilizarea Bluetooth Low Energy fără acest tip de permisiuni. Îți garantăm că aplicația nu folosește localizarea și nici nu permite urmărirea prin Bluetooth, fiindcă identificatorii se schimbă frecvent.</string>
-    <string name="permission_location_denied">Sistemul Android nu permite utilizarea Bluetooth Low Energy fără permisiuni de localizare. Dar poți fi sigur 100% că First Contact nu folosește deloc localizarea - se poate verifica și în codul sursă (că e Open Source).</string>
+    <string name="permission_location_rationale">Sistemul Android nu permite utilizarea Bluetooth Low Energy dacă nu se acordă permisiuni de localizare. Dar poți fi sigur 100% că First Contact nu folosește deloc localizarea - se poate verifica și în codul sursă (întrucât este Open Source).</string>
+    <string name="permission_location_denied">Aplicația nu va funcționa fără aceste Permisiuni de localizare! Sistemul Android cere acest tip de permisiuni întotdeauna când se folosește Bluetooth Low Energy. Dar First Contact nu permite localizarea și nici urmărirea pe baza semnalului Bluetooth (fiindcă identificatorii se schimbă frecvent).</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
-    <string name="onboarding_title">Te avertizează rapid, dacă te-ai întâlnit cu un infectat</string>
-    <string name="onboarding_desc">Aplicația scanează semnalele Bluetooth din jur și înregistrează automat și anonim întâlnirile tale cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv Covid\' <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n\n<b>Totul este complet anonim!</b>.</string>
-    <string name="how_is_works">Click ca să vezi cum funcționează</string>    
+    <string name="onboarding_title">Te avertizează rapid, dacă ai avut contact cu Coronavirus</string>
+    <string name="onboarding_desc">Aplicația scanează semnalele Bluetooth din jur și înregistrează automat și anonim întâlnirile tale cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv Covid\' <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n<b>Totul este complet anonim!</b></string>
+    <string name="how_is_works">Click aici să vezi cum funcționează</string>    
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>
@@ -21,7 +21,7 @@
     <string name="title_upload">Avertizează</string>
     <string name="title_help">Ajutor</string>
 
-    <string name="how_to_help">Protejați-vă cercul de apropiați!</string>
+    <string name="how_to_help">Continuați să vă protejați</string>
     <string name="help_action">Nu opri Bluetooth-ul, nu ține telefonul în buzunarul din spate și, <b><u>dacă vei fi confirmat \'Pozitiv Covid\'</u>, nu uita să-ți avertizezi și tu anonim contacții</b>.\n\n<i>Poți vedea întâlnirile tale cu alți utilizatori, prin dublu-click pe siglă.</i>\n </string>
 
     <string name="app_permission_status">Starea permisiunilor aplicației</string>
@@ -43,7 +43,7 @@
 
     <string name="no_records">Jurnalul tău de întâlniri este gol, deocamdată - fiindcă cei cu care te-ai întâlnit nu și-au instalat încă First Contact.\n\n Distribuie aplicația tuturor celor cu care obișnuiești să te întâlnești (prieteni, colegi, familie), ca să poți înregistra în jurnal întâlnirile cu ei și cercul vostru să fie protejat.</string>
 
-    <string name="exposure_alert_title">Alertă Expunere la Coronavirus</string>
+    <string name="exposure_alert_title">Alertă de Expunere</string>
     <string name="exposure_body">Pe # ai stat cel puțin $ lângă cineva depistat acum \'Pozitiv Covid\'</string>
     <string name="view_infection_instructions_text">Vezi recomandările</string>
 
@@ -53,22 +53,22 @@
     <string name="preupload_title">Avertizare contacți</string>
 
     <string name="preupload_radio_no_document">NU am primit un diagnostic \'Pozitiv Covid\' în ultimele 14 zile.</string>
-    <string name="preupload_radio_document">Am document de diagnostic \'Pozitiv Covid\', dar NU mi-am șters datele personale.</string>
-    <string name="preupload_radio_document_anonimized"> Am șters deja datele mele personale în documentul de diagnostic \'Pozitiv Covid\'.</string>
-    <string name="preupload_radio_sms">Am doar un SMS de diagnostic \'Pozitiv Covid\' și am făcut captură cu tot ecranul.</string>
+    <string name="preupload_radio_document">Am document de confirmare \'Pozitiv Covid\', dar NU mi-am șters datele personale.</string>
+    <string name="preupload_radio_document_anonimized"> Am șters deja datele mele personale în documentul de confirmare \'Pozitiv Covid\'.</string>
+    <string name="preupload_radio_sms">Am doar un SMS de confirmare \'Pozitiv Covid\' și am făcut captură cu tot ecranul.</string>
 
     <string name="preupload_message_no_selection">Selectează din variantele de mai sus situația în care te găsești.</string>
-    <string name="preupload_message_no_document">Revii aici doar când vei avea o dovadă scrisă că ai fost diagnosticat \'Pozitiv Covid\'.</string>
-    <string name="preupload_message_document">Citește cu atenție instrucțiunile de ștergere DOAR a datelor tale personale.</string>
+    <string name="preupload_message_no_document">Revii aici doar când vei avea o confirmare scrisă că ești \'Pozitiv Covid\'.</string>
+    <string name="preupload_message_document">Citește cu atenție instrucțiunile de anonimizare a datelor tale personale.</string>
     <string name="preupload_message_document_anonimized"><b>Atenție!</b> Toate celelalte date din document trebuie să rămână vizibile.</string>
-    <string name="preupload_message_sms">Captura trebuie să includă <u>TOT ECRANUL</u> cu SMS-ul. Dacă n-ai făcut așa, refă captura și revii aici.</string>
+    <string name="preupload_message_sms">Captura trebuie să includă <u>TOT ECRANUL</u> cu SMS-ul. Dacă n-ai făcut așa, refaci captura și revii aici.</string>
 
     <string name="preupload_button_ok">OK</string>
     <string name="preupload_button_instructions">Instrucțiuni</string>
     <string name="preupload_button_warn_contacts">Avertizează Contacții</string>
 
     <string name="postupload_message_completed"><b>Ți-ai avertizat deja contacții</b> (care utilizează First Contact).\n\nÎți mulțumim pentru altruismul de care ai dat dovadă și îți dorim să treci cât mai ușor prin această încercare.</string>
-    <string name="postupload_message_processing"><b>Te-ai autoraportat deja ca \'Pozitiv Covid\' - cererea ta este în curs de procesare.</b>\n\nÎn cel mult 24 de ore de la raportare, aplicatia îți va confirma dacă contacții tăi au fost avertizați sau nu. Dacă NU, înseamnă că dovada scrisă trimisă nu corespunde cerințelor, caz în care poți repeta procedura (recitind instrucțiunile) sau ne poti contacta prin email la first.contact@cetatenii.org</string>
+    <string name="postupload_message_processing"><b>Te-ai autoraportat deja ca \'Pozitiv Covid\' - cererea ta este în curs de procesare.</b>\n\nÎn cel mult 24 de ore de la raportare, aplicatia îți va confirma dacă contacții tăi au fost avertizați sau nu. Dacă dovada trimisă nu a corespuns cerințelor, recitește instrucțiunile și repetă procedura - sau ne poti contacta prin email la first.contact@cetatenii.org</string>
     <string name="postupload_button_completed">Contacți avertizați</string>
     <string name="postupload_button_processing">În procesare</string>
 
@@ -76,7 +76,7 @@
     <string name="upload_subtitle">dacă ai diagnostic Pozitiv Covid</string>
 
     <string name="upload_step_1_title">PASUL 1</string>
-    <string name="upload_step_1_message">Selectează (din Gallery) fișierul cu documentul de diagnostic <u>anonimizat</u> (conform instrucțiunilor) sau cu captura de ecran a SMS-ului care atestă că ești \'Pozitiv Covid\'.</string>
+    <string name="upload_step_1_message">Selectează (din Gallery) documentul <u>anonimizat</u> conform instrucțiunilor sau captura de ecran a SMS-ului care atestă că ești \'Pozitiv Covid\'.</string>
     <string name="upload_step_1_second_message"></string>
     <string name="upload_step_1_select_image_button">Selectare fișier</string>
 
@@ -84,10 +84,10 @@
     <string name="upload_step_1_back_button">anulare</string>
 
     <string name="upload_step_2_title">PASUL 2</string>
-    <string name="upload_step_2_message">Ești de acord să încarci în Cloud fișierul selectat și cheile tale anonime pe care le-ai folosit în ultimele 14 zile - pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați?\n<b>Nimeni nu poate afla cine ești!</b></string>
+    <string name="upload_step_2_message">Ești de acord să încarci în Cloud fișierul selectat și cheile anonime cu care te-ai identificat în ultimele 14 zile - pentru ca cei cu care ai intrat în contact în această perioadă să fie avertizați?\n<b>Aceștia nu vor afla cine ești!</b></string>
     <string name="upload_step_2_upload_confirm_button">Sunt de acord</string>
 
-    <string name="upload_step_3_your_data_has_been_uploaded">Cheile tale și fișierul au fost încărcate în Cloud. Dacă dovada scrisă pe care ai trimis-o corespunde cerințelor, contacții tăi vor primi o Alertă de Expunere.\n\nÎn cel mult 24 de ore, aplicatia îți va confirma dacă contacții tai au fost avertizați sau nu.</string>
+    <string name="upload_step_3_your_data_has_been_uploaded">Cheile tale și fișierul cu dovada au fost încărcate în Cloud. Dacă dovada trimisă corespunde cerințelor, contacții tăi vor primi o Alertă de Expunere.\n\nÎn cel mult 24 de ore, aplicatia îți va confirma dacă contacții tai au fost avertizați sau nu.</string>
     <string name="upload_step_3_done_button">OK</string>
 
     <!-- notifications -->
@@ -104,7 +104,7 @@
     <string name="own_upload_approved_body">Mulțumim pentru atitudinea altruistă!</string>
 
     <string name="own_upload_rejected_title">NU s-a aprobat Avertizarea contacților!</string>
-    <string name="own_upload_rejected_body">Dovada trimisă nu corespunde cerințelor. Recitește instrucțiunile.</string>
+    <string name="own_upload_rejected_body">Dovada  nu corespunde cerințelor. Recitește instrucțiunile.</string>
 
     <!-- errors -->
     <string name="error_document_already_uploaded">Eroare: Acest document a mai fost deja trimis.</string>
