@@ -65,14 +65,17 @@
         <key>anonimization_url</key>
         <value>https://first-contact.ro/recomandari/</value>
     </entry>
-
     <entry>
-        <key>signature_key</key>
-        <value>xxxxxxxxxxxxxxxxxxxxx</value>
+        <key>how_it_works_url</key>
+        <value>https://first-contact.ro</value>
     </entry>
 
     <!-- Others -->
     <entry>
+        <key>signature_key</key>
+        <value>xxxxxxxxxxxxxxxxxxxxx</value>      <!-- just placeholder, don't write the real key here -->
+    </entry>
+<entry>
         <key>document_review_time_in_minutes</key>
         <value>10</value>
     </entry>

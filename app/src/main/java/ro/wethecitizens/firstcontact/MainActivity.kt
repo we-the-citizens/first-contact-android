@@ -19,6 +19,7 @@ import ro.wethecitizens.firstcontact.fragment.PreuploadFragment
 import ro.wethecitizens.firstcontact.fragment.HomeFragment
 import ro.wethecitizens.firstcontact.fragment.PostuploadFragment
 import ro.wethecitizens.firstcontact.preference.Preference
+import ro.wethecitizens.firstcontact.services.FirebaseService
 import ro.wethecitizens.firstcontact.utils.Utils
 
 class MainActivity : AppCompatActivity() {
@@ -34,23 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Utils.startBluetoothMonitoringService(this)
-
-        //Firebase Remote Config
-        val remoteConfig = Firebase.remoteConfig
-        val configSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 3600 * 6    //fetch not more often then once every 6 hours
-        }
-        remoteConfig.setConfigSettingsAsync(configSettings)
-        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
-        remoteConfig.fetchAndActivate()
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val updated = task.result
-                    Log.d(TAG, "Config params updated: $updated")
-                } else {
-                    Log.d(TAG, "Config params update failed")
-                }
-            }
+        FirebaseService.initFirebase(this)
 
         LAYOUT_MAIN_ID = R.id.content
 

@@ -72,6 +72,21 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="ro.wethecitizens.firstcontact.permissions.RequestFileWritePermission"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.AlertDialog" />
+
+        <activity
+            android:name="ro.wethecitizens.firstcontact.PeekActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.DebugNoActionBar" />
+
+        <activity
+            android:name="ro.wethecitizens.firstcontact.PlotActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.DebugNoActionBar" />
+
         <receiver android:name="ro.wethecitizens.firstcontact.boot.StartOnBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -87,35 +102,26 @@
 
         <receiver android:name="ro.wethecitizens.firstcontact.receivers.DailyAlarmReceiver" android:exported="true" />
 
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-     See README(https://goo.gl/l4GJaQ) for more. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification_service" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/notification_tint" />
 
-        <activity
-            android:name="ro.wethecitizens.firstcontact.permissions.RequestFileWritePermission"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.AlertDialog" />
+        <service
+            android:name="ro.wethecitizens.firstcontact.services.FirebaseService"
+            android:exported="false">
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <service
             android:name="ro.wethecitizens.firstcontact.services.BluetoothMonitoringService"
             android:foregroundServiceType="location" />
-
-        <activity
-            android:name="ro.wethecitizens.firstcontact.PeekActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.DebugNoActionBar" />
-
-        <activity
-            android:name="ro.wethecitizens.firstcontact.PlotActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.DebugNoActionBar" />
 
     </application>
 

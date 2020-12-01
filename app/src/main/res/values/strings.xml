@@ -9,6 +9,7 @@
 
     <string name="onboarding_title">Te avertizează rapid, ca să poți lua măsuri în timp util</string>
     <string name="onboarding_desc">Aplicația scanează proximitatea și înregistrează automat întâlnirile tale Bluetooth (anonime) cu alți utilizatori. Când unul dintre aceștia se autoraportează \'Pozitiv\' <b>vei primi o Alertă de Expunere</b>, cu data și durata contactului.\n\n<b>Totul este complet anonim</b>.</string>
+    <string name="how_is_works">Află mai multe despre cum funcționează</string>
     <string name="continue_button">Continuă</string>
 
     <string name="setup_app_permission_title">\Acordă permisiuni aplicației</string>

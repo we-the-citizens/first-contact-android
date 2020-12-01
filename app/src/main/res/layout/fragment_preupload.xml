@@ -46,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:text="@string/preupload_radio_no_document"
-                        android:textSize="16sp" />
+                        android:textSize="17sp" />
 
                     <RadioButton
                         android:id="@+id/radio_document"
@@ -54,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:text="@string/preupload_radio_document"
-                        android:textSize="16sp" />
+                        android:textSize="17sp" />
 
                     <RadioButton
                         android:id="@+id/radio_document_anonimized"
@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:text="@string/preupload_radio_document_anonimized"
-                        android:textSize="16sp" />
+                        android:textSize="17sp" />
 
                     <RadioButton
                         android:id="@+id/radio_sms"
@@ -70,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:text="@string/preupload_radio_sms"
-                        android:textSize="16sp" />
+                        android:textSize="17sp" />
                 </RadioGroup>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -85,7 +85,7 @@
                     android:text="@string/preupload_message_no_selection"
                     android:textAlignment="textStart"
                     android:textColor="#505050"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:textStyle="normal" />
 
             </LinearLayout>
