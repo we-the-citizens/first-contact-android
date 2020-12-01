@@ -67,6 +67,10 @@
     </entry>
     <entry>
         <key>how_it_works_url</key>
+        <value>https://first-contact.ro/#functionare</value>
+    </entry>
+    <entry>
+        <key>update_url</key>
         <value>https://first-contact.ro</value>
     </entry>
 
@@ -77,7 +81,7 @@
     </entry>
 <entry>
         <key>document_review_time_in_minutes</key>
-        <value>10</value>
+        <value>1440</value>
     </entry>
 
 </defaultsMap>

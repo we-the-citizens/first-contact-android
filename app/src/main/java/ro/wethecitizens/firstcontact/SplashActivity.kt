@@ -7,7 +7,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import ro.wethecitizens.firstcontact.preference.Preference
+import ro.wethecitizens.firstcontact.services.FirebaseService
 
 class SplashActivity : AppCompatActivity() {
 
@@ -21,6 +24,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         mHandler = Handler()
 
+        FirebaseService.initFirebase(this)
+
         //check if the intent was from notification and its a update notification
         intent.extras?.let {
             val notifEvent: String? = it.getString("event", null)
@@ -28,12 +33,15 @@ class SplashActivity : AppCompatActivity() {
             notifEvent?.let {
                 if (it.equals("update")) {
                     needToUpdateApp = true
-                    intent = Intent(Intent.ACTION_VIEW);
                     //Copy App URL from Google Play Store.
-                    intent.data = Uri.parse(BuildConfig.STORE_URL)
+                    //intent.data = Uri.parse(BuildConfig.STORE_URL)
 
-                    startActivity(intent)
-                    finish()
+                    val url = Firebase.remoteConfig.getString("update_url")
+                    if (url != null && url.length > 0) {
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(browserIntent)
+                        finish()
+                    }
                 }
             }
         }

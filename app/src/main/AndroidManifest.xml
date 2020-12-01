@@ -112,7 +112,7 @@
 
         <service
             android:name="ro.wethecitizens.firstcontact.services.FirebaseService"
-            android:exported="false">
+            android:exported="false"
             android:directBootAware="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
