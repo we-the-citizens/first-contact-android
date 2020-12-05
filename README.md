@@ -2,7 +2,7 @@
 
 ![alt text](./FirstContact.png "First Contact Logo")
 
-First Contact was build to help people to notify each other about their contagious status.
+First Contact was build to help people to notify each other about their contagious condition.
 
 In our development strategy, we splitted the project in 3 stages:
 - <b>Stage 1:</b> The development of a prototype app, based on a heavily modified version of the <a href="https://bluetrace.io/Bluetrace">BlueTrace protocol</a>, that has been changed to follow a fully descentralized, privacy-centric model. 
