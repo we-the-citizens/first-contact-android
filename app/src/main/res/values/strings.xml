@@ -34,8 +34,8 @@
     <string name="app_permission_fully_setup_desc">Lasă toate aceste permisiuni active ca să poți monitoriza permanent.</string>
     
     <string name="share_this_app">DISTRIBUIE ca să fii avertizat</string>
-    <string name="ask_friend">Înainte de a te întâlni cu un cunoscut, trimite-i aplicația - ca să vă avertizați reciproc dacă unul din voi e depistat \'Pozitiv Covid\'.</string>
-    <string name="share_message">Instalează-ți și tu aplicația First Contact - ca să ne putem avertiza reciproc, în caz că unul dintre noi va fi depistat Pozitiv Covid. Mergi pe https://first-contact.ro</string>
+    <string name="ask_friend">Înainte de a te întâlni cu un cunoscut, trimite-i aplicația - ca să vă puteți avertiza reciproc dacă unul din voi devine \'Pozitiv Covid\'.</string>
+    <string name="share_message">Instalează-ți și tu aplicația First Contact - ca să ne putem avertiza reciproc, în caz că unul dintre noi va fi depistat Pozitiv Covid. Mergi acum pe https://first-contact.ro și descarcă.</string>
     
     <string name="setup_incomplete">Configurarea este incompletă!</string>
     <string name="help_us_identify">Activează protecția, acordând aplicației permisiunile necesare</string>

@@ -134,7 +134,7 @@
                             android:paddingRight="16dp"
                             android:text="@string/share_this_app"
                             android:textColor="@color/primary_blue_2"
-                            android:textSize="17sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             android:visibility="visible" />
 
@@ -150,7 +150,7 @@
                             android:paddingRight="10dp"
                             android:text="@string/ask_friend"
                             android:textColor="@color/grey_2"
-                            android:textSize="17sp"
+                            android:textSize="16sp"
                             android:textStyle="normal"
                             android:visibility="visible" />
 
